@@ -1,0 +1,26 @@
+{
+  "architecture": "Exact same V3 B1/B2/B3/B5 formulas frozen in GB1 preregistration.",
+  "blind_split": "Use repository fold_id: 0 visible, 1 hidden; do not alter based on labels.",
+  "candidate_generation": "Use only substitutions present in visible rows. Enumerate triples if tractable; deterministic beam=5000 for higher mutation counts; hidden membership is forbidden before freeze.",
+  "controls": [
+    "B1 additive single memory",
+    "B2 classical pairwise",
+    "deterministic random",
+    "visible-label shuffle"
+  ],
+  "created_before_outcomes_loaded": true,
+  "dataset": "proteingym_F7YBW8_MESOW_Aakre_2015",
+  "no_posthoc_retuning": true,
+  "primary_metrics": [
+    "pooled hidden Spearman on generated candidates",
+    "Top-10 mean hidden percentile",
+    "Top-100 top-1%-fitness enrichment",
+    "Top-1 normalized regret",
+    "rank of hidden global optimum"
+  ],
+  "sha256_without_hash_field": "4469cc1200ec82a7809cd1eda197400a7149bf337bf121daacd4225f84d852be",
+  "source_commit": "593b832d5b487bd7015c3a3732cf634f35c0e8c9",
+  "source_repo": "xulab-research/MetaAI-research",
+  "success_rule": "Fresh orthogonal support requires B3/B5 to beat B1 and B2 on at least 3 of 5 primary metrics, have top-100 enrichment >1, and show clear degradation after visible-label shuffle. If candidate/hidden matching is sparse, mark the test non-evaluable rather than pass.",
+  "version": "LIGHTNING_COMBINATORIAL_PROTEIN_DESIGN_V3_ORTHOGONAL_PREREG"
+}

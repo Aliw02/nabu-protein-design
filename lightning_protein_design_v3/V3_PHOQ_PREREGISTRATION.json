@@ -1,0 +1,60 @@
+{
+  "architecture": {
+    "AA_alphabet": "ACDEFGHIKLMNPQRSTVWY",
+    "B2_ADDITIVE": "global visible mean + four visible-only site-state effects",
+    "B3_RAW_PAIR": "B2 + mean of six visible-only pair residuals",
+    "B5_LIGHTNING": "geometric mean of 4 within-site state percentiles and 6 within-pair residual percentiles, multiplied by 1-population-std(view scores)",
+    "RANDOM_HASH": "deterministic FNV1a genotype ordering",
+    "SHUFFLED_B5": "same B5 after deterministic circular permutation of visible fitness",
+    "biochemical_property_tables": false,
+    "embeddings": false,
+    "post_reveal_retuning": false,
+    "status": "FROZEN_FROM_V3_BEFORE_PHOQ_OUTCOMES"
+  },
+  "dataset": {
+    "candidate_space": 160000,
+    "commit": "e1968eb0dcfdb4ad6ff8e452cab7d60c528cf2c3",
+    "expected_rows_from_public_metadata": 140517,
+    "expected_schema": [
+      "Variants",
+      "Fitness"
+    ],
+    "file_size_bytes": 2029029,
+    "github_blob_sha": "1e351cfe33c747daa9f3d444bf4b3975dbdda06a",
+    "name": "PhoQ_Podgornaia_2015",
+    "path": "data/PhoQ.xlsx",
+    "repo": "HICAI-ZJU/KnowRLM"
+  },
+  "decision_rule": {
+    "B5_specific_advantage": "B5 must also beat B3 raw-pair on prespecified design-selection metrics; otherwise the effective transferable core is attributed to pairwise/resonance structure rather than the full B5 consensus.",
+    "strong_transfer": "B5 has strong enrichment over random and shuffled controls"
+  },
+  "freeze": {
+    "hash": "SHA256(concatenated ranked genotypes)",
+    "hidden_outcomes_evaluated_only_after_candidate_hashes_are_frozen": true,
+    "top_candidates_per_arm": 1000
+  },
+  "metrics": {
+    "K": [
+      10,
+      50,
+      100
+    ],
+    "best_hidden_fitness": true,
+    "mean_hidden_fitness": true,
+    "mean_hidden_percentile": true,
+    "normalized_best_regret": true,
+    "random_null_repetitions": 1000,
+    "top0_1pct_count": true,
+    "top1pct_enrichment": true
+  },
+  "registered_before_variant_level_outcomes_downloaded": true,
+  "sha256_without_hash_field": "42488be9fb54a1b1d733ff7a75f006f2a01255bc4205bd86ab8e61aaa9eccc63",
+  "split": {
+    "hidden_rule": "all other measured standard-AA 4-mers",
+    "outcome_independent": true,
+    "target_visible_fraction": 0.1,
+    "visible_rule": "FNV1a32(variant) mod 10 == 0"
+  },
+  "version": "LIGHTNING_COMBINATORIAL_PROTEIN_DESIGN_V3_PHOQ_PREREG"
+}

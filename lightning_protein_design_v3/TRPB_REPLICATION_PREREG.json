@@ -1,0 +1,31 @@
+{
+  "architecture": "Exactly the GB1 V3 scoring semantics and Amendment 1; no changes allowed.",
+  "benchmark": {
+    "assay": "growth-based relative enzyme activity",
+    "git_blob_sha": "3423d92fb851015ef0cc865c4fb1520894fb2f5f",
+    "name": "Johnston 2024 TrpB four-site combinatorial landscape",
+    "reported_landscape_coverage": "159129 / 160000 standard-AA variants",
+    "source_commit": "0861a3f1f6c58a9597fde689eb7f9a07b38e2638",
+    "source_repo": "rcronk/mutate",
+    "wild_type": "VFVS"
+  },
+  "disclosure": "SOURCE.md was inspected for provenance before this preregistration and contains the published global-maximum identity. That identity is not used anywhere in scoring, candidate generation, tuning, or gates. This replication is therefore algorithmically blind but not claimable as human-knowledge-blind with respect to the optimum identity.",
+  "no_retuning": true,
+  "protocol": {
+    "arms": [
+      "RANDOM",
+      "ADDITIVE",
+      "PAIRWISE_RAW",
+      "LIGHTNING_B5"
+    ],
+    "generation": "enumerate all standard-AA 3/4-site combinations independently of hidden genotype IDs",
+    "hidden": "measured triple + quadruple variants",
+    "metrics": "identical to GB1 V3",
+    "missing_pair_rule": "unsupported pair contributes zero pair residual / zero resonance contribution; candidate retained",
+    "negative_control": "same deterministic visible-fitness shuffle",
+    "visible": "WT + measured single + measured double variants only"
+  },
+  "sha256": "bf187e99582141915a5c4517a2e0c4a663aabf7490fd4c455625440151fbd49a",
+  "status": "FROZEN_BEFORE_TRPB_DATA_BLOB_OR_FITNESS_ROWS_ARE_READ",
+  "version": "LIGHTNING_COMBINATORIAL_PROTEIN_DESIGN_V3_TRPB_REPLICATION_PREREG"
+}

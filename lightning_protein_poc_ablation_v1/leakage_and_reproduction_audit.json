@@ -1,0 +1,106 @@
+{
+  "version": "LIGHTNING_PROTEIN_POC_ABLATION_V1",
+  "dataset": "kcnh2_subset.csv",
+  "rows": 200,
+  "positions": [
+    545,
+    546,
+    547,
+    548,
+    549,
+    550,
+    551,
+    552,
+    553,
+    554,
+    555
+  ],
+  "same_frozen_fold_assignment_as_poc_v1": true,
+  "seed": 161,
+  "predictor_hidden_input_fields": [
+    "mutant",
+    "fold",
+    "pos",
+    "wt",
+    "alt",
+    "context"
+  ],
+  "predictor_hidden_truth_fields": [],
+  "hidden_truth_used_before_freeze": false,
+  "amino_acid_property_table_used": false,
+  "manual_protein_domain_vocabulary_used": false,
+  "relative_resonance_source": "visible-only Pearson response-profile correlations transformed by row-relative mutual attention",
+  "freeze_records": [
+    {
+      "fold": 0,
+      "hidden_count": 44,
+      "sha256": "eeecfbb9402ef2aa7fbe4811d868fa793b00e749edce872983f5506e4dd6e90d"
+    },
+    {
+      "fold": 1,
+      "hidden_count": 44,
+      "sha256": "f90cc0f64a936a14643baa77d85d8f8e4e76f2b3b43dd394fec2c5ea99133545"
+    },
+    {
+      "fold": 2,
+      "hidden_count": 43,
+      "sha256": "0939bb8984b9bb20b7b936c2725157fe67c88b691eb780853237bd058a1f1916"
+    },
+    {
+      "fold": 3,
+      "hidden_count": 36,
+      "sha256": "147eeca24e6179aba78078738841dd9cdbc59c67cd0af5aa6bb10b7c01a0b435"
+    },
+    {
+      "fold": 4,
+      "hidden_count": 33,
+      "sha256": "ca17782ed9b27bcf2b7d706f31cc37c19a3fc3a0be5612d7bffc96ecabd1a739"
+    }
+  ],
+  "reproduction_against_poc_v1": {
+    "B1_A4_CORE_POSITION_vs_prior_B0_POSITION_MEAN": {
+      "max_abs_delta": 2.842170943040401e-14,
+      "mean_abs_delta": 1.2434497875801752e-15
+    },
+    "B1_ALT_GLOBAL_REFERENCE_vs_prior_B1_ALT_GLOBAL": {
+      "max_abs_delta": 1.4210854715202004e-14,
+      "mean_abs_delta": 4.618527782440651e-16
+    },
+    "B2_A4_PLUS_MEMORY_vs_prior_CORE_ADDITIVE": {
+      "max_abs_delta": 2.842170943040401e-14,
+      "mean_abs_delta": 2.255973186038318e-15
+    },
+    "B5_FULL_DREAM_DORMANT_vs_prior_LIGHTNING_DREAM": {
+      "max_abs_delta": 5.684341886080802e-14,
+      "mean_abs_delta": 5.4267701443677655e-15
+    },
+    "max_mutual_resonance_vs_prior": {
+      "max_abs_delta": 1.3322676295501878e-15,
+      "mean_abs_delta": 1.990074771640593e-16
+    }
+  },
+  "dream_states": {
+    "WARM": 197,
+    "DORMANT": 3
+  },
+  "dormant_candidates": [
+    {
+      "mutant": "Y545V",
+      "fold": 1,
+      "DMS_score": 32.84298242,
+      "B5_score": 81.85468053242477
+    },
+    {
+      "mutant": "Y545H",
+      "fold": 1,
+      "DMS_score": 28.32987764,
+      "B5_score": 44.70836999445929
+    },
+    {
+      "mutant": "G546D",
+      "fold": 3,
+      "DMS_score": 55.76268072,
+      "B5_score": 25.06956017666667
+    }
+  ]
+}

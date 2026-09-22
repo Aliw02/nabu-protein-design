@@ -1,0 +1,204 @@
+{
+  "amino_acid_alphabet": "ACDEFGHIKLMNPQRSTVWY",
+  "architecture_status": "FROZEN_BEFORE_VARIANT_LEVEL_CONFIRMATION",
+  "datasets": {
+    "GB1_REPLICATION": {
+      "candidate_space": 160000,
+      "commit": "0861a3f1f6c58a9597fde689eb7f9a07b38e2638",
+      "expected_measured_rows": 149361,
+      "path": "ridge/data/gb1_wu2016_landscape.csv",
+      "repo": "rcronk/mutate",
+      "role": "replication/development because schema head was inspected before this preregistration",
+      "visible_blocks_1indexed_including_header_offset": [
+        [
+          2,
+          1001
+        ],
+        [
+          10002,
+          11001
+        ],
+        [
+          20002,
+          21001
+        ],
+        [
+          30002,
+          31001
+        ],
+        [
+          40002,
+          41001
+        ],
+        [
+          50002,
+          51001
+        ],
+        [
+          60002,
+          61001
+        ],
+        [
+          70002,
+          71001
+        ],
+        [
+          80002,
+          81001
+        ],
+        [
+          90002,
+          91001
+        ],
+        [
+          100002,
+          101001
+        ],
+        [
+          110002,
+          111001
+        ],
+        [
+          120002,
+          121001
+        ],
+        [
+          130002,
+          131001
+        ],
+        [
+          140002,
+          141001
+        ]
+      ]
+    },
+    "TRPB_CONFIRMATION": {
+      "candidate_space": 160000,
+      "commit": "0861a3f1f6c58a9597fde689eb7f9a07b38e2638",
+      "expected_measured_rows": 159129,
+      "path": "ridge/data/johnston2024_trpb_landscape.csv",
+      "repo": "rcronk/mutate",
+      "role": "primary prospective confirmation",
+      "visible_blocks_1indexed_including_header_offset": [
+        [
+          2,
+          1001
+        ],
+        [
+          10002,
+          11001
+        ],
+        [
+          20002,
+          21001
+        ],
+        [
+          30002,
+          31001
+        ],
+        [
+          40002,
+          41001
+        ],
+        [
+          50002,
+          51001
+        ],
+        [
+          60002,
+          61001
+        ],
+        [
+          70002,
+          71001
+        ],
+        [
+          80002,
+          81001
+        ],
+        [
+          90002,
+          91001
+        ],
+        [
+          100002,
+          101001
+        ],
+        [
+          110002,
+          111001
+        ],
+        [
+          120002,
+          121001
+        ],
+        [
+          130002,
+          131001
+        ],
+        [
+          140002,
+          141001
+        ],
+        [
+          150002,
+          151001
+        ]
+      ]
+    }
+  },
+  "falsification": {
+    "pass_condition": "shuffled Lightning must lose the prospective enrichment signal materially",
+    "visible_fitness_shuffle": "deterministic circular permutation; regenerate candidates"
+  },
+  "freeze": {
+    "candidate_must_not_be_in_visible_set": true,
+    "freeze_hash": "SHA256 canonical JSON",
+    "hidden_truth_read_after_freeze": true,
+    "ranked_candidates_per_arm": 1000
+  },
+  "goal": "Prospectively generate unseen 4-site protein variants from visible measured variants, freeze ranked candidates, then reveal held-out measured fitness.",
+  "no_tuning_after_reveal": true,
+  "primary_metrics": {
+    "best_proposed_hidden_fitness": true,
+    "best_proposed_hidden_percentile": true,
+    "first_measured_K": [
+      10,
+      50,
+      100
+    ],
+    "mean_hidden_fitness_at_K": [
+      10,
+      50,
+      100
+    ],
+    "normalized_regret_to_hidden_best": true,
+    "random_null_repetitions": 1000,
+    "top1pct_enrichment_at_K": [
+      10,
+      50,
+      100
+    ]
+  },
+  "representation": {
+    "A4_TYPED": "four exact site-state identities; no biochemical property table or embedding",
+    "CRM_IDENTITY": "exact genotype and exact site-state identity only",
+    "DORMANT": "candidate with any unsupported state/pair is retained but cannot outrank fully supported candidates solely by missing evidence",
+    "DREAM": "enumerate all 20^4 genotypes not visible and rank by consensus of memory and resonance views",
+    "MEMORY": "visible-only empirical activation of each residue state at each site",
+    "RELATIVE_RESONANCE": "visible-only pair-state epistatic residual ranked relative to the other 20x20 states for the same site pair"
+  },
+  "scoring": {
+    "ADDITIVE_BASELINE": "sum of four visible-only state effects",
+    "LIGHTNING_B5": "geometric mean of 4 memory views + 6 resonance views multiplied by (1 - population std of the 10 views)",
+    "RANDOM_CONTROL": "deterministic FNV1a genotype hash order",
+    "RAW_PAIR_BASELINE": "additive score + mean of six visible-only pair residuals",
+    "global_mean": "mean visible fitness",
+    "memory_view": "within-site percentile rank of state mean fitness, clipped to [1/20,1]",
+    "pair_residual": "mean(y | i=a,j=b)-global_mean-state_effect(i,a)-state_effect(j,b)",
+    "resonance_view": "within-site-pair percentile rank of pair residual, clipped to [1/400,1]",
+    "state_effect": "mean(y | site=i,state=a)-global_mean"
+  },
+  "sha256_without_hash_field": "d59ecb0ae8fa51926012a6a2da4fcf919ccaa620ccb80cb573931887663a1864",
+  "version": "LIGHTNING_COMBINATORIAL_PROTEIN_DESIGN_V3_PREREG"
+}

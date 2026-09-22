@@ -1,0 +1,18 @@
+{
+  "architecture_changed": false,
+  "baselines_changed": false,
+  "hidden_candidate_truth_used_for_change": false,
+  "metrics_changed": false,
+  "note": "This repairs genotype coverage before any candidate list is generated or frozen. TrpB is still not classified as pristine blind evidence because the full source was accidentally opened by a tool after preregistration.",
+  "outcome_basis_for_change": false,
+  "pass_gates_changed": false,
+  "reason": "The preregistered contiguous row windows were found, from genotype identities alone, to cover only one amino-acid state at position 1 because the source table is lexicographically ordered. That makes the visible design non-representative independently of any fitness outcome.",
+  "replacement_visible_selection": {
+    "budget": 588,
+    "fitness_used_for_selection": false,
+    "rule": "Enumerate all 20^4 genotypes in source-table order; compute FNV1a32('LIGHTNING_TRPB_V4|'+variant); sort ascending by (hash, variant); take first 588.",
+    "salt": "LIGHTNING_TRPB_V4"
+  },
+  "sha256_without_self_hash": "f545e1682fb6e49eaef6958f3f680fccc44e98a380df798f7ccd6fc15b6f6602",
+  "version": "TRPB_V4_PROTOCOL_AMENDMENT_PRE_CANDIDATE_FREEZE"
+}

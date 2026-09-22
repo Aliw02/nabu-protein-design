@@ -1,0 +1,5 @@
+{
+  "dataset": "KCNH2_HUMAN_Kozek_2020_subset_545_555",
+  "visible_label_shuffle_B5_pooled_spearman": -0.008328208205205133,
+  "whole_position_holdout_B2_memory_pooled_spearman": 0.2755781313333246
+}

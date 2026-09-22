@@ -1,0 +1,77 @@
+{
+  "benchmark": {
+    "assay": "IgG binding / Fitness",
+    "blob_sha": "3c42d79111eb56589e2fb4a39c5e23b4fa45f365",
+    "metadata_expected_rows": 149360,
+    "metadata_mutated_site_count": 4,
+    "metadata_mutation_count_distribution": {
+      "double": 2091,
+      "quadruple": 121174,
+      "single": 76,
+      "triple": 26019
+    },
+    "name": "SPG1_STRSG_Wu_2016 / GB1 four-site combinatorial landscape",
+    "safety_scope": "benign non-pathogenic protein benchmark; computational only",
+    "source": "ProteinGym-formatted public dataset mirrored in microsoft/InverseFoldDir",
+    "source_commit": "0ec24449fa050c38fbac6bbbb1659eae2fcf746e",
+    "source_repo": "microsoft/InverseFoldDir"
+  },
+  "blind_protocol": {
+    "candidate_generation": "enumerate every syntactically valid 3- and 4-site amino-acid combination from the 20-aa alphabet and WT residues, without consulting hidden genotype IDs or hidden fitness",
+    "freeze_before_reveal": true,
+    "freeze_payload": [
+      "all generated candidate IDs",
+      "all arm scores",
+      "top candidate lists",
+      "architecture diagnostics",
+      "SHA-256"
+    ],
+    "hidden": "all measured triple and quadruple mutants",
+    "hidden_fitness_available_to_predictor": false,
+    "visible": "WT plus all measured single and double mutants only"
+  },
+  "frozen_arms": {
+    "ADDITIVE": "WT fitness + sum of visible single-mutant effects",
+    "LIGHTNING_B5": "ADDITIVE + exact pair residuals gated/weighted by relative resonance and proof-backed exact mutation identity; Dream composes 3/4-mutant candidates; low-resonance candidates remain DORMANT rather than deleted",
+    "PAIRWISE_RAW": "ADDITIVE + sum of exact visible double-mutant epistasis residuals",
+    "RANDOM": "deterministic FNV1a candidate hash; label-free"
+  },
+  "interpretation_gate": {
+    "do_not_claim": "wet-lab validation, de novo physical synthesis, therapeutic utility, or universal protein-design capability",
+    "engineering_design_support_requires": [
+      "LIGHTNING_B5 beats ADDITIVE on hidden top-tail metrics",
+      "LIGHTNING_B5 is competitive with or better than PAIRWISE_RAW on multiple top-tail metrics, not just global correlation",
+      "shuffle control collapses materially",
+      "top candidate advantage is not carried by a single lucky variant"
+    ]
+  },
+  "lightning_mapping": {
+    "A4_core": "protein identity + site + WT residue + ALT residue",
+    "CRM_identity": "exact site+WT+ALT mutation token identity only",
+    "Dormant": "candidate with zero mutual-resonance support remains retained but receives no resonance bonus",
+    "Dream": "compose independently learned mutation tokens into unseen 3/4-site candidate genotypes",
+    "Memory": "visible single effect and exact visible double epistasis residual",
+    "Relative_Resonance": "for each mutation token, each partner interaction is normalized relative to that mutation's own visible pair-interaction distribution using exp((abs(e)-row_max)/row_std); mutual resonance is the geometric mean of the two directional attentions; no tuned scientific threshold",
+    "Verification": "hidden experimental fitness is opened only after prediction freeze"
+  },
+  "prereg_sha256": "eb00aa0cfd9285fde86d5901f17582bca7639101805c5f1901e0d768c3b6b83b",
+  "primary_metrics": [
+    "Spearman on measured hidden triple+quad variants",
+    "NDCG@10, NDCG@100, NDCG@1000",
+    "top-1 hidden fitness percentile",
+    "top-10 median hidden fitness percentile",
+    "precision/enrichment for hidden top 1% and top 0.1%",
+    "rank of true hidden optimum",
+    "best hidden fitness recovered in top 10/100/1000 generated candidates",
+    "fraction of top generated candidates that are experimentally measured"
+  ],
+  "required_controls": [
+    "visible-fitness shuffle within mutation-count stratum",
+    "B5 minus resonance ablation",
+    "B5 minus pair-memory ablation",
+    "fixed candidate budget comparison",
+    "bootstrap confidence intervals for top-k enrichment"
+  ],
+  "status": "FROZEN_BEFORE_DATASET_DOWNLOAD_OR_OUTCOME_INSPECTION",
+  "version": "LIGHTNING_COMBINATORIAL_PROTEIN_DESIGN_V3_PREREG"
+}

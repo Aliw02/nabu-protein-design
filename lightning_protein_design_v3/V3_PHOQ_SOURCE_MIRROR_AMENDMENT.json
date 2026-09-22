@@ -1,0 +1,22 @@
+{
+  "architecture_changed": false,
+  "candidate_budget_changed": false,
+  "metrics_changed": false,
+  "new_source": {
+    "commit": "0f9c51aa7caaab0b4618b0cab4f3107e7251091b",
+    "github_blob_sha": "8fcf721d3ee5219fd669a5aa0b36d7544313195f",
+    "path": "fasthit/landscapes/data/phoq/PhoQ.csv",
+    "repo": "hury07/fasthit",
+    "size_bytes": 1529340
+  },
+  "parser_contract": {
+    "fitness_column": "Fitness",
+    "standard_aa_4mer_only": true,
+    "variant_column": "Variants"
+  },
+  "reason": "The preregistered HICAI-ZJU source is a binary XLSX that the read-only GitHub connector cannot return as text. Before reading variant-level outcomes, switch to a public text CSV mirror of the same PhoQ Variants/Fitness landscape.",
+  "sha256_without_hash_field": "5a0c82aaaebd2641fa41f6c579974b7c6aaf8c4e574a2fee0f661e9a83573ff5",
+  "split_changed": false,
+  "variant_level_outcomes_read_before_this_amendment": false,
+  "version": "V3_PHOQ_SOURCE_MIRROR_AMENDMENT"
+}

@@ -1,0 +1,47 @@
+{
+  "architecture": "V4_EQUAL_CONSENSUS unchanged from the pre-PhoQ freeze",
+  "dependence_disclosure": "NBS and parS are two distinct binding landscapes from the same Jalal 2020 study; this is fresher and biologically distinct from GB1/TrpB/PhoQ but not two fully independent publications.",
+  "formula": "WT + sum(single effects) + (2/k) * sum[e_ij * (1+r_ij)/2]",
+  "protocol": {
+    "comparators": [
+      "RANDOM",
+      "ADDITIVE",
+      "PAIRWISE_RAW",
+      "V3_RELATIVE_ONLY",
+      "V4_EQUAL_CONSENSUS"
+    ],
+    "generation": "all standard-20-AA Hamming>=3 candidates, without hidden IDs",
+    "hidden": "all triples + quadruples",
+    "no_post_reveal_changes": true,
+    "shuffle_control": "deterministic visible-label shuffle within single/double strata; WT fixed",
+    "visible": "WT + measured singles + measured doubles only"
+  },
+  "sha256": "ddb9e1cb54f4ce17c818b59645a7dfdcbed05c2c77d56adb269aebb555937a79",
+  "source": {
+    "commit": "9f86def1a12db76d26af16077ba28cb61ee0af5f",
+    "datasets": {
+      "Jalal2020_NBS": {
+        "blob_sha": "eeb252ddbb3c07385895e784d1af38b37032f50e",
+        "expected_rows": 160000,
+        "wt": "QKKR"
+      },
+      "Jalal2020_parS": {
+        "blob_sha": "b5f554f8385d39005fa8ca580e58c7b2dc29017d",
+        "expected_rows": 160000,
+        "wt": "RTAG"
+      }
+    },
+    "repo": "COLA-Laboratory/GraphFLA"
+  },
+  "status": "FROZEN_BEFORE_ANY_NBS_OR_PARS_FITNESS_ROW_IS_READ",
+  "strict_confirmation_gate": {
+    "PASS_only_if_all": [
+      "V4 NDCG@100 > ADDITIVE on BOTH NBS and parS",
+      "V4 Top-1%-hits@100 > ADDITIVE on BOTH NBS and parS",
+      "V4 Top-100 mean hidden fitness > ADDITIVE on BOTH NBS and parS",
+      "shuffle V4 materially collapses relative to real V4 on BOTH landscapes"
+    ],
+    "otherwise": "STRICT_CONFIRMATION_FAIL"
+  },
+  "version": "LIGHTNING_V4_JALAL2020_NBS_PARS_FRESH_CONFIRMATION_PREREG"
+}

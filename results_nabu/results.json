@@ -1,0 +1,24 @@
+{
+  "architecture": "NABU (Structured State Memory + Pairwise Epistatic Residuals)",
+  "rows": 14322,
+  "visible": 10083,
+  "hidden": 4239,
+  "eligible_hidden": 4239,
+  "manifest_sha256": "9cf65910d1ccf30b1b167f0a4db6fdb2a0ee5f4c6601ae4d192940e99a10fc1b",
+  "nabu_metrics": {
+    "spearman": 0.8874020136241785,
+    "top1_percentile": 0.999174333569238,
+    "top5_mean_percentile": 0.99171974522293,
+    "top50_enrichment": 11.599999999999989,
+    "normalized_top1_regret": 0.004679025311220415
+  },
+  "component_memory": {
+    "spearman": 0.854434417428907,
+    "top1_percentile": 0.9996461429582448,
+    "top5_mean_percentile": 0.9903043170559094,
+    "top50_enrichment": 12.799999999999988,
+    "normalized_top1_regret": 9.085159240324049e-05
+  },
+  "shuffled_control_spearman": 0.1675506291705936,
+  "preregistered_passed": false
+}

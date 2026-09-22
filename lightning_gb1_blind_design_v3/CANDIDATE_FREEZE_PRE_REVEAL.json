@@ -1,0 +1,232 @@
+{
+  "amendment_sha256": "6970f6a1de32eb0dfa9101094655c7ddd22c00e6bfc2a411cecccc025dbe3a74",
+  "arms": {
+    "ADDITIVE_MEMORY": [
+      {
+        "additive_score": 0.3345223864602689,
+        "pair_support_count": 6,
+        "variant": "WKCG"
+      },
+      {
+        "additive_score": 0.3221929281257782,
+        "pair_support_count": 6,
+        "variant": "WKFG"
+      },
+      {
+        "additive_score": 0.31821833103660924,
+        "pair_support_count": 6,
+        "variant": "WHCG"
+      },
+      {
+        "additive_score": 0.30224291840481243,
+        "pair_support_count": 5,
+        "variant": "FKCG"
+      },
+      {
+        "additive_score": 0.3018894870818654,
+        "pair_support_count": 6,
+        "variant": "IKFG"
+      },
+      {
+        "additive_score": 0.3002470712009108,
+        "pair_support_count": 6,
+        "variant": "WKCT"
+      },
+      {
+        "additive_score": 0.29791488999269644,
+        "pair_support_count": 6,
+        "variant": "IHCG"
+      },
+      {
+        "additive_score": 0.2918375647713766,
+        "pair_support_count": 4,
+        "variant": "WMCG"
+      },
+      {
+        "additive_score": 0.29141298635729357,
+        "pair_support_count": 5,
+        "variant": "WDCG"
+      },
+      {
+        "additive_score": 0.2910974885769145,
+        "pair_support_count": 6,
+        "variant": "WKCV"
+      }
+    ],
+    "LIGHTNING_RESONANCE": [
+      {
+        "lightning_score": 0.6122688829953018,
+        "pair_support_count": 3,
+        "variant": "WYFG"
+      },
+      {
+        "lightning_score": 0.5941343176165976,
+        "pair_support_count": 3,
+        "variant": "WYFV"
+      },
+      {
+        "lightning_score": 0.5926993641744461,
+        "pair_support_count": 6,
+        "variant": "WKFG"
+      },
+      {
+        "lightning_score": 0.5566998417677977,
+        "pair_support_count": 3,
+        "variant": "IMCG"
+      },
+      {
+        "lightning_score": 0.5564688743571747,
+        "pair_support_count": 4,
+        "variant": "WWFG"
+      },
+      {
+        "lightning_score": 0.5536818200114243,
+        "pair_support_count": 4,
+        "variant": "WMFG"
+      },
+      {
+        "lightning_score": 0.5532328944950924,
+        "pair_support_count": 3,
+        "variant": "INCG"
+      },
+      {
+        "lightning_score": 0.5370883300615497,
+        "pair_support_count": 6,
+        "variant": "WHFV"
+      },
+      {
+        "lightning_score": 0.5343735829813869,
+        "pair_support_count": 3,
+        "variant": "IYCG"
+      },
+      {
+        "lightning_score": 0.5300859528942876,
+        "pair_support_count": 5,
+        "variant": "FKFG"
+      }
+    ],
+    "RANDOM_HASH": [
+      {
+        "pair_support_count": 5,
+        "random_score": 367432673132053,
+        "variant": "WKRV"
+      },
+      {
+        "pair_support_count": 5,
+        "random_score": 575384451816715,
+        "variant": "NECK"
+      },
+      {
+        "pair_support_count": 4,
+        "random_score": 1296846987468041,
+        "variant": "SWNT"
+      },
+      {
+        "pair_support_count": 5,
+        "random_score": 1852888469061232,
+        "variant": "IATR"
+      },
+      {
+        "pair_support_count": 4,
+        "random_score": 2674956945423863,
+        "variant": "EWRA"
+      },
+      {
+        "pair_support_count": 6,
+        "random_score": 2689717914052605,
+        "variant": "WQYW"
+      },
+      {
+        "pair_support_count": 6,
+        "random_score": 2961906943823334,
+        "variant": "IADW"
+      },
+      {
+        "pair_support_count": 4,
+        "random_score": 3062790062308522,
+        "variant": "WYLS"
+      },
+      {
+        "pair_support_count": 3,
+        "random_score": 3205410945326243,
+        "variant": "FWRI"
+      },
+      {
+        "pair_support_count": 4,
+        "random_score": 3465213762742091,
+        "variant": "SFSY"
+      }
+    ],
+    "RIDGE_MAIN_PAIR": [
+      {
+        "pair_support_count": 6,
+        "ridge_score": 0.7658322578700213,
+        "variant": "WKFG"
+      },
+      {
+        "pair_support_count": 6,
+        "ridge_score": 0.7074032636065161,
+        "variant": "WHFV"
+      },
+      {
+        "pair_support_count": 6,
+        "ridge_score": 0.6752282016444784,
+        "variant": "IHCG"
+      },
+      {
+        "pair_support_count": 5,
+        "ridge_score": 0.6489575657321878,
+        "variant": "WCFG"
+      },
+      {
+        "pair_support_count": 6,
+        "ridge_score": 0.6428038199505894,
+        "variant": "WHCG"
+      },
+      {
+        "pair_support_count": 6,
+        "ridge_score": 0.639751247654751,
+        "variant": "IKFG"
+      },
+      {
+        "pair_support_count": 4,
+        "ridge_score": 0.6391202125615771,
+        "variant": "WMFG"
+      },
+      {
+        "pair_support_count": 4,
+        "ridge_score": 0.6246549963308223,
+        "variant": "WWFG"
+      },
+      {
+        "pair_support_count": 6,
+        "ridge_score": 0.6169461074459239,
+        "variant": "WHFT"
+      },
+      {
+        "pair_support_count": 6,
+        "ridge_score": 0.6162570405017178,
+        "variant": "IHFG"
+      }
+    ]
+  },
+  "candidate_space_size": 47412,
+  "diagnostics_visible_only": {
+    "lambda_main": 29.0,
+    "lambda_pair": 2.0,
+    "ridge_alpha": 10.0,
+    "ridge_oof_spearman_log1p": 0.4406819222141132,
+    "visible_count": 588
+  },
+  "freeze_sha256_without_self_hash": "c6d69d075b8df1180959d0e86a64ae28ffe05298e61021961176cdf641d6c3e7",
+  "hidden_fitness_included": false,
+  "prereg_sha256": "755073f542b1354fc47120c9f66011a83e5bf66bd80f35674658ec6124056116",
+  "state_counts": [
+    6,
+    20,
+    20,
+    20
+  ],
+  "version": "GB1_V3_CANDIDATE_FREEZE_PRE_REVEAL",
+  "visible_sha256": "029389754a6720b5076bda2b2107c49a9847578048060114b1c0978643d3253a"
+}

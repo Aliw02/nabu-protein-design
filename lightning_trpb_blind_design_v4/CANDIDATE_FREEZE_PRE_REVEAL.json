@@ -1,0 +1,229 @@
+{
+  "architecture_retuned": false,
+  "arms": {
+    "ADDITIVE_MEMORY": [
+      {
+        "additive_score": 0.10941679563607513,
+        "pair_support_count": 5,
+        "variant": "GCCS"
+      },
+      {
+        "additive_score": 0.10690298247685902,
+        "pair_support_count": 4,
+        "variant": "GCVS"
+      },
+      {
+        "additive_score": 0.10639414044436148,
+        "pair_support_count": 5,
+        "variant": "GCLS"
+      },
+      {
+        "additive_score": 0.10499364020521584,
+        "pair_support_count": 5,
+        "variant": "GFCS"
+      },
+      {
+        "additive_score": 0.1048371948668842,
+        "pair_support_count": 6,
+        "variant": "GSCS"
+      },
+      {
+        "additive_score": 0.10431213966813621,
+        "pair_support_count": 4,
+        "variant": "GLCS"
+      },
+      {
+        "additive_score": 0.10391600775091712,
+        "pair_support_count": 6,
+        "variant": "GPLS"
+      },
+      {
+        "additive_score": 0.10247982704599973,
+        "pair_support_count": 6,
+        "variant": "GFVS"
+      },
+      {
+        "additive_score": 0.10217598869799929,
+        "pair_support_count": 4,
+        "variant": "VCCS"
+      },
+      {
+        "additive_score": 0.10212808425767125,
+        "pair_support_count": 5,
+        "variant": "GNCS"
+      }
+    ],
+    "LIGHTNING_RESONANCE": [
+      {
+        "lightning_score": 0.2115815423293671,
+        "pair_support_count": 3,
+        "variant": "GGLS"
+      },
+      {
+        "lightning_score": 0.20952034489209592,
+        "pair_support_count": 1,
+        "variant": "PMCS"
+      },
+      {
+        "lightning_score": 0.2093390463815645,
+        "pair_support_count": 3,
+        "variant": "GALS"
+      },
+      {
+        "lightning_score": 0.20886541629372518,
+        "pair_support_count": 1,
+        "variant": "GPDG"
+      },
+      {
+        "lightning_score": 0.20830464703685092,
+        "pair_support_count": 3,
+        "variant": "GRVS"
+      },
+      {
+        "lightning_score": 0.1994069035885805,
+        "pair_support_count": 4,
+        "variant": "GGCS"
+      },
+      {
+        "lightning_score": 0.19491148592635082,
+        "pair_support_count": 1,
+        "variant": "TCVS"
+      },
+      {
+        "lightning_score": 0.1932892724043393,
+        "pair_support_count": 4,
+        "variant": "GLCS"
+      },
+      {
+        "lightning_score": 0.19215495225042672,
+        "pair_support_count": 4,
+        "variant": "GCVS"
+      },
+      {
+        "lightning_score": 0.19163057651829418,
+        "pair_support_count": 6,
+        "variant": "GSCS"
+      }
+    ],
+    "RANDOM_HASH": [
+      {
+        "pair_support_count": 4,
+        "random_score": 57234476873170,
+        "variant": "AEYA"
+      },
+      {
+        "pair_support_count": 5,
+        "random_score": 84511178749096,
+        "variant": "NQVE"
+      },
+      {
+        "pair_support_count": 2,
+        "random_score": 146746282542074,
+        "variant": "HFDD"
+      },
+      {
+        "pair_support_count": 3,
+        "random_score": 306758040080645,
+        "variant": "WTYK"
+      },
+      {
+        "pair_support_count": 3,
+        "random_score": 588265667582796,
+        "variant": "CPKW"
+      },
+      {
+        "pair_support_count": 5,
+        "random_score": 666660527878364,
+        "variant": "NLVA"
+      },
+      {
+        "pair_support_count": 3,
+        "random_score": 698314942937813,
+        "variant": "PDMF"
+      },
+      {
+        "pair_support_count": 2,
+        "random_score": 783384111731779,
+        "variant": "RGRW"
+      },
+      {
+        "pair_support_count": 5,
+        "random_score": 913643722538118,
+        "variant": "KIGV"
+      },
+      {
+        "pair_support_count": 2,
+        "random_score": 943442916489092,
+        "variant": "VEDW"
+      }
+    ],
+    "RIDGE_MAIN_PAIR": [
+      {
+        "pair_support_count": 6,
+        "ridge_score": 0.29696972613969513,
+        "variant": "GFLS"
+      },
+      {
+        "pair_support_count": 6,
+        "ridge_score": 0.2927114311187398,
+        "variant": "GPLS"
+      },
+      {
+        "pair_support_count": 6,
+        "ridge_score": 0.26731443362044754,
+        "variant": "GSCS"
+      },
+      {
+        "pair_support_count": 5,
+        "ridge_score": 0.26586637181844064,
+        "variant": "GNCS"
+      },
+      {
+        "pair_support_count": 5,
+        "ridge_score": 0.260347372117537,
+        "variant": "GNLS"
+      },
+      {
+        "pair_support_count": 5,
+        "ridge_score": 0.25946467402588486,
+        "variant": "GPIS"
+      },
+      {
+        "pair_support_count": 4,
+        "ridge_score": 0.2571776401689015,
+        "variant": "GGCS"
+      },
+      {
+        "pair_support_count": 3,
+        "ridge_score": 0.24842199946754304,
+        "variant": "GGLS"
+      },
+      {
+        "pair_support_count": 5,
+        "ridge_score": 0.24823012504207592,
+        "variant": "GNVS"
+      },
+      {
+        "pair_support_count": 4,
+        "ridge_score": 0.24809483984874608,
+        "variant": "GLLS"
+      }
+    ]
+  },
+  "candidate_space_size": 159412,
+  "freeze_sha256_without_self_hash": "a116835ba4073d1d347ceae91e75405afd91d1f9675595825c9cb96a10a0acd4",
+  "hidden_candidate_truth_included": false,
+  "lambda_main": 29.0,
+  "lambda_pair": 2.0,
+  "protocol_amendment_sha256": "f545e1682fb6e49eaef6958f3f680fccc44e98a380df798f7ccd6fc15b6f6602",
+  "ridge_alpha": 3.1622776601683795,
+  "source_blob_sha": "f4ad30c54a76e5357ca7477cdb9171a9eb56ec03",
+  "version": "TRPB_V4_CANDIDATE_FREEZE_PRE_REVEAL",
+  "visible_count": 588,
+  "visible_state_counts": [
+    20,
+    20,
+    20,
+    20
+  ]
+}

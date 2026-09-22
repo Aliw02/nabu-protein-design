@@ -1,0 +1,84 @@
+{
+  "architecture": "identical LIGHTNING_RESONANCE scoring; no retuning",
+  "control": "visible fitness deterministically permuted with numpy default_rng seed=161 after sorting visible variants lexically",
+  "diagnostics": {
+    "gm": 0.04593576434572421,
+    "lambda_main": 29.0,
+    "lambda_pair": 2.0
+  },
+  "freeze_sha256_without_self_hash": "4e1effa7e47c48bf6bc6ce95c6564f991de99f63199d293074555170fc799264",
+  "hidden_fitness_included": false,
+  "top10": [
+    {
+      "additive_score": 0.17140205464719363,
+      "dream_status": "WARM",
+      "lightning_score": 0.43855714118125555,
+      "pair_support_count": 5,
+      "variant": "WMIA"
+    },
+    {
+      "additive_score": 0.1925011638850872,
+      "dream_status": "WARM",
+      "lightning_score": 0.42153294352986204,
+      "pair_support_count": 4,
+      "variant": "EMAR"
+    },
+    {
+      "additive_score": 0.19911250443764514,
+      "dream_status": "WARM",
+      "lightning_score": 0.415688789190337,
+      "pair_support_count": 4,
+      "variant": "EMAY"
+    },
+    {
+      "additive_score": 0.16147097969478427,
+      "dream_status": "WARM",
+      "lightning_score": 0.4154097280199771,
+      "pair_support_count": 4,
+      "variant": "WMHR"
+    },
+    {
+      "additive_score": 0.19120934321724078,
+      "dream_status": "WARM",
+      "lightning_score": 0.3986425559446395,
+      "pair_support_count": 4,
+      "variant": "ELAM"
+    },
+    {
+      "additive_score": 0.11106936153683925,
+      "dream_status": "WARM",
+      "lightning_score": 0.39796631492050605,
+      "pair_support_count": 3,
+      "variant": "WYIA"
+    },
+    {
+      "additive_score": 0.19950458959385825,
+      "dream_status": "WARM",
+      "lightning_score": 0.3937338896482113,
+      "pair_support_count": 5,
+      "variant": "EMAM"
+    },
+    {
+      "additive_score": 0.10268479870541736,
+      "dream_status": "WARM",
+      "lightning_score": 0.3895817520890842,
+      "pair_support_count": 3,
+      "variant": "WSIA"
+    },
+    {
+      "additive_score": 0.16017915902693788,
+      "dream_status": "WARM",
+      "lightning_score": 0.38718501552136075,
+      "pair_support_count": 4,
+      "variant": "WLHM"
+    },
+    {
+      "additive_score": 0.09958803916522257,
+      "dream_status": "WARM",
+      "lightning_score": 0.3864849925488894,
+      "pair_support_count": 3,
+      "variant": "WVIA"
+    }
+  ],
+  "version": "GB1_V3_SHUFFLED_LABEL_CONTROL_PRE_REVEAL"
+}

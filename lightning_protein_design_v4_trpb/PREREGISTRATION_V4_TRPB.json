@@ -1,0 +1,53 @@
+{
+  "benchmark": {
+    "file": "TrpB_fitness_full.csv",
+    "name": "TrpB complete 4-site combinatorial fitness landscape",
+    "provenance": "Johnston et al. 2024; 160,000 experimentally measured 20^4 variants",
+    "source": "soldatmat/CZAI_Summer_School-MLDE_landscapes"
+  },
+  "blind_partition": {
+    "hidden": "all variants at Hamming distance 3 or 4 from wild type",
+    "partition_uses_fitness": false,
+    "visible": "all variants at Hamming distance 0, 1, or 2 from wild type",
+    "wild_type": "read from landscape_meta.json after preregistration; fitness not used to choose it"
+  },
+  "candidate_generation": {
+    "domain": "enumerate every Hamming-3 and Hamming-4 combination from the 20 standard residue states at the 4 assayed positions",
+    "hidden_fitness_used_for_generation": false,
+    "primary_budgets": [
+      10,
+      50,
+      100,
+      500,
+      1000
+    ]
+  },
+  "created_before_TrpB_fitness_values_loaded": true,
+  "frozen_models": {
+    "B0_RANDOM": "deterministic hash ordering only",
+    "B1_ADDITIVE_MEMORY": "WT + sum(single_variant_fitness - WT)",
+    "B2_EXACT_PAIRWISE": "B1 + sum exact double-mutant epistatic residuals",
+    "B2_GLOBAL_SHRINK": "B1 + g * sum exact pair residuals, where g is the mean visible-only mutual-resonance weight across all measured mutation pairs; one global scalar, no pair-specific weighting",
+    "B3_RELATIVE_RESONANCE": "B1 + sum(pair_residual * sqrt(percentile_from_mutation_A * percentile_from_mutation_B)); percentiles are empirical visible-only residual ranks within each mutation's partner distribution",
+    "B5_WARM_DORMANT": "same numeric score as B3; WARM iff mean signed resonance contribution > 0; WARM candidates ranked before DORMANT, no deletion"
+  },
+  "primary_metrics": [
+    "hidden pooled Spearman",
+    "Top-10 mean hidden-fitness percentile",
+    "Top-100 capture/enrichment of true hidden top-1-percent variants",
+    "normalized regret of Top-1 selected candidate",
+    "rank of the true hidden global optimum"
+  ],
+  "secondary": [
+    "triple and quadruple Spearman separately",
+    "B3 vs each baseline elite-capture discordance",
+    "bootstrap confidence intervals for Spearman differences",
+    "B5 ablation versus B3"
+  ],
+  "sha256_without_hash_field": "352a48b0ec99ee11f62163e467faed053e50ea74e660346fb2f7e407667d688b",
+  "strong_confirmation_rule": {
+    "no_posthoc_threshold_changes": true,
+    "require": "B3 must beat B1, B2_EXACT_PAIRWISE, and B2_GLOBAL_SHRINK on at least 4 of 5 primary metrics; B3 Top-100 enrichment must exceed 10x; true hidden global optimum must rank within Top-100; visible-label shuffle B3 pooled Spearman must be near zero (absolute < 0.05)."
+  },
+  "version": "LIGHTNING_PROTEIN_DESIGN_V4_TRPB_PREREG"
+}

@@ -1,0 +1,32 @@
+{
+  "critical_comparison": "B2_A4_PLUS_MEMORY -> B5_FULL_DREAM_DORMANT",
+  "per_position_spearman_exact_sign_flip": {
+    "positions": 11,
+    "mean_delta": 0.08651374425368233,
+    "positive_positions": 8,
+    "negative_positions": 3,
+    "zero_positions": 0,
+    "two_sided_pvalue": 0.1767578125
+  },
+  "cluster_bootstrap_spearman_delta_B5_minus_B2": {
+    "n_boot": 5000,
+    "delta_mean": 0.06172697971457724,
+    "ci95_low": -0.03892762262336174,
+    "ci95_high": 0.17780926936039007,
+    "fraction_delta_gt_0": 0.867
+  },
+  "cluster_bootstrap_auc_delta_B5_minus_B2": {
+    "n_boot": 5000,
+    "delta_mean": 0.01916411714360255,
+    "ci95_low": -0.028177053992114887,
+    "ci95_high": 0.07218302466494894,
+    "fraction_delta_gt_0": 0.7704
+  },
+  "fold_position_top3_score_wilcoxon_B5_vs_B2": {
+    "group_count": 55,
+    "statistic": 18.0,
+    "pvalue": 1.0,
+    "mean_delta": 0.280040075848485,
+    "median_delta": 0.0
+  }
+}

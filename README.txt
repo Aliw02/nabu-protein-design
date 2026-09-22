@@ -1,0 +1,1 @@
+Put PHOT_CHLRE_Chen_2023.csv here. Run: py -m pip install -r requirements.txt\nThen: py run_v4.py PHOT_CHLRE_Chen_2023.csv --out results_v4\n

@@ -1,0 +1,91 @@
+{
+  "version": "LIGHTNING_PROTEIN_DMS_POC_V1",
+  "dataset": "kcnh2_subset.csv",
+  "rows": 200,
+  "positions": [
+    545,
+    546,
+    547,
+    548,
+    549,
+    550,
+    551,
+    552,
+    553,
+    554,
+    555
+  ],
+  "wt_segment": "YGAAVLFLLMC",
+  "split": "5-fold deterministic within-position blind holdout, seed=161",
+  "freeze_records": [
+    {
+      "fold": 0,
+      "hidden_count": 44,
+      "sha256": "0bca076ce24fbdb1f0e46195903bf0877bf326ce9d446b9d7020b06708cf1d3b"
+    },
+    {
+      "fold": 1,
+      "hidden_count": 44,
+      "sha256": "68c4c2f76eaa91ca2a1c0f527cc95009917fe6da27e76014422768db5bba54bb"
+    },
+    {
+      "fold": 2,
+      "hidden_count": 43,
+      "sha256": "e1532389425b68e1453a2ba328b7f5c7ba259d856ea14ae0090af82a0c44bbf2"
+    },
+    {
+      "fold": 3,
+      "hidden_count": 36,
+      "sha256": "3f224184a22fae54f2064e35a8e405b6c8a50afe3c58349461fcf61e2dd5d2a2"
+    },
+    {
+      "fold": 4,
+      "hidden_count": 33,
+      "sha256": "b519ca6bc15664cb3aaa97b9eaab9293efe8e289ce2e78364191b4e21ab32083"
+    }
+  ],
+  "notes": [
+    "Hidden DMS_score and DMS_score_bin are not passed to predictor.",
+    "Predictions are serialized and SHA-256 frozen before truth merge/reveal.",
+    "No amino-acid property table or biomedical vocabulary is used.",
+    "Relative resonance is learned only from visible response-profile correlations."
+  ],
+  "metrics": [
+    {
+      "method": "B0_POSITION_MEAN",
+      "spearman": 0.3944032127268755,
+      "roc_auc_bin": 0.673,
+      "avg_precision_bin": 0.7204301360420327,
+      "mean_top1_hidden_score": 48.12272694496364,
+      "mean_top3_hidden_score": 53.74024714776363,
+      "top1_high_bin_rate": 0.38181818181818183
+    },
+    {
+      "method": "B1_ALT_GLOBAL",
+      "spearman": 0.18429075737808281,
+      "roc_auc_bin": 0.613,
+      "avg_precision_bin": 0.5908036648808768,
+      "mean_top1_hidden_score": 66.95017037074545,
+      "mean_top3_hidden_score": 59.310980899903036,
+      "top1_high_bin_rate": 0.6363636363636364
+    },
+    {
+      "method": "CORE_ADDITIVE",
+      "spearman": 0.46364509112727825,
+      "roc_auc_bin": 0.736,
+      "avg_precision_bin": 0.7670812341525637,
+      "mean_top1_hidden_score": 65.63049396523635,
+      "mean_top3_hidden_score": 59.36471918937576,
+      "top1_high_bin_rate": 0.6181818181818182
+    },
+    {
+      "method": "LIGHTNING_DREAM",
+      "spearman": 0.5250146253656343,
+      "roc_auc_bin": 0.7549,
+      "avg_precision_bin": 0.7347615122758644,
+      "mean_top1_hidden_score": 64.33366959392727,
+      "mean_top3_hidden_score": 59.64475926522423,
+      "top1_high_bin_rate": 0.5818181818181818
+    }
+  ]
+}

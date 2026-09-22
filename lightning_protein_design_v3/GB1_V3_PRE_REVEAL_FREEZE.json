@@ -1,0 +1,203 @@
+{
+  "freeze_sha256": "08285f565786d53b6df3853b14631d77b006584c1ef152d97eda3d36bcbf1577",
+  "payload": {
+    "version": "GB1_V3_FREEZE_V1",
+    "source_sha": "a1e9f5146a9441210eaf88accfa660f02d80cbb7",
+    "visible_blocks": [
+      [
+        2,
+        1001
+      ],
+      [
+        10002,
+        11001
+      ],
+      [
+        20002,
+        21001
+      ],
+      [
+        30002,
+        31001
+      ],
+      [
+        40002,
+        41001
+      ],
+      [
+        50002,
+        51001
+      ],
+      [
+        60002,
+        61001
+      ],
+      [
+        70002,
+        71001
+      ],
+      [
+        80002,
+        81001
+      ],
+      [
+        90002,
+        91001
+      ],
+      [
+        100002,
+        101001
+      ],
+      [
+        110002,
+        111001
+      ],
+      [
+        120002,
+        121001
+      ],
+      [
+        130002,
+        131001
+      ],
+      [
+        140002,
+        141001
+      ]
+    ],
+    "visible_rows": 15000,
+    "hidden_evaluation_performed": false,
+    "arms": {
+      "B2_ADDITIVE": {
+        "sha256": "e5873b7b10533c0942e6df64c02f42f3d6c998858d49b3bc7664e17d01d0ccba",
+        "top20": [
+          "WYGA",
+          "WYGG",
+          "WRGA",
+          "WNGA",
+          "WCGA",
+          "LWGA",
+          "MWGA",
+          "WRGG",
+          "WNGG",
+          "WCGG",
+          "WYCA",
+          "LYGA",
+          "LWGG",
+          "MWGG",
+          "WQGA",
+          "IWGA",
+          "WKGA",
+          "WYCG",
+          "LVGA",
+          "LYGG"
+        ],
+        "count": 1000
+      },
+      "B3_RAW_PAIR": {
+        "sha256": "03e82467da75cfa672c88f88ca0d84b9d69a00c6a6fae74f6ed21d7382063809",
+        "top20": [
+          "WYCA",
+          "LWCA",
+          "WNCA",
+          "WRCA",
+          "LYCA",
+          "LNCA",
+          "WWLG",
+          "WCCA",
+          "MWCA",
+          "LVCA",
+          "WQCA",
+          "WDCA",
+          "WKCA",
+          "LCCA",
+          "IWCA",
+          "MNCA",
+          "VWCA",
+          "MRCA",
+          "WLCA",
+          "WMCA"
+        ],
+        "count": 1000
+      },
+      "B5_LIGHTNING": {
+        "sha256": "27de173d4e4078b2d56b6c6f4a4eda5fd66fc3fd1ac7215981478b1b64d38896",
+        "top20": [
+          "LWCA",
+          "WYCA",
+          "LWCG",
+          "WWLA",
+          "WYCG",
+          "WWLG",
+          "LWGC",
+          "LWCC",
+          "WYCC",
+          "LWLA",
+          "LWLG",
+          "WWLC",
+          "LWLC",
+          "MRCA",
+          "LWFA",
+          "MRCG",
+          "LWFG",
+          "MRLA",
+          "LNCA",
+          "MRLG"
+        ],
+        "count": 1000
+      },
+      "SHUFFLED_B5": {
+        "sha256": "bc0c5ce8fef0191d74479ef9428c4c906e81847bdd5c586d5182557a0bcaaded",
+        "top20": [
+          "EYIQ",
+          "EYVR",
+          "MIIQ",
+          "FYVR",
+          "EYVQ",
+          "EYVK",
+          "PIMQ",
+          "EYKQ",
+          "PIMR",
+          "EAVK",
+          "QKMR",
+          "QKMQ",
+          "PNMK",
+          "EYIV",
+          "MIIV",
+          "PIMK",
+          "MAVK",
+          "VHMK",
+          "PKMR",
+          "EYKV"
+        ],
+        "count": 1000
+      },
+      "RANDOM_HASH": {
+        "sha256": "6fe0cc7945ad0eb0933cf91b6a8f8f6c0991fff10f19e447c5157387c256cbc8",
+        "top20": [
+          "EPRE",
+          "MHLM",
+          "KTPW",
+          "EKNV",
+          "SPKE",
+          "DSYL",
+          "NNWF",
+          "RGNT",
+          "QGKP",
+          "MVHG",
+          "ERSP",
+          "QAKI",
+          "IFRQ",
+          "HHEN",
+          "YRSH",
+          "TCRK",
+          "FHAL",
+          "TYCY",
+          "NGAI",
+          "YDGL"
+        ],
+        "count": 1000
+      }
+    }
+  }
+}

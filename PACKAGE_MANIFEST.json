@@ -1,0 +1,340 @@
+{
+  "file_count": 67,
+  "included": [
+    {
+      "path": "lightning_protein_poc_v1/README.md",
+      "bytes": 1123,
+      "sha256": "5c025441ecc601869773bda2779587f796ae4d9f1ff46f13bc9680daed6b0951"
+    },
+    {
+      "path": "lightning_protein_poc_v1/metrics.csv",
+      "bytes": 573,
+      "sha256": "411a0121caa980f749b927e13617dd1afd079a4b112c4f6d9423a1c878eddb5e"
+    },
+    {
+      "path": "lightning_protein_poc_v1/predictions_revealed.csv",
+      "bytes": 70345,
+      "sha256": "391b34a38552870edbd9889557df0907e94bf2392b3587b56be684eaf2f75cd1"
+    },
+    {
+      "path": "lightning_protein_poc_v1/summary.json",
+      "bytes": 2627,
+      "sha256": "d1eb2c5d000472684936c83a54d7692cbaba021739dd0cb62854315102fdbea3"
+    },
+    {
+      "path": "lightning_protein_poc_ablation_v1/README.md",
+      "bytes": 1886,
+      "sha256": "91089fb0fa8a5353960f0e75a18f09f3a652d987c91556bfe056275ffd426c03"
+    },
+    {
+      "path": "lightning_protein_poc_ablation_v1/ablation_metrics.csv",
+      "bytes": 2601,
+      "sha256": "5495a5101ad4c2ed048f7591e5ffd0b30de1e52a1f189b084465d10a14bdbfad"
+    },
+    {
+      "path": "lightning_protein_poc_ablation_v1/component_deltas.csv",
+      "bytes": 1170,
+      "sha256": "503efce33d4288bad7970812fa0e8c72c1e297b7e1de3aa1a0977185e3d0a389"
+    },
+    {
+      "path": "lightning_protein_poc_ablation_v1/leakage_and_reproduction_audit.json",
+      "bytes": 2677,
+      "sha256": "e8263377ad278ce5e92417d11b7bd1f6930012daff1a9bd9c64086c48f812b3d"
+    },
+    {
+      "path": "lightning_protein_poc_ablation_v1/predictions_revealed.csv",
+      "bytes": 85054,
+      "sha256": "0fb29a378587a4dcd6cf6509f2d29e059e607ed0a3bd2922c2cb5c67141e8e2d"
+    },
+    {
+      "path": "lightning_protein_poc_ablation_v1/run_ablation.py",
+      "bytes": 27498,
+      "sha256": "2ff2203763edf08319cd05a4247b1b8bb83e09654c385c9e4ee3816e2eed2cd2"
+    },
+    {
+      "path": "lightning_protein_poc_ablation_v1/significance.json",
+      "bytes": 931,
+      "sha256": "33a0ccfff7b8e90f07111ef1438762191bf2587c6bfcc5792c6829b231cf8401"
+    },
+    {
+      "path": "lightning_protein_replication_v2/README.md",
+      "bytes": 3923,
+      "sha256": "62ee6d04a3c1a56c81309e85bd0c6d376ae7be3bcb88ee19176a42f16af7f0dd"
+    },
+    {
+      "path": "lightning_protein_replication_v2/extension_prereg_pabp.json",
+      "bytes": 853,
+      "sha256": "1bb4930959cbd993bcf530cbf282c5b43039d8721850177685a1e05a0d2675cb"
+    },
+    {
+      "path": "lightning_protein_replication_v2/kcnh2_corrected_group_metrics.json",
+      "bytes": 741,
+      "sha256": "022902fb2fac6c90599ee58e3edd53e4e9f362f6e6e34da09b35335eef50144f"
+    },
+    {
+      "path": "lightning_protein_replication_v2/kcnh2_stress_extension.json",
+      "bytes": 199,
+      "sha256": "f081df7f9a22a730cdd79c520e641efe916d3a4c8f644041347a56c052a2a005"
+    },
+    {
+      "path": "lightning_protein_replication_v2/preregistration.json",
+      "bytes": 2352,
+      "sha256": "07700c56506a51cdfb9781bb2740642c799ea1bf9bb52f34c7d73faafbb7b8be"
+    },
+    {
+      "path": "lightning_protein_replication_v2/replication_summary.json",
+      "bytes": 5113,
+      "sha256": "e01ec367176c73a2147c0e91c46c37eb6628aa46a15986ba64416add5866f6ed"
+    },
+    {
+      "path": "lightning_combinatorial_blind_v3/preregistration.json",
+      "bytes": 1659,
+      "sha256": "404b8edd4226b27711d17750d8e7a78e3d4a19f04c120d3da8e90868bf3cc446"
+    },
+    {
+      "path": "lightning_gb1_blind_design_v3/CANDIDATE_FREEZE_PRE_REVEAL.json",
+      "bytes": 5696,
+      "sha256": "2960a0b48fc81e0e806946e355cd788ce29bb5f518bd2e45a6a747afe2a31970"
+    },
+    {
+      "path": "lightning_gb1_blind_design_v3/PREREGISTRATION_PRE_REVEAL.json",
+      "bytes": 2157,
+      "sha256": "755073f542b1354fc47120c9f66011a83e5bf66bd80f35674658ec6124056116"
+    },
+    {
+      "path": "lightning_gb1_blind_design_v3/PROTOCOL_AMENDMENT_PRE_REVEAL.json",
+      "bytes": 1065,
+      "sha256": "6970f6a1de32eb0dfa9101094655c7ddd22c00e6bfc2a411cecccc025dbe3a74"
+    },
+    {
+      "path": "lightning_gb1_blind_design_v3/README.md",
+      "bytes": 1112,
+      "sha256": "ebbc35d5f708a337bd75d936b53380fe7a780be81cf7477023b391179eef7fb1"
+    },
+    {
+      "path": "lightning_gb1_blind_design_v3/SHUFFLE_CONTROL_FREEZE_PRE_REVEAL.json",
+      "bytes": 2406,
+      "sha256": "dddfe7895d78384a6674d2316c16d4aecefa273076574fdab5a51cd23d0fae0a"
+    },
+    {
+      "path": "lightning_gb1_blind_design_v3/lightning_top30_pre_reveal.csv",
+      "bytes": 2630,
+      "sha256": "b96eadf4e64e5d51efd6a9bb2eff2e7fb23b008c2136dae303b89908800689ef"
+    },
+    {
+      "path": "lightning_gb1_blind_design_v3/results_summary.json",
+      "bytes": 2776,
+      "sha256": "35d1a7be98e8a816b4a512e4bf7a644f1c4f92ff2beb594c987108a0a4ad5a97"
+    },
+    {
+      "path": "lightning_gb1_blind_design_v3/revealed_candidates.csv",
+      "bytes": 1996,
+      "sha256": "e8852250559255060fc86e064ef366056db91435e3a8c2f908b977f2623c0998"
+    },
+    {
+      "path": "lightning_gb1_blind_design_v3/visible_training.csv",
+      "bytes": 10935,
+      "sha256": "029389754a6720b5076bda2b2107c49a9847578048060114b1c0978643d3253a"
+    },
+    {
+      "path": "lightning_protein_design_v3/GB1_PRE_REVEAL_FREEZE.json",
+      "bytes": 4355,
+      "sha256": "b2ad38e41f5d75a9f8be30bd62dfec20142eb853c4bb07fbf117f023d09ce327"
+    },
+    {
+      "path": "lightning_protein_design_v3/GB1_V3_PRE_REVEAL_FREEZE.json",
+      "bytes": 3665,
+      "sha256": "2044bd57aec04a05060dc1140d3d78d384871c3b3184f16f5f6214342b68df6b"
+    },
+    {
+      "path": "lightning_protein_design_v3/GFP_EXTENSION_PREREG.json",
+      "bytes": 2117,
+      "sha256": "a62631e1b74331ee641fa39dacb4488ab67dc8d425e80b88c6db8f42466271b5"
+    },
+    {
+      "path": "lightning_protein_design_v3/Lightning_Protein_Design_V3_Shareable_Package.zip",
+      "bytes": 81588,
+      "sha256": "21b67ab7225635229edd6cb7f9c2f214cb2d1ecb353eac3407b45b1e03fae929"
+    },
+    {
+      "path": "lightning_protein_design_v3/ORTHOGONAL_PREREG_AAKRE2015.json",
+      "bytes": 1455,
+      "sha256": "064a4e64179a1c2069b2fbf03e8377fe73d09e99d57e98cd8fb02ccc14ed3ddd"
+    },
+    {
+      "path": "lightning_protein_design_v3/PHOQ_V3_PRE_REVEAL_FREEZE.json",
+      "bytes": 3022,
+      "sha256": "fa18af1eb4620e61e5933e03b204de4ede47955c171e4900c83f5e6ee4932ec0"
+    },
+    {
+      "path": "lightning_protein_design_v3/PREREGISTRATION_V3.json",
+      "bytes": 3612,
+      "sha256": "4fdf2e2c57e427ffccc8b2e664c90d827a4e8031d95c9aabbbf68ab5bf528c05"
+    },
+    {
+      "path": "lightning_protein_design_v3/TEV_V3_PRE_REVEAL_FREEZE.json",
+      "bytes": 3021,
+      "sha256": "d4dcfa1a2d02c7734f338258ced574e23a29a4945471ee9bd7423f81a0805457"
+    },
+    {
+      "path": "lightning_protein_design_v3/TRPB_PRE_REVEAL_FREEZE.json",
+      "bytes": 1848,
+      "sha256": "a771c50c8f53f821bacb893b54ae02257122db6abfdbae9dea364509a1e52c19"
+    },
+    {
+      "path": "lightning_protein_design_v3/TRPB_REPLICATION_PREREG.json",
+      "bytes": 1700,
+      "sha256": "a97d9633d0c16ad323c9087e3febcfb176b48f36e523b4416c6b294b113f6d39"
+    },
+    {
+      "path": "lightning_protein_design_v3/TRPB_V3_PRE_REVEAL_FREEZE.json",
+      "bytes": 3714,
+      "sha256": "36036547867b92e047f761ee54dcbba0b9d4b782c5a29bd4365f1ce7ee2747e9"
+    },
+    {
+      "path": "lightning_protein_design_v3/V3_METRICS.csv",
+      "bytes": 8548,
+      "sha256": "d465299f3df6e61b4ee0fa7a57056f716d2e603646881f3d7df487f1f1e879b3"
+    },
+    {
+      "path": "lightning_protein_design_v3/V3_PHOQ_PREREGISTRATION.json",
+      "bytes": 2356,
+      "sha256": "7f80253724b578fc504d497ed0ecac570c3ab63e739cb571997b83e488283c9b"
+    },
+    {
+      "path": "lightning_protein_design_v3/V3_PHOQ_SOURCE_MIRROR_AMENDMENT.json",
+      "bytes": 966,
+      "sha256": "d6a961de862c414b6c6b83ebcf48075aacdfc1733c456b05fe4e0d663ab3f6cd"
+    },
+    {
+      "path": "lightning_protein_design_v3/V3_PREREGISTRATION.json",
+      "bytes": 5210,
+      "sha256": "b8250c813f698778666a53bbbc7f99c6f5c0ad2cab8543e8b309f589a48b179b"
+    },
+    {
+      "path": "lightning_protein_design_v3/V3_RESULTS.json",
+      "bytes": 20482,
+      "sha256": "fed4f82b3a90972da27e7bb90196faa4b00b91d84897f51a1958487482eaf1ff"
+    },
+    {
+      "path": "lightning_protein_design_v3/V3_SHAREABLE_REPORT.md",
+      "bytes": 5224,
+      "sha256": "c9b44631ac7192a1b74544b2fa4c46a4969866350bf696c8ca5f237c96366217"
+    },
+    {
+      "path": "lightning_protein_design_v3/V3_TEV_PREREGISTRATION.json",
+      "bytes": 1041,
+      "sha256": "b9fc627c50a278ea66ba25292647a6c2f902e789d778577db002c93372543a18"
+    },
+    {
+      "path": "lightning_protein_design_v3/V3_TOP10_TOP1_HIT_RATE.png",
+      "bytes": 78207,
+      "sha256": "5e0a53aeaaee9f42065251b79ceda7c65d4c976d2e5903f1f497f1cf7ff91050"
+    },
+    {
+      "path": "lightning_protein_design_v3/V4_JALAL2020_NBS_PARS_PREREG.json",
+      "bytes": 1890,
+      "sha256": "f1e64350ebc42ca16cb8f4bcf61a6f890f3521db787877de1fd02214046a4d8b"
+    },
+    {
+      "path": "lightning_protein_design_v3/V4_JALAL2020_NBS_PARS_PRE_REVEAL_FREEZE.json",
+      "bytes": 2595,
+      "sha256": "daa10ae133bab27feefcc06ce9ec29cc8ae82d7f1946756eafaafaf57ccd60d8"
+    },
+    {
+      "path": "lightning_protein_design_v3/V4_PHOQ_PREREG.json",
+      "bytes": 3199,
+      "sha256": "bc3d1d6043f1c55a6f68533b31c3beff06225093a76970dd4aa7adf574ebc118"
+    },
+    {
+      "path": "lightning_protein_design_v3/V4_PHOQ_PREREG_AMENDMENT_1.json",
+      "bytes": 1279,
+      "sha256": "16f98e4d910b1a3a59e1da279c83dd3a7028fa4fdd0e2bf6a3667a10d9643423"
+    },
+    {
+      "path": "lightning_protein_design_v3/V4_TRPB3A_I_PREREG.json",
+      "bytes": 3980,
+      "sha256": "f9025dffd4806fe26a350fe1ff18a77b41813005e075d1008d4049dba4928a0f"
+    },
+    {
+      "path": "lightning_protein_design_v3/extended_statistical_tests.json",
+      "bytes": 886,
+      "sha256": "7f1ed06175a1aaf9af32caa6e9bd6a1bc9c60aed12f85b6dd141bf6b110e5300"
+    },
+    {
+      "path": "lightning_protein_design_v3/preregistration.json",
+      "bytes": 4111,
+      "sha256": "2f297a4fd81413f4426f79d61eb475ef86991bec2dc31fb9b07c5f72f8ed292f"
+    },
+    {
+      "path": "lightning_protein_design_v3/preregistration_amendment_1.json",
+      "bytes": 1146,
+      "sha256": "c5a95991ff4361dd9d2cb86ac2bdfd46da1f895865b84eb1cde8d6c17389fafc"
+    },
+    {
+      "path": "lightning_protein_design_v3/statistical_tests.json",
+      "bytes": 2443,
+      "sha256": "6d1e029797909e64ebfe19126985399abd9a708e3bd9912283d8781ea6fd2b50"
+    },
+    {
+      "path": "lightning_trpb_blind_design_v4/CANDIDATE_FREEZE_PRE_REVEAL.json",
+      "bytes": 5573,
+      "sha256": "a17deb831a15ad13bb3df4e3832be4bf4e7596dd404f64dea737439b29070557"
+    },
+    {
+      "path": "lightning_trpb_blind_design_v4/PREREGISTRATION_PRE_REVEAL.json",
+      "bytes": 3642,
+      "sha256": "282480d5dcc0bdb361b0a19e9810e59794e8cc510b17ad8aabc149426593c8f3"
+    },
+    {
+      "path": "lightning_trpb_blind_design_v4/PROTOCOL_AMENDMENT_PRE_CANDIDATE_FREEZE.json",
+      "bytes": 1195,
+      "sha256": "26cc1e0a8dd607535671c2e7a0a4c3708705386a480eea2a2a6240ac1e4ed34a"
+    },
+    {
+      "path": "lightning_trpb_blind_design_v4/visible_training.csv",
+      "bytes": 21448,
+      "sha256": "88e1eef688b11f33e8de54372af238efeb44c54778733897019ca6591e5c4661"
+    },
+    {
+      "path": "lightning_protein_design_v4_trpb/DATA_MIRROR_ADDENDUM.json",
+      "bytes": 1534,
+      "sha256": "7fa0a3311c9334e4ae0237c44152e0da3549ddd93606707ef87f6104d208237c"
+    },
+    {
+      "path": "lightning_protein_design_v4_trpb/PREREGISTRATION_V4_TRPB.json",
+      "bytes": 2741,
+      "sha256": "4b31f6d2c07c7a506083e9cd761dee23cf3b997c252a73a7c226175556d0d7d9"
+    },
+    {
+      "path": "lightning_protein_design_v5_phoq/PREREGISTRATION_V5_PHOQ.json",
+      "bytes": 2814,
+      "sha256": "4a7cb3b71015ebd1b26c5ff87f5de773938f57e2db75f6097821bef1f611c337"
+    },
+    {
+      "path": "lightning_protein_design_v5_phoq/VISIBLE_COVERAGE_ADDENDUM.json",
+      "bytes": 1345,
+      "sha256": "b8a10b657e809753b595c3843f07d8df32998f7593fea424d7756002afa9279b"
+    },
+    {
+      "path": "lightning_tev_blind_design_v5/PREREGISTRATION_PRE_REVEAL.json",
+      "bytes": 4161,
+      "sha256": "15fce022d07891662a60635bd47df991f6eefb575aa6bb2ffe87f9cc6b3db4b6"
+    },
+    {
+      "path": "lightning_clean_blind_confirm_v6/PREREGISTRATION_PRE_SEARCH.json",
+      "bytes": 3249,
+      "sha256": "573d8d2c1fd31e419c932c1b9656bf6247e355d7dce5faa612464a274ec888e4"
+    },
+    {
+      "path": "lightning_combinatorial_blind_v4/preregistration.json",
+      "bytes": 1483,
+      "sha256": "aa90300b4b05bee10a2365ab170052ce8882c1fee62357974ad45f4981bf990b"
+    },
+    {
+      "path": "lightning_combinatorial_blind_v4_laptop.zip",
+      "bytes": 2856,
+      "sha256": "8696ccb91abbc6efc9ccf162412ebab3297dd035867bfeda38ea42801ec6b804"
+    }
+  ]
+}

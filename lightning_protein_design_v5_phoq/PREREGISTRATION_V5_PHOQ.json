@@ -1,0 +1,58 @@
+{
+  "benchmark": {
+    "assayed_positions": [
+      284,
+      285,
+      288,
+      289
+    ],
+    "blob_sha": "8fcf721d3ee5219fd669a5aa0b36d7544313195f",
+    "name": "PhoQ four-site protein-protein-interface landscape",
+    "source_commit": "0f9c51aa7caaab0b4618b0cab4f3107e7251091b",
+    "source_path": "fasthit/landscapes/data/phoq/PhoQ.csv",
+    "source_repo": "hury07/fasthit",
+    "wild_type_variant": "AVST"
+  },
+  "blind_partition": {
+    "hidden": "all measured variants at Hamming distance 3 or 4",
+    "hidden_fitness_used_before_freeze": false,
+    "visible": "all measured variants at Hamming distance 0, 1, or 2 from AVST"
+  },
+  "candidate_space": "all Hamming-3 and Hamming-4 combinations over the 20 standard amino acids; evaluate measured hidden variants only",
+  "created_before_PhoQ_CSV_fitness_values_loaded": true,
+  "development_history": "B6 formula selected after GB1, ParD3, and TrpB were treated as development landscapes; PhoQ CSV outcomes had not been loaded.",
+  "frozen_views": {
+    "B1_ADDITIVE_MEMORY": "WT plus visible single-mutant effects",
+    "B2_EXACT_PAIRWISE": "B1 plus all exact visible pair residuals",
+    "B2_GLOBAL_SHRINK": "B1 plus g times sum of pair residuals; g = mean visible mutual-resonance weight",
+    "B3_RELATIVE_RESONANCE": "B1 plus pair residuals weighted by mutual empirical endpoint percentile",
+    "B6_MULTIVIEW_CONSENSUS": "geometric mean of candidate rank-percentiles from B2_GLOBAL_SHRINK and B3_RELATIVE_RESONANCE; no label-tuned coefficients and no post-reveal threshold"
+  },
+  "preanalysis_metadata_disclosure": {
+    "consequence": "global-optimum rank is secondary/descriptive, not a primary blind metric in this confirmation",
+    "known_before_preregistration": [
+      "wild-type identity AVST",
+      "published/loader WT fitness metadata",
+      "published/loader measured maximum identity TEMH and value"
+    ]
+  },
+  "primary_metrics": [
+    "hidden pooled Spearman",
+    "Top-10 mean hidden-fitness percentile",
+    "Top-100 count/enrichment of true hidden top-1-percent variants",
+    "Top-1 normalized regret versus best measured hidden variant"
+  ],
+  "secondary_metrics": [
+    "Top-50 and Top-500 elite enrichment",
+    "triple and quadruple Spearman",
+    "global optimum rank (descriptive only because maximum identity was public in loader metadata)"
+  ],
+  "sha256_without_hash_field": "e6de1a898075f8c32e6a6020695552c5775b696393289ddaa1710e717ce39c3a",
+  "strong_confirmation_rule": {
+    "B6_vs_B2_GLOBAL_SHRINK": "B6 must be strictly better on at least 3 of 4 primary metrics",
+    "absolute": "B6 Top-100 top-1-percent enrichment > 10x",
+    "negative_control": "visible-label shuffle B6 pooled Spearman absolute value < 0.05",
+    "no_posthoc_changes": true
+  },
+  "version": "LIGHTNING_PROTEIN_DESIGN_V5_PHOQ_PREREG"
+}

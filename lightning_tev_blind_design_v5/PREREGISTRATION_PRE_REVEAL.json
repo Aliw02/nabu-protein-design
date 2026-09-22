@@ -1,0 +1,72 @@
+{
+  "architecture": {
+    "candidate_generation": "score all 20^4 four-residue amino-acid sequences excluding visible training variants; no hidden fitness used",
+    "dream_status": "WARM if at least one pair-state is observed; DORMANT otherwise",
+    "frozen_semantics": "same Memory + pair-residual Relative Resonance/Dream scorer used in GB1 V3",
+    "lambda_pair": "median support across visible position-pair-state cells",
+    "lightning_score": "additive memory + mean(weighted pair residuals over observed pair states)",
+    "main_shrinkage": "n/(n+lambda_main), lambda_main = median support across visible position-state cells",
+    "no_amino_acid_property_tables": true,
+    "no_embeddings": true,
+    "no_hidden_fitness_before_candidate_freeze": true,
+    "no_retuning_after_reveal": true,
+    "no_structure_model": true,
+    "pair_residual": "visible pair-state mean minus global mean and shrunk main effects, then n/(n+lambda_pair)",
+    "relative_resonance_weight": "abs(2*((rank-0.5)/N)-1) within each position-pair residual distribution",
+    "target_transform": "log1p(nonnegative fitness); if published processed fitness can be negative, shift by visible-only minimum + epsilon before log1p and freeze that shift from visible data only"
+  },
+  "dataset": {
+    "name": "TEV protease 4-site combinatorial landscape",
+    "qc_rule": "Use published processed true-activity rows with >=5 sequencing reads when such a read-support field is present. QC is outcome-independent.",
+    "sites": [
+      "T146",
+      "D148",
+      "H167",
+      "S170"
+    ],
+    "source": "FLIGHTED / SSMuLA public data",
+    "source_record": "Zenodo 10.5281/zenodo.15203754 or 10.5281/zenodo.10779337",
+    "theoretical_space": 160000
+  },
+  "freeze_protocol": {
+    "fsync_before_truth_lookup": true,
+    "no_full-landscape_metric_or_global-optimum_lookup_until_after_candidate_truth_reveal": true,
+    "reveal_only_union_of_frozen_candidates_first": true,
+    "top_n_per_arm": 10,
+    "write_candidate_payload_and_sha256": true
+  },
+  "frozen_before_any_TEV_landscape_file_download_or_outcome_read": true,
+  "integrity_note": "TEV was selected specifically because no TEV landscape outcomes had been opened in this conversation before this preregistration.",
+  "matched_controls": {
+    "ADDITIVE_MEMORY": "same visible data and shrunk single-state effects, no pair resonance",
+    "EXTRA_TREES": "one-hot single-state input only; ExtraTreesRegressor(n_estimators=500,min_samples_leaf=2,max_features=1.0,random_state=161,n_jobs=-1)",
+    "RANDOM_HASH": "SHA256('RANDOM|' + variant) lexical score; no fitness information",
+    "RIDGE_MAIN_PAIR": "one-hot single + pair-state features; RidgeCV over fixed logspace alphas 1e-4..1e4, deterministic 5-fold KFold random_state=161",
+    "SHUFFLE_CONTROL": "after primary candidate freeze, deterministically permute visible fitness with numpy seed 161 and rerun unchanged Lightning"
+  },
+  "prereg_sha256_without_self_hash": "0a2bf4a82d02c4dbaa831ad70f0a52748aee7e93cec357de95f649567a24c740",
+  "primary_metrics": [
+    "top1_true_fitness",
+    "mean_top5_true_fitness",
+    "mean_top10_true_fitness",
+    "median_top10_true_fitness",
+    "fraction_top10_above_parent_or_WT_if_parent_truth_available",
+    "best_true_fitness_recovered_top10",
+    "number_of_top10_with_QC_eligible_truth"
+  ],
+  "strict_shareable_pass": {
+    "all_required": true,
+    "gate_1": "Lightning mean Top10 > every matched primary baseline",
+    "gate_2": "Lightning mean Top5 > every matched primary baseline",
+    "gate_3": "Lightning best recovered Top10 >= every matched primary baseline best recovered Top10",
+    "gate_4": "At least 8/10 Lightning candidates have QC-eligible experimentally measured truth",
+    "gate_5": "Shuffled-label Lightning mean Top10 <= 50% of true-label Lightning mean Top10"
+  },
+  "version": "LIGHTNING_TEV_V5_STRICT_BLIND_DESIGN_PREREG",
+  "visible_training_selection": {
+    "budget": 588,
+    "fitness_used_for_selection": false,
+    "fixed_seed_or_salt": "LIGHTNING_TEV_V5",
+    "rule": "Among QC-eligible distinct 4-AA variants, sort by SHA256('LIGHTNING_TEV_V5|' + variant) ascending; take first 588."
+  }
+}

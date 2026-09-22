@@ -1,0 +1,61 @@
+{
+  "candidate_freeze_sha256": "c6d69d075b8df1180959d0e86a64ae28ffe05298e61021961176cdf641d6c3e7",
+  "derived": {
+    "lightning_vs_additive_mean_top10_ratio": 1.6396016878972959,
+    "lightning_vs_random_mean_top10_ratio": 96.16784902521097,
+    "lightning_vs_ridge_mean_top10_ratio": 0.976194604351202,
+    "shuffle_drop_fraction": 0.9971079700014039,
+    "shuffle_vs_true_lightning_mean_top10_ratio": 0.002892029998596092
+  },
+  "hidden_truth_revealed_after_primary_candidate_freeze": true,
+  "interpretation": {
+    "blind_compositional_design_signal": "STRONG",
+    "reason": "Lightning strongly beats additive and random and recovers the best tested candidate in its Top-10, but Ridge main+pair is slightly higher on mean Top-5 and Top-10.",
+    "scientific_boundary": "Strong blind combinatorial ranking/design evidence, not yet a clean independent confirmation of superiority over a strong learned interaction baseline.",
+    "strongest_baseline_beaten": "NO"
+  },
+  "metrics": {
+    "ADDITIVE_MEMORY": {
+      "best_true_fitness_recovered_top10": 4.45316835886,
+      "fraction_top10_above_wt_1": 0.8,
+      "mean_top10_true_fitness": 2.1676455173488,
+      "mean_top5_true_fitness": 2.739733966986,
+      "median_top10_true_fitness": 1.852830755975,
+      "top1_true_fitness": 2.54174644228
+    },
+    "LIGHTNING_RESONANCE": {
+      "best_true_fitness_recovered_top10": 6.34349747898,
+      "fraction_top10_above_wt_1": 0.9,
+      "mean_top10_true_fitness": 3.5540752490080996,
+      "mean_top5_true_fitness": 3.7089593754002004,
+      "median_top10_true_fitness": 3.42671445235,
+      "top1_true_fitness": 3.45403421045
+    },
+    "RANDOM_HASH": {
+      "best_true_fitness_recovered_top10": 0.336658473341,
+      "fraction_top10_above_wt_1": 0.0,
+      "mean_top10_true_fitness": 0.0369570005467875,
+      "mean_top5_true_fitness": 0.0036492465453950005,
+      "median_top10_true_fitness": 0.003412769802575,
+      "top1_true_fitness": 0.00898820400584
+    },
+    "RIDGE_MAIN_PAIR": {
+      "best_true_fitness_recovered_top10": 6.34349747898,
+      "fraction_top10_above_wt_1": 1.0,
+      "mean_top10_true_fitness": 3.6407446150250005,
+      "mean_top5_true_fitness": 3.893081705548,
+      "median_top10_true_fitness": 3.24912906546,
+      "top1_true_fitness": 4.45316835886
+    },
+    "SHUFFLE_LIGHTNING": {
+      "best_true_fitness_recovered_top10": 0.0449667971174,
+      "fraction_top10_above_wt_1": 0.0,
+      "mean_top10_true_fitness": 0.0102784922373993,
+      "mean_top5_true_fitness": 0.0059818076805126,
+      "median_top10_true_fitness": 0.0057607052003,
+      "top1_true_fitness": 0.00487386683242
+    }
+  },
+  "result_sha256_without_self_hash": "9ca7fe8aacff6d94e3ab33774af0e5966816a422ad5e6c76ec502c6840e0dc61",
+  "version": "GB1_V3_REVEALED_RESULT"
+}

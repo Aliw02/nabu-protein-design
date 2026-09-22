@@ -1,0 +1,23 @@
+{
+  "B5": {
+    "mean_group_spearman_ge3": 0.3218181818181818,
+    "group_spearman_count": 55,
+    "mean_top1_truth_percentile": 0.7257575757575758,
+    "best_hit_at1": 0.36363636363636365,
+    "mean_normalized_top1_regret": 0.3875177414178335
+  },
+  "ALT_GLOBAL": {
+    "mean_group_spearman_ge3": 0.33818181818181814,
+    "group_spearman_count": 55,
+    "mean_top1_truth_percentile": 0.75,
+    "best_hit_at1": 0.41818181818181815,
+    "mean_normalized_top1_regret": 0.34197559986216886
+  },
+  "B2": {
+    "mean_group_spearman_ge3": 0.28909090909090907,
+    "group_spearman_count": 55,
+    "mean_top1_truth_percentile": 0.7409090909090911,
+    "best_hit_at1": 0.38181818181818183,
+    "mean_normalized_top1_regret": 0.36425310653532356
+  }
+}

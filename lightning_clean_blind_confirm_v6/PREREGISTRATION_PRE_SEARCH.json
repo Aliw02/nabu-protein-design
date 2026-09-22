@@ -1,0 +1,73 @@
+{
+  "architecture": {
+    "candidate_generation": "cartesian product of 20 standard amino-acid symbols at the documented sites; exclude visible variants; score without hidden fitness",
+    "dream_status": "WARM if any pair state observed else DORMANT",
+    "frozen": true,
+    "lightning_score": "additive memory + mean(weight*pair_residual for observed pair states)",
+    "main_shrinkage": "n/(n+median visible position-state support)",
+    "no_aa_property_tables": true,
+    "no_embeddings": true,
+    "no_retuning": true,
+    "no_structure_model": true,
+    "pair_residual": "visible pair-state mean minus global + shrunk main effects, shrunk by n/(n+median visible pair-state support)",
+    "relative_resonance": "abs(2*((rank-0.5)/N)-1) within each position-pair residual distribution",
+    "source": "GB1 V3 / cross-assay Memory + pair-residual Relative Resonance semantics",
+    "target_transform": "visible-only robust shift if needed, then log1p"
+  },
+  "benchmarks": [
+    {
+      "name": "T7",
+      "protein": "T7 RNA polymerase",
+      "sites": [
+        "N748",
+        "R756",
+        "Q758"
+      ],
+      "theoretical_space": 8000
+    },
+    {
+      "name": "DHFR",
+      "protein": "dihydrofolate reductase",
+      "sites": [
+        "A26",
+        "D27",
+        "L28"
+      ],
+      "theoretical_space": 8000
+    }
+  ],
+  "controls": {
+    "ADDITIVE_MEMORY": "same visible data, no pair residual",
+    "EXTRA_TREES": "one-hot single-state ExtraTreesRegressor, 500 trees, min_samples_leaf=2, random_state=161",
+    "RANDOM_HASH": "SHA256 genotype order",
+    "RIDGE_MAIN_PAIR": "one-hot single+pair state RidgeCV fixed alphas 1e-4..1e4, 5-fold deterministic CV",
+    "SHUFFLE_LIGHTNING": "seed 161 permutation of visible labels, unchanged Lightning"
+  },
+  "cross_dataset_shareable_gate": {
+    "rule": "At least one clean untouched dataset passes all gates, and the second shows A+D+E without a catastrophic reversal (Lightning <50% of additive mean Top10)."
+  },
+  "frozen_before_any_T7_or_DHFR_outcome_search_or_read": true,
+  "pass_gate_per_dataset": {
+    "A": "Lightning mean Top10 > additive AND random",
+    "B": "Lightning mean Top10 >= 95% of strongest learned baseline (ridge or ExtraTrees)",
+    "C": "Lightning mean Top5 >= 95% of strongest learned baseline",
+    "D": "Shuffle Lightning mean Top10 <= 50% of true Lightning mean Top10",
+    "E": ">=8/10 Lightning frozen candidates have experimental truth",
+    "required": "A,B,C,D,E"
+  },
+  "prereg_sha256_without_self_hash": "0b3f6d00ef1427c6639e1ee75b4112751b921970d4c27901578e61ef8097e6f4",
+  "protocol": {
+    "candidate_freeze_before_truth_lookup": true,
+    "fsync_and_sha256": true,
+    "full-landscape metrics only after candidate truth reveal": true,
+    "top_n": 10,
+    "truth_reveal_only_for_union_of_frozen_top10s_first": true
+  },
+  "version": "LIGHTNING_CLEAN_BLIND_CONFIRM_V6",
+  "visible_training_selection": {
+    "budget_per_dataset": 384,
+    "fitness_used_for_selection": false,
+    "if_less_than_384_available": "use 40% of available variants rounded down, minimum 96",
+    "rule": "From distinct available variants, sort by SHA256('LIGHTNING_V6|<dataset>|'+variant) ascending and take first 384. This uses genotype only, never fitness."
+  }
+}

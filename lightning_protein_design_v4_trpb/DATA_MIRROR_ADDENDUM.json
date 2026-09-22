@@ -1,0 +1,29 @@
+{
+  "created_before_landscape_fitness_values_loaded_into_analysis": true,
+  "fitness_values_inspected_before_this_addendum": false,
+  "metadata_only_inspected": true,
+  "protocol_change": {
+    "candidate_generation": "unchanged: enumerate all Hamming-3 and Hamming-4 candidates over the 20 standard amino acids",
+    "evaluation": "primary metrics are computed only on measured hidden variants present in the 159,129-row mirror",
+    "global_optimum_metric": "unchanged because AIKG is measured in the mirror",
+    "missing_variants": "never imputed and never treated as zero",
+    "models": "unchanged",
+    "success_rule": "unchanged",
+    "thresholds": "unchanged"
+  },
+  "reason": "The originally targeted 160,000-row cleaned mirror was not directly transferable into the execution container. A provenance-documented GitHub mirror of the same Johnston 2024 landscape is accessible read-only.",
+  "replacement_source": {
+    "blob_sha": "3423d92fb851015ef0cc865c4fb1520894fb2f5f",
+    "commit": "0861a3f1f6c58a9597fde689eb7f9a07b38e2638",
+    "coverage_fraction": 0.99455625,
+    "fitness_normalization": "fittest measured variant = 1.0",
+    "global_max_variant": "AIKG",
+    "path": "ridge/data/johnston2024_trpb_landscape.csv",
+    "possible_20pow4": 160000,
+    "repo": "rcronk/mutate",
+    "rows_measured_standard_aa": 159129,
+    "wild_type": "VFVS"
+  },
+  "sha256_without_hash_field": "42c3682b871084aa93d75e34fdf213b316ae2b80ed7ff3a6fce9cf652afe1884",
+  "version": "LIGHTNING_PROTEIN_DESIGN_V4_TRPB_DATA_MIRROR_ADDENDUM"
+}

@@ -1,0 +1,34 @@
+{
+  "created_before_hidden_PhoQ_fitness_values_were_parsed": true,
+  "observed_visible_structure_only": {
+    "measured_nonWT_single_states_by_site": [
+      18,
+      19,
+      14,
+      18
+    ],
+    "missing_single_variants": [
+      "CVST",
+      "AVDT",
+      "AVET",
+      "AVKT",
+      "AVQT",
+      "AVWT",
+      "AVSD"
+    ],
+    "visible_hd0_to_hd2_rows": 1900
+  },
+  "pre_reveal_change": {
+    "candidate_space": "restrict each site to WT plus non-WT residue states having a measured visible single-mutant outcome",
+    "hidden_fitness": "still unopened",
+    "hidden_membership": "still forbidden for candidate generation",
+    "models": "unchanged",
+    "pair_terms": "use measured visible double residuals only; absent double terms contribute zero and pair-coverage is audited",
+    "primary_metrics": "unchanged",
+    "success_rule": "unchanged"
+  },
+  "rationale": "The frozen B1/B2/B3/B6 formulas require a visible single effect for every mutated state. Restricting to states with measured singles is a data-availability repair, not outcome tuning.",
+  "sha256_without_hash_field": "ffba4d950fe4d0c062b9285e24ccb18b1a4dbc161fd8bf773476547ef1a7800e",
+  "trigger": "The public PhoQ table contains only 69 of the 76 possible non-WT single substitutions.",
+  "version": "LIGHTNING_PROTEIN_DESIGN_V5_PHOQ_VISIBLE_COVERAGE_ADDENDUM"
+}

@@ -1,0 +1,143 @@
+{
+  "freeze_sha256": "e6eff0e08b5b9a49761c1d5a2a03676c4ff8b94408aeea82a677b5803fe2e5a9",
+  "payload": {
+    "version": "TEV_V3_FREEZE_V1",
+    "source_sha": "c49aa383577bafe2f45bf830ed19931f98a2045d",
+    "visible_rule": "FNV1a32(variant)%10==0",
+    "visible_rows": 15910,
+    "total_measured_rows": 159132,
+    "hidden_evaluation_performed": false,
+    "arms": {
+      "B2_ADDITIVE": {
+        "sha256": "83a76a28f199e542a0e2098ddb5da200c46b1017a882f396cdeb7374ed3ddb64",
+        "top20": [
+          "TSHT",
+          "TLHT",
+          "TPHT",
+          "TRHT",
+          "TNHT",
+          "TTHT",
+          "TCHT",
+          "TDHT",
+          "TSHS",
+          "TAHT",
+          "TLHS",
+          "TVHT",
+          "TYHT",
+          "TFHT",
+          "TPHS",
+          "TRHS",
+          "TNHS",
+          "TCHS",
+          "TDHS",
+          "TAHS"
+        ],
+        "count": 1000
+      },
+      "B3_RAW_PAIR": {
+        "sha256": "c54afe7d85c345611d33486082e590f5bedbc50808bb48bbb97fa3fcf2bb3be0",
+        "top20": [
+          "TDHT",
+          "TSHT",
+          "TAHT",
+          "TTHT",
+          "TPHT",
+          "TSHS",
+          "TCHT",
+          "TLHT",
+          "TDHS",
+          "THHT",
+          "TNHT",
+          "TVHT",
+          "TSHA",
+          "TQHT",
+          "TAHS",
+          "TFHT",
+          "TRHT",
+          "VDHT",
+          "CSHT",
+          "TPHS"
+        ],
+        "count": 1000
+      },
+      "B5_LIGHTNING": {
+        "sha256": "516814752c275232700932cf87c9fc50396a501b82c29df75e13ed496fcea660",
+        "top20": [
+          "TDHT",
+          "TTQS",
+          "CSHV",
+          "VDHT",
+          "CPHV",
+          "TSHA",
+          "APHC",
+          "LDHT",
+          "CSHA",
+          "VDHS",
+          "TTQA",
+          "CNVT",
+          "TDHS",
+          "CNVV",
+          "TPHC",
+          "TDQS",
+          "LDQT",
+          "TAHA",
+          "SAHA",
+          "APHA"
+        ],
+        "count": 1000
+      },
+      "SHUFFLED_B5": {
+        "sha256": "fc091d5fc2b669896f0ce6891ed96191100855c07bfdec5afcfff47e267e02d4",
+        "top20": [
+          "MWAH",
+          "DWAH",
+          "RNMK",
+          "RNPK",
+          "RQPK",
+          "RMMK",
+          "HKKE",
+          "DKGI",
+          "PSMK",
+          "QSQY",
+          "PCMK",
+          "WKRE",
+          "QSPY",
+          "MFAH",
+          "RNMG",
+          "QSSY",
+          "LNQY",
+          "RNWG",
+          "DKGE",
+          "RKGG"
+        ],
+        "count": 1000
+      },
+      "RANDOM_HASH": {
+        "sha256": "1e169f9b724664c2f0c6740e3d2b91b5fc28e6d9ba3db1ba71b9416efa1550c8",
+        "top20": [
+          "VNPK",
+          "EPRE",
+          "MHLM",
+          "KTPW",
+          "EKNV",
+          "SPKE",
+          "DSYL",
+          "NNWF",
+          "RGNT",
+          "MVHG",
+          "ERSP",
+          "QAKI",
+          "IFRQ",
+          "HHEN",
+          "YRSH",
+          "TCRK",
+          "YDGL",
+          "FEPY",
+          "FLPC",
+          "KHVP"
+        ],
+        "count": 1000
+      }
+    }
+  }
+}

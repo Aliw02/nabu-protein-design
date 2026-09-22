@@ -1,0 +1,131 @@
+{
+  "datasets": [
+    {
+      "count_by_hamming": {
+        "0": 1,
+        "1": 76,
+        "2": 2166,
+        "3": 27436,
+        "4": 130321
+      },
+      "dataset": "Jalal2020_NBS",
+      "generated_candidates": 157757,
+      "hidden_fitness_used": false,
+      "measured_singles": 76,
+      "missing_or_unsupported_double_contexts": 0,
+      "missing_singles": 0,
+      "prediction_fingerprint_fnv64ish": "410091046234ecca",
+      "row_count": 160000,
+      "usable_pair_memories": 2166,
+      "v4_top10": [
+        [
+          "QTRT",
+          -0.9178582996192628
+        ],
+        [
+          "RTRR",
+          -1.0576749912725831
+        ],
+        [
+          "RRRR",
+          -1.220139330577529
+        ],
+        [
+          "QRRT",
+          -1.4007241638180827
+        ],
+        [
+          "QQRT",
+          -1.4951223118791364
+        ],
+        [
+          "QCRT",
+          -1.5261532778859843
+        ],
+        [
+          "RCRR",
+          -1.665486033346506
+        ],
+        [
+          "RQRR",
+          -1.7865486805233588
+        ],
+        [
+          "QTRS",
+          -1.8297070129917312
+        ],
+        [
+          "RRHR",
+          -1.8783105537316147
+        ]
+      ],
+      "visible_count": 2243,
+      "wt": "QKKR",
+      "wt_fitness": 0.0
+    },
+    {
+      "count_by_hamming": {
+        "0": 1,
+        "1": 76,
+        "2": 2166,
+        "3": 27436,
+        "4": 130321
+      },
+      "dataset": "Jalal2020_parS",
+      "generated_candidates": 157757,
+      "hidden_fitness_used": false,
+      "measured_singles": 76,
+      "missing_or_unsupported_double_contexts": 0,
+      "missing_singles": 0,
+      "prediction_fingerprint_fnv64ish": "f8c2f43be600a6b3",
+      "row_count": 160000,
+      "usable_pair_memories": 2166,
+      "v4_top10": [
+        [
+          "RCWS",
+          0.22197022408820796
+        ],
+        [
+          "RIWS",
+          0.15812426132824345
+        ],
+        [
+          "RCYS",
+          0.1549975580109465
+        ],
+        [
+          "RCYC",
+          0.1521371336576785
+        ],
+        [
+          "RIYS",
+          0.1452241301538584
+        ],
+        [
+          "RLWS",
+          0.12260707802413492
+        ],
+        [
+          "RCWC",
+          0.11012105027596124
+        ],
+        [
+          "RAWS",
+          0.1044385842157769
+        ],
+        [
+          "RCFS",
+          0.1042242530837432
+        ],
+        [
+          "RVWS",
+          0.1008256728431357
+        ]
+      ],
+      "visible_count": 2243,
+      "wt": "RTAG",
+      "wt_fitness": 0.0
+    }
+  ],
+  "stage": "PRE_REVEAL_FREEZE"
+}

@@ -1,0 +1,41 @@
+{
+  "arms": [
+    "B1 visible mutation-memory/additive",
+    "B2 classical visible pairwise residual",
+    "B3 Lightning mutual relative resonance",
+    "B5 Lightning WARM/DORMANT candidate ordering",
+    "deterministic random control",
+    "visible-label shuffle control"
+  ],
+  "blind_split": "Use repository fold_id exactly: fold_id=0 visible, fold_id=1 hidden. Split is not changed after inspecting outcomes.",
+  "candidate_generation": {
+    "beam_budget": 5000,
+    "freeze_budgets": [
+      10,
+      50,
+      100,
+      500
+    ],
+    "hidden_genotype_membership": false,
+    "inputs": "visible genotype identities and visible measured labels only",
+    "method": "extract exact substitutions from visible genotypes; learn single-mutation memory from all visible occurrences; learn pair residual/resonance from visible co-occurrences; enumerate or deterministic beam-compose unseen multi-mutation combinations using only substitutions observed in visible rows; freeze top candidates before hidden reveal"
+  },
+  "created_before_gfp_outcomes_loaded": true,
+  "datasets": [
+    "proteingym_D7PM05_CLYGR_Somermeyer_2022",
+    "proteingym_Q6WV12_9MAXI_Somermeyer_2022",
+    "proteingym_Q8WTC7_9CNID_Somermeyer_2022"
+  ],
+  "interpretation_rule": "No success claim if generated-hidden match coverage is too sparse to evaluate. No architecture retuning after outcomes. Structural parser fixes are allowed only if they do not inspect label values.",
+  "primary_evaluation": [
+    "fraction of frozen generated candidates that are independently present in hidden measured set",
+    "hidden fitness percentile of matched frozen candidates",
+    "top-1-percent enrichment at matched budgets",
+    "best matched hidden design percentile",
+    "regret versus best hidden candidate among the same generated/matchable space"
+  ],
+  "sha256_without_hash_field": "ca3317ea3315ae5e3798f959d4ebf719756f0f3f1079df28efd92c0db54d20d6",
+  "source_commit": "593b832d5b487bd7015c3a3732cf634f35c0e8c9",
+  "source_repo": "xulab-research/MetaAI-research",
+  "version": "LIGHTNING_COMBINATORIAL_PROTEIN_DESIGN_V3_GFP_EXTENSION_PREREG"
+}

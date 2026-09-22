@@ -1,0 +1,12 @@
+{
+  "dormant_rule": "candidate with zero observed pair-state support across all six pairs is DORMANT and cannot enter promoted Top-N; otherwise WARM",
+  "lightning_score": "global_mean + sum(shrunk marginal effects) + mean(weighted shrunk pair residuals over six pairs)",
+  "marginal_shrinkage": "n/(n+lambda_main), lambda_main = median support across observed position-state cells",
+  "pair_shrinkage": "n/(n+lambda_pair), lambda_pair = median support across observed position-pair-state cells",
+  "random_baseline": "SHA256 variant lexical hash ascending; no outcome information",
+  "relative_resonance_weight": "abs(2*empirical_percentile(pair_residual)-1); preserves residual sign and downweights near-median interactions",
+  "ridge_baseline": "one-hot of 4 position states + 6 pair-state tokens; RidgeCV alphas=logspace(-4,4,17), 5-fold deterministic KFold(shuffle=True, random_state=161)",
+  "sha256": "7975a367e39ecbefd96e11a3bf041e538c662a95fe8fc3f7f44bdaf343259887",
+  "target_transform": "log1p(fitness)",
+  "version": "V3_PROTOCOL_AMENDMENT_PRE_REVEAL"
+}

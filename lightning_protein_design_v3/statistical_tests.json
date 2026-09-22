@@ -1,0 +1,112 @@
+{
+  "GB1_ADDITIVE": {
+    "K_top1pct": 1472,
+    "N": 147193,
+    "hits": 37,
+    "hypergeom_p_top1pct_or_better": 1.1956191853513827e-47,
+    "minus_log10_p": 46.92240712472561,
+    "random_expectation_hits": 1.0000475566093496,
+    "selected": 100
+  },
+  "GB1_Lightning_vs_Pairwise_unique_top100": {
+    "fisher_p_two_sided": 0.004401495287692499,
+    "odds_ratio": 2.8080357142857144,
+    "table": [
+      [
+        74,
+        16
+      ],
+      [
+        56,
+        34
+      ]
+    ]
+  },
+  "GB1_V3_LIGHTNING": {
+    "K_top1pct": 1472,
+    "N": 147193,
+    "hits": 84,
+    "hypergeom_p_top1pct_or_better": 1.0651413595667122e-151,
+    "minus_log10_p": 150.9725927512808,
+    "random_expectation_hits": 1.0000475566093496,
+    "selected": 100
+  },
+  "PhoQ_ADDITIVE": {
+    "K_top1pct": 1387,
+    "N": 138617,
+    "hits": 30,
+    "hypergeom_p_top1pct_or_better": 1.1233239954284123e-35,
+    "minus_log10_p": 34.94949496401221,
+    "random_expectation_hits": 1.0005987721563734,
+    "selected": 100
+  },
+  "PhoQ_V4_LIGHTNING": {
+    "K_top1pct": 1387,
+    "N": 138617,
+    "hits": 30,
+    "hypergeom_p_top1pct_or_better": 1.1233239954284123e-35,
+    "minus_log10_p": 34.94949496401221,
+    "random_expectation_hits": 1.0005987721563734,
+    "selected": 100
+  },
+  "PhoQ_V4_vs_Additive_unique_top100": {
+    "fisher_p_two_sided": 1.0,
+    "odds_ratio": 1.0,
+    "table": [
+      [
+        29,
+        70
+      ],
+      [
+        29,
+        70
+      ]
+    ]
+  },
+  "PhoQ_V4_vs_Pairwise_unique_top100": {
+    "fisher_p_two_sided": 0.25154064022528416,
+    "odds_ratio": 2.3333333333333335,
+    "table": [
+      [
+        10,
+        30
+      ],
+      [
+        5,
+        35
+      ]
+    ]
+  },
+  "TrpB_ADDITIVE": {
+    "K_top1pct": 1569,
+    "N": 156886,
+    "hits": 49,
+    "hypergeom_p_top1pct_or_better": 2.8847236240637027e-70,
+    "minus_log10_p": 69.53989578884921,
+    "random_expectation_hits": 1.0000892367706486,
+    "selected": 100
+  },
+  "TrpB_Lightning_vs_Pairwise_unique_top100": {
+    "fisher_p_two_sided": 2.165319454427047e-05,
+    "odds_ratio": 4.8133333333333335,
+    "table": [
+      [
+        38,
+        50
+      ],
+      [
+        12,
+        76
+      ]
+    ]
+  },
+  "TrpB_V3_LIGHTNING": {
+    "K_top1pct": 1569,
+    "N": 156886,
+    "hits": 50,
+    "hypergeom_p_top1pct_or_better": 2.879360801509571e-72,
+    "minus_log10_p": 71.5407039119587,
+    "random_expectation_hits": 1.0000892367706486,
+    "selected": 100
+  }
+}

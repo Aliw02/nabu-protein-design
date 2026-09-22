@@ -1,0 +1,111 @@
+{
+  "aggregate_gate": {
+    "V4_vs_Additive": {
+      "required": [
+        "V4 NDCG@100 > Additive in at least 6 of 9 windows",
+        "V4 Top-1%-hits@100 > Additive in at least 6 of 9 windows",
+        "median(V4-Additive NDCG@100) > 0",
+        "median(V4-Additive Top-1%-hits@100) > 0"
+      ]
+    },
+    "falsification": [
+      "shuffle-control median Spearman approximately zero and materially below real V4",
+      "no post-reveal formula or threshold changes"
+    ]
+  },
+  "architecture": {
+    "formula": "WT + sum(single effects) + (2/k) * sum[e_ij * (1+r_ij)/2]",
+    "missing_pair": "zero contribution; candidate retained",
+    "missing_single": "zero evidence contribution; token marked unsupported",
+    "mutual_resonance": "r_ij=sqrt(a_i(j)*a_j(i))",
+    "name": "V4_EQUAL_CONSENSUS",
+    "no_AA_property_tables": true,
+    "no_embeddings": true,
+    "no_hidden_label_tuning": true,
+    "pair_residual": "e_ij = fitness(double_ij) - fitness(WT) - s_i - s_j",
+    "relative_attention": "a_i(j)=exp((abs(e_ij)-row_max_i)/row_std_i)"
+  },
+  "dependence_disclosure": "The nine windows are distinct combinatorial landscapes but come from the same TrpB study/protein family; they are a robustness replication, not nine independent biological domains.",
+  "primary_per_landscape_metrics": [
+    "Spearman",
+    "NDCG@100",
+    "Top-1%-tail hits among Top-100",
+    "Top-0.1%-tail hits among Top-100",
+    "Top-100 mean hidden fitness",
+    "true hidden optimum rank"
+  ],
+  "prior_data_status": {
+    "GB1": "revealed development",
+    "PhoQ": "revealed first V4 confirmation; strict preregistered dominance gate failed because V4 tied Additive on top-1%-hits@100 and was microscopically lower on NDCG@100",
+    "TrpB3A_I": "untouched outcomes at freeze time",
+    "TrpB4": "revealed development"
+  },
+  "protocol": {
+    "comparators": [
+      "RANDOM",
+      "ADDITIVE",
+      "PAIRWISE_RAW",
+      "V3_RELATIVE_ONLY",
+      "V4_EQUAL_CONSENSUS"
+    ],
+    "freeze_before_reveal": true,
+    "generation": "enumerate all standard-20-AA Hamming-distance-3 genotypes without consulting hidden genotype IDs",
+    "hidden": "all measured triple variants",
+    "shuffle_control": "deterministically shuffle visible single/double fitness within mutation-count stratum; WT fixed",
+    "visible": "WT + all measured single and double variants"
+  },
+  "sha256": "ceccbd5dbb033446ccd87ee5ed0de1856b39104bfa392cc88192caeb01fb52a4",
+  "source": {
+    "commit": "9f86def1a12db76d26af16077ba28cb61ee0af5f",
+    "files": {
+      "TrpB3A": {
+        "blob_sha": "f94624f22ba95a08253943975451b18414ebe48e",
+        "reported_rows": 7971,
+        "wt": "AET"
+      },
+      "TrpB3B": {
+        "blob_sha": "62fa69ae9a915b11e527cde4ccbd738ef4201bc6",
+        "reported_rows": 7996,
+        "wt": "ETG"
+      },
+      "TrpB3C": {
+        "blob_sha": "1bbae4246cc2b3e1979f31201cb1eafe785919b7",
+        "reported_rows": 7994,
+        "wt": "TGA"
+      },
+      "TrpB3D": {
+        "blob_sha": "e67a1c1db6004faf118ff5250bff77b13f4e73f4",
+        "reported_rows": 7763,
+        "wt": "TAA"
+      },
+      "TrpB3E": {
+        "blob_sha": "ef507825e1edb246b2eafe6fb46ae10f9c825ad4",
+        "reported_rows": null,
+        "wt": "FGS"
+      },
+      "TrpB3F": {
+        "blob_sha": "740e52337bf8359d7871cde0b6ccf6a319be6a05",
+        "reported_rows": null,
+        "wt": "LIY"
+      },
+      "TrpB3G": {
+        "blob_sha": "f1d4bbcb45746bb9206afa615d1418d36382defa",
+        "reported_rows": null,
+        "wt": "VSY"
+      },
+      "TrpB3H": {
+        "blob_sha": "1502a48f11aed0ff20b81bf97c23fb9d5c13c14d",
+        "reported_rows": null,
+        "wt": "SGS"
+      },
+      "TrpB3I": {
+        "blob_sha": "2e25dfa75f39039579b9057d6175c73a3edc78ba",
+        "reported_rows": null,
+        "wt": "YVF"
+      }
+    },
+    "repo": "COLA-Laboratory/GraphFLA"
+  },
+  "status": "FROZEN_BEFORE_ANY_TRPB3A_I_FITNESS_ROWS_ARE_READ",
+  "version": "LIGHTNING_V4_TRPB3A_I_PROSPECTIVE_REPLICATION_PREREG"
+}

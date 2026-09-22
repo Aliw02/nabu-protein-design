@@ -1,0 +1,207 @@
+{
+  "freeze_sha256": "30631e3316e444c51fb336daad1d1fa9cc655a1a791439cc13a14f443ec0c8f4",
+  "payload": {
+    "version": "TRPB_V3_FREEZE_V1",
+    "source_sha": "3423d92fb851015ef0cc865c4fb1520894fb2f5f",
+    "visible_blocks": [
+      [
+        2,
+        1001
+      ],
+      [
+        10002,
+        11001
+      ],
+      [
+        20002,
+        21001
+      ],
+      [
+        30002,
+        31001
+      ],
+      [
+        40002,
+        41001
+      ],
+      [
+        50002,
+        51001
+      ],
+      [
+        60002,
+        61001
+      ],
+      [
+        70002,
+        71001
+      ],
+      [
+        80002,
+        81001
+      ],
+      [
+        90002,
+        91001
+      ],
+      [
+        100002,
+        101001
+      ],
+      [
+        110002,
+        111001
+      ],
+      [
+        120002,
+        121001
+      ],
+      [
+        130002,
+        131001
+      ],
+      [
+        140002,
+        141001
+      ],
+      [
+        150002,
+        151001
+      ]
+    ],
+    "visible_rows": 16000,
+    "hidden_evaluation_performed": false,
+    "arms": {
+      "B2_ADDITIVE": {
+        "sha256": "8f64f1d3df8aaef76f72fd234c5ecff3b0be2bca040083056d0066a2c0557cae",
+        "top20": [
+          "ALVG",
+          "CLVG",
+          "GLVG",
+          "ALLG",
+          "CLLG",
+          "GLLG",
+          "TLVG",
+          "CAVG",
+          "ALIG",
+          "ALCG",
+          "AIVG",
+          "CLIG",
+          "CLCG",
+          "TLLG",
+          "GLIG",
+          "GLCG",
+          "CIVG",
+          "CALG",
+          "AMVG",
+          "VLVG"
+        ],
+        "count": 1000
+      },
+      "B3_RAW_PAIR": {
+        "sha256": "011d689175967986c57fb9878b056eab7c846dcde1ef5ec6b9e5d90a88e22536",
+        "top20": [
+          "CLIG",
+          "ALIG",
+          "ALVG",
+          "CLLG",
+          "ALLG",
+          "CLVG",
+          "CLCG",
+          "ILIG",
+          "ALCG",
+          "TLVG",
+          "GLIG",
+          "TLLG",
+          "ILVG",
+          "ALMG",
+          "CLMG",
+          "ILLG",
+          "GLVG",
+          "DLIG",
+          "GLLG",
+          "VLIG"
+        ],
+        "count": 1000
+      },
+      "B5_LIGHTNING": {
+        "sha256": "cf6810875285f0b9fcd41f6d0ffd19a68a8f30c1949e6409ad6519a496ca7a46",
+        "top20": [
+          "TACS",
+          "TACG",
+          "VALG",
+          "VILG",
+          "TCCG",
+          "TCCS",
+          "VCLG",
+          "TAIS",
+          "TAIG",
+          "TCIG",
+          "TCIS",
+          "TAMS",
+          "TAMG",
+          "TATG",
+          "VAVG",
+          "TCMG",
+          "TCMS",
+          "TACN",
+          "VCVG",
+          "VGLG"
+        ],
+        "count": 1000
+      },
+      "SHUFFLED_B5": {
+        "sha256": "3f73b7bc9a52a469b019597a46d8ba473770bea3122646f3b4d678c62ded6c94",
+        "top20": [
+          "KFFM",
+          "KFFA",
+          "KEVA",
+          "KEFM",
+          "KEVM",
+          "KEFA",
+          "KEIA",
+          "WEFT",
+          "KEKA",
+          "SGFH",
+          "QEVA",
+          "KEHA",
+          "KFVA",
+          "KFVM",
+          "KEIM",
+          "SATM",
+          "SGTH",
+          "QETA",
+          "KEKM",
+          "KEHM"
+        ],
+        "count": 1000
+      },
+      "RANDOM_HASH": {
+        "sha256": "6d11e367d6ca99e34b0c539419865eb4cae39fc70a730293a2b3c03eb91e81bc",
+        "top20": [
+          "VNPK",
+          "EPRE",
+          "MHLM",
+          "EKNV",
+          "SPKE",
+          "DSYL",
+          "NNWF",
+          "RGNT",
+          "QGKP",
+          "MVHG",
+          "ERSP",
+          "QAKI",
+          "IFRQ",
+          "YRSH",
+          "TCRK",
+          "FHAL",
+          "TYCY",
+          "NGAI",
+          "YDGL",
+          "FEPY"
+        ],
+        "count": 1000
+      }
+    }
+  }
+}

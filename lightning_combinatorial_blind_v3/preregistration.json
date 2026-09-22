@@ -1,0 +1,33 @@
+{
+  "architecture": "Frozen Lightning protein POC semantics; no post-outcome tuning",
+  "failure_rule": "No threshold or architecture changes after reveal; failure is recorded as-is.",
+  "primary_metrics": [
+    "Top-1 hidden fitness percentile",
+    "Top-5 mean hidden fitness percentile",
+    "Top-50 enrichment for hidden top 5%",
+    "normalized regret",
+    "Spearman on frozen eligible hidden candidates"
+  ],
+  "protocol": {
+    "arms": [
+      "VISIBLE_MEAN",
+      "ADDITIVE_COMPONENT_MEMORY",
+      "PAIRWISE_MEMORY",
+      "FULL_LIGHTNING_MEMORY_RESONANCE_DREAM"
+    ],
+    "candidate_budget": 50,
+    "candidate_requirement": "hidden multi-mutants with >=2 substitutions",
+    "freeze": "candidate IDs and scores hashed before hidden-label reveal",
+    "generator": "compose mutation components supported by visible observations only",
+    "hidden_set": "remaining 30%; labels inaccessible to candidate construction",
+    "negative_control": "deterministic shuffle of visible fitness",
+    "visible_set": "deterministic hash-selected 70% of measured variants"
+  },
+  "reason_for_choice": "benign fluorescent protein with measured combinatorial variants",
+  "sha256_pre_reveal": "47d7cbe214ef5cfed912dedabb51ae8510ce28d0055bec17e2ccd060548c3baf",
+  "status": "FROZEN_BEFORE_TARGET_DATASET_OUTCOMES_ARE_FETCHED",
+  "success_rule": "Full Lightning must beat additive memory on at least 3/4 primary design-selection metrics, show positive top-5% enrichment, and the shuffled-label control must collapse.",
+  "target": "ppluGFP2 fluorescence",
+  "target_dataset": "Q6WV13_9MAXI_Somermeyer_2022",
+  "version": "LIGHTNING_COMBINATORIAL_BLIND_V3_PREREG"
+}

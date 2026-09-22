@@ -1,0 +1,20 @@
+{
+  "architecture": "unchanged frozen B0-B5 from initial preregistration",
+  "blob_sha": "5bfed5cc4b45bfbafff082b66b1b3f486b79c9ff",
+  "dataset": "PABP_YEAST_Melamed_2013",
+  "expected_rows": 1187,
+  "note": "Registered before any PABP outcome metric was computed.",
+  "primary_checks": [
+    "B5 vs B2 pooled Spearman",
+    "B5 vs B2 fold-position group Spearman",
+    "B5 vs B2 top-1 selected hidden truth",
+    "visible-label shuffle negative control",
+    "whole-position holdout memory transfer",
+    "ALT_GLOBAL and ESM_IF external references"
+  ],
+  "sha256": "8873529dbf128dfd07fa17d37cd5ba9ae3c9edd4d80f4af3dc63ec40b8f6e6b1",
+  "source_commit": "9844690432e30a6fc0d79b29a03822787405e20a",
+  "source_repo": "mingchen-li/SingleSiteProteinGYM",
+  "split": "FNV1a32(mutant) mod 5",
+  "version": "LIGHTNING_PROTEIN_REPLICATION_V2_EXTENSION_PREREG"
+}

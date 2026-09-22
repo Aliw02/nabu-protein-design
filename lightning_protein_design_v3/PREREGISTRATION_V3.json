@@ -1,0 +1,65 @@
+{
+  "benchmark": {
+    "blob_sha": "3c42d79111eb56589e2fb4a39c5e23b4fa45f365",
+    "expected_landscape": "four mutated positions, near-exhaustive combinatorial GB1 binding landscape",
+    "name": "GB1_Wu_2016_ProteinGym",
+    "source_commit": "0ec24449fa050c38fbac6bbbb1659eae2fcf746e",
+    "source_path": "datasets/proteingym/dms_subs/SPG1_STRSG_Wu_2016.csv",
+    "source_repo": "microsoft/InverseFoldDir"
+  },
+  "blind_partition": {
+    "hidden": "variants with exactly 3 or 4 substitutions",
+    "hidden_outcome_loaded_before_freeze": false,
+    "partition_uses_outcome": false,
+    "visible": "WT + variants with exactly 1 or 2 substitutions"
+  },
+  "candidate_generation": {
+    "allowed_alleles": "states observed at each position in visible single/double variants only",
+    "candidate_budget_primary": 100,
+    "candidate_budget_secondary": [
+      10,
+      50,
+      100,
+      500,
+      1000
+    ],
+    "enumeration": "all 3- and 4-substitution combinations constructible from visible alleles",
+    "hidden_genotype_membership_used_for_generation": false
+  },
+  "created_before_dataset_outcomes_loaded": true,
+  "frozen_arms": {
+    "B0_RANDOM": "deterministic hash ordering; no outcome signal",
+    "B1_SINGLE_MEMORY": "WT + sum of visible single-mutation effects",
+    "B2_CLASSICAL_PAIRWISE": "B1 + exact visible double-mutant epistatic residuals",
+    "B3_RELATIVE_RESONANCE": "B1 + sum(pair_residual * mutual_relative_resonance). For a pair residual e(i,j), each mutation assigns an empirical percentile of e(i,j) within its own visible partner-residual distribution; mutual resonance is sqrt(percentile_i * percentile_j). No amino-acid property table or tuned threshold.",
+    "B4_DREAM_WARM_ONLY": "same score as B3; candidate is WARM iff its mean signed resonance contribution > 0; only WARM candidates eligible",
+    "B5_FULL_DREAM_DORMANT": "same score as B3; WARM candidates rank first by score; non-positive support candidates are retained as DORMANT and ranked after WARM, preserving candidate-space coverage"
+  },
+  "matched_controls": [
+    "deterministic random",
+    "single-effect additive memory",
+    "classical exact pairwise epistasis",
+    "visible-label shuffle negative control"
+  ],
+  "no_posthoc_tuning_on_this_benchmark": true,
+  "prereg_sha256_without_hash_field": "992c9e90ea8c65fb81bdee2fb885c91c545f715a7acb343b2fecb49783d6f6f1",
+  "primary_metrics": [
+    "hidden pooled Spearman over generated candidates that exist in the measured landscape",
+    "best hidden-fitness percentile among top-10 predictions",
+    "mean hidden-fitness percentile among top-10 predictions",
+    "top-100 enrichment for hidden top-1-percent variants",
+    "normalized regret of top-1 selected candidate versus best measured hidden candidate"
+  ],
+  "representation": {
+    "context": "co-mutated residue states",
+    "core": "mutation set",
+    "identity": "exact parent protein + exact mutated positions and residue states",
+    "qualifier": "residue state at each mutated position",
+    "quantity": "mutation count"
+  },
+  "success_rule": {
+    "engineering_design_pass": "B3/B5 must outperform B1 on pooled hidden ranking and at least 3 of 4 top-design metrics; must not be materially worse than B2 on more than one primary metric; shuffle control must collapse relative to the real-label Lightning result.",
+    "strong_shareable_result": "B3/B5 must outperform BOTH B1 and B2 on pooled ranking and at least 3 of 4 top-design metrics, with top-100 enrichment > 1.0 and shuffle collapse. No retuning after reveal."
+  },
+  "version": "LIGHTNING_COMBINATORIAL_PROTEIN_DESIGN_V3_PREREG"
+}

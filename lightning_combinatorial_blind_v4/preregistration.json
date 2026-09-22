@@ -1,0 +1,31 @@
+{
+  "candidate_budget": 50,
+  "controls": [
+    "deterministic visible-label rotation shuffle"
+  ],
+  "eligibility": "hidden combination has every component observed at least once in visible data",
+  "metrics": [
+    "Spearman",
+    "Top1 truth percentile",
+    "Top5 mean truth percentile",
+    "Top50 enrichment for hidden top5%",
+    "normalized Top1 regret"
+  ],
+  "post_reveal_rule": "No retuning on this dataset.",
+  "scoring": {
+    "component_memory": "visible global + sum mutation effects; each effect=(mutation visible mean-global)*n/(n+1)",
+    "full_lightning": "component memory plus pair residual memory; pair residual=(visible residual after component memory mean)*n/(n+1); pair contributions averaged with recurrence weight n/(n+1)",
+    "global": "visible mean",
+    "no_amino_acid_property_table": true,
+    "no_embedding": true,
+    "no_hidden_label_in_scoring": true
+  },
+  "sha256_pre_reveal": "a7369aa0158fb5104dc45f7590b7e201da2c09d98557509d404c8fe8aa8b6eee",
+  "split": "FNV1a32(canonical mutation set) mod 10; 0-6 visible, 7-9 hidden",
+  "success_rule": "Full beats component-memory on >=3/4 design-selection metrics (Top1, Top5, enrichment, regret), enrichment >1, and shuffle |Spearman|<0.05.",
+  "target_dataset": "PHOT_CHLRE_Chen_2023",
+  "target_outcomes_seen_before_freeze": false,
+  "target_property": "fluorescence/activity",
+  "variant_scope": "2-5 amino-acid substitutions; no stop codons",
+  "version": "LIGHTNING_COMBINATORIAL_BLIND_V4_PREREG"
+}

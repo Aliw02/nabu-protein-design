@@ -1,0 +1,71 @@
+{
+  "arms": [
+    "RANDOM",
+    "ADDITIVE",
+    "PAIRWISE_RAW",
+    "V3_RELATIVE_ONLY",
+    "V4_EQUAL_CONSENSUS"
+  ],
+  "confirmation_benchmark": {
+    "git_blob_sha": "8fcf721d3ee5219fd669a5aa0b36d7544313195f",
+    "hidden": "all measured triples + quadruples",
+    "human_knowledge_disclosure": "Public metadata/source code revealed WT fitness and global-max identity TEMH before this preregistration. Those facts are forbidden from scoring, generation, ranking, thresholds, or gates. The test is algorithmically blind, not human-knowledge-blind.",
+    "name": "PhoQ four-site combinatorial landscape",
+    "source_commit": "0f9c51aa7caaab0b4618b0cab4f3107e7251091b",
+    "source_repo": "hury07/fasthit",
+    "varying_sites": [
+      "A284",
+      "V285",
+      "S288",
+      "T289"
+    ],
+    "visible": "WT + measured singles + measured doubles only",
+    "wild_type": "AVST"
+  },
+  "development_history": {
+    "GB1_and_TrpB": "Used only as revealed development datasets to diagnose V3.",
+    "diagnosis": "Raw pairwise memory over-counts many pair memories; V3 relative-only resonance is precise but can suppress too much of the measured pair signal.",
+    "posthoc_candidate_tournament": [
+      "degree-normalized raw pair memory",
+      "degree-normalized relative resonance",
+      "equal raw+relative cooperative evidence"
+    ],
+    "selected_for_confirmation": "V4_EQUAL_CONSENSUS"
+  },
+  "frozen_formula": {
+    "degree_normalization": "2 / k, where k is the candidate's mutation count",
+    "dormant": "retain candidates with no supported pair evidence",
+    "dream": "enumerate all 3/4-mutation candidates independently of hidden IDs",
+    "missing_pair": "zero contribution; candidate retained",
+    "mutual_resonance": "r_ij=sqrt(a_i(j)*a_j(i))",
+    "pair_evidence": "e_ij * (1 + r_ij) / 2",
+    "pair_residual": "e_ij = fitness(double_ij) - fitness(WT) - s_i - s_j",
+    "relative_attention": "a_i(j)=exp((abs(e_ij)-max_abs_e_for_i)/std_abs_e_for_i)",
+    "score": "fitness(WT) + sum(single effects) + (2/k) * sum(pair_evidence)",
+    "single_effect": "s_i = fitness(single_i) - fitness(WT)"
+  },
+  "no_post_reveal_retuning": true,
+  "primary_gate": {
+    "required": [
+      "V4 top-100 top-1%-tail precision > ADDITIVE and > PAIRWISE_RAW",
+      "V4 NDCG@100 > ADDITIVE and > PAIRWISE_RAW",
+      "visible-label shuffle materially collapses top-tail performance",
+      "advantage is not only one selected sequence"
+    ],
+    "supporting": [
+      "Spearman",
+      "Top-10 tail enrichment",
+      "Top-0.1% enrichment",
+      "true optimum rank",
+      "top-100 mean hidden fitness"
+    ]
+  },
+  "sha256": "e4cbbc98d4689fc84ced09a38f182c50382976faa2cfd45304322ed20ea7f59a",
+  "status": "FROZEN_BEFORE_PHOQ_CSV_OR_OUTCOMES_ARE_READ",
+  "version": "LIGHTNING_COMBINATORIAL_PROTEIN_DESIGN_V4_PREREG",
+  "why_parameter_free": [
+    "No coefficient was fitted on PhoQ.",
+    "2/k is the mean pair-evidence contribution per mutated endpoint, preventing score inflation solely from having C(k,2) pair memories.",
+    "(1+r)/2 is an equal cooperative blend of direct measured pair memory and its row-relative mutual-resonance confidence; no scientific threshold is introduced."
+  ]
+}

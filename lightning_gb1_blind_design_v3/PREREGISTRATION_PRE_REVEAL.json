@@ -1,0 +1,53 @@
+{
+  "architecture": {
+    "dormant": "unseen candidate with insufficient pair evidence retained but not promoted",
+    "dream": "enumerate unseen combinations and score by frozen marginal memory + positive/negative pair resonance",
+    "memory": "shrunk marginal state effect relative to visible global mean",
+    "relative_resonance": "shrunk pair-state residual beyond marginal expectation, normalized within each position-pair by visible residual dispersion",
+    "typed_representation": "position-index + amino-acid state"
+  },
+  "baselines": [
+    "additive marginal memory only",
+    "ridge one-hot main effects",
+    "ridge one-hot main+pair interactions",
+    "deterministic random/hash rank"
+  ],
+  "candidate_domain": {
+    "allowed_state_per_position": "only amino-acid states observed at that position in visible training",
+    "exclude_visible": true,
+    "positions": 4
+  },
+  "dataset": "GB1 Wu et al. 2016 four-site landscape",
+  "falsification": [
+    "label-shuffle rerun after primary reveal; should collapse",
+    "memory-only and pair-resonance ablation",
+    "candidate budget matched across arms"
+  ],
+  "no_amino_acid_property_tables": true,
+  "no_external_structure_or_language_model_used_for_candidate_scoring": true,
+  "no_hidden_fitness_read_before_freeze": true,
+  "pre_reveal_sha256": "3ab0328a3dd35fe9c6a1e59028e732a22f72689f5b3f947fdd09e0310114c32e",
+  "primary_metrics": [
+    "top1 hidden measured fitness",
+    "mean top5 hidden measured fitness",
+    "mean top10 hidden measured fitness",
+    "fraction top10 above WT fitness=1",
+    "best hidden candidate rank percentile within revealed union",
+    "enrichment over deterministic random"
+  ],
+  "selection": {
+    "top_n_reveal_each_arm": 10,
+    "union_hidden_candidates_revealed_after_freeze": true
+  },
+  "source": "Hugging Face cleaned GB1 full landscape, derived from eLife Supplementary file 1; visible training rows transcribed from a fixed public 5k superset before hidden reveal",
+  "version": "LIGHTNING_GB1_BLIND_COMBINATORIAL_DESIGN_V3",
+  "visible_count": 588,
+  "visible_first_position_states": [
+    "E",
+    "F",
+    "I",
+    "N",
+    "S",
+    "W"
+  ]
+}

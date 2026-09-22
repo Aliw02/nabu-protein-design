@@ -1,0 +1,643 @@
+{
+  "aggregate_K10": {
+    "B2_ADDITIVE": {
+      "datasets": 4,
+      "mean_of_mean_percentiles": 0.9840059664664909,
+      "top01_hit_rate": 0.0,
+      "top01_hits_total": 0,
+      "top1_hit_rate": 0.575,
+      "top1_hits_total": 23,
+      "worst_dataset_mean_percentile": 0.9761097359409723
+    },
+    "B3_RAW_PAIR": {
+      "datasets": 4,
+      "mean_of_mean_percentiles": 0.9931343631380509,
+      "top01_hit_rate": 0.225,
+      "top01_hits_total": 9,
+      "top1_hit_rate": 0.85,
+      "top1_hits_total": 34,
+      "worst_dataset_mean_percentile": 0.9848879785526181
+    },
+    "B5_LIGHTNING": {
+      "datasets": 4,
+      "mean_of_mean_percentiles": 0.9946217805414348,
+      "top01_hit_rate": 0.2,
+      "top01_hits_total": 8,
+      "top1_hit_rate": 0.825,
+      "top1_hits_total": 33,
+      "worst_dataset_mean_percentile": 0.9917976091497879
+    },
+    "HAMMING1_MEAN": {
+      "datasets": 4,
+      "mean_of_mean_percentiles": 0.7932192512190099,
+      "top01_hit_rate": 0.15,
+      "top01_hits_total": 6,
+      "top1_hit_rate": 0.375,
+      "top1_hits_total": 15,
+      "worst_dataset_mean_percentile": 0.44103280222312213
+    },
+    "RANDOM_HASH": {
+      "datasets": 4,
+      "mean_of_mean_percentiles": 0.5632025842396734,
+      "top01_hit_rate": 0.0,
+      "top01_hits_total": 0,
+      "top1_hit_rate": 0.025,
+      "top1_hits_total": 1,
+      "worst_dataset_mean_percentile": 0.44677845505764324
+    },
+    "SHUFFLED_B5": {
+      "datasets": 4,
+      "mean_of_mean_percentiles": 0.5184594377096402,
+      "top01_hit_rate": 0.0,
+      "top01_hits_total": 0,
+      "top1_hit_rate": 0.0,
+      "top1_hits_total": 0,
+      "worst_dataset_mean_percentile": 0.3807753844434042
+    }
+  },
+  "audit": {
+    "candidate_hashes_verified_before_each_reveal": true,
+    "no_amino_acid_property_tables": true,
+    "no_embeddings_in_lightning_scoring": true,
+    "protein_sequences_generated_as_4_site_combinations": true,
+    "random_control_top1_hits_total": 1,
+    "shuffled_control_top1_hits_total": 0
+  },
+  "conclusion": {
+    "B5_interpretation": "high-precision consensus is strongly enriched and has a strong worst-case K10 percentile, but the simpler raw-pair arm wins on 3/4 landscapes at K10 mean percentile and is stronger at wider candidate budgets.",
+    "computational_combinatorial_design_transfer": "SUPPORTED",
+    "effective_mechanism": "visible-only structured state memory plus pairwise interaction/resonance information",
+    "full_B5_uniquely_superior_to_pairwise_baseline": "NOT_SUPPORTED"
+  },
+  "datasets": {
+    "GB1": {
+      "freeze_sha256": "08285f565786d53b6df3853b14631d77b006584c1ef152d97eda3d36bcbf1577",
+      "hidden": 134361,
+      "hidden_max": 8.76196565571,
+      "hidden_mean": 0.0801288898391611,
+      "methods": {
+        "B2_ADDITIVE": {
+          "K10": {
+            "best": 2.74706776264,
+            "mean": 1.2589518168027,
+            "mean_percentile": 0.9763755851772464,
+            "regret": 0.6864781407982591,
+            "top01_count": 0,
+            "top1_count": 2
+          },
+          "K100": {
+            "best": 7.22866005298,
+            "mean": 1.9112867419563861,
+            "mean_percentile": 0.9719041983909028,
+            "regret": 0.17499561890325094,
+            "top01_count": 12,
+            "top1_count": 35
+          },
+          "K50": {
+            "best": 7.22866005298,
+            "mean": 1.9014500199994944,
+            "mean_percentile": 0.9763685890995157,
+            "regret": 0.17499561890325094,
+            "top01_count": 7,
+            "top1_count": 16
+          }
+        },
+        "B3_RAW_PAIR": {
+          "K10": {
+            "best": 7.22866005298,
+            "mean": 5.432501104799999,
+            "mean_percentile": 0.9990786016775701,
+            "regret": 0.17499561890325094,
+            "top01_count": 8,
+            "top1_count": 10
+          },
+          "K100": {
+            "best": 7.55466318627,
+            "mean": 3.9989753178261993,
+            "mean_percentile": 0.9934123741264205,
+            "regret": 0.13778899814030027,
+            "top01_count": 36,
+            "top1_count": 90
+          },
+          "K50": {
+            "best": 7.55466318627,
+            "mean": 4.257473993705883,
+            "mean_percentile": 0.9949704155223613,
+            "regret": 0.13778899814030027,
+            "top01_count": 23,
+            "top1_count": 45
+          }
+        },
+        "B5_LIGHTNING": {
+          "K10": {
+            "best": 7.22866005298,
+            "mean": 4.886151621564999,
+            "mean_percentile": 0.997248457513713,
+            "regret": 0.17499561890325094,
+            "top01_count": 6,
+            "top1_count": 9
+          },
+          "K100": {
+            "best": 7.22866005298,
+            "mean": 3.582941999045779,
+            "mean_percentile": 0.9942523500122807,
+            "regret": 0.17499561890325094,
+            "top01_count": 26,
+            "top1_count": 79
+          },
+          "K50": {
+            "best": 7.22866005298,
+            "mean": 3.9282311824663996,
+            "mean_percentile": 0.9953886916590378,
+            "regret": 0.17499561890325094,
+            "top01_count": 17,
+            "top1_count": 41
+          }
+        },
+        "HAMMING1_MEAN": {
+          "K10": {
+            "best": 7.22866005298,
+            "mean": 4.684896767541,
+            "mean_percentile": 0.9950275749659498,
+            "regret": 0.17499561890325094,
+            "top01_count": 6,
+            "top1_count": 9
+          },
+          "K100": {
+            "best": 7.22866005298,
+            "mean": 3.4851348430879714,
+            "mean_percentile": 0.9830972529230951,
+            "regret": 0.17499561890325094,
+            "top01_count": 27,
+            "top1_count": 81
+          },
+          "K50": {
+            "best": 7.22866005298,
+            "mean": 3.5851862335285434,
+            "mean_percentile": 0.9827369549199544,
+            "regret": 0.17499561890325094,
+            "top01_count": 16,
+            "top1_count": 40
+          }
+        },
+        "RANDOM_HASH": {
+          "K10": {
+            "best": 0.0168666667576,
+            "mean": 0.004296008943629,
+            "mean_percentile": 0.44677845505764324,
+            "regret": 0.998075013367964,
+            "top01_count": 0,
+            "top1_count": 0
+          }
+        },
+        "SHUFFLED_B5": {
+          "K10": {
+            "best": 0.00551845640559,
+            "mean": 0.0024648355928354,
+            "mean_percentile": 0.39940979897440476,
+            "regret": 0.9993701805482434,
+            "top01_count": 0,
+            "top1_count": 0
+          }
+        }
+      },
+      "random_null_b5_k10": {
+        "best_p": 0.001998001998001998,
+        "mean_p": 0.000999000999000999,
+        "top1_count_p": 0.000999000999000999
+      },
+      "role": "replication/development; schema inspected before preregistration",
+      "source": "rcronk/mutate@0861a3f1f6c58a9597fde689eb7f9a07b38e2638:ridge/data/gb1_wu2016_landscape.csv",
+      "top01_threshold": 4.611965913799775,
+      "top1_threshold": 2.1547805142779963,
+      "visible": 15000
+    },
+    "PHOQ": {
+      "freeze_sha256": "fe4fdc98367a4c6adb8cda81ac96fb41d16a51177023c857e0ca2ffc591bd675",
+      "hidden": 126449,
+      "hidden_max": 133.59427,
+      "hidden_mean": 0.6861585264254043,
+      "methods": {
+        "B2_ADDITIVE": {
+          "K10": {
+            "best": 31.34309,
+            "mean": 18.5651066703,
+            "mean_percentile": 0.9761097359409723,
+            "regret": 0.7653859705210411,
+            "top01_count": 0,
+            "top1_count": 7
+          },
+          "K100": {
+            "best": 133.59427,
+            "mean": 17.94859311432,
+            "mean_percentile": 0.9794020514199404,
+            "regret": 0.0,
+            "top01_count": 6,
+            "top1_count": 53
+          },
+          "K50": {
+            "best": 60.83268,
+            "mean": 16.87320090798,
+            "mean_percentile": 0.9755193002712556,
+            "regret": 0.5446460390853589,
+            "top01_count": 2,
+            "top1_count": 28
+          }
+        },
+        "B3_RAW_PAIR": {
+          "K10": {
+            "best": 31.34309,
+            "mean": 20.4427381507,
+            "mean_percentile": 0.9848879785526181,
+            "regret": 0.7653859705210411,
+            "top01_count": 0,
+            "top1_count": 7
+          },
+          "K100": {
+            "best": 73.12595,
+            "mean": 18.4223990374,
+            "mean_percentile": 0.9820114828903357,
+            "regret": 0.4526265984312051,
+            "top01_count": 6,
+            "top1_count": 61
+          },
+          "K50": {
+            "best": 60.83268,
+            "mean": 19.4413867276,
+            "mean_percentile": 0.9824830564100944,
+            "regret": 0.5446460390853589,
+            "top01_count": 4,
+            "top1_count": 31
+          }
+        },
+        "B5_LIGHTNING": {
+          "K10": {
+            "best": 30.04881,
+            "mean": 21.763113624,
+            "mean_percentile": 0.9960070858607027,
+            "regret": 0.7750741105887251,
+            "top01_count": 0,
+            "top1_count": 10
+          },
+          "K100": {
+            "best": 51.55008,
+            "mean": 17.03048573836,
+            "mean_percentile": 0.9860881462091434,
+            "regret": 0.6141295581015562,
+            "top01_count": 6,
+            "top1_count": 56
+          },
+          "K50": {
+            "best": 51.55008,
+            "mean": 18.25731421506,
+            "mean_percentile": 0.9876940110242074,
+            "regret": 0.6141295581015562,
+            "top01_count": 4,
+            "top1_count": 31
+          }
+        },
+        "HAMMING1_MEAN": {
+          "K10": {
+            "best": 29.46583,
+            "mean": 8.299343916999998,
+            "mean_percentile": 0.9027774043290178,
+            "regret": 0.7794379205036264,
+            "top01_count": 0,
+            "top1_count": 2
+          },
+          "K100": {
+            "best": 87.87471,
+            "mean": 12.3998656438,
+            "mean_percentile": 0.9477713544591099,
+            "regret": 0.3422269532967245,
+            "top01_count": 4,
+            "top1_count": 35
+          },
+          "K50": {
+            "best": 87.87471,
+            "mean": 14.99537962678,
+            "mean_percentile": 0.9469224746735834,
+            "regret": 0.3422269532967245,
+            "top01_count": 4,
+            "top1_count": 22
+          }
+        },
+        "RANDOM_HASH": {
+          "K10": {
+            "best": 1.263393333,
+            "mean": 0.1265238889,
+            "mean_percentile": 0.6667209705098498,
+            "regret": 0.990543057475444,
+            "top01_count": 0,
+            "top1_count": 0
+          }
+        },
+        "SHUFFLED_B5": {
+          "K10": {
+            "best": 13.22500333,
+            "mean": 1.8676089504,
+            "mean_percentile": 0.7423482985235154,
+            "regret": 0.9010062083501037,
+            "top01_count": 0,
+            "top1_count": 0
+          }
+        }
+      },
+      "random_null_b5_k10": {
+        "best_p": 0.00999000999000999,
+        "mean_p": 0.000999000999000999,
+        "top1_count_p": 0.000999000999000999
+      },
+      "role": "fresh prospective third landscape; source mirror amended before outcomes",
+      "source": "hury07/fasthit@0f9c51aa7caaab0b4618b0cab4f3107e7251091b:fasthit/landscapes/data/phoq/PhoQ.csv",
+      "top01_threshold": 32.47473219999972,
+      "top1_threshold": 15.114083200000032,
+      "visible": 14068
+    },
+    "TEV": {
+      "freeze_sha256": "e6eff0e08b5b9a49761c1d5a2a03676c4ff8b94408aeea82a677b5803fe2e5a9",
+      "hidden": 143222,
+      "hidden_max": 1.1863084,
+      "hidden_mean": -0.017589832104526453,
+      "methods": {
+        "B2_ADDITIVE": {
+          "K10": {
+            "best": 0.4802284,
+            "mean": 0.418571614,
+            "mean_percentile": 0.9958239655918785,
+            "regret": 0.29881726208006487,
+            "top01_count": 0,
+            "top1_count": 10
+          },
+          "K100": {
+            "best": 0.5171237,
+            "mean": 0.3868635461,
+            "mean_percentile": 0.9930980575609891,
+            "regret": 0.2832029513367743,
+            "top01_count": 0,
+            "top1_count": 85
+          },
+          "K50": {
+            "best": 0.5171237,
+            "mean": 0.4039503704,
+            "mean_percentile": 0.9947140802390696,
+            "regret": 0.2832029513367743,
+            "top01_count": 0,
+            "top1_count": 45
+          }
+        },
+        "B3_RAW_PAIR": {
+          "K10": {
+            "best": 0.4802284,
+            "mean": 0.424312831,
+            "mean_percentile": 0.9961248970130286,
+            "regret": 0.29881726208006487,
+            "top01_count": 0,
+            "top1_count": 10
+          },
+          "K100": {
+            "best": 0.5227832,
+            "mean": 0.4045899369,
+            "mean_percentile": 0.9945622180949854,
+            "regret": 0.28080781722344134,
+            "top01_count": 0,
+            "top1_count": 91
+          },
+          "K50": {
+            "best": 0.5171237,
+            "mean": 0.4134500824,
+            "mean_percentile": 0.995344709611652,
+            "regret": 0.2832029513367743,
+            "top01_count": 0,
+            "top1_count": 46
+          }
+        },
+        "B5_LIGHTNING": {
+          "K10": {
+            "best": 0.4513302,
+            "mean": 0.383491126,
+            "mean_percentile": 0.9934339696415355,
+            "regret": 0.31104715246506676,
+            "top01_count": 0,
+            "top1_count": 8
+          },
+          "K100": {
+            "best": 0.5025483,
+            "mean": 0.26462018817,
+            "mean_percentile": 0.9330296323190573,
+            "regret": 0.28937134744163745,
+            "top01_count": 0,
+            "top1_count": 49
+          },
+          "K50": {
+            "best": 0.5025483,
+            "mean": 0.31084155448,
+            "mean_percentile": 0.976325704151597,
+            "regret": 0.28937134744163745,
+            "top01_count": 0,
+            "top1_count": 31
+          }
+        },
+        "HAMMING1_MEAN": {
+          "K10": {
+            "best": 0.43513542,
+            "mean": -0.061650872,
+            "mean_percentile": 0.44103280222312213,
+            "regret": 0.3179008798324883,
+            "top01_count": 0,
+            "top1_count": 1
+          },
+          "K100": {
+            "best": 1.1103612,
+            "mean": 0.27544650392,
+            "mean_percentile": 0.836116518411976,
+            "regret": 0.03214130745332975,
+            "top01_count": 3,
+            "top1_count": 62
+          },
+          "K50": {
+            "best": 1.1103612,
+            "mean": 0.25435599756,
+            "mean_percentile": 0.7790028068313529,
+            "regret": 0.03214130745332975,
+            "top01_count": 3,
+            "top1_count": 29
+          }
+        },
+        "RANDOM_HASH": {
+          "K10": {
+            "best": 0.31352782,
+            "mean": 0.0253815625,
+            "mean_percentile": 0.6061135859016072,
+            "regret": 0.3693659405623315,
+            "top01_count": 0,
+            "top1_count": 1
+          }
+        },
+        "SHUFFLED_B5": {
+          "K10": {
+            "best": 0.2216134,
+            "mean": 0.0026657349,
+            "mean_percentile": 0.5513042688972364,
+            "regret": 0.40826467063552035,
+            "top01_count": 0,
+            "top1_count": 0
+          }
+        }
+      },
+      "random_null_b5_k10": {
+        "best_p": 0.028971028971028972,
+        "mean_p": 0.000999000999000999,
+        "top1_count_p": 0.000999000999000999
+      },
+      "role": "fresh prospective fourth landscape",
+      "source": "COLA-Laboratory/GraphFLA@9f86def1a12db76d26af16077ba28cb61ee0af5f:data/BioSequence/Tu2022_TEV.csv",
+      "top01_threshold": 0.5804515673000173,
+      "top1_threshold": 0.308996465800001,
+      "visible": 15910
+    },
+    "TRPB": {
+      "freeze_sha256": "30631e3316e444c51fb336daad1d1fa9cc655a1a791439cc13a14f443ec0c8f4",
+      "hidden": 143129,
+      "hidden_max": 1.0,
+      "hidden_mean": 0.021105387219455898,
+      "methods": {
+        "B2_ADDITIVE": {
+          "K10": {
+            "best": 0.5546431643903595,
+            "mean": 0.3387998221048876,
+            "mean_percentile": 0.9877145791558665,
+            "regret": 0.3825857401522412,
+            "top01_count": 0,
+            "top1_count": 4
+          },
+          "K100": {
+            "best": 0.742180293379264,
+            "mean": 0.3589673148579074,
+            "mean_percentile": 0.9674982707906854,
+            "regret": 0.22148114814113973,
+            "top01_count": 9,
+            "top1_count": 54
+          },
+          "K50": {
+            "best": 0.742180293379264,
+            "mean": 0.357030186951939,
+            "mean_percentile": 0.9687681741645647,
+            "regret": 0.22148114814113973,
+            "top01_count": 5,
+            "top1_count": 25
+          }
+        },
+        "B3_RAW_PAIR": {
+          "K10": {
+            "best": 0.6276899731422317,
+            "mean": 0.4260433004763639,
+            "mean_percentile": 0.992445975308987,
+            "regret": 0.319834559172076,
+            "top01_count": 1,
+            "top1_count": 7
+          },
+          "K100": {
+            "best": 0.9320335258848317,
+            "mean": 0.424310462950605,
+            "mean_percentile": 0.9485204954970683,
+            "regret": 0.0583868972602493,
+            "top01_count": 20,
+            "top1_count": 64
+          },
+          "K50": {
+            "best": 0.9320335258848317,
+            "mean": 0.4559245803559587,
+            "mean_percentile": 0.9608219158940535,
+            "regret": 0.0583868972602493,
+            "top01_count": 12,
+            "top1_count": 34
+          }
+        },
+        "B5_LIGHTNING": {
+          "K10": {
+            "best": 0.7355625912416567,
+            "mean": 0.430695139116704,
+            "mean_percentile": 0.9917976091497879,
+            "regret": 0.22716611414588905,
+            "top01_count": 2,
+            "top1_count": 6
+          },
+          "K100": {
+            "best": 0.8824664500265383,
+            "mean": 0.37701390991948386,
+            "mean_percentile": 0.9883463868258707,
+            "regret": 0.10096771086439767,
+            "top01_count": 6,
+            "top1_count": 59
+          },
+          "K50": {
+            "best": 0.80047839908962,
+            "mean": 0.40116279243226605,
+            "mean_percentile": 0.9900329073772611,
+            "regret": 0.17139990510343348,
+            "top01_count": 4,
+            "top1_count": 30
+          }
+        },
+        "HAMMING1_MEAN": {
+          "K10": {
+            "best": 0.56430706010365,
+            "mean": 0.17035615589020867,
+            "mean_percentile": 0.8340392233579499,
+            "regret": 0.37428392821493894,
+            "top01_count": 0,
+            "top1_count": 3
+          },
+          "K100": {
+            "best": 1.0,
+            "mean": 0.2590023315012324,
+            "mean_percentile": 0.8669416400589679,
+            "regret": 0.0,
+            "top01_count": 12,
+            "top1_count": 37
+          },
+          "K50": {
+            "best": 1.0,
+            "mean": 0.2596288939098551,
+            "mean_percentile": 0.85073870424582,
+            "regret": 0.0,
+            "top01_count": 7,
+            "top1_count": 18
+          }
+        },
+        "RANDOM_HASH": {
+          "K10": {
+            "best": 0.043527311556775264,
+            "mean": 0.013655249009362403,
+            "mean_percentile": 0.5331973254895934,
+            "regret": 0.8216620520543638,
+            "top01_count": 0,
+            "top1_count": 0
+          }
+        },
+        "SHUFFLED_B5": {
+          "K10": {
+            "best": 0.09629966893452109,
+            "mean": 0.00807249780836566,
+            "mean_percentile": 0.3807753844434042,
+            "regret": 0.7763277273228126,
+            "top01_count": 0,
+            "top1_count": 0
+          }
+        }
+      },
+      "random_null_b5_k10": {
+        "best_p": 0.001998001998001998,
+        "mean_p": 0.000999000999000999,
+        "top1_count_p": 0.000999000999000999
+      },
+      "role": "primary prospective confirmation",
+      "source": "rcronk/mutate@0861a3f1f6c58a9597fde689eb7f9a07b38e2638:ridge/data/johnston2024_trpb_landscape.csv",
+      "top01_threshold": 0.6269191133721195,
+      "top1_threshold": 0.3491067378447123,
+      "visible": 16000
+    }
+  },
+  "version": "LIGHTNING_COMBINATORIAL_PROTEIN_DESIGN_V3_FINAL"
+}

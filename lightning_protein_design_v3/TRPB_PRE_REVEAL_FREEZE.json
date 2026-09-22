@@ -1,0 +1,106 @@
+{
+  "count_by_hamming": {
+    "0": 1,
+    "1": 76,
+    "2": 2166,
+    "3": 27368,
+    "4": 129518
+  },
+  "dataset": "Johnston2024_TrpB",
+  "full_prediction_payload_sha256": "a127838a82d316ea3284d7d24bf4e4c2bb4bc61833c7e1453c114a36af0d7e7b",
+  "generated_candidate_count": 157757,
+  "generated_dormant_count": 0,
+  "hidden_fitness_read_before_freeze": false,
+  "measured_double_context_count": 2166,
+  "missing_double_context_count": 0,
+  "single_effect_count": 76,
+  "source_row_count": 159129,
+  "stage": "PRE_REVEAL_FREEZE",
+  "top20": {
+    "LIGHTNING_B5": [
+      [
+        "GTKG",
+        0.9649552247768584
+      ],
+      [
+        "ILKG",
+        0.9215704755259178
+      ],
+      [
+        "GQKG",
+        0.9175490965641108
+      ],
+      [
+        "AGKG",
+        0.9117669809047416
+      ],
+      [
+        "IIKG",
+        0.906081954738581
+      ],
+      [
+        "YRDF",
+        0.9011366343996616
+      ],
+      [
+        "IGKG",
+        0.8574556036778292
+      ],
+      [
+        "GVKG",
+        0.8399400108603641
+      ],
+      [
+        "IVKG",
+        0.836803488459671
+      ],
+      [
+        "IHKG",
+        0.8356401823492365
+      ],
+      [
+        "ICKG",
+        0.8328767288545195
+      ],
+      [
+        "VLKG",
+        0.8289428773926871
+      ],
+      [
+        "GGKG",
+        0.8275775739297627
+      ],
+      [
+        "VIKG",
+        0.816051131898286
+      ],
+      [
+        "IMKG",
+        0.8112059190142483
+      ],
+      [
+        "CGKG",
+        0.80936563179285
+      ],
+      [
+        "ILLS",
+        0.8092697705041713
+      ],
+      [
+        "IDKG",
+        0.7979149790214554
+      ],
+      [
+        "INKG",
+        0.7972457787390385
+      ],
+      [
+        "WKEK",
+        0.7878497301448945
+      ]
+    ]
+  },
+  "visible_row_count": 2243,
+  "wt": "VFVS",
+  "wt_fitness": 0.4080739252340478
+}

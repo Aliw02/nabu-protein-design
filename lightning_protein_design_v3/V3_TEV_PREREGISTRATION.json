@@ -1,0 +1,23 @@
+{
+  "architecture_and_metrics": "IDENTICAL_TO_V3_PHOQ_PREREGISTRATION",
+  "dataset": {
+    "candidate_space": 160000,
+    "commit": "9f86def1a12db76d26af16077ba28cb61ee0af5f",
+    "expected_rows_from_public_metadata": 159132,
+    "file_size_bytes": 4013975,
+    "github_blob_sha": "c49aa383577bafe2f45bf830ed19931f98a2045d",
+    "name": "TEV_Tu_2022",
+    "path": "data/BioSequence/Tu2022_TEV.csv",
+    "repo": "COLA-Laboratory/GraphFLA"
+  },
+  "no_retuning": true,
+  "purpose": "fourth independent combinatorial landscape replication; specifically test whether B5 precision-at-small-budget generalizes and whether B3 remains stronger at wider budgets",
+  "registered_before_variant_level_outcomes_read": true,
+  "sha256_without_hash_field": "80337247e4203b7dc7a8e6fd35b8c19920b6ec3dca5024cbaa974fb64a14c746",
+  "split": {
+    "hidden_rule": "all other measured standard-AA 4-mers",
+    "outcome_independent": true,
+    "visible_rule": "FNV1a32(variant) mod 10 == 0"
+  },
+  "version": "LIGHTNING_COMBINATORIAL_PROTEIN_DESIGN_V3_TEV_PREREG"
+}

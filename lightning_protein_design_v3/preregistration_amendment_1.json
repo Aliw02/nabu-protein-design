@@ -1,0 +1,15 @@
+{
+  "forbidden": [
+    "hidden-label imputation",
+    "nearest-neighbor pair substitution",
+    "amino-acid property lookup",
+    "post-reveal tuning"
+  ],
+  "hidden_fitness_revealed": false,
+  "reason": "The public GB1 landscape has 2,091 measured double mutants rather than the theoretical 2,166, leaving 75 exact double contexts unmeasured.",
+  "scientific_rationale": "Preserve the architecture's evidence boundary: missing evidence is absence of support, not evidence to fabricate.",
+  "sha256": "250986d4899aede55ec6412b11d49a78b836f88c08a831babcea2da6bdc49015",
+  "single_changed_implementation_rule": "For an unmeasured visible double context, do not impute or infer an epistasis residual. PAIRWISE_RAW contributes zero residual for that missing pair (falls back to additive for that pair). LIGHTNING_B5 treats that pair as unsupported/DORMANT and contributes zero resonance-weighted residual. Candidate is retained and other measured pair memories still contribute.",
+  "status": "FROZEN_AFTER_VISIBLE_SCHEMA/COVERAGE CHECK, BEFORE ANY HIDDEN FITNESS REVEAL",
+  "version": "LIGHTNING_COMBINATORIAL_PROTEIN_DESIGN_V3_PREREG_AMENDMENT_1"
+}

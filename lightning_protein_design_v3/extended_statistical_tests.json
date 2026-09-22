@@ -1,0 +1,42 @@
+{
+  "NBS_V4_vs_Additive_unique_top100_top0.1pct": {
+    "fisher_p_two_sided": 6.821758876083489e-13,
+    "odds_ratio": 280.0,
+    "table": [
+      [
+        28,
+        3
+      ],
+      [
+        1,
+        30
+      ]
+    ]
+  },
+  "TrpB3A_I": {
+    "ndcg100_negative_windows": 3,
+    "ndcg100_positive_windows": 6,
+    "ndcg100_sign_test_two_sided": 0.5078125,
+    "spearman_negative_windows": 1,
+    "spearman_positive_windows": 8,
+    "spearman_sign_test_two_sided": 0.0390625,
+    "top1pct_hits_negative_windows": 3,
+    "top1pct_hits_positive_windows": 4,
+    "top1pct_hits_sign_test_two_sided_non_ties": 1.0,
+    "top1pct_hits_ties": 2
+  },
+  "parS_V4_vs_Additive_unique_top100_top0.1pct": {
+    "fisher_p_two_sided": 6.686447220045718e-05,
+    "odds_ratio": 18.88888888888889,
+    "table": [
+      [
+        20,
+        3
+      ],
+      [
+        6,
+        17
+      ]
+    ]
+  }
+}

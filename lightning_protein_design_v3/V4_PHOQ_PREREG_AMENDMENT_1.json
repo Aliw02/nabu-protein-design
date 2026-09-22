@@ -1,0 +1,21 @@
+{
+  "hidden_fitness_revealed": false,
+  "observed_visible_coverage": {
+    "WT": 1,
+    "measured_doubles": 1830,
+    "measured_singles": 69,
+    "theoretical_doubles": 2166,
+    "theoretical_singles": 76
+  },
+  "reason": "Preserve the same proof/evidence boundary used by Lightning: absence of visible evidence must not be converted into invented evidence.",
+  "sha256": "2c773edc91d890025828460e980b4de473d89e274f347f2e40466ae454dfa082",
+  "single_changed_missing-evidence_contract": [
+    "A mutation token whose exact single-mutant measurement is absent receives zero single-effect contribution; this means unsupported, not biologically neutral.",
+    "Any double-memory residual involving a mutation token lacking its single measurement is unavailable and contributes zero.",
+    "Any exact double genotype absent from visible measurements contributes zero.",
+    "The candidate remains in the generated universe and is explicitly marked with unsupported mutation/pair counts.",
+    "No hidden outcome, amino-acid lookup table, nearest-neighbor substitution, or learned imputation may fill missing evidence."
+  ],
+  "status": "FROZEN_AFTER_VISIBLE_COVERAGE_CHECK, BEFORE ANY HIDDEN FITNESS REVEAL",
+  "version": "LIGHTNING_COMBINATORIAL_PROTEIN_DESIGN_V4_PHOQ_AMENDMENT_1"
+}

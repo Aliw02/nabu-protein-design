@@ -1,0 +1,87 @@
+{
+  "architecture": {
+    "candidate_domain": "cartesian product of amino-acid states observed at each of the four positions, excluding the 588 visible variants",
+    "dream_status": "WARM if at least one pair-state is observed; DORMANT otherwise",
+    "frozen_from": "GB1_V3_PROTOCOL_AMENDMENT_PRE_REVEAL",
+    "lambda_pair": "median support across observed position-pair-state cells",
+    "lightning_score": "additive memory + mean(weighted pair residuals over observed pair states)",
+    "main_shrinkage": "n/(n+lambda_main), lambda_main = median support across observed position-state cells",
+    "no_amino_acid_property_tables": true,
+    "no_embeddings": true,
+    "no_hidden_fitness_before_freeze": true,
+    "no_structure_model": true,
+    "pair_residual": "visible pair-state mean minus global mean and shrunk main effects, then n/(n+lambda_pair)",
+    "relative_resonance_weight": "abs(2*((rank-0.5)/N)-1) within each position-pair residual distribution",
+    "target_transform": "log1p(fitness)"
+  },
+  "contamination_boundary": {
+    "raw_superset_rows_previously_displayed_before_this_prereg": "1-332 only",
+    "selected_visible_rows_all_start_after_332": true,
+    "those_rows_used_for_training": false
+  },
+  "dataset": {
+    "all_full_variants_experimentally_measured": true,
+    "full_domain_size": 160000,
+    "mirror": "soldatmat/CZAI_Summer_School-MLDE_landscapes",
+    "name": "TrpB combinatorially complete 4-site fitness landscape",
+    "source_file_hidden": "TrpB_fitness_full.csv",
+    "source_file_visible": "TrpB_superset_fitness.csv"
+  },
+  "matched_controls": {
+    "ADDITIVE_MEMORY": "same visible data and main effects, no pair resonance",
+    "RANDOM_HASH": "SHA256 lexical hash ordering, no fitness information",
+    "RIDGE_MAIN_PAIR": "one-hot 4 single-state + 6 pair-state features, RidgeCV 17 logspace alphas 1e-4..1e4, deterministic 5-fold KFold random_state=161",
+    "SHUFFLE_CONTROL": "after primary freeze/reveal, permute visible fitness deterministically with seed 161 and rerun unchanged Lightning"
+  },
+  "post_reveal_rule": "No tuning on TrpB. Any change after reveal creates a new version and requires a new untouched benchmark.",
+  "prereg_sha256_without_self_hash": "e90815584262e434149eb78233404966855ea3e64de0af248ff05f1f841ee73a",
+  "primary_metrics": [
+    "Top-1 fitness",
+    "mean Top-5 fitness",
+    "mean Top-10 fitness",
+    "median Top-10 fitness",
+    "fraction Top-10 above WT fitness",
+    "best fitness recovered in Top-10"
+  ],
+  "reveal_budget": "Top-10 per primary arm; evaluate union only after all arms are frozen",
+  "status": "FROZEN_BEFORE_SELECTED_VISIBLE_WINDOWS_AND_BEFORE_ANY_HIDDEN_TRPB_CANDIDATE_REVEAL",
+  "strict_shareable_pass": {
+    "all_required": true,
+    "gate_1": "Lightning mean Top-10 > best of additive, ridge, random",
+    "gate_2": "Lightning mean Top-5 > best of additive, ridge, random",
+    "gate_3": "Lightning fraction Top-10 above WT >= best matched baseline",
+    "gate_4": "shuffled-label Lightning mean Top-10 <= 50% of true-label Lightning mean Top-10"
+  },
+  "version": "TRPB_V4_PROSPECTIVE_COMBINATORIAL_DESIGN_PREREG",
+  "visible_selection": {
+    "budget": 588,
+    "rule": "six fixed non-overlapping 98-row windows from the 5000-row superset; row numbers are 1-indexed data rows after the CSV header",
+    "selection_depends_on_fitness": false,
+    "windows": [
+      [
+        650,
+        747
+      ],
+      [
+        1450,
+        1547
+      ],
+      [
+        2250,
+        2347
+      ],
+      [
+        3050,
+        3147
+      ],
+      [
+        3850,
+        3947
+      ],
+      [
+        4650,
+        4747
+      ]
+    ]
+  }
+}
