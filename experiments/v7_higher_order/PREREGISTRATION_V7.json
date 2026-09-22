@@ -1,0 +1,46 @@
+{
+  "version": "NABU_HIGHER_ORDER_GENERALIZATION_V7",
+  "status": "PREREGISTERED_BEFORE_EXECUTION",
+  "parent_commit": "e6b7d7922414c2b53e4aa7a37184738712b78656",
+  "scientific_question": "Does the full NABU interaction model add reproducible hidden-combination selection value beyond additive and raw-pair baselines?",
+  "dataset_policy": "Use an existing benign combinatorial landscape CSV. Outcome labels may be read only by the split/evaluation stage. Candidate scoring receives visible labels and hidden mutation identities only.",
+  "split": {
+    "canonical_id": "mutation tokens sorted by residue position and joined with ':'",
+    "hash": "FNV1a32(canonical_id)",
+    "visible": "hash_mod_10 in 0..6",
+    "hidden": "hash_mod_10 in 7..9"
+  },
+  "eligibility": "Hidden variants with 3-5 substitutions; every component must occur in visible data; at least one mutation pair must occur in visible data.",
+  "arms": [
+    "B2_ADDITIVE",
+    "B3_RAW_PAIR",
+    "B5_NABU_CONSENSUS",
+    "SHUFFLED_B5"
+  ],
+  "candidate_budget": 50,
+  "fixed_hyperparameters": {
+    "main_shrinkage_lambda": 1.0,
+    "pair_shrinkage_lambda": 1.0,
+    "shuffle_rotation": 161,
+    "b5_pair_support_floor": 2,
+    "b5_consensus_rule": "mean of standardized additive and raw-pair scores"
+  },
+  "pre_reveal_freeze": "Freeze Top-50 candidate IDs and predicted scores for every arm plus SHA-256 before hidden outcomes are evaluated.",
+  "primary_metrics": [
+    "hidden Spearman",
+    "Top-1 truth percentile",
+    "Top-5 mean truth percentile",
+    "Top-50 enrichment for hidden top 1 percent",
+    "normalized Top-1 regret"
+  ],
+  "success_gate": {
+    "required": [
+      "B5 beats B3_RAW_PAIR on at least 3 of 4 design-selection metrics: Top1 percentile, Top5 mean percentile, Top50 enrichment, normalized regret",
+      "B5 Top50 enrichment > 1.0",
+      "absolute SHUFFLED_B5 Spearman < 0.05"
+    ],
+    "interpretation": "PASS supports added selection value beyond raw pairwise. FAIL means current full NABU has not demonstrated that added value on this test."
+  },
+  "anti_retuning": "No threshold, aggregation, split, candidate budget, or success-gate changes after reveal. Any change becomes V8 on fresh data.",
+  "boundary": "Computational benchmark only; not laboratory validation and not de novo protein creation."
+}
