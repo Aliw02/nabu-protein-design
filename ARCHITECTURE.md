@@ -1,127 +1,213 @@
-# Mathematical Architecture and Algorithmic Foundations (NABU V8.3)
+# NABU V8.3 — Frozen Phase-1 Architecture
 
-## 1. Problem Formulation
+## Status
 
-Let a protein variant $x$ be defined as a set of $K$ discrete amino-acid substitutions relative to a wild-type reference sequence:
-$$x = \{m_1, m_2, \dots, m_K\}$$
-where each element $m_k = (\text{wt\_aa}, \text{pos}_k, \text{mut\_aa})$ denotes a single-point substitution at residue position $\text{pos}_k$.
+**Phase 1 core architecture: frozen and closed.**
 
-Given a training set of observed combinatorial variants $\mathcal{D}_{\text{visible}} = \{(x_i, y_i)\}_{i=1}^N$, where $y_i \in \mathbb{R}$ represents experimental fitness measured via Deep Mutational Scanning (DMS), the objective is to predict the fitness $\hat{y}(x)$ of unseen combinatorial variants $x \in \mathcal{X}_{\text{hidden}}$.
+Canonical core:
 
----
+`freeze/nabu-v8-3-dual-objective-router-validated`  
+Commit: `c8afdcd7698231d95a39ef13a3fe22b6e3f507c5`
 
-## 2. Layered Architectural Decomposition
+Phase-1 closure:
 
-```mermaid
-graph TD
-    subgraph Layer 1: Global Reference
-        G[Global Mean mu_g]
-    end
-    subgraph Layer 2: Additive Main Memory
-        C[Single Substitution Effects C_m with Empirical Bayesian Shrinkage]
-        G --> Base[Additive Base Model B_2]
-        C --> Base
-    end
-    subgraph Layer 3: Pairwise Epistatic Residuals
-        P[Pairwise Residual Effects R_p]
-        Base --> B3[Pairwise Model B_3 = B_2 + Sum R_p]
-        P --> B3
-    end
-    subgraph Layer 4: Cross-Fitted Higher-Order Hierarchy
-        T[Cross-Fitted Triplet Residuals Delta_3]
-        Q[Cross-Fitted Quartet Residuals Delta_4]
-        B3 --> B4[Triplet Model B_4]
-        T --> B4
-        B4 --> B5[Full Adaptive Higher-Order Model B_5]
-        Q --> B5
-    end
-    subgraph Layer 5: Adaptive Dual-Objective Router
-        OOF[Visible Out-Of-Fold Cross-Validation]
-        Router{Router Mode Selection}
-        B3 --> OOF
-        B4 --> OOF
-        B5 --> OOF
-        OOF --> Router
-        Router -- "OOF Delta > 0" --> M1[Mode 1: GLOBAL_HIGHER_ORDER B_5]
-        Router -- "OOF Delta <= 0 & Elite Delta > 0" --> M2[Mode 2: TOP20_RERANK B_3 + Elite B_5]
-        Router -- "OOF Delta <= 0 & Elite Delta <= 0" --> M3[Mode 3: B3_PROTECTED Safety Net B_3]
-    end
-    M1 --> Final[Final Predicted Fitness Score]
-    M2 --> Final
-    M3 --> Final
-```
+`freeze/nabu-phase1-final-cr9114-closed`  
+Commit: `690494691c20edc3c9b7a6bba9a5156913173c58`
 
----
+No Phase-1 architecture thresholds or routing rules should be retuned on the revealed Phase-1 datasets.
 
-### 2.1 Layer 1: Global Baseline
-The visible sample mean $\mu_g$ is computed directly from training observations:
-$$\mu_g = \frac{1}{|\mathcal{D}_{\text{visible}}|} \sum_{(x_i, y_i) \in \mathcal{D}_{\text{visible}}} y_i$$
+## 1. Problem formulation
 
----
+A protein variant is represented as a set of discrete substitutions
 
-### 2.2 Layer 2: Main Memory with Empirical Bayesian Shrinkage
-For each single substitution $m$, let $\mathcal{S}_m = \{(x_i, y_i) \in \mathcal{D}_{\text{visible}} \mid m \in x_i\}$ denote the subset containing $m$, with support $n_m = |\mathcal{S}_m|$.
+[
+x = {m_1, m_2, dots, m_K}.
+]
 
-The raw observed mean for substitution $m$ is:
-$$\bar{y}_m = \frac{1}{n_m} \sum_{(x_i, y_i) \in \mathcal{S}_m} y_i$$
+Given measured variants
 
-Under an Empirical Bayes prior centered at the global mean, the shrinkage-adjusted component effect $C(m)$ is:
-$$C(m) = (\bar{y}_m - \mu_g) \cdot \left( \frac{n_m}{n_m + \lambda_{\text{main}}} \right)$$
-where $\lambda_{\text{main}} > 0$ serves as the regularization parameter (default $\lambda_{\text{main}} = 1.0$).
+[
+mathcal{D}_{visible} = {(x_i,y_i)}_{i=1}^{N},
+]
 
-The additive base score for any combination $x$ is:
-$$\text{Base}(x) = \mu_g + \sum_{m \in x} C(m)$$
+NABU estimates fitness for unseen combinatorial variants and ranks candidates for experimental follow-up.
 
----
+The Phase-1 system is deliberately non-parametric: it stores observed main effects and residual interaction memories rather than learning a large neural network.
 
-### 2.3 Layer 3: Pairwise Epistatic Residuals
-Linear additive models fail to capture second-order residue-residue interactions. First-order additive residuals are computed for all visible variants:
-$$r_i = y_i - \text{Base}(x_i)$$
+## 2. Frozen core hierarchy
 
-For each residue pair $p = (m_j, m_k) \in \binom{x}{2}$, let $\mathcal{S}_p = \{(x_i, y_i) \in \mathcal{D}_{\text{visible}} \mid \{m_j, m_k\} \subseteq x_i\}$ with support $n_p = |\mathcal{S}_p|$.
+### B2 — additive main-effect memory
 
-The mean residual interaction is:
-$$\bar{r}_p = \frac{1}{n_p} \sum_{i \in \mathcal{S}_p} r_i$$
+Global mean:
 
-Applying pairwise Empirical Bayesian shrinkage yields the regularized pairwise effect:
-$$R(p) = \bar{r}_p \cdot \left( \frac{n_p}{n_p + \lambda_{\text{pair}}} \right)$$
+[
+mu = rac{1}{N}sum_i y_i.
+]
 
-The pairwise predicted score ($B_3$) is:
-$$\hat{y}_{B_3}(x) = \text{Base}(x) + \sum_{p \in \binom{x}{2}, \, p \in \mathcal{P}_{\text{obs}}} R(p)$$
+For each mutation (m), with support (n_m):
 
----
+[
+C(m) = (ar y_m-mu)rac{n_m}{n_m+lambda_{main}}.
+]
 
-### 2.4 Layer 4: Cross-Fitted Triplet and Quartet Higher-Order Hierarchy
-To capture 3-body and 4-body epistasis without in-sample overfitting, NABU implements $K$-fold cross-fitting (default $K=5$, seed 161). 
+Then
 
-Second-order residuals are defined as:
-$$r_{2, i} = y_i - \hat{y}_{B_3}(x_i)$$
+[
+hat y_{B2}(x)=mu+sum_{min x}C(m).
+]
 
-For each triplet $t = (m_j, m_k, m_l) \in \binom{x}{3}$ and quartet $q = (m_j, m_k, m_l, m_m) \in \binom{x}{4}$, out-of-fold cross-fitted memory tables are constructed:
-$$\Delta_3(t) = \bar{r}_{2, t} \cdot \left( \frac{n_t}{n_t + \lambda_{\text{triplet}}} \right), \quad \Delta_4(q) = \bar{r}_{3, q} \cdot \left( \frac{n_q}{n_q + \lambda_{\text{quartet}}} \right)$$
+### B3 — pairwise residual memory
 
-The full adaptive higher-order score ($B_5$) combines all hierarchical orders:
-$$\hat{y}_{B_5}(x) = \hat{y}_{B_3}(x) + \sum_{t \in \binom{x}{3}} \Delta_3(t) + \sum_{q \in \binom{x}{4}} \Delta_4(q)$$
+Residual after B2:
 
----
+[
+r_i^{(2)}=y_i-hat y_{B2}(x_i).
+]
 
-### 2.5 Layer 5: Adaptive Dual-Objective Router
-To prevent whole-landscape rank harm on sparse or noisy combinatorial datasets while retaining maximum elite candidate discovery power, NABU performs automated visible out-of-fold (OOF) cross-validation:
+For each pair (p):
 
-$$\Delta_{\text{OOF}} = \rho_{\text{OOF}}(B_4) - \rho_{\text{OOF}}(B_3)$$
+[
+R_2(p)=ar r_p^{(2)}rac{n_p}{n_p+lambda_{pair}}.
+]
 
-1. **Mode 1 (`GLOBAL_HIGHER_ORDER`)**: If $\Delta_{\text{OOF}} > 0$, the full higher-order model ($B_5$) is applied across the entire landscape.
-2. **Mode 2 (`RANK_PRESERVING_B3_TOP20_B5_RERANK`)**: If $\Delta_{\text{OOF}} \le 0$ but visible OOF Top-20% elite diagnostic shows positive top-percentile gain ($\Delta_{\text{Top50}} > 0$) without decreasing Top-1% hits, the bottom 80% retains $B_3$ ranking while the top 20% elite pool is reranked by $B_5$.
-3. **Mode 3 (`B3_PROTECTED_NO_HIGHER_ORDER`)**: If neither global nor elite higher-order gains are observed, higher-order terms are suppressed and $B_3$ is preserved exactly as a safety net.
+Then
 
----
+[
+hat y_{B3}(x)=hat y_{B2}(x)+sum_{psubseteq x}R_2(p).
+]
 
-## 3. Computational and Asymptotic Complexity
+B3 is the protected backbone of V8.3.
 
-| Dimension | Deep Learning Models (ESM-2 / AlphaFold / ProteinMPNN) | NABU V8.3 Architecture | Practical Advantage |
-| :--- | :---: | :---: | :---: |
-| **Model Nature** | Parametric Neural Network ($10^8 - 10^9$ weights) | **Non-Parametric Epistatic Memory Hierarchy** | Zero weight tuning / exact hash lookup |
-| **Compute Hardware** | High-end GPU Clusters (A100 / H100) | **Standard x86 / ARM CPU** | $> 10^4\times$ lower hardware cost |
-| **Fitting Latency** | Hours to Days | **$< 0.5$ seconds** | $> 50,000\times$ faster iteration |
-| **Inference Throughput** | $10 - 100\text{ variants/sec}$ | **$> 100,000\text{ variants/sec}$** | Instantaneous library evaluation |
-| **Memory Footprint** | Gigabytes of VRAM | **Megabytes of RAM** | $O(N + |\mathcal{P}| + |\mathcal{T}| + |\mathcal{Q}|)$ linear in observed tuples |
+### B4 — cross-fitted triplet residual memory
+
+B3 predictions used to create triplet targets are generated out of fold. The row being scored does not train the residual target used for its own higher-order memory.
+
+Triplet residuals are shrinkage-weighted and require repeated support.
+
+[
+hat y_{B4}(x)=hat y_{B3}(x)+Delta_3(x).
+]
+
+### B5 — cross-fitted quartet residual memory
+
+Quartet targets are learned from residuals after the strict cross-fitted B4 stage.
+
+[
+hat y_{B5}(x)=hat y_{B4}(x)+Delta_4(x).
+]
+
+The implementation uses support-aware confidence and partial subset coverage rather than assuming every higher-order tuple is observed.
+
+## 3. Dual-Objective Router
+
+The router uses **visible-data OOF diagnostics only**.
+
+### Mode 1 — `GLOBAL_HIGHER_ORDER`
+
+If visible OOF B4 Spearman exceeds B3 Spearman:
+
+[
+ho_{OOF}(B4) > ho_{OOF}(B3),
+]
+
+use B5 globally.
+
+### Mode 2 — `RANK_PRESERVING_B3_TOP20_B5_RERANK`
+
+If global OOF higher-order gain is not positive, freeze the B3 top-20% candidate region.
+
+Higher-order reranking is allowed only inside that frozen region if the visible OOF elite diagnostic satisfies both:
+
+- Top-50 mean true percentile improves;
+- Top-50 Top-1% hit count does not decrease.
+
+Region membership remains B3-defined, preventing cross-boundary distortion.
+
+### Mode 3 — `B3_PROTECTED_NO_HIGHER_ORDER`
+
+If neither global nor elite visible evidence supports higher-order use, preserve B3 exactly.
+
+This is an explicit abstention/safety mechanism rather than a failure state.
+
+## 4. Why the router exists
+
+Phase-1 experiments established three different regimes:
+
+- **Global higher-order benefit**: PHOT, TrpB, eqFP611, CR9114-H1.
+- **Elite-only higher-order benefit**: GB1.
+- **Higher-order suppression required**: PhoQ and CreiLOV's low-order training regime.
+
+Therefore NABU does not assume higher-order epistasis is universally useful. The frozen architecture first asks whether the visible evidence justifies using it.
+
+## 5. Final fresh 4/5-mutation gate
+
+On CR9114-H1, before hidden reveal:
+
+- Passive 40% triplet entries: 546
+- Passive 40% quartet entries: 1,698
+- Active 20% triplet entries: 545
+- Active 20% quartet entries: 1,024
+- Fixed hidden 4/5-mutant candidates: 1,673
+- Hidden scoreability coverage: 100%
+
+At Passive 40%:
+
+- B3 Spearman = 0.9271
+- V8.3 Spearman = 0.9387
+- 4/5 primary metrics strictly improved
+- 5/5 primary metrics had no regression
+
+This passed the frozen core gate.
+
+## 6. Optional Active Acquisition layer
+
+The Active Acquisition controller is **outside** the V8.3 core.
+
+Frozen development checkpoint:
+
+`freeze/nabu-v8-3-rhla-active-acquisition-dev-2x`
+
+Policy:
+
+[
+AcquisitionScore =
+0.5 	imes ExplorationRank +
+0.5 	imes ExploitationRank.
+]
+
+Exploration favors poorly supported mutation/pair structure. Exploitation favors candidates ranked highly by the current frozen V8.3 model.
+
+The controller follows a measure-update-measure loop, but Phase-1 evidence showed **non-monotonic budget behavior**:
+
+- RhlA retrospective development: Active 20% reached the Passive 40% practical threshold.
+- CR9114-H1 fresh gate: Active 10% reached Passive 40%, but Active 20% failed the preregistered target.
+
+Therefore the controller is preserved as an experimental outer policy, not part of the universally validated core.
+
+## 7. Anti-leakage protocol
+
+Final sealed experiments use:
+
+- deterministic identity-only splits,
+- physically separated identity and truth files,
+- SHA-256 manifests,
+- frozen candidate rankings before truth reveal,
+- negative shuffled-label controls,
+- no post-reveal retuning.
+
+Historical runbooks remain unchanged to preserve auditability.
+
+## 8. Phase-2 boundary
+
+Phase 2 will build **above** the frozen V8.3 core.
+
+The first goal is not another static benchmark. It is a closed-loop combinatorial design system that:
+
+1. starts from a small measured set,
+2. assembles or selects candidate variants,
+3. chooses which candidates to measure,
+4. receives only those results,
+5. updates memory,
+6. repeats under a fixed experimental budget.
+
+Phase 2 may revise the outer design/acquisition policy, but the Phase-1 V8.3 core should remain available as the frozen reference baseline.
