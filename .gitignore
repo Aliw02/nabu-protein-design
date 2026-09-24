@@ -46,6 +46,8 @@ venv.bak/
 *.zip
 !lightning_combinatorial_blind_v4_laptop.zip
 PHOT_CHLRE_Chen_2023.csv
+gb1_wu2016_landscape.csv
+GB1_Wu2016_NABU_V8_1.csv
 
 # Output / experiment artifacts
 results_v4/
