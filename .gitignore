@@ -62,3 +62,7 @@ scratch/
 # CreiLOV sealed candidate test
 CreiLOV_clean.xlsx
 creilov_sealed_input/.HIDDEN_TRUTH.sealed.csv
+
+# eqFP611 sealed higher-order test
+eqFP611_clean.xlsx
+eqfp611_sealed_input/.HIDDEN_TRUTH.sealed.csv
