@@ -1,0 +1,56 @@
+{
+  "version": "NABU_V8_3_RHLA_ACTIVE_ACQUISITION_DEV_V1",
+  "status": "RETROSPECTIVE_CONTROLLER_DEVELOPMENT",
+  "scientific_claim_boundary": "RhlA hidden truth has already been revealed in a prior experiment. This experiment develops and audits an acquisition controller retrospectively; it is not fresh prospective validation.",
+  "base_architecture": {
+    "branch": "freeze/nabu-v8-3-dual-objective-router-validated",
+    "commit": "c8afdcd7698231d95a39ef13a3fe22b6e3f507c5",
+    "architecture_changes": false
+  },
+  "rhla_reference": {
+    "freeze_branch": "freeze/nabu-v8-3-rhla-sample-efficiency-40pct-threshold",
+    "commit": "7ca494746bd6ec1a5de5e61247aa85cd396a5349",
+    "fixed_hidden_pool_rows": 540,
+    "passive_reference_budget_percent": 40
+  },
+  "initial_state": {
+    "budget_percent": 5,
+    "selection": "exact same deterministic 5% membership frozen in the prior RhlA sample-efficiency experiment"
+  },
+  "active_budgets": [10, 20, 40],
+  "controller": {
+    "type": "external acquisition controller above frozen NABU V8.3",
+    "round_policy": "50 percent structural exploration plus 50 percent V8.3 exploitation by rank fusion",
+    "structural_exploration": "For each unmeasured candidate, compute mean support deficit over its main effects and pair subsets: deficit=1/sqrt(1+support). Higher is more exploratory.",
+    "exploitation": "Score candidates using the current frozen V8.3 model and its current OOF-selected router mode. Unscoreable candidates receive the lowest exploitation rank, not synthetic fitness.",
+    "fusion": "acquisition_score = 0.5 * percentile_rank(structural_exploration) + 0.5 * percentile_rank(exploitation)",
+    "ties": "candidate_id ascending",
+    "labels_for_unselected_candidates": "forbidden to acquisition policy"
+  },
+  "evaluation": {
+    "fixed_hidden_pool": "exact same 540 hidden triple-mutant candidates frozen in prior RhlA test",
+    "metrics": [
+      "Spearman",
+      "Top-10 mean percentile",
+      "Top-50 mean percentile",
+      "Top-50 true Top-1% hits",
+      "normalized Top-1 regret"
+    ],
+    "comparison": [
+      "active budget vs same-size prior passive budget",
+      "active budget vs frozen passive 40% reference"
+    ]
+  },
+  "target_question": "Can active 10% or 20% reach the practical threshold previously requiring passive 40%?",
+  "success_against_frozen_passive_40_reference": {
+    "spearman_retention_min": 0.90,
+    "top10_mean_percentile_absolute_gap_max": 0.03,
+    "top50_mean_percentile_absolute_gap_max": 0.02,
+    "top50_top1pct_hits_allowed_loss_max": 1
+  },
+  "anti_leakage_simulation": {
+    "stage_A": "Start from prior frozen 5% labels. At each round the selector receives candidate identities plus the current fitted model only, freezes selected IDs and acquisition scores, then reveals labels for those selected IDs from TRAINING_POOL.csv to fit the next round. Hidden-test truth is never loaded.",
+    "stage_B": "Verify Stage-A hashes, then load the same sealed hidden-triple truth and compare active budgets to frozen prior passive metrics.",
+    "post_result_controller_retuning": false
+  }
+}
