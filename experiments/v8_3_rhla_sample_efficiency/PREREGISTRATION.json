@@ -1,0 +1,88 @@
+{
+  "version": "NABU_V8_3_RHLA_SAMPLE_EFFICIENCY_SEALED_V1",
+  "status": "FROZEN_BEFORE_RHLA_OUTCOME_LOAD",
+  "base_freeze": {
+    "branch": "freeze/nabu-v8-3-dual-objective-router-validated",
+    "commit": "c8afdcd7698231d95a39ef13a3fe22b6e3f507c5"
+  },
+  "dataset": {
+    "name": "RhlA combinatorial protein fitness landscape",
+    "source_repo": "sitonglab/CombinGym",
+    "source_commit": "c5dccd514a9acfe1089a5f1555faea98afd78019",
+    "source_path": "Data/DMS/Clean/RhlA_clean.xlsx",
+    "github_blob_sha": "0cb393531ab6fff5fa8f037221d50cf543429dcd",
+    "source_size_bytes": 287350,
+    "selection_reason": "Untouched in NABU repository history; public clean combinatorial dataset with genotype, mutation count, and fitness fields."
+  },
+  "candidate_scope": {
+    "allowed_mutation_counts": [3, 4, 5],
+    "reason": "Stay inside the mutation-count regime already validated by frozen V8.3 while allowing higher-order memory when support exists."
+  },
+  "fixed_hidden_test": {
+    "rule": "FNV1a32(candidate_id) mod 10 in {7,8,9}",
+    "fraction_target": 0.30,
+    "fitness_hidden_until_stage_B": true,
+    "same_hidden_pool_for_all_budgets": true
+  },
+  "training_pool": {
+    "rule": "FNV1a32(candidate_id) mod 10 in {0,1,2,3,4,5,6}",
+    "budget_order": "sort by FNV1a32('BUDGET|' + candidate_id), ascending",
+    "nested": true
+  },
+  "budgets": {
+    "percent_of_all_eligible_rows": [5, 10, 20, 40],
+    "selection": "For each p, take the first ceil(p/100 * total_eligible_rows) rows from the deterministic training-pool ordering.",
+    "no_fitness_used_for_budget_selection": true
+  },
+  "fixed_candidate_pool": {
+    "definition": "Intersection of hidden candidates scoreable by the 5% B3/V8.3 model; the same pool is used at 5%, 10%, 20%, and 40%.",
+    "minimum_coverage_fraction_of_hidden_test": 0.50,
+    "qualification_before_reveal": true
+  },
+  "architecture": {
+    "name": "NABU V8.3 Dual-Objective Router",
+    "no_architecture_changes": true,
+    "global_gate": "if visible OOF B4 Spearman > B3 OOF Spearman, use global B5",
+    "elite_gate": "otherwise allow rank-preserving B5 rerank inside frozen B3 top-20% only if visible OOF elite Top-50 mean percentile improves and Top-1%-hit count does not decrease",
+    "safety_gate": "otherwise preserve B3 exactly",
+    "support_and_shrinkage": "identical to frozen V8.3",
+    "post_reveal_retuning": false
+  },
+  "stage_a_outputs": {
+    "freeze_top_k": [10, 50],
+    "arms_per_budget": [
+      "B3_RAW_PAIR",
+      "B5_CROSSFIT_ADAPTIVE_HIGHER_ORDER",
+      "V8_3_ADAPTIVE_ROUTER"
+    ],
+    "negative_controls": [
+      "RANDOM_HASH",
+      "40PCT_SHUFFLED_LABEL_V8_3"
+    ],
+    "sha256_required": true
+  },
+  "primary_metrics_per_budget": [
+    "hidden pooled Spearman",
+    "Top-10 mean hidden-fitness percentile",
+    "Top-50 mean hidden-fitness percentile",
+    "Top-50 count of true hidden Top-1% variants",
+    "normalized Top-1 regret"
+  ],
+  "practical_threshold_vs_40pct_reference": {
+    "definition": "smallest budget satisfying all criteria below against the frozen 40% V8.3 reference",
+    "spearman_retention_min": 0.90,
+    "top10_mean_percentile_absolute_gap_max": 0.03,
+    "top50_mean_percentile_absolute_gap_max": 0.02,
+    "top50_top1pct_hits_allowed_loss_max": 1
+  },
+  "router_safety_check": {
+    "per_budget": "V8.3 must be compared against the same-budget B3 baseline on every primary metric.",
+    "purpose": "measure whether adaptive routing adds value or protects the pairwise backbone as data availability changes."
+  },
+  "anti_leakage": {
+    "stage_0": "package training-pool labels, hidden identities, and sealed hidden truth without printing hidden fitness values",
+    "stage_A": "construct all four nested budgets, fit frozen V8.3, choose router mode independently from each budget visible OOF, freeze all predictions/candidates/hashes, then exit",
+    "stage_B": "verify every Stage-A hash before loading sealed hidden truth once and evaluating every frozen budget",
+    "hidden_truth_forbidden_during_stage_A": true
+  }
+}
