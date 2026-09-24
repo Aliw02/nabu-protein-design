@@ -7,18 +7,21 @@ from pathlib import Path
 import pandas as pd
 
 
+RHLAA_SITE_POSITIONS = [74, 101, 143, 148, 173, 176]
+RHLAA_WT_STATES = "RAQLSQ"
+
 GENOTYPE_NAMES = [
     "genotype", "genotypes", "mutant", "mutants", "variant", "variants",
     "sequence", "sequences", "aas", "aa", "mutated_sequence", "mutant_sequence",
     "mutation", "mutations",
 ]
 FITNESS_NAMES = [
-    "combined", "red", "blue", "fitness", "score", "scores", "dms_score", "phenotype", "brightness",
-    "fluorescence", "activity", "value", "mean", "mean_log",
+    "fitness", "combined", "activity", "normalized_activity",
+    "score", "scores", "dms_score", "phenotype", "value", "mean", "mean_log",
 ]
 COUNT_NAMES = [
-    "n_mut", "mutation_count", "mut_count", "n_mutations", "n_muts", "num_mutations",
-    "num_muts", "number_of_mutations",
+    "n_mut", "mutation_count", "mut_count", "n_mutations", "n_muts",
+    "num_mutations", "num_muts", "number_of_mutations",
 ]
 TOKEN_RE = re.compile(r"[A-Z][0-9]+[A-Z*]")
 
@@ -81,34 +84,64 @@ def clean_sequence(value):
     return re.sub(r"[^A-Za-z*]", "", str(value)).upper()
 
 
+def encode_compact_rhla(sequence):
+    if len(sequence) != len(RHLAA_SITE_POSITIONS):
+        raise ValueError(sequence)
+    tokens = []
+    for wt, aa, position in zip(
+        RHLAA_WT_STATES,
+        sequence,
+        RHLAA_SITE_POSITIONS,
+    ):
+        if aa != wt:
+            tokens.append(f"{wt}{position}{aa}")
+    return ":".join(tokens)
+
+
 def build_mutant_strings(frame, genotype_col, mutation_count):
     notation = frame[genotype_col].map(parse_mutation_notation)
     notation_usable = notation.map(len).gt(0) | mutation_count.fillna(-1).eq(0)
 
     if notation_usable.mean() > 0.95:
-        return notation.map(lambda tokens: ":".join(tokens)), "mutation_notation"
+        encoded = notation.map(lambda tokens: ":".join(tokens))
+        return encoded, "mutation_notation"
 
-    seq = frame[genotype_col].map(clean_sequence)
+    sequence = frame[genotype_col].map(clean_sequence)
+    lengths = sequence.map(len)
+
+    if lengths.eq(len(RHLAA_SITE_POSITIONS)).mean() > 0.95:
+        encoded = sequence.map(encode_compact_rhla)
+        derived = encoded.map(lambda x: 0 if x == "" else len(x.split(":")))
+        mismatch = (
+            mutation_count.notna()
+            & (derived.astype(int) != mutation_count.fillna(-1).astype(int))
+        )
+        if mismatch.any():
+            raise RuntimeError(
+                f"Compact RhlA genotype mutation-count mismatch on "
+                f"{int(mismatch.sum())} rows."
+            )
+        return encoded, "compact_6_site_rhla"
+
     wt_rows = frame[mutation_count.fillna(-1).eq(0)].copy()
     if wt_rows.empty:
         raise RuntimeError(
-            "Sequence-mode genotype detected but no mutation_count==0 WT row exists."
+            "Full-sequence genotype detected but no mutation_count==0 WT row exists."
         )
 
     wt = wt_rows[genotype_col].map(clean_sequence)
     wt = wt[wt.str.len() > 0].iloc[0]
+    if not lengths.eq(len(wt)).all():
+        raise RuntimeError("Inconsistent full-sequence lengths in RhlA dataset.")
 
-    if not seq.map(len).eq(len(wt)).all():
-        raise RuntimeError("Inconsistent sequence lengths in RhlA dataset.")
-
-    def encode(sequence):
+    def encode_full(seq):
         tokens = []
-        for idx, (a, b) in enumerate(zip(wt, sequence), start=1):
+        for idx, (a, b) in enumerate(zip(wt, seq), start=1):
             if a != b:
                 tokens.append(f"{a}{idx}{b}")
         return ":".join(tokens)
 
-    encoded = seq.map(encode)
+    encoded = sequence.map(encode_full)
     derived = encoded.map(lambda x: 0 if x == "" else len(x.split(":")))
     mismatch = (
         mutation_count.notna()
@@ -116,10 +149,10 @@ def build_mutant_strings(frame, genotype_col, mutation_count):
     )
     if mismatch.any():
         raise RuntimeError(
-            f"Mutation-count mismatch on {int(mismatch.sum())} rows."
+            f"Full-sequence mutation-count mismatch on {int(mismatch.sum())} rows."
         )
 
-    return encoded, "sequence_relative_to_WT"
+    return encoded, "full_sequence_relative_to_WT"
 
 
 def main(xlsx_path, out_dir):
@@ -136,7 +169,9 @@ def main(xlsx_path, out_dir):
         mutation_count = notation.map(len).astype("Int64")
         count_source = "derived_from_mutation_notation"
     else:
-        mutation_count = pd.to_numeric(frame[count_col], errors="coerce").astype("Int64")
+        mutation_count = pd.to_numeric(
+            frame[count_col], errors="coerce"
+        ).astype("Int64")
         count_source = str(count_col)
 
     frame = frame.copy()
@@ -160,7 +195,7 @@ def main(xlsx_path, out_dir):
     training_pool = frame[frame["bucket"] <= 6].copy()
     hidden = frame[frame["bucket"] >= 7].copy()
 
-    if len(training_pool) < 500 or len(hidden) < 100:
+    if len(training_pool) < 200 or len(hidden) < 50:
         raise RuntimeError(
             "Insufficient 3-5 mutation split: "
             f"training_pool={len(training_pool)}, hidden={len(hidden)}"
@@ -210,13 +245,18 @@ def main(xlsx_path, out_dir):
         "split_rule": "FNV1a32(candidate_id) mod 10; training_pool 0-6, hidden 7-9",
         "training_pool_rows": int(len(training_pool_out)),
         "hidden_rows": int(len(hidden_ids_out)),
+        "total_eligible_rows": int(len(training_pool_out) + len(hidden_ids_out)),
         "training_pool_by_mutation_count": {
             str(k): int(v)
-            for k, v in training_pool_out["mutation_count"].value_counts().sort_index().items()
+            for k, v in training_pool_out[
+                "mutation_count"
+            ].value_counts().sort_index().items()
         },
         "hidden_by_mutation_count": {
             str(k): int(v)
-            for k, v in hidden_ids_out["mutation_count"].value_counts().sort_index().items()
+            for k, v in hidden_ids_out[
+                "mutation_count"
+            ].value_counts().sort_index().items()
         },
         "training_pool_sha256": sha256_file(training_pool_path),
         "hidden_ids_sha256": sha256_file(hidden_ids_path),
