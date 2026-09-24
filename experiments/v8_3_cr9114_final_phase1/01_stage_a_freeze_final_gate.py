@@ -412,13 +412,14 @@ def main(input_dir, out_dir):
 
     passive = {}
 
-    for budget in BUDGETS:
-        visible = reveal_labels(
-            training_ids,
-            passive_ids[budget],
-            labels_path,
-        )
-        passive[budget] = fit_visible(visible)
+    # Reveal only the shared 5% seed before any active acquisition.
+    # Passive 10/20/40 labels remain unread until all active rounds finish.
+    passive_5_visible = reveal_labels(
+        training_ids,
+        passive_ids[5],
+        labels_path,
+    )
+    passive[5] = fit_visible(passive_5_visible)
 
     # Active controller begins from the exact same passive 5% identities.
     active_selected_ids = list(passive_ids[5])
@@ -552,6 +553,16 @@ def main(input_dir, out_dir):
                     row.acquisition_score
                 ),
             })
+
+    # Active acquisition is now fully frozen. Only after that do we
+    # reveal the remaining passive-budget labels for comparison.
+    for budget in [10, 20, 40]:
+        visible = reveal_labels(
+            training_ids,
+            passive_ids[budget],
+            labels_path,
+        )
+        passive[budget] = fit_visible(visible)
 
     acquisition_log = pd.DataFrame(
         acquisition_log_rows
