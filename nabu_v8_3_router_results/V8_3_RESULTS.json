@@ -1,0 +1,217 @@
+{
+  "version": "NABU_V8_3_ADAPTIVE_ROUTER",
+  "status": "DEVELOPMENT_CANDIDATE",
+  "architecture": "B3 pairwise backbone + cross-fitted higher-order. Visible OOF selects global B5 when higher-order improves global OOF; otherwise B3 freezes top-20% membership and B5 reranks only inside that region with strict boundary preservation.",
+  "datasets": [
+    {
+      "dataset": "PHOT_CHLRE_Chen_2023",
+      "truth_column": "DMS_score",
+      "visible_oof_B4_minus_B3": 0.004593206655249871,
+      "router_mode": "GLOBAL_HIGHER_ORDER",
+      "router_details": {
+        "rule": "OOF_B4_MINUS_B3_POSITIVE",
+        "boundary_preserved": null
+      },
+      "metrics": {
+        "B3_RAW_PAIR": {
+          "spearman": 0.8995114808552996,
+          "top1_percentile": 0.9991656734207389,
+          "top5_mean_percentile": 0.9921096543504172,
+          "top10_mean_percentile": 0.9887246722288439,
+          "top50_mean_percentile": 0.9392228843861742,
+          "top10_top1pct_hits": 6,
+          "top50_top1pct_hits": 10,
+          "top50_top1pct_enrichment": 20.0,
+          "top50_mean_true_score": 1.2469178971880313,
+          "normalized_top1_regret": 0.004679025311220415
+        },
+        "B5_CROSSFIT_ADAPTIVE_HIGHER_ORDER": {
+          "spearman": 0.9111886330880923,
+          "top1_percentile": 0.9991656734207389,
+          "top5_mean_percentile": 0.9936829558998808,
+          "top10_mean_percentile": 0.9896066746126341,
+          "top50_mean_percentile": 0.955284862932062,
+          "top10_top1pct_hits": 6,
+          "top50_top1pct_hits": 11,
+          "top50_top1pct_enrichment": 22.0,
+          "top50_mean_true_score": 1.2646807531478503,
+          "normalized_top1_regret": 0.004679025311220415
+        },
+        "T_OOF_OBJECTIVE_GATE": {
+          "spearman": 0.9111886330880923,
+          "top1_percentile": 0.9991656734207389,
+          "top5_mean_percentile": 0.9936829558998808,
+          "top10_mean_percentile": 0.9896066746126341,
+          "top50_mean_percentile": 0.955284862932062,
+          "top10_top1pct_hits": 6,
+          "top50_top1pct_hits": 11,
+          "top50_top1pct_enrichment": 22.0,
+          "top50_mean_true_score": 1.2646807531478503,
+          "normalized_top1_regret": 0.004679025311220415
+        },
+        "V8_3_ADAPTIVE_ROUTER": {
+          "spearman": 0.9111886330880923,
+          "top1_percentile": 0.9991656734207389,
+          "top5_mean_percentile": 0.9936829558998808,
+          "top10_mean_percentile": 0.9896066746126341,
+          "top50_mean_percentile": 0.955284862932062,
+          "top10_top1pct_hits": 6,
+          "top50_top1pct_hits": 11,
+          "top50_top1pct_enrichment": 22.0,
+          "top50_mean_true_score": 1.2646807531478503,
+          "normalized_top1_regret": 0.004679025311220415
+        }
+      },
+      "V8_3_vs_B3": {
+        "spearman": 0.011677152232792642,
+        "top1_percentile": 0.0,
+        "top5_mean_percentile": 0.0015733015494635572,
+        "top10_mean_percentile": 0.0008820023837902147,
+        "top50_mean_percentile": 0.016061978545887867,
+        "top50_top1pct_enrichment": 2.0,
+        "top50_mean_true_score": 0.01776285595981908,
+        "normalized_top1_regret": 0.0
+      },
+      "V8_3_vs_V8_2_GATE": {
+        "spearman": 0.0,
+        "top1_percentile": 0.0,
+        "top5_mean_percentile": 0.0,
+        "top10_mean_percentile": 0.0,
+        "top50_mean_percentile": 0.0,
+        "top50_top1pct_enrichment": 0.0,
+        "top50_mean_true_score": 0.0,
+        "normalized_top1_regret": 0.0
+      },
+      "top50_replacement_vs_B3": {
+        "overlap": 40,
+        "added_count": 10,
+        "displaced_count": 10,
+        "added_mean_true": 1.290757383882256,
+        "displaced_mean_true": 1.2019431040831612,
+        "replacement_gain_true": 0.08881427979909473
+      },
+      "top50_replacement_vs_V8_2_GATE": {
+        "overlap": 50,
+        "added_count": 0,
+        "displaced_count": 0,
+        "added_mean_true": null,
+        "displaced_mean_true": null,
+        "replacement_gain_true": null
+      }
+    },
+    {
+      "dataset": "GB1_Wu2016_NABU_V8_1",
+      "truth_column": "DMS_score",
+      "visible_oof_B4_minus_B3": -0.002356825508910476,
+      "router_mode": "RANK_PRESERVING_B3_TOP20_B5_RERANK",
+      "router_details": {
+        "elite_fraction": 0.2,
+        "elite_count": 8980,
+        "boundary_preserved": true,
+        "outside_B3_order_preserved": true
+      },
+      "metrics": {
+        "B3_RAW_PAIR": {
+          "spearman": 0.40177348622242515,
+          "top1_percentile": 0.9998106819902891,
+          "top5_mean_percentile": 0.9994097732638425,
+          "top10_mean_percentile": 0.9982850015590895,
+          "top50_mean_percentile": 0.9978805291995188,
+          "top10_top1pct_hits": 10,
+          "top50_top1pct_hits": 48,
+          "top50_top1pct_enrichment": 96.0,
+          "top50_mean_true_score": 4.3202821399762,
+          "normalized_top1_regret": 0.19106598606621458
+        },
+        "B5_CROSSFIT_ADAPTIVE_HIGHER_ORDER": {
+          "spearman": 0.3973591817488753,
+          "top1_percentile": 0.9998106819902891,
+          "top5_mean_percentile": 0.9996325003340907,
+          "top10_mean_percentile": 0.9990623190342554,
+          "top50_mean_percentile": 0.9985014922713706,
+          "top10_top1pct_hits": 10,
+          "top50_top1pct_hits": 50,
+          "top50_top1pct_enrichment": 100.0,
+          "top50_mean_true_score": 4.520412251146,
+          "normalized_top1_regret": 0.19106598606621458
+        },
+        "T_OOF_OBJECTIVE_GATE": {
+          "spearman": 0.4030124739608746,
+          "top1_percentile": 0.9998106819902891,
+          "top5_mean_percentile": 0.9996325003340907,
+          "top10_mean_percentile": 0.9990623190342554,
+          "top50_mean_percentile": 0.9985014922713706,
+          "top10_top1pct_hits": 10,
+          "top50_top1pct_hits": 50,
+          "top50_top1pct_enrichment": 100.0,
+          "top50_mean_true_score": 4.520412251146,
+          "normalized_top1_regret": 0.19106598606621458
+        },
+        "V8_3_ADAPTIVE_ROUTER": {
+          "spearman": 0.40303312022921406,
+          "top1_percentile": 0.9998106819902891,
+          "top5_mean_percentile": 0.9996325003340907,
+          "top10_mean_percentile": 0.9990623190342554,
+          "top50_mean_percentile": 0.9985014922713706,
+          "top10_top1pct_hits": 10,
+          "top50_top1pct_hits": 50,
+          "top50_top1pct_enrichment": 100.0,
+          "top50_mean_true_score": 4.520412251146,
+          "normalized_top1_regret": 0.19106598606621458
+        }
+      },
+      "V8_3_vs_B3": {
+        "spearman": 0.0012596340067889122,
+        "top1_percentile": 0.0,
+        "top5_mean_percentile": 0.00022272707024817429,
+        "top10_mean_percentile": 0.0007773174751658507,
+        "top50_mean_percentile": 0.0006209630718518877,
+        "top50_top1pct_enrichment": 4.0,
+        "top50_mean_true_score": 0.20013011116980017,
+        "normalized_top1_regret": 0.0
+      },
+      "V8_3_vs_V8_2_GATE": {
+        "spearman": 2.0646268339474805e-05,
+        "top1_percentile": 0.0,
+        "top5_mean_percentile": 0.0,
+        "top10_mean_percentile": 0.0,
+        "top50_mean_percentile": 0.0,
+        "top50_top1pct_enrichment": 0.0,
+        "top50_mean_true_score": 0.0,
+        "normalized_top1_regret": 0.0
+      },
+      "top50_replacement_vs_B3": {
+        "overlap": 44,
+        "added_count": 6,
+        "displaced_count": 6,
+        "added_mean_true": 4.692751541551666,
+        "displaced_mean_true": 3.025000615136667,
+        "replacement_gain_true": 1.6677509264149992
+      },
+      "top50_replacement_vs_V8_2_GATE": {
+        "overlap": 50,
+        "added_count": 0,
+        "displaced_count": 0,
+        "added_mean_true": null,
+        "displaced_mean_true": null,
+        "replacement_gain_true": null
+      }
+    }
+  ],
+  "aggregate": {
+    "global_rank_gain_vs_B3_datasets": 2,
+    "global_rank_gain_vs_V8_2_datasets": 1,
+    "mean_delta_spearman_vs_B3": 0.006468393119790777,
+    "mean_delta_spearman_vs_V8_2": 1.0323134169737402e-05,
+    "top50_hits_not_worse_than_V8_2_datasets": 2,
+    "top50_true_not_worse_than_V8_2_datasets": 2
+  },
+  "promotion_gate": {
+    "promote_if": [
+      "V8_3 Spearman > B3 on both landscapes",
+      "V8_3 Top-50 hits >= V8.2 gate on both landscapes",
+      "V8_3 Top-50 mean true score >= V8.2 gate on both landscapes",
+      "GB1 boundary-preserving router improves or preserves V8.2 gate Spearman"
+    ]
+  }
+}

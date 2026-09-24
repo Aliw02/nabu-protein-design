@@ -1,0 +1,155 @@
+{
+  "version": "NABU_V8_2_MULTI_LANDSCAPE_DEVELOPMENT_TOURNAMENT",
+  "status": "REVEALED_DEVELOPMENT_ONLY_NOT_PROSPECTIVE",
+  "datasets": [
+    "PHOT_CHLRE_Chen_2023.csv",
+    "GB1_Wu2016_NABU_V8_1.csv"
+  ],
+  "aggregate_vs_B3": {
+    "B4_CROSSFIT_TRIPLET": {
+      "datasets": 2,
+      "mean_delta_spearman_vs_B3": 0.0005941522234738095,
+      "mean_delta_top5_pct_vs_B3": 0.00011136353512408714,
+      "mean_delta_top50_pct_vs_B3": 0.0006251418458185776,
+      "sum_delta_top50_hits_vs_B3": 1,
+      "mean_delta_top50_true_vs_B3": 0.09880817438390166,
+      "global_rank_gain_datasets": 1,
+      "top5_gain_datasets": 1,
+      "top50_gain_datasets": 2,
+      "positive_top50_replacement_datasets": 1
+    },
+    "B5_CROSSFIT_ADAPTIVE_HIGHER_ORDER": {
+      "datasets": 2,
+      "mean_delta_spearman_vs_B3": 0.0036314238796213982,
+      "mean_delta_top5_pct_vs_B3": 0.0008980143098558657,
+      "mean_delta_top50_pct_vs_B3": 0.008341470808869877,
+      "sum_delta_top50_hits_vs_B3": 3,
+      "mean_delta_top50_true_vs_B3": 0.10894648356480963,
+      "global_rank_gain_datasets": 1,
+      "top5_gain_datasets": 2,
+      "top50_gain_datasets": 2,
+      "positive_top50_replacement_datasets": 2
+    },
+    "T_QUARTER_HIGHER_ORDER": {
+      "datasets": 2,
+      "mean_delta_spearman_vs_B3": 0.0020188158034260273,
+      "mean_delta_top5_pct_vs_B3": 0.0,
+      "mean_delta_top50_pct_vs_B3": -0.0001711697620419561,
+      "sum_delta_top50_hits_vs_B3": 0,
+      "mean_delta_top50_true_vs_B3": 0.024193464769480144,
+      "global_rank_gain_datasets": 1,
+      "top5_gain_datasets": 0,
+      "top50_gain_datasets": 1,
+      "positive_top50_replacement_datasets": 1
+    },
+    "T_HALF_HIGHER_ORDER": {
+      "datasets": 2,
+      "mean_delta_spearman_vs_B3": 0.003503268242782215,
+      "mean_delta_top5_pct_vs_B3": 0.0,
+      "mean_delta_top50_pct_vs_B3": 0.0004838907801663628,
+      "sum_delta_top50_hits_vs_B3": 0,
+      "mean_delta_top50_true_vs_B3": 0.04259515738378816,
+      "global_rank_gain_datasets": 1,
+      "top5_gain_datasets": 0,
+      "top50_gain_datasets": 2,
+      "positive_top50_replacement_datasets": 1
+    },
+    "T_THREE_QUARTER_HIGHER_ORDER": {
+      "datasets": 2,
+      "mean_delta_spearman_vs_B3": 0.004189806023206816,
+      "mean_delta_top5_pct_vs_B3": 0.00011136353512408714,
+      "mean_delta_top50_pct_vs_B3": 0.00861833404292739,
+      "sum_delta_top50_hits_vs_B3": 2,
+      "mean_delta_top50_true_vs_B3": 0.06369172758603803,
+      "global_rank_gain_datasets": 1,
+      "top5_gain_datasets": 1,
+      "top50_gain_datasets": 2,
+      "positive_top50_replacement_datasets": 2
+    },
+    "T_CONFIDENCE_SQUARED": {
+      "datasets": 2,
+      "mean_delta_spearman_vs_B3": 0.0038219235841103205,
+      "mean_delta_top5_pct_vs_B3": 0.00011136353512408714,
+      "mean_delta_top50_pct_vs_B3": 0.008341470808869877,
+      "sum_delta_top50_hits_vs_B3": 3,
+      "mean_delta_top50_true_vs_B3": 0.10894648356480963,
+      "global_rank_gain_datasets": 1,
+      "top5_gain_datasets": 1,
+      "top50_gain_datasets": 2,
+      "positive_top50_replacement_datasets": 2
+    },
+    "T_ELITE_10PCT_HIGHER_ORDER": {
+      "datasets": 2,
+      "mean_delta_spearman_vs_B3": -0.0037145104360056247,
+      "mean_delta_top5_pct_vs_B3": 0.0008980143098558657,
+      "mean_delta_top50_pct_vs_B3": 0.00562156616047893,
+      "sum_delta_top50_hits_vs_B3": 3,
+      "mean_delta_top50_true_vs_B3": 0.10602146386979883,
+      "global_rank_gain_datasets": 1,
+      "top5_gain_datasets": 2,
+      "top50_gain_datasets": 2,
+      "positive_top50_replacement_datasets": 2
+    },
+    "T_ELITE_20PCT_HIGHER_ORDER": {
+      "datasets": 2,
+      "mean_delta_spearman_vs_B3": -0.006300334371519611,
+      "mean_delta_top5_pct_vs_B3": 0.0008980143098558657,
+      "mean_delta_top50_pct_vs_B3": 0.008341470808869877,
+      "sum_delta_top50_hits_vs_B3": 3,
+      "mean_delta_top50_true_vs_B3": 0.10894648356480963,
+      "global_rank_gain_datasets": 1,
+      "top5_gain_datasets": 2,
+      "top50_gain_datasets": 2,
+      "positive_top50_replacement_datasets": 2
+    },
+    "T_ELITE_30PCT_HIGHER_ORDER": {
+      "datasets": 2,
+      "mean_delta_spearman_vs_B3": -0.005514233411688774,
+      "mean_delta_top5_pct_vs_B3": 0.0008980143098558657,
+      "mean_delta_top50_pct_vs_B3": 0.008341470808869877,
+      "sum_delta_top50_hits_vs_B3": 3,
+      "mean_delta_top50_true_vs_B3": 0.10894648356480963,
+      "global_rank_gain_datasets": 1,
+      "top5_gain_datasets": 2,
+      "top50_gain_datasets": 2,
+      "positive_top50_replacement_datasets": 2
+    },
+    "T_RANK_FUSION_50_50": {
+      "datasets": 2,
+      "mean_delta_spearman_vs_B3": 0.0035701615077658455,
+      "mean_delta_top5_pct_vs_B3": 0.0009136052047731824,
+      "mean_delta_top50_pct_vs_B3": 0.0073206011496539936,
+      "sum_delta_top50_hits_vs_B3": 2,
+      "mean_delta_top50_true_vs_B3": 0.05133077124728547,
+      "global_rank_gain_datasets": 1,
+      "top5_gain_datasets": 2,
+      "top50_gain_datasets": 2,
+      "positive_top50_replacement_datasets": 2
+    },
+    "T_RANK_FUSION_PAIR_75": {
+      "datasets": 2,
+      "mean_delta_spearman_vs_B3": 0.0022065437178814262,
+      "mean_delta_top5_pct_vs_B3": 0.0,
+      "mean_delta_top50_pct_vs_B3": 9.998295168900384e-06,
+      "sum_delta_top50_hits_vs_B3": 0,
+      "mean_delta_top50_true_vs_B3": 0.024518655155121194,
+      "global_rank_gain_datasets": 1,
+      "top5_gain_datasets": 0,
+      "top50_gain_datasets": 1,
+      "positive_top50_replacement_datasets": 1
+    },
+    "T_OOF_OBJECTIVE_GATE": {
+      "datasets": 2,
+      "mean_delta_spearman_vs_B3": 0.00645806998562104,
+      "mean_delta_top5_pct_vs_B3": 0.0008980143098558657,
+      "mean_delta_top50_pct_vs_B3": 0.008341470808869877,
+      "sum_delta_top50_hits_vs_B3": 3,
+      "mean_delta_top50_true_vs_B3": 0.10894648356480963,
+      "global_rank_gain_datasets": 2,
+      "top5_gain_datasets": 2,
+      "top50_gain_datasets": 2,
+      "positive_top50_replacement_datasets": 2
+    }
+  },
+  "selection_rule": "Do not choose from one scalar score. Prefer arms that retain or improve elite selection across landscapes while limiting whole-landscape rank harm; inspect replacement diagnostics to understand why each arm succeeds or fails."
+}

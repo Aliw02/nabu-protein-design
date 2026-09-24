@@ -1,0 +1,141 @@
+{
+  "version": "NABU_V8_3_DUAL_OBJECTIVE_ROUTER_VALIDATION",
+  "dataset": "PHOT_CHLRE_Chen_2023.csv",
+  "rows": 14146,
+  "visible": 9951,
+  "hidden": 4195,
+  "eligible_hidden": 4195,
+  "oof": {
+    "B3_spearman": 0.9029644045105057,
+    "B4_spearman": 0.9075576111657556,
+    "B4_minus_B3": 0.004593206655249871,
+    "elite_diagnostic": {
+      "region_fraction": 0.2,
+      "region_count": 1991,
+      "B3": {
+        "top50_mean_percentile": 0.962825846648578,
+        "top50_top1pct_hits": 16,
+        "top50_mean_true": 1.281704788666098
+      },
+      "B4": {
+        "top50_mean_percentile": 0.9662787659531706,
+        "top50_top1pct_hits": 18,
+        "top50_mean_true": 1.2890167202978748
+      },
+      "delta_top50_mean_percentile": 0.003452919304592683,
+      "delta_top50_top1pct_hits": 2,
+      "allow_elite_rerank": true
+    },
+    "router_mode": "GLOBAL_HIGHER_ORDER"
+  },
+  "metrics": {
+    "B3_RAW_PAIR": {
+      "spearman": 0.8995114808552996,
+      "top1_percentile": 0.9991656734207389,
+      "top5_mean_percentile": 0.9921096543504172,
+      "top10_mean_percentile": 0.9887246722288439,
+      "top50_mean_percentile": 0.9392228843861742,
+      "top10_top1pct_hits": 6,
+      "top50_top1pct_hits": 10,
+      "top10_top01pct_hits": 1,
+      "top50_top01pct_hits": 3,
+      "top50_mean_true_score": 1.2469178971880313,
+      "normalized_top1_regret": 0.004679025311220415
+    },
+    "B4_CROSSFIT_TRIPLET": {
+      "spearman": 0.9051140897757971,
+      "top1_percentile": 0.9991656734207389,
+      "top5_mean_percentile": 0.9921096543504172,
+      "top10_mean_percentile": 0.9896066746126341,
+      "top50_mean_percentile": 0.9398522050059595,
+      "top10_top1pct_hits": 6,
+      "top50_top1pct_hits": 9,
+      "top10_top01pct_hits": 1,
+      "top50_top01pct_hits": 1,
+      "top50_mean_true_score": 1.2444041347860344,
+      "normalized_top1_regret": 0.004679025311220415
+    },
+    "B5_CROSSFIT_ADAPTIVE_HIGHER_ORDER": {
+      "spearman": 0.9111886330880923,
+      "top1_percentile": 0.9991656734207389,
+      "top5_mean_percentile": 0.9936829558998808,
+      "top10_mean_percentile": 0.9896066746126341,
+      "top50_mean_percentile": 0.955284862932062,
+      "top10_top1pct_hits": 6,
+      "top50_top1pct_hits": 11,
+      "top10_top01pct_hits": 1,
+      "top50_top01pct_hits": 1,
+      "top50_mean_true_score": 1.2646807531478503,
+      "normalized_top1_regret": 0.004679025311220415
+    },
+    "V8_3_ADAPTIVE_ROUTER": {
+      "spearman": 0.9111886330880923,
+      "top1_percentile": 0.9991656734207389,
+      "top5_mean_percentile": 0.9936829558998808,
+      "top10_mean_percentile": 0.9896066746126341,
+      "top50_mean_percentile": 0.955284862932062,
+      "top10_top1pct_hits": 6,
+      "top50_top1pct_hits": 11,
+      "top10_top01pct_hits": 1,
+      "top50_top01pct_hits": 1,
+      "top50_mean_true_score": 1.2646807531478503,
+      "normalized_top1_regret": 0.004679025311220415
+    }
+  },
+  "V8_3_vs_B3": {
+    "spearman": 0.011677152232792642,
+    "top1_percentile": 0.0,
+    "top5_mean_percentile": 0.0015733015494635572,
+    "top10_mean_percentile": 0.0008820023837902147,
+    "top50_mean_percentile": 0.016061978545887867,
+    "top50_mean_true_score": 0.01776285595981908,
+    "normalized_top1_regret": 0.0
+  },
+  "top50_replacement_vs_B3": {
+    "overlap": 40,
+    "added_count": 10,
+    "removed_count": 10,
+    "added_mean_true": 1.2907573838822557,
+    "removed_mean_true": 1.2019431040831612,
+    "replacement_gain_true": 0.08881427979909451
+  },
+  "model_diagnostics": {
+    "main": {
+      "entries": 20,
+      "support_min": 1443,
+      "support_median": 2564.0,
+      "support_max": 2692
+    },
+    "pair": {
+      "entries": 182,
+      "support_min": 267,
+      "support_median": 484.5,
+      "support_max": 620
+    },
+    "triplet_crossfit": {
+      "entries": 1004,
+      "support_min": 35,
+      "support_median": 77.0,
+      "support_max": 119
+    },
+    "quartet_crossfit": {
+      "entries": 3767,
+      "support_min": 2,
+      "support_median": 10.0,
+      "support_max": 16
+    },
+    "oof": {
+      "b3_spearman_visible": 0.9029644045105057,
+      "b4_spearman_visible": 0.9075576111657556,
+      "residual3_std": 0.15446974035278957,
+      "residual4_std": 0.12445670960571557
+    },
+    "fold_counts": {
+      "0": 1917,
+      "1": 2029,
+      "2": 2017,
+      "3": 2043,
+      "4": 1945
+    }
+  }
+}

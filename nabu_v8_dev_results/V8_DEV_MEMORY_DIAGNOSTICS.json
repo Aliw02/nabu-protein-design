@@ -1,0 +1,26 @@
+{
+  "main": {
+    "entries": 20,
+    "support_min": 1443,
+    "support_median": 2564.0,
+    "support_max": 2692
+  },
+  "pair": {
+    "entries": 182,
+    "support_min": 267,
+    "support_median": 484.5,
+    "support_max": 620
+  },
+  "triplet": {
+    "entries": 1004,
+    "support_min": 35,
+    "support_median": 77.0,
+    "support_max": 119
+  },
+  "quartet": {
+    "entries": 3767,
+    "support_min": 2,
+    "support_median": 10.0,
+    "support_max": 16
+  }
+}

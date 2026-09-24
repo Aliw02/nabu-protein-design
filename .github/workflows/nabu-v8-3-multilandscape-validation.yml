@@ -1,0 +1,119 @@
+name: NABU V8.3 Multilandscape Validation
+
+on:
+  push:
+    branches:
+      - exp/nabu-v8-3-multilandscape-validation
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate-v8-3:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip pandas numpy scipy
+
+      - name: Download GB1, TrpB and PhoQ
+        run: |
+          mkdir -p .validation_data
+          curl -L --fail             "https://raw.githubusercontent.com/rcronk/mutate/0861a3f1f6c58a9597fde689eb7f9a07b38e2638/ridge/data/gb1_wu2016_landscape.csv"             -o .validation_data/gb1_raw.csv
+          curl -L --fail             "https://raw.githubusercontent.com/rcronk/mutate/0861a3f1f6c58a9597fde689eb7f9a07b38e2638/ridge/data/johnston2024_trpb_landscape.csv"             -o .validation_data/trpb_raw.csv
+          curl -L --fail             "https://raw.githubusercontent.com/hury07/fasthit/0f9c51aa7caaab0b4618b0cab4f3107e7251091b/fasthit/landscapes/data/phoq/PhoQ.csv"             -o .validation_data/phoq_raw.csv
+
+      - name: Adapt datasets
+        run: |
+          python experiments/v8_3_multilandscape_validation/prepare_four_site.py             .validation_data/gb1_raw.csv             --variant-column variant             --fitness-column fitness             --out .validation_data/GB1_Wu2016_V83.csv
+
+          python experiments/v8_3_multilandscape_validation/prepare_four_site.py             .validation_data/trpb_raw.csv             --variant-column variant             --fitness-column fitness             --out .validation_data/TRPB_Johnston2024_V83.csv
+
+          python experiments/v8_3_multilandscape_validation/prepare_four_site.py             .validation_data/phoq_raw.csv             --variant-column Variants             --fitness-column Fitness             --out .validation_data/PHOQ_V83.csv
+
+      - name: Run frozen V8.3 on GB1
+        run: |
+          python experiments/v8_3_multilandscape_validation/run_v8_3_validation.py             .validation_data/GB1_Wu2016_V83.csv             --out nabu_v8_3_multilandscape_results/GB1_V8_3_RESULTS.json
+
+      - name: Run frozen V8.3 on TrpB
+        run: |
+          python experiments/v8_3_multilandscape_validation/run_v8_3_validation.py             .validation_data/TRPB_Johnston2024_V83.csv             --out nabu_v8_3_multilandscape_results/TRPB_V8_3_RESULTS.json
+
+      - name: Run frozen V8.3 on PhoQ
+        run: |
+          python experiments/v8_3_multilandscape_validation/run_v8_3_validation.py             .validation_data/PHOQ_V83.csv             --out nabu_v8_3_multilandscape_results/PHOQ_V8_3_RESULTS.json
+
+      - name: Build summary
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          import pandas as pd
+
+          root = Path("nabu_v8_3_multilandscape_results")
+          rows = []
+          for path in sorted(root.glob("*_V8_3_RESULTS.json")):
+              r = json.loads(path.read_text())
+              b3 = r["metrics"]["B3_RAW_PAIR"]
+              v83 = r["metrics"]["V8_3_ADAPTIVE_ROUTER"]
+              elite = r["oof"]["elite_diagnostic"]
+              rows.append({
+                  "dataset": r["dataset"],
+                  "router_mode": r["oof"]["router_mode"],
+                  "oof_global_delta": r["oof"]["B4_minus_B3"],
+                  "oof_elite_delta_top50_pct": elite["delta_top50_mean_percentile"],
+                  "oof_elite_delta_hits": elite["delta_top50_top1pct_hits"],
+                  "B3_spearman": b3["spearman"],
+                  "V8_3_spearman": v83["spearman"],
+                  "delta_spearman": v83["spearman"] - b3["spearman"],
+                  "B3_top50_hits": b3["top50_top1pct_hits"],
+                  "V8_3_top50_hits": v83["top50_top1pct_hits"],
+                  "B3_top50_true": b3["top50_mean_true_score"],
+                  "V8_3_top50_true": v83["top50_mean_true_score"],
+                  "replacement_gain_true": r["top50_replacement_vs_B3"]["replacement_gain_true"],
+              })
+
+          frame = pd.DataFrame(rows)
+          frame.to_csv(root / "V8_3_MULTILANDSCAPE_SUMMARY.csv", index=False)
+
+          summary = {
+              "version": "NABU_V8_3_DUAL_OBJECTIVE_MULTILANDSCAPE_VALIDATION",
+              "architecture_changed_after_hidden_reveal": False,
+              "router_rule": (
+                  "If visible OOF global B4>B3, use global B5. "
+                  "Else allow rank-preserving B5 rerank inside frozen B3 top20% "
+                  "only when visible OOF elite Top50 mean percentile improves "
+                  "without losing Top1% hits. Otherwise protect B3."
+              ),
+              "datasets": rows,
+              "global_rank_not_worse_count": int((frame["delta_spearman"] >= 0).sum()),
+              "elite_hits_not_worse_count": int((frame["V8_3_top50_hits"] >= frame["B3_top50_hits"]).sum()),
+              "elite_true_not_worse_count": int((frame["V8_3_top50_true"] >= frame["B3_top50_true"]).sum()),
+              "dataset_count": int(len(frame)),
+          }
+          (root / "V8_3_MULTILANDSCAPE_SUMMARY.json").write_text(
+              json.dumps(summary, indent=2)
+          )
+          print(json.dumps(summary, indent=2))
+          PY
+
+      - name: Commit validation results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add nabu_v8_3_multilandscape_results
+          if git diff --cached --quiet; then
+            echo "No result changes."
+          else
+            git commit -m "results: validate dual-objective NABU V8.3 router [skip ci]"
+            git push
+          fi
