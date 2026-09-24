@@ -1,0 +1,18 @@
+{
+  "version": "NABU_V8_3_CREILOV_SEAL_V1",
+  "source_file": "CreiLOV_clean.xlsx",
+  "source_sha256": "5b1bfaa6788808dfd2692a3757e5d5aa30eb6097653543c1e1c60caa079ad27f",
+  "sheet": "Sheet1",
+  "genotype_column": "genotype",
+  "fitness_column_name_only": "mean_log",
+  "mutation_count_source": "n_mut",
+  "genotype_mode": "sequence_relative_to_WT",
+  "visible_rule": "mutation_count <= 3",
+  "hidden_rule": "mutation_count in {4,5}",
+  "visible_rows": 1175,
+  "hidden_rows": 13168,
+  "visible_sha256": "6c3f7f33bacb00a3930e1f48f45e4ffa8c7b0e3a732fc91066d7eadcbfd18362",
+  "hidden_ids_sha256": "15419b78447d11f65b54d7c4965da4dc287077a0520533ab6d7d561ffd832e69",
+  "hidden_truth_sha256": "cf052a4385eda19aec7cb19de45e0aa2f6aa072f5219bd28648a4172afea4287",
+  "hidden_truth_values_printed": false
+}
