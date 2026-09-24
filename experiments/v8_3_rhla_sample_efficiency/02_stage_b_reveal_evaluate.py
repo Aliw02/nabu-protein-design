@@ -209,7 +209,7 @@ def main(input_dir, stage_a_dir, out_dir):
     scores_path = stage_a_root / "ALL_BUDGET_PREDICTIONS.csv"
     freeze_path = stage_a_root / "CANDIDATE_FREEZE.csv"
     membership_path = stage_a_root / "BUDGET_MEMBERSHIP.csv"
-    hidden_truth_path = input_root / ".HIDDEN_TRUTH.sealed.csv"
+    hidden_truth_path = input_root / ".HIDDEN_TRIPLE_TRUTH.sealed.csv"
 
     checks = {
         "budget_membership": (
@@ -374,7 +374,7 @@ def main(input_dir, stage_a_dir, out_dir):
         ),
         "stage_A_manifest": manifest,
         "hash_verification": verified,
-        "fixed_hidden_rows": int(len(revealed)),
+        "fixed_hidden_triple_rows": int(len(revealed)),
         "fixed_hidden_coverage_fraction": manifest[
             "fixed_hidden_coverage_fraction"
         ],
@@ -387,7 +387,7 @@ def main(input_dir, stage_a_dir, out_dir):
         "interpretation_boundary": (
             "All four nested budgets and all candidate rankings were "
             "frozen before hidden truth reveal. Results apply to the "
-            "fixed hidden candidate pool scoreable by the 5% model."
+            "fixed hidden triple-mutant candidate pool scoreable by the 5% model."
         ),
     }
 
@@ -403,7 +403,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--input",
-        default="rhla_sealed_input",
+        default="rhla_sample_efficiency_sealed_input",
     )
     parser.add_argument(
         "--stage-a",
