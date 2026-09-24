@@ -303,9 +303,14 @@ def main(xlsx_path, out_dir):
             f"CR9114 hidden 4/5-mutant test unexpectedly small: {len(hidden_test)}"
         )
 
-    training_out = pd.DataFrame({
+    training_ids_out = pd.DataFrame({
         "candidate_id": training_pool["candidate_id"],
         "mutant": training_pool["_mutant"],
+        "mutation_count": training_pool["_mutation_count"].astype(int),
+    })
+
+    training_labels_out = pd.DataFrame({
+        "candidate_id": training_pool["candidate_id"],
         "DMS_score": training_pool["_fitness"].astype(float),
         "mutation_count": training_pool["_mutation_count"].astype(int),
     })
@@ -322,11 +327,13 @@ def main(xlsx_path, out_dir):
         "mutation_count": hidden_test["_mutation_count"].astype(int),
     })
 
-    training_path = out / "TRAINING_POOL.csv"
+    training_ids_path = out / "TRAINING_IDENTITIES.csv"
+    training_labels_path = out / ".TRAINING_LABELS.sealed.csv"
     hidden_ids_path = out / "HIDDEN_4_5_IDS.csv"
     hidden_truth_path = out / ".HIDDEN_4_5_TRUTH.sealed.csv"
 
-    training_out.to_csv(training_path, index=False)
+    training_ids_out.to_csv(training_ids_path, index=False)
+    training_labels_out.to_csv(training_labels_path, index=False)
     hidden_ids_out.to_csv(hidden_ids_path, index=False)
     hidden_truth_out.to_csv(hidden_truth_path, index=False)
 
@@ -349,12 +356,12 @@ def main(xlsx_path, out_dir):
             "hidden 4/5-mutants 7-9"
         ),
         "total_eligible_rows": total_eligible_rows,
-        "training_pool_rows": int(len(training_out)),
+        "training_pool_rows": int(len(training_ids_out)),
         "hidden_4_5_rows": int(len(hidden_ids_out)),
         "unused_lower_order_holdout_rows": int(len(unused_holdout)),
         "training_pool_by_mutation_count": {
             str(k): int(v)
-            for k, v in training_out[
+            for k, v in training_ids_out[
                 "mutation_count"
             ].value_counts().sort_index().items()
         },
@@ -368,13 +375,15 @@ def main(xlsx_path, out_dir):
             str(p): int(math.ceil(total_eligible_rows * p / 100.0))
             for p in [5, 10, 20, 40]
         },
-        "training_pool_sha256": sha256_file(training_path),
+        "training_ids_sha256": sha256_file(training_ids_path),
+        "training_labels_sha256": sha256_file(training_labels_path),
         "hidden_ids_sha256": sha256_file(hidden_ids_path),
         "hidden_truth_sha256": sha256_file(hidden_truth_path),
+        "training_label_values_printed": False,
         "hidden_truth_values_printed": False,
     }
 
-    if max(manifest["budget_target_counts"].values()) > len(training_out):
+    if max(manifest["budget_target_counts"].values()) > len(training_ids_out):
         raise RuntimeError(
             "40% budget exceeds deterministic CR9114 training-pool capacity."
         )
@@ -385,7 +394,10 @@ def main(xlsx_path, out_dir):
     )
 
     print(json.dumps(manifest, indent=2))
-    print("SEALED: hidden CR9114 4/5-mutant fitness values were not printed.")
+    print(
+        "SEALED: CR9114 training labels and hidden 4/5-mutant "
+        "fitness values were not printed."
+    )
 
 
 if __name__ == "__main__":
