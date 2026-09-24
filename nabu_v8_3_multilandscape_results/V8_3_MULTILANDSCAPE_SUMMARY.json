@@ -1,0 +1,35 @@
+{
+  "version": "NABU_V8_3_FROZEN_MULTILANDSCAPE_VALIDATION",
+  "architecture_changed": false,
+  "datasets": [
+    {
+      "dataset": "PHOQ_V83.csv",
+      "router_mode": "RANK_PRESERVING_B3_TOP20_B5_RERANK",
+      "oof_delta": -0.002613045536223435,
+      "B3_spearman": 0.5419828937708228,
+      "V8_3_spearman": 0.5427579947057976,
+      "delta_spearman": 0.0007751009349747928,
+      "B3_top50_hits": 31,
+      "V8_3_top50_hits": 29,
+      "B3_top50_true": 17.37321698566,
+      "V8_3_top50_true": 16.304157380859998,
+      "replacement_gain_true": -8.908830039999998
+    },
+    {
+      "dataset": "TRPB_Johnston2024_V83.csv",
+      "router_mode": "GLOBAL_HIGHER_ORDER",
+      "oof_delta": 0.007429412620285181,
+      "B3_spearman": 0.2901696017240271,
+      "V8_3_spearman": 0.29961657014983867,
+      "delta_spearman": 0.009446968425811553,
+      "B3_top50_hits": 45,
+      "V8_3_top50_hits": 47,
+      "B3_top50_true": 0.5845201031175521,
+      "V8_3_top50_true": 0.6154928558096852,
+      "replacement_gain_true": 0.2212339478009514
+    }
+  ],
+  "global_rank_gain_count": 2,
+  "elite_hits_not_worse_count": 1,
+  "elite_true_not_worse_count": 1
+}
