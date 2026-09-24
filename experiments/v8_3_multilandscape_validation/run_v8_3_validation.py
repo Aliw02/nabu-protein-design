@@ -131,6 +131,72 @@ def replacement(frame, arm, baseline, truth_column, k=50):
     }
 
 
+def oof_elite_diagnostic(visible, visible_labels, model, fraction=0.20):
+    work = pd.DataFrame(
+        {
+            "candidate_id": visible["candidate_id"].tolist(),
+            "truth": np.asarray(visible_labels, dtype=float),
+            "B3_OOF": np.asarray(model["oof_b3"], dtype=float),
+            "B4_OOF": np.asarray(model["oof_b4"], dtype=float),
+        }
+    )
+
+    n = len(work)
+    k_region = max(1, int(np.ceil(n * fraction)))
+    b3_order = work.sort_values(
+        ["B3_OOF", "candidate_id"],
+        ascending=[False, True],
+    )
+    region = b3_order.head(k_region).copy()
+
+    top_k = min(50, len(region))
+    b3_top = region.sort_values(
+        ["B3_OOF", "candidate_id"],
+        ascending=[False, True],
+    ).head(top_k)
+    b4_top = region.sort_values(
+        ["B4_OOF", "candidate_id"],
+        ascending=[False, True],
+    ).head(top_k)
+
+    all_truth = work["truth"].to_numpy(dtype=float)
+    cutoff1 = float(np.quantile(all_truth, 0.99))
+
+    def summarize(rows):
+        vals = rows["truth"].to_numpy(dtype=float)
+        return {
+            "top50_mean_percentile": float(
+                np.mean([percentile(all_truth, x) for x in vals])
+            ),
+            "top50_top1pct_hits": int(np.sum(vals >= cutoff1)),
+            "top50_mean_true": float(np.mean(vals)),
+        }
+
+    b3 = summarize(b3_top)
+    b4 = summarize(b4_top)
+
+    allow_elite_rerank = (
+        b4["top50_mean_percentile"] > b3["top50_mean_percentile"]
+        and b4["top50_top1pct_hits"] >= b3["top50_top1pct_hits"]
+    )
+
+    return {
+        "region_fraction": float(fraction),
+        "region_count": int(k_region),
+        "B3": b3,
+        "B4": b4,
+        "delta_top50_mean_percentile": float(
+            b4["top50_mean_percentile"]
+            - b3["top50_mean_percentile"]
+        ),
+        "delta_top50_top1pct_hits": int(
+            b4["top50_top1pct_hits"]
+            - b3["top50_top1pct_hits"]
+        ),
+        "allow_elite_rerank": bool(allow_elite_rerank),
+    }
+
+
 def run(csv_path, out_path):
     data = pd.read_csv(csv_path)
     mutation_column = v81.find_column(
@@ -168,9 +234,10 @@ def run(csv_path, out_path):
         f"rows={len(data)} visible={len(visible)} hidden={len(hidden)}"
     )
 
+    visible_labels = visible[truth_column].to_numpy(dtype=float)
     model = v81.fit_crossfitted_hierarchy(
         visible["mutation_set"].tolist(),
-        visible[truth_column].to_numpy(dtype=float),
+        visible_labels,
         visible["candidate_id"].tolist(),
     )
 
@@ -195,7 +262,6 @@ def run(csv_path, out_path):
     for column in sf.columns:
         eligible[column] = sf[column]
 
-    visible_labels = visible[truth_column].to_numpy(dtype=float)
     oof_b3 = float(
         spearmanr(model["oof_b3"], visible_labels).statistic
     )
@@ -204,16 +270,28 @@ def run(csv_path, out_path):
     )
     oof_delta = oof_b4 - oof_b3
 
+    elite_oof = oof_elite_diagnostic(
+        visible,
+        visible_labels,
+        model,
+        fraction=0.20,
+    )
+
     if oof_delta > 0:
         mode = "GLOBAL_HIGHER_ORDER"
         eligible["V8_3_ADAPTIVE_ROUTER"] = eligible[
             "B5_CROSSFIT_ADAPTIVE_HIGHER_ORDER"
         ].astype(float)
-    else:
+    elif elite_oof["allow_elite_rerank"]:
         mode = "RANK_PRESERVING_B3_TOP20_B5_RERANK"
         eligible["V8_3_ADAPTIVE_ROUTER"] = (
             rank_preserving_elite_rerank(eligible, 0.20)
         )
+    else:
+        mode = "B3_PROTECTED_NO_HIGHER_ORDER"
+        eligible["V8_3_ADAPTIVE_ROUTER"] = eligible[
+            "B3_RAW_PAIR"
+        ].astype(float)
 
     arms = [
         "B3_RAW_PAIR",
@@ -227,7 +305,7 @@ def run(csv_path, out_path):
     }
 
     result = {
-        "version": "NABU_V8_3_MULTILANDSCAPE_VALIDATION",
+        "version": "NABU_V8_3_DUAL_OBJECTIVE_ROUTER_VALIDATION",
         "dataset": Path(csv_path).name,
         "rows": int(len(data)),
         "visible": int(len(visible)),
@@ -237,6 +315,7 @@ def run(csv_path, out_path):
             "B3_spearman": oof_b3,
             "B4_spearman": oof_b4,
             "B4_minus_B3": float(oof_delta),
+            "elite_diagnostic": elite_oof,
             "router_mode": mode,
         },
         "metrics": metrics,
