@@ -7,19 +7,19 @@ from pathlib import Path
 import pandas as pd
 
 
-GENOTYPE_NAMES = {
+GENOTYPE_NAMES = [
     "genotype", "genotypes", "mutant", "mutants", "variant", "variants",
     "sequence", "sequences", "aas", "aa", "mutated_sequence", "mutant_sequence",
-    "mutation", "mutations"
-}
-FITNESS_NAMES = {
-    "fitness", "score", "scores", "dms_score", "phenotype", "brightness",
-    "fluorescence", "activity", "value", "mean", "mean_log"
-}
-COUNT_NAMES = {
-    "mutation_count", "mut_count", "n_mutations", "n_muts", "num_mutations",
-    "num_muts", "n_mut", "number_of_mutations"
-}
+    "mutation", "mutations",
+]
+FITNESS_NAMES = [
+    "combined", "red", "blue", "fitness", "score", "scores", "dms_score", "phenotype", "brightness",
+    "fluorescence", "activity", "value", "mean", "mean_log",
+]
+COUNT_NAMES = [
+    "n_mut", "mutation_count", "mut_count", "n_mutations", "n_muts", "num_mutations",
+    "num_muts", "number_of_mutations",
+]
 TOKEN_RE = re.compile(r"[A-Z][0-9]+[A-Z*]")
 
 
