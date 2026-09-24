@@ -396,6 +396,46 @@ def main(input_dir, stage_a_dir, out_dir):
         encoding="utf-8",
     )
 
+    revealed_rows = []
+    columns = []
+    for percent in BUDGETS:
+        prefix = f"P{percent:02d}"
+        columns.extend([
+            (percent, f"{prefix}_B3"),
+            (percent, f"{prefix}_B5"),
+            (percent, f"{prefix}_V83"),
+        ])
+    columns.extend([
+        (40, "RANDOM_HASH"),
+        (40, "P40_SHUFFLE_V83"),
+    ])
+
+    for percent, score_column in columns:
+        ranked = revealed.sort_values(
+            [score_column, "candidate_id"],
+            ascending=[False, True],
+        ).head(50)
+
+        for rank, row in enumerate(
+            ranked.itertuples(),
+            start=1,
+        ):
+            revealed_rows.append({
+                "budget_percent": int(percent),
+                "arm": score_column,
+                "rank": int(rank),
+                "candidate_id": row.candidate_id,
+                "predicted_score": float(
+                    getattr(row, score_column)
+                ),
+                "true_score": float(row.DMS_score),
+            })
+
+    pd.DataFrame(revealed_rows).to_csv(
+        out / "REVEALED_TOP50.csv",
+        index=False,
+    )
+
     print(json.dumps(final, indent=2))
 
 
