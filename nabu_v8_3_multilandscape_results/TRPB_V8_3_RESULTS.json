@@ -96,8 +96,8 @@
     "added_count": 7,
     "removed_count": 7,
     "added_mean_true": 0.6442847872584073,
-    "removed_mean_true": 0.42305083945745603,
-    "replacement_gain_true": 0.2212339478009513
+    "removed_mean_true": 0.423050839457456,
+    "replacement_gain_true": 0.22123394780095135
   },
   "model_diagnostics": {
     "main": {

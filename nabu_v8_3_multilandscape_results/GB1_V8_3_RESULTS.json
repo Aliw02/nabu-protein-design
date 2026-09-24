@@ -95,9 +95,9 @@
     "overlap": 44,
     "added_count": 6,
     "removed_count": 6,
-    "added_mean_true": 4.692751541551667,
+    "added_mean_true": 4.692751541551666,
     "removed_mean_true": 3.025000615136667,
-    "replacement_gain_true": 1.6677509264150001
+    "replacement_gain_true": 1.6677509264149992
   },
   "model_diagnostics": {
     "main": {

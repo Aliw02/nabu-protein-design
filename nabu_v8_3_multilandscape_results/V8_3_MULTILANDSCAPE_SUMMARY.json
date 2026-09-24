@@ -16,7 +16,7 @@
       "V8_3_top50_hits": 50,
       "B3_top50_true": 4.3202821399762,
       "V8_3_top50_true": 4.520412251146,
-      "replacement_gain_true": 1.6677509264150001
+      "replacement_gain_true": 1.6677509264149992
     },
     {
       "dataset": "PHOQ_V83.csv",
@@ -46,7 +46,7 @@
       "V8_3_top50_hits": 47,
       "B3_top50_true": 0.5845201031175521,
       "V8_3_top50_true": 0.6154928558096852,
-      "replacement_gain_true": 0.2212339478009513
+      "replacement_gain_true": 0.22123394780095135
     }
   ],
   "global_rank_not_worse_count": 3,
