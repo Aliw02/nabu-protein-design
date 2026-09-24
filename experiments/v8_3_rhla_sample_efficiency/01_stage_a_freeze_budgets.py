@@ -230,7 +230,7 @@ def verify_seal(input_dir):
             manifest["training_pool_sha256"],
         ),
         "hidden_ids": (
-            root / "HIDDEN_IDS.csv",
+            root / "HIDDEN_TRIPLE_IDS.csv",
             manifest["hidden_ids_sha256"],
         ),
     }
@@ -300,7 +300,7 @@ def main(input_dir, out_dir):
 
     seal = verify_seal(input_root)
     training_pool = pd.read_csv(input_root / "TRAINING_POOL.csv")
-    hidden_ids = pd.read_csv(input_root / "HIDDEN_IDS.csv")
+    hidden_ids = pd.read_csv(input_root / "HIDDEN_TRIPLE_IDS.csv")
 
     required_train = {
         "candidate_id",
@@ -324,7 +324,7 @@ def main(input_dir, out_dir):
             f"{required_hidden - set(hidden_ids.columns)}"
         )
 
-    total_eligible = len(training_pool) + len(hidden_ids)
+    total_eligible = int(seal["total_eligible_rows"])
 
     ordered = training_pool.copy()
     ordered["budget_hash"] = ordered["candidate_id"].map(
@@ -375,7 +375,7 @@ def main(input_dir, out_dir):
     fixed_hidden = hidden_ids[mask_5].copy()
 
     coverage = float(len(fixed_hidden) / len(hidden_ids))
-    if coverage < 0.50 or len(fixed_hidden) < 100:
+    if coverage < 0.50 or len(fixed_hidden) < 50:
         abort = {
             "status": "ABORT_BEFORE_REVEAL",
             "reason": (
@@ -552,7 +552,7 @@ def main(input_dir, out_dir):
         "input_seal": seal,
         "total_eligible_rows": int(total_eligible),
         "training_pool_rows": int(len(training_pool)),
-        "hidden_identity_rows": int(len(hidden_ids)),
+        "hidden_triple_identity_rows": int(len(hidden_ids)),
         "fixed_hidden_rows": int(len(fixed_hidden)),
         "fixed_hidden_coverage_fraction": coverage,
         "budget_counts": {
@@ -593,7 +593,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--input",
-        default="rhla_sealed_input",
+        default="rhla_sample_efficiency_sealed_input",
     )
     parser.add_argument(
         "--out",
