@@ -46,7 +46,7 @@
       "V8_3_top50_hits": 47,
       "B3_top50_true": 0.5845201031175521,
       "V8_3_top50_true": 0.6154928558096852,
-      "replacement_gain_true": 0.22123394780095135
+      "replacement_gain_true": 0.2212339478009513
     }
   ],
   "global_rank_not_worse_count": 3,
