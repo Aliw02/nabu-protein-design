@@ -1,0 +1,141 @@
+{
+  "version": "NABU_V8_3_DUAL_OBJECTIVE_ROUTER_VALIDATION",
+  "dataset": "GB1_Wu2016_V83.csv",
+  "rows": 149361,
+  "visible": 104463,
+  "hidden": 44898,
+  "eligible_hidden": 44898,
+  "oof": {
+    "B3_spearman": 0.3966140674046187,
+    "B4_spearman": 0.3942572418957082,
+    "B4_minus_B3": -0.002356825508910476,
+    "elite_diagnostic": {
+      "region_fraction": 0.2,
+      "region_count": 20893,
+      "B3": {
+        "top50_mean_percentile": 0.998537664053301,
+        "top50_top1pct_hits": 50,
+        "top50_mean_true": 4.761602621993401
+      },
+      "B4": {
+        "top50_mean_percentile": 0.9988562457520844,
+        "top50_top1pct_hits": 50,
+        "top50_mean_true": 5.0219512632174
+      },
+      "delta_top50_mean_percentile": 0.0003185816987834045,
+      "delta_top50_top1pct_hits": 0,
+      "allow_elite_rerank": true
+    },
+    "router_mode": "RANK_PRESERVING_B3_TOP20_B5_RERANK"
+  },
+  "metrics": {
+    "B3_RAW_PAIR": {
+      "spearman": 0.40177348622242515,
+      "top1_percentile": 0.9998106819902891,
+      "top5_mean_percentile": 0.9994097732638425,
+      "top10_mean_percentile": 0.9982850015590895,
+      "top50_mean_percentile": 0.9978805291995188,
+      "top10_top1pct_hits": 10,
+      "top50_top1pct_hits": 48,
+      "top10_top01pct_hits": 5,
+      "top50_top01pct_hits": 18,
+      "top50_mean_true_score": 4.3202821399762,
+      "normalized_top1_regret": 0.19106598606621458
+    },
+    "B4_CROSSFIT_TRIPLET": {
+      "spearman": 0.3973591817488753,
+      "top1_percentile": 0.9998106819902891,
+      "top5_mean_percentile": 0.9996325003340907,
+      "top10_mean_percentile": 0.9990623190342554,
+      "top50_mean_percentile": 0.9985014922713706,
+      "top10_top1pct_hits": 10,
+      "top50_top1pct_hits": 50,
+      "top10_top01pct_hits": 8,
+      "top50_top01pct_hits": 20,
+      "top50_mean_true_score": 4.520412251146,
+      "normalized_top1_regret": 0.19106598606621458
+    },
+    "B5_CROSSFIT_ADAPTIVE_HIGHER_ORDER": {
+      "spearman": 0.3973591817488753,
+      "top1_percentile": 0.9998106819902891,
+      "top5_mean_percentile": 0.9996325003340907,
+      "top10_mean_percentile": 0.9990623190342554,
+      "top50_mean_percentile": 0.9985014922713706,
+      "top10_top1pct_hits": 10,
+      "top50_top1pct_hits": 50,
+      "top10_top01pct_hits": 8,
+      "top50_top01pct_hits": 20,
+      "top50_mean_true_score": 4.520412251146,
+      "normalized_top1_regret": 0.19106598606621458
+    },
+    "V8_3_ADAPTIVE_ROUTER": {
+      "spearman": 0.40303312022921406,
+      "top1_percentile": 0.9998106819902891,
+      "top5_mean_percentile": 0.9996325003340907,
+      "top10_mean_percentile": 0.9990623190342554,
+      "top50_mean_percentile": 0.9985014922713706,
+      "top10_top1pct_hits": 10,
+      "top50_top1pct_hits": 50,
+      "top10_top01pct_hits": 8,
+      "top50_top01pct_hits": 20,
+      "top50_mean_true_score": 4.520412251146,
+      "normalized_top1_regret": 0.19106598606621458
+    }
+  },
+  "V8_3_vs_B3": {
+    "spearman": 0.0012596340067889122,
+    "top1_percentile": 0.0,
+    "top5_mean_percentile": 0.00022272707024817429,
+    "top10_mean_percentile": 0.0007773174751658507,
+    "top50_mean_percentile": 0.0006209630718518877,
+    "top50_mean_true_score": 0.20013011116980017,
+    "normalized_top1_regret": 0.0
+  },
+  "top50_replacement_vs_B3": {
+    "overlap": 44,
+    "added_count": 6,
+    "removed_count": 6,
+    "added_mean_true": 4.692751541551667,
+    "removed_mean_true": 3.025000615136667,
+    "replacement_gain_true": 1.6677509264150001
+  },
+  "model_diagnostics": {
+    "main": {
+      "entries": 80,
+      "support_min": 1113,
+      "support_median": 5324.5,
+      "support_max": 5610
+    },
+    "pair": {
+      "entries": 2397,
+      "support_min": 6,
+      "support_median": 269.0,
+      "support_max": 308
+    },
+    "triplet_crossfit": {
+      "entries": 31304,
+      "support_min": 2,
+      "support_median": 14.0,
+      "support_max": 20
+    },
+    "quartet_crossfit": {
+      "entries": 0,
+      "support_min": 0,
+      "support_median": 0.0,
+      "support_max": 0
+    },
+    "oof": {
+      "b3_spearman_visible": 0.3966138761903975,
+      "b4_spearman_visible": 0.3942603630833594,
+      "residual3_std": 0.2505184275006959,
+      "residual4_std": 0.2167599716977397
+    },
+    "fold_counts": {
+      "0": 20704,
+      "1": 21004,
+      "2": 20855,
+      "3": 20971,
+      "4": 20929
+    }
+  }
+}

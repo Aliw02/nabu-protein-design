@@ -1,5 +1,5 @@
 {
-  "version": "NABU_V8_3_MULTILANDSCAPE_VALIDATION",
+  "version": "NABU_V8_3_DUAL_OBJECTIVE_ROUTER_VALIDATION",
   "dataset": "TRPB_Johnston2024_V83.csv",
   "rows": 159129,
   "visible": 111297,
@@ -9,6 +9,23 @@
     "B3_spearman": 0.29493532781688153,
     "B4_spearman": 0.3023647404371667,
     "B4_minus_B3": 0.007429412620285181,
+    "elite_diagnostic": {
+      "region_fraction": 0.2,
+      "region_count": 22260,
+      "B3": {
+        "top50_mean_percentile": 0.996195045688563,
+        "top50_top1pct_hits": 43,
+        "top50_mean_true": 0.599185713177078
+      },
+      "B4": {
+        "top50_mean_percentile": 0.9975769337897699,
+        "top50_top1pct_hits": 46,
+        "top50_mean_true": 0.653383345146247
+      },
+      "delta_top50_mean_percentile": 0.001381888101206874,
+      "delta_top50_top1pct_hits": 3,
+      "allow_elite_rerank": true
+    },
     "router_mode": "GLOBAL_HIGHER_ORDER"
   },
   "metrics": {
@@ -78,9 +95,9 @@
     "overlap": 43,
     "added_count": 7,
     "removed_count": 7,
-    "added_mean_true": 0.6442847872584074,
+    "added_mean_true": 0.6442847872584073,
     "removed_mean_true": 0.42305083945745603,
-    "replacement_gain_true": 0.2212339478009514
+    "replacement_gain_true": 0.2212339478009513
   },
   "model_diagnostics": {
     "main": {

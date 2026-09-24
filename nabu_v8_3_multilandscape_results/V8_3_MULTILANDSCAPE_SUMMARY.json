@@ -1,24 +1,44 @@
 {
-  "version": "NABU_V8_3_FROZEN_MULTILANDSCAPE_VALIDATION",
-  "architecture_changed": false,
+  "version": "NABU_V8_3_DUAL_OBJECTIVE_MULTILANDSCAPE_VALIDATION",
+  "architecture_changed_after_hidden_reveal": false,
+  "router_rule": "If visible OOF global B4>B3, use global B5. Else allow rank-preserving B5 rerank inside frozen B3 top20% only when visible OOF elite Top50 mean percentile improves without losing Top1% hits. Otherwise protect B3.",
   "datasets": [
     {
-      "dataset": "PHOQ_V83.csv",
+      "dataset": "GB1_Wu2016_V83.csv",
       "router_mode": "RANK_PRESERVING_B3_TOP20_B5_RERANK",
-      "oof_delta": -0.002613045536223435,
+      "oof_global_delta": -0.002356825508910476,
+      "oof_elite_delta_top50_pct": 0.0003185816987834045,
+      "oof_elite_delta_hits": 0,
+      "B3_spearman": 0.40177348622242515,
+      "V8_3_spearman": 0.40303312022921406,
+      "delta_spearman": 0.0012596340067889122,
+      "B3_top50_hits": 48,
+      "V8_3_top50_hits": 50,
+      "B3_top50_true": 4.3202821399762,
+      "V8_3_top50_true": 4.520412251146,
+      "replacement_gain_true": 1.6677509264150001
+    },
+    {
+      "dataset": "PHOQ_V83.csv",
+      "router_mode": "B3_PROTECTED_NO_HIGHER_ORDER",
+      "oof_global_delta": -0.002613045536223435,
+      "oof_elite_delta_top50_pct": 3.640801383086867e-05,
+      "oof_elite_delta_hits": -4,
       "B3_spearman": 0.5419828937708228,
-      "V8_3_spearman": 0.5427579947057976,
-      "delta_spearman": 0.0007751009349747928,
+      "V8_3_spearman": 0.5419828937708228,
+      "delta_spearman": 0.0,
       "B3_top50_hits": 31,
-      "V8_3_top50_hits": 29,
+      "V8_3_top50_hits": 31,
       "B3_top50_true": 17.37321698566,
-      "V8_3_top50_true": 16.304157380859998,
-      "replacement_gain_true": -8.908830039999998
+      "V8_3_top50_true": 17.37321698566,
+      "replacement_gain_true": null
     },
     {
       "dataset": "TRPB_Johnston2024_V83.csv",
       "router_mode": "GLOBAL_HIGHER_ORDER",
-      "oof_delta": 0.007429412620285181,
+      "oof_global_delta": 0.007429412620285181,
+      "oof_elite_delta_top50_pct": 0.001381888101206874,
+      "oof_elite_delta_hits": 3,
       "B3_spearman": 0.2901696017240271,
       "V8_3_spearman": 0.29961657014983867,
       "delta_spearman": 0.009446968425811553,
@@ -26,10 +46,11 @@
       "V8_3_top50_hits": 47,
       "B3_top50_true": 0.5845201031175521,
       "V8_3_top50_true": 0.6154928558096852,
-      "replacement_gain_true": 0.2212339478009514
+      "replacement_gain_true": 0.2212339478009513
     }
   ],
-  "global_rank_gain_count": 2,
-  "elite_hits_not_worse_count": 1,
-  "elite_true_not_worse_count": 1
+  "global_rank_not_worse_count": 3,
+  "elite_hits_not_worse_count": 3,
+  "elite_true_not_worse_count": 3,
+  "dataset_count": 3
 }
