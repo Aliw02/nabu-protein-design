@@ -58,3 +58,7 @@ johnston2024_trpb_landscape.csv
 results_v4/
 .system_generated/
 scratch/
+
+# CreiLOV sealed candidate test
+CreiLOV_clean.xlsx
+creilov_sealed_input/.HIDDEN_TRUTH.sealed.csv
