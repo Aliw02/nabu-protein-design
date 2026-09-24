@@ -66,3 +66,12 @@ creilov_sealed_input/.HIDDEN_TRUTH.sealed.csv
 # eqFP611 sealed higher-order test
 eqFP611_clean.xlsx
 eqfp611_sealed_input/.HIDDEN_TRUTH.sealed.csv
+
+# RhlA sealed sample-efficiency test
+RhlA_clean.xlsx
+rhla_sample_efficiency_sealed_input/.HIDDEN_TRIPLE_TRUTH.sealed.csv
+
+# CR9114-H1 final Phase-1 gate
+bnAbs_CR9114_H1_clean.xlsx
+cr9114_h1_final_gate_sealed_input/.TRAINING_LABELS.sealed.csv
+cr9114_h1_final_gate_sealed_input/.HIDDEN_4_5_TRUTH.sealed.csv

@@ -1,0 +1,116 @@
+{
+  "version": "NABU_V8_3_CR9114_H1_FINAL_PHASE1_GATE_V1",
+  "status": "FROZEN_BEFORE_CR9114_H1_OUTCOME_LOAD",
+  "phase_policy": {
+    "purpose": "Final Phase-1 validation. No additional Phase-1 architecture or controller experiments after reveal.",
+    "post_reveal_retuning": false,
+    "next_step_after_reveal": "Close Phase 1 and move to Phase 2 regardless of outcome; record any limitation without tuning on CR9114-H1."
+  },
+  "base_architecture": {
+    "name": "NABU V8.3 Dual-Objective Router",
+    "branch": "freeze/nabu-v8-3-dual-objective-router-validated",
+    "commit": "c8afdcd7698231d95a39ef13a3fe22b6e3f507c5",
+    "architecture_changes": false
+  },
+  "active_controller": {
+    "source_freeze": "freeze/nabu-v8-3-rhla-active-acquisition-dev-2x",
+    "commit": "749b5e1332e5cf22805624f016e8eeab46fcb346",
+    "development_origin": "RhlA retrospective controller development",
+    "exploration_weight": 0.5,
+    "exploitation_weight": 0.5,
+    "controller_changes": false
+  },
+  "dataset": {
+    "name": "CR9114-H1 combinatorial antibody binding-affinity landscape",
+    "source_repo": "sitonglab/CombinGym",
+    "source_commit": "c5dccd514a9acfe1089a5f1555faea98afd78019",
+    "source_path": "Data/DMS/Clean/bnAbs_CR9114_H1_clean.xlsx",
+    "github_blob_sha": "d9895e1f7e6a25fba4c6e2aced9843f7ad4a7000",
+    "fresh_for_nabu": true,
+    "external_background": "Complete 16-site combinatorial CR9114 landscape; published work reports extensive pairwise and higher-order epistasis for H1 binding. The original phenotype is -log K_D, so higher values correspond to stronger binding."
+  },
+  "candidate_scope": {
+    "training_labels_allowed_mutation_counts": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "hidden_evaluation_mutation_counts": [
+      4,
+      5
+    ],
+    "reason": "Directly test higher-order candidate ranking and active acquisition in natural 4- and 5-mutation genotypes while retaining lower-order evidence for memory construction."
+  },
+  "sealed_split": {
+    "training_pool": "mutation_count in {1,2,3,4,5} AND FNV1a32(candidate_id) mod 10 in {0,1,2,3,4,5,6}",
+    "hidden_test": "mutation_count in {4,5} AND FNV1a32(candidate_id) mod 10 in {7,8,9}",
+    "lower_order_rows_in_hidden_hash_buckets": "unused",
+    "split_uses_fitness": false,
+    "same_hidden_pool_for_all_passive_and_active_budgets": true
+  },
+  "budgets": {
+    "passive_percent_of_all_eligible_rows": [
+      5,
+      10,
+      20,
+      40
+    ],
+    "passive_order": "FNV1a32('BUDGET|' + candidate_id), ascending",
+    "active_initial_budget_percent": 5,
+    "active_target_budgets_percent": [
+      10,
+      20,
+      40
+    ],
+    "active_initial_membership": "exact same 5% passive set"
+  },
+  "higher_order_qualification_before_reveal": {
+    "passive_40_triplet_entries_min": 1,
+    "passive_40_quartet_entries_min": 1,
+    "active_20_triplet_entries_min": 1,
+    "active_20_quartet_entries_min": 1,
+    "action_if_failed": "ABORT BEFORE REVEAL; CR9114-H1 does not count as the intended higher-order/controller final gate."
+  },
+  "fixed_candidate_pool": {
+    "definition": "Intersection of hidden 4/5-mutant candidates scoreable by passive 5%, all passive budgets, and all active budgets.",
+    "minimum_rows": 500,
+    "minimum_coverage_fraction_of_hidden_test": 0.5,
+    "qualification_before_reveal": true
+  },
+  "primary_metrics": [
+    "hidden pooled Spearman",
+    "Top-10 mean hidden-fitness percentile",
+    "Top-50 mean hidden-fitness percentile",
+    "Top-50 count of true hidden Top-1% variants",
+    "normalized Top-1 regret"
+  ],
+  "core_v8_3_gate_at_passive_40": {
+    "compare": "V8.3 vs same-budget B3",
+    "no_regression_required_on_all_primary_metrics": true,
+    "strict_improvement_required_on_at_least_n_primary_metrics": 2
+  },
+  "active_controller_gate": {
+    "question": "Can Active 10% or Active 20% reach the frozen Passive 40% V8.3 practical threshold?",
+    "spearman_retention_min": 0.9,
+    "top10_mean_percentile_absolute_gap_max": 0.03,
+    "top50_mean_percentile_absolute_gap_max": 0.02,
+    "top50_top1pct_hits_allowed_loss_max": 1,
+    "target_success_budget": 20
+  },
+  "negative_controls": [
+    "deterministic random-hash ranking",
+    "passive-40 shuffled-label V8.3 through identical router"
+  ],
+  "final_decision": {
+    "both_core_and_active_gate_pass": "PHASE1_FINAL_GATE_PASS",
+    "otherwise": "PHASE1_FINAL_GATE_CLOSED_WITH_LIMITATION",
+    "no_more_phase1_retuning_after_decision": true
+  },
+  "anti_leakage": {
+    "stage_0": "Package training-pool labels, hidden 4/5 identities, and sealed hidden truth; never print hidden fitness values.",
+    "stage_A": "Run passive budgets and frozen active controller, freeze common hidden pool, router modes, acquisition selections, predictions, Top-10/Top-50 rankings, controls and hashes without hidden truth.",
+    "stage_B": "Verify every Stage-A hash and frozen ranking first, then load hidden truth exactly once and compute the final gate."
+  }
+}
