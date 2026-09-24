@@ -1,0 +1,57 @@
+{
+  "version": "NABU_V8_1_CROSSFIT_DIAGNOSTICS",
+  "model": {
+    "main": {
+      "entries": 20,
+      "support_min": 1443,
+      "support_median": 2564.0,
+      "support_max": 2692
+    },
+    "pair": {
+      "entries": 182,
+      "support_min": 267,
+      "support_median": 484.5,
+      "support_max": 620
+    },
+    "triplet_crossfit": {
+      "entries": 1004,
+      "support_min": 35,
+      "support_median": 77.0,
+      "support_max": 119
+    },
+    "quartet_crossfit": {
+      "entries": 3767,
+      "support_min": 2,
+      "support_median": 10.0,
+      "support_max": 16
+    },
+    "oof": {
+      "b3_spearman_visible": 0.9029644045105057,
+      "b4_spearman_visible": 0.9075576111657556,
+      "residual3_std": 0.15446974035278957,
+      "residual4_std": 0.12445670960571557
+    },
+    "fold_counts": {
+      "0": 1917,
+      "1": 2029,
+      "2": 2017,
+      "3": 2043,
+      "4": 1945
+    }
+  },
+  "higher_order_hidden_coverage": {
+    "triplet_any_fraction": 1.0,
+    "quartet_any_fraction": 0.9382598331346842,
+    "triplet_mean_confidence": 0.974537997634213,
+    "quartet_mean_confidence": 0.643174817800404,
+    "mean_triplet_delta": -0.10724170885807482,
+    "mean_quartet_delta": -0.010745286880316092
+  },
+  "bootstrap_B5_minus_B3_spearman": {
+    "reps_valid": 1000,
+    "mean_delta": 0.011650828999727417,
+    "ci95_low": 0.009298791236399807,
+    "ci95_high": 0.013993450502203521,
+    "fraction_delta_gt_0": 1.0
+  }
+}
