@@ -1,99 +1,107 @@
-# NABU V8.3 Canonical Working Architecture
+# NABU V8.3 Canonical Phase-1 Core
 
-**Status:** Current canonical development architecture  
-**Date:** 2026-09-24  
-**Base:** V8.1 cross-fitted higher-order hierarchy  
-**Supersedes as current selector:** V8.2 single-objective OOF gate and the first V8.3 boundary-only router
+**Status:** Frozen Phase-1 core architecture  
+**Phase 1:** Closed  
+**Core freeze:** `freeze/nabu-v8-3-dual-objective-router-validated`  
+**Core commit:** `c8afdcd7698231d95a39ef13a3fe22b6e3f507c5`  
+**Phase-1 closure freeze:** `freeze/nabu-phase1-final-cr9114-closed`  
+**Closure commit:** `690494691c20edc3c9b7a6bba9a5156913173c58`
 
-## Architecture
+## Canonical rule
 
 NABU V8.3 uses B3 raw-pair memory as the protected backbone and cross-fitted higher-order residual memory as a conditional correction.
 
-The router is determined only from visible-data OOF behavior:
+The routing decision uses visible-data OOF behavior only.
 
-1. If visible OOF B4 Spearman is higher than B3 Spearman, use global B5 higher-order scoring.
-2. Otherwise inspect elite OOF behavior inside the B3-frozen top-20% region.
-3. Allow rank-preserving B5 reranking inside that region only if:
+1. If visible OOF B4 Spearman > B3 Spearman:
+   - use global B5 higher-order scoring.
+2. Otherwise inspect the B3-frozen top-20% elite region.
+3. Allow B5 reranking inside that region only if:
    - OOF Top-50 mean true percentile improves, and
    - OOF Top-50 Top-1% hit count does not decrease.
-4. Otherwise protect B3 and apply no higher-order reranking.
+4. Otherwise preserve B3 exactly.
 
-For elite-only mode, B3 freezes region membership. Higher-order is allowed to reorder candidates only inside the frozen region, so no cross-boundary score distortion is possible.
+Elite-only mode never allows higher-order scores to move a candidate across the B3-defined top-20% boundary.
 
-## Current evidence
+## Final evidence by routing regime
 
-### PHOT
+### Global higher-order
 
-Mode: GLOBAL_HIGHER_ORDER
+Observed on:
 
-- B3 Spearman: 0.899511
-- V8.3 / B5 Spearman: 0.911189
-- Top-50 Top-1% hits: 10 -> 11
-- Top-50 mean true score: 1.246918 -> 1.264681
+- PHOT
+- TrpB
+- eqFP611
+- CR9114-H1
 
-The dual-objective extension does not change the positive-global-OOF branch, so PHOT retains the established V8.3 result.
+CR9114-H1 final fresh gate:
 
-### GB1
+- hidden 4/5 variants: 1,673
+- B3 Spearman: 0.9271
+- V8.3 Spearman: 0.9387
+- strict gains: 4/5
+- no regression: 5/5
 
-Mode: RANK_PRESERVING_B3_TOP20_B5_RERANK
+### Elite-only higher-order
 
-Visible OOF:
-- global B4-B3 Spearman delta: -0.002357
-- elite Top-50 percentile delta: +0.000319
-- elite Top-1% hit delta: 0
+Observed on GB1.
 
-Hidden:
-- B3 Spearman: 0.401773
-- V8.3 Spearman: 0.403033
+Hidden result:
+
+- B3 Spearman: 0.4018
+- V8.3 Spearman: 0.4030
+- Top-50 true score improved materially
 - Top-50 Top-1% hits: 48 -> 50
-- Top-50 mean true score: 4.320282 -> 4.520412
-- six promoted Top-50 variants mean true score: 4.692752
-- six displaced variants mean true score: 3.025001
 
-### TrpB Johnston 2024
+### Protected B3
 
-Mode: GLOBAL_HIGHER_ORDER
+Observed when higher-order evidence is unsupported or harmful, including PhoQ and the low-order CreiLOV training regime.
 
-Visible OOF:
-- global B4-B3 Spearman delta: +0.007429
-- elite Top-50 percentile delta: +0.001382
-- elite Top-1% hit delta: +3
+PhoQ:
 
-Hidden:
-- B3 Spearman: 0.290170
-- V8.3 Spearman: 0.299617
-- Top-50 Top-1% hits: 45 -> 47
-- Top-50 mean true score: 0.584520 -> 0.615493
-- normalized Top-1 regret: 0.318988 -> 0.034064
-- seven promoted Top-50 variants mean true score exceeded displaced variants by +0.221234
+- B3 preserved at Spearman 0.5420
+- harmful higher-order elite rerank was rejected
 
-### PhoQ
+CreiLOV:
 
-Mode: B3_PROTECTED_NO_HIGHER_ORDER
+- B3-only extrapolation to 13,168 hidden 4/5-mutants
+- Spearman 0.8968
+- Top-1 regret 0.0333
 
-Visible OOF:
-- global B4-B3 Spearman delta: -0.002613
-- elite Top-50 percentile delta: +0.000036
-- elite Top-1% hit delta: -4
+## Active Acquisition is not part of the canonical core
 
-The elite safety gate therefore rejected higher-order reranking.
+The 50/50 exploration/exploitation controller is an optional outer policy.
 
-Hidden:
-- B3 Spearman preserved: 0.541983
-- Top-50 Top-1% hits preserved: 31
-- Top-50 mean true score preserved: 17.373217
+Development freeze:
 
-Without the elite safety gate, higher-order would have reduced hidden Top-50 hits from 31 to 29 and mean Top-50 true score from 17.373217 to 16.304157.
+`freeze/nabu-v8-3-rhla-active-acquisition-dev-2x`
 
-## Current conclusion
+Evidence:
 
-Across the four development landscapes currently available:
+- RhlA retrospective Active 20% reached Passive 40% threshold.
+- CR9114 fresh Active 10% reached Passive 40% threshold.
+- CR9114 Active 20% failed the preregistered target.
+- Active performance was non-monotonic across budgets.
 
-- PHOT: higher-order is useful globally.
-- TrpB: higher-order is useful globally.
-- GB1: higher-order is useful for elite reranking but harmful globally.
-- PhoQ: higher-order should be suppressed.
+Therefore Active Acquisition should be treated as a Phase-2 research component, not as part of the frozen V8.3 core.
 
-The useful result is therefore not a universal higher-order model. It is a visible-OOF-routed hierarchy that can choose between global higher-order, elite-only higher-order, and protected pairwise scoring.
+## Preservation rule
 
-This is the current NABU architecture to preserve. Future validation should test this frozen rule without changing its routing thresholds or decision logic.
+Do not retune this Phase-1 core on:
+
+- PHOT
+- GB1
+- TrpB
+- PhoQ
+- CreiLOV
+- eqFP611
+- RhlA
+- CR9114-H1
+
+Any Phase-2 modification should be implemented above or beside the frozen core and compared against it as a baseline.
+
+## Phase-2 transition
+
+The next stage changes the task from static ranking toward closed-loop combinatorial design.
+
+See [PHASE2_PLAN.md](PHASE2_PLAN.md).

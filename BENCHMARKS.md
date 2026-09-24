@@ -1,80 +1,185 @@
-# Cross-Assay Experimental Benchmarks (NABU V8.3)
+# NABU Phase-1 Benchmark Record
 
-This document provides a consolidated, empirical evaluation of **NABU V8.3** across independent, experimentally measured combinatorial protein fitness landscapes from published Deep Mutational Scanning (DMS) studies.
+This document summarizes the final Phase-1 evidence for NABU V8.3.
 
----
+Phase 1 is closed. Historical raw outputs and preregistrations remain authoritative where a summary and a raw artifact differ.
 
-## 1. Primary Benchmark Suite Summary (6 Multi-Assay Landscapes)
+## 1. Core multi-landscape router evidence
 
-All evaluations use frozen cryptographic SHA-256 pre-reveal candidate manifests with zero test-set leakage.
+| Landscape | Router behavior | B3 Spearman | V8.3 Spearman | Main observation |
+| --- | --- | ---: | ---: | --- |
+| PHOT | `GLOBAL_HIGHER_ORDER` | 0.8995 | **0.9112** | Higher-order useful globally |
+| TrpB | `GLOBAL_HIGHER_ORDER` | 0.2902 | **0.2996** | Global rank and elite discovery improved |
+| GB1 | `RANK_PRESERVING_B3_TOP20_B5_RERANK` | 0.4018 | **0.4030** | Global HO harmful; elite-only rerank useful |
+| PhoQ | `B3_PROTECTED_NO_HIGHER_ORDER` | **0.5420** | **0.5420** | Router prevented higher-order regression |
 
-| Benchmark Assay | Target Protein | Experimental Assay | Total Measured Variants | Visible (Train) | Hidden (Test) | Model Architecture Selected | Spearman ($\rho$) | Top-50 Mean True Score | Normalized Top-1 Regret |
-| :--- | :--- | :--- | :---: | :---: | :---: | :--- | :---: | :---: | :---: |
-| **eqFP611** | Fluorescent Protein (13 sites) | Red/Blue In vivo Fluorescence | 2,288 | 1,599 (70%) | 689 (30%) | `GLOBAL_HIGHER_ORDER` | **0.7894** (+2.93% vs B3) | **1.4247** | **0.1109** (PASS) |
-| **CreiLOV** | Photoreceptor LOV domain | In vivo Fluorescence | 14,343 | 1,175 ($\le 3$ mut) | 13,168 (4-5 mut) | `B3_PROTECTED` | **0.8968** | **4.1201** | **0.0333** |
-| **TRPB** | Tryptophan Synthase $\beta$ | Enantioselective Catalysis | 159,129 | 111,297 (70%) | 47,832 (30%) | `GLOBAL_HIGHER_ORDER` | **0.2996** (+0.94% vs B3) | **0.6155** | **0.0341** |
-| **GB1** | Protein G B1 Domain | IgG Binding Affinity | 149,361 | 104,463 (70%) | 44,898 (30%) | `TOP20_B5_RERANK` | **0.4030** (+0.13% vs B3) | **4.5204** | **0.1911** (50/50 Top 1%) |
-| **PHOT_CHLRE** | Phototropin (*C. reinhardtii*) | Light-Activated Kinase | 14,146 | 9,951 (70%) | 4,195 (30%) | `GLOBAL_HIGHER_ORDER` | **0.9112** (+1.17% vs B3) | **1.2647** | **0.0047** |
-| **PHOQ** | Sensor Kinase PhoQ | Signal Transduction | 140,517 | 98,330 (70%) | 42,187 (30%) | `B3_PROTECTED` | **0.5420** (Protected) | **17.3732** | **0.6421** |
+These landscapes established why V8.3 requires routing rather than universal use of B5.
 
-**Total Experimental Variants Evaluated**: **> 650,000 combinatorial mutants**.
+## 2. CreiLOV sealed pairwise extrapolation
 
----
+Protocol:
 
-## 2. Multi-Landscape Dual-Objective Router Validation (V8.3)
+- visible: mutation count <= 3,
+- hidden: mutation count 4 or 5,
+- hidden rows: 13,168,
+- higher-order memory at Stage A: no supported triplet/quartet corrections.
 
-In the V8.3 evaluation across 4 major benchmark datasets (GB1, TRPB, PHOQ, PHOT), the Adaptive Dual-Objective Router was evaluated against the raw pairwise baseline (`B3_RAW_PAIR`), pure triplet modeling (`B4_CROSSFIT_TRIPLET`), and full adaptive higher-order epistasis (`B5_CROSSFIT_ADAPTIVE_HIGHER_ORDER`).
+Result:
 
-### Comparative Performance Table:
+- Router mode: `B3_PROTECTED_NO_HIGHER_ORDER`
+- Spearman: **0.8968**
+- Top-10 mean percentile: **0.9788**
+- Top-50 mean percentile: **0.9513**
+- Top-50 true Top-1% hits: **13**
+- Normalized Top-1 regret: **0.0333**
+- Shuffled control Spearman: **-0.1599**
 
-| Landscape | B3 Raw Pair Spearman | B5 Higher-Order Spearman | V8.3 Router Spearman | $\Delta \rho$ vs B3 | B3 Top-50 Mean True | V8.3 Top-50 Mean True | $\Delta$ Top-50 True | Top-1% Hits (B3 $\rightarrow$ V8.3) |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **TRPB** | 0.2902 | 0.2996 | **0.2996** | **+0.0094** | 0.5845 | **0.6155** | **+0.0310** | 45 $\rightarrow$ **47** |
-| **GB1** | 0.4018 | 0.3974 | **0.4030** | **+0.0013** | 4.3203 | **4.5204** | **+0.2001** | 48 $\rightarrow$ **50** (100%) |
-| **PHOQ** | 0.5420 | 0.5404 | **0.5420** | **0.0000** | 17.3732 | **17.3732** | **0.0000** | 31 $\rightarrow$ 31 (Protected) |
-| **PHOT** | 0.8995 | 0.9112 | **0.9112** | **+0.0117** | 1.2469 | **1.2647** | **+0.0178** | 10 $\rightarrow$ **11** |
+Interpretation: strong sealed evidence for B3 pairwise extrapolation into unseen 4/5-mutation variants, but not a higher-order validation because higher-order memories were empty.
 
-### Key Observations:
-1. **TRPB & PHOT (Global Higher-Order Regimes)**: The visible OOF diagnostic detected genuine higher-order signal ($\Delta \text{OOF} > 0$), routing to `GLOBAL_HIGHER_ORDER`. On TRPB, Normalized Top-1 Regret plummeted from `0.3190` to `0.0341`.
-2. **GB1 (Elite-Only Epistatic Regime)**: Naive higher-order modeling degraded global rank (-0.0044) due to noise across 45k lower-fitness variants. The Router applied `RANK_PRESERVING_B3_TOP20_B5_RERANK`, yielding **positive Spearman (+0.0013)** while achieving **50/50 Top 1% hits** and a large **+1.6678** replacement gain.
-3. **PHOQ (Safety Net Regime)**: Higher-order terms showed negative OOF delta and no elite benefit. The Router engaged `B3_PROTECTED_NO_HIGHER_ORDER`, completely shielding the model from regression.
+## 3. eqFP611 sealed higher-order validation
 
----
+Stage-A qualification:
 
-## 3. Preregistered Sealed Extrapolation Tests (CreiLOV & eqFP611)
+- visible rows: 1,599
+- hidden rows: 689
+- triplet entries: **286**
+- quartet entries: **715**
+- visible OOF B3: 0.7266
+- visible OOF B4: 0.7613
+- router: `GLOBAL_HIGHER_ORDER`
 
-### A. eqFP611 Complete Combinatorial Landscape (Higher-Order Test)
-* **Design**: Complete 13-site binary combinatorial fluorescence landscape (2,288 total variants).
-* **Qualification Gate**: Verified 286 cross-fitted triplets and 715 quartets in Stage A.
-* **Evaluation Status**: **`SEALED_CANDIDATE_TEST_PASS`** (Strict gain on 4 out of 5 primary endpoints).
+Hidden evaluation:
 
-```
-Primary Endpoint                    B3 Baseline    V8.3 Router    Delta        Pass Criterion
----------------------------------------------------------------------------------------------------
-1. Hidden Pooled Spearman           0.7601         0.7894         +0.0293      Strict Gain (Pass)
-2. Top-10 Mean Hidden Percentile    90.68%         91.84%         +1.16%       Strict Gain (Pass)
-3. Top-50 Mean Hidden Percentile    89.83%         90.15%         +0.32%       Strict Gain (Pass)
-4. Top-50 True Top-1% Hit Count     3 / 50         3 / 50         0            No Regression (Pass)
-5. Normalized Top-1 Regret          0.1281         0.1109         -0.0172      Strict Gain (Pass)
----------------------------------------------------------------------------------------------------
-Shuffled-Label Permutation Control  Spearman: 0.0514 | Top-1 Regret: 0.9215    Null Control Failed
-```
+| Endpoint | B3 | V8.3 | Result |
+| --- | ---: | ---: | --- |
+| Spearman | 0.7601 | **0.7894** | strict gain |
+| Top-10 mean percentile | 0.9068 | **0.9184** | strict gain |
+| Top-50 mean percentile | 0.8983 | **0.9015** | strict gain |
+| Top-50 true Top-1% hits | 3 | 3 | no regression |
+| Normalized Top-1 regret | 0.1281 | **0.1109** | strict gain |
 
-### B. CreiLOV Low-to-High Order Mutation Extrapolation Test
-* **Design**: Trained strictly on low-order mutants ($n \le 3$, 1,175 variants) to predict 13,168 hidden 4-5 mutation variants ($n \in \{4, 5\}$).
-* **Router Decision**: Since training data had $\le 3$ mutations (0 triplet/quartet entries), the Router selected `B3_PROTECTED_NO_HIGHER_ORDER`.
-* **Outcomes on 13,168 Hidden 4-5 Mutation Variants**:
-  * **Spearman Rank Correlation**: **`0.8968`** (vs `-0.1599` for shuffled control).
-  * **Top-1 Candidate**: True score `4.1473` (Max possible `4.1880`), **Top-1 Regret = 0.0333** (99.13th percentile).
-  * **Top-10 Mean Percentile**: **97.88%**.
-  * **Top-50 Mean Percentile**: **95.13%** (13 hits in true Top 1%).
-  * **Zero Regression**: `all_no_regression: true`.
+Final status: `SEALED_CANDIDATE_TEST_PASS`.
 
----
+Shuffled-label Spearman: **0.0514**.
 
-## 4. Methodological Rigor and Negative Controls
+## 4. RhlA sample-efficiency benchmark
 
-For every evaluated dataset, NABU incorporates a deterministic **Shuffled-Label Permutation Control** (Seed 161) executed under identical pipeline constraints:
-* On **eqFP611**: Router achieved $\rho = 0.7894$ vs $\rho = 0.0514$ for shuffled control ($\Delta = +0.7380$).
-* On **CreiLOV**: Router achieved $\rho = 0.8968$ vs $\rho = -0.1599$ for shuffled control ($\Delta = +1.0567$).
-* Demonstrates that all reported candidate enrichment and rank gains originate from genuine structural epistatic signals rather than statistical artifacts.
+Fixed hidden triple-mutant test: **540 variants**.
+
+Passive V8.3:
+
+| Training budget | Rows | Spearman | Top-10 mean pct | Top-50 mean pct |
+| --- | ---: | ---: | ---: | ---: |
+| 5% | 118 | 0.5685 | 0.8391 | 0.7019 |
+| 10% | 235 | 0.6785 | 0.7787 | 0.7660 |
+| 20% | 469 | 0.6900 | 0.8400 | 0.7607 |
+| 40% | 938 | **0.7620** | **0.8422** | **0.8125** |
+
+The preregistered practical threshold was first satisfied by **40%**, not 20%.
+
+Negative controls:
+
+- random-hash Spearman: approximately -0.024
+- shuffled-label Spearman: approximately 0.119
+
+## 5. RhlA Active Acquisition development
+
+This experiment was **retrospective controller development** because RhlA truth had already been revealed before the controller was designed.
+
+The 50/50 exploration/exploitation controller produced:
+
+- Active 20% Spearman: **0.7202**
+- Active 20% Top-10 mean percentile: **0.8907**
+- Active 20% Top-50 mean percentile: **0.8254**
+- Active 20% Top-50 Top-1% hits: **3**
+
+Active 20% reached the frozen Passive 40% practical threshold:
+
+- measurement reduction: **50%**
+- measurement efficiency factor: **2.0×**
+
+This was useful development evidence, not fresh prospective proof.
+
+## 6. CR9114-H1 final fresh Phase-1 gate
+
+This was the final one-shot fresh Phase-1 experiment.
+
+Candidate scope:
+
+- training labels: measured 1–5 mutation variants,
+- hidden evaluation: 4/5-mutation variants,
+- fixed hidden rows: **1,673**,
+- common scoreability coverage: **100%**.
+
+### Higher-order qualification before reveal
+
+- Passive 40 triplets: **546**
+- Passive 40 quartets: **1,698**
+- Active 20 triplets: **545**
+- Active 20 quartets: **1,024**
+
+Qualification passed.
+
+### Core V8.3 final gate
+
+Passive 40%:
+
+| Endpoint | B3 | V8.3 |
+| --- | ---: | ---: |
+| Spearman | 0.9271 | **0.9387** |
+| Top-10 mean percentile | 0.9179 | **0.9297** |
+| Top-50 mean percentile | 0.8902 | **0.9047** |
+| Top-50 true Top-1% hits | 4 | **5** |
+| Normalized Top-1 regret | 0.0476 | 0.0476 |
+
+Core gate:
+
+- all-no-regression: **true**
+- strict gains: **4/5**
+- core pass: **true**
+
+Negative controls:
+
+- random-hash Spearman: **-0.0285**
+- shuffled-label V8.3 Spearman: **-0.1111**
+
+### Active controller final gate
+
+Against Passive 40% V8.3:
+
+- Active 5%: failed threshold
+- **Active 10%: passed threshold**
+- Active 20%: failed threshold
+- Active 40%: failed threshold
+
+Active 10% retained **91.19%** of Passive 40% Spearman while satisfying all frozen Top-10, Top-50, and Top-1%-hit gap criteria.
+
+This corresponds to:
+
+- **75% fewer measurements**
+- **4.0× measurement efficiency**
+
+However, the preregistered final target required **Active 20%**, and Active 20% failed. Therefore the formal status is:
+
+`PHASE1_FINAL_GATE_CLOSED_WITH_LIMITATION`
+
+The limitation is specifically the non-monotonic Active Acquisition policy, not the V8.3 core.
+
+## 7. Final Phase-1 interpretation
+
+Established:
+
+- B3 is a strong protected pairwise backbone.
+- Cross-fitted higher-order memory can improve unseen combinatorial ranking.
+- Visible OOF routing successfully distinguishes global, elite-only, and protected regimes.
+- The frozen core passed a fresh high-order 4/5-mutation final gate.
+- Active selection can reduce measurements substantially at some budgets.
+
+Not established:
+
+- universal monotonic superiority of the current 50/50 Active Acquisition controller,
+- de novo full-protein sequence generation,
+- structure-conditioned design,
+- wet-lab validation of NABU-proposed novel variants outside published benchmark landscapes.
+
+Phase 2 starts from this boundary.
