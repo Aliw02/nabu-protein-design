@@ -20,7 +20,7 @@ COUNT_NAMES = [
     "number_of_mutations",
 ]
 FITNESS_EXACT = [
-    "fitness", "dms_score", "score", "binding", "affinity",
+    "h1_mean", "fitness", "dms_score", "score", "binding", "affinity",
     "h1_binding", "h1_affinity", "neg_log_kd", "minus_log_kd",
     "log_kd", "logkd", "kd",
 ]
@@ -74,6 +74,10 @@ def choose_fitness_column(frame, genotype_col, count_col):
     preferred = list(dict.fromkeys(preferred))
     if len(preferred) == 1:
         return preferred[0]
+
+    mean_candidates = [c for c in preferred if "mean" in norm(c)]
+    if len(mean_candidates) == 1:
+        return mean_candidates[0]
 
     numeric_candidates = []
     for original in frame.columns:

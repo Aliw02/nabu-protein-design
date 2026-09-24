@@ -1,0 +1,41 @@
+{
+  "version": "NABU_V8_3_CR9114_H1_FINAL_GATE_SEAL_V1",
+  "source_file": "bnAbs_CR9114_H1_clean.xlsx",
+  "source_sha256": "1a1053862608769f5c7dd34cb93e003d26bcf8404a57dd8edcaa5b6463640084",
+  "sheet": "CR91114-h1",
+  "genotype_column": "genotype",
+  "fitness_column_name_only": "h1_mean",
+  "mutation_count_column": "n_mut",
+  "genotype_mode": "sequence_or_compact_identity_relative_to_reference:explicit_zero_mutant",
+  "identity_reference_if_inferred": "QVQLVQSGAEVKKPGSSVKVSCKASGGTFSSYAISWVRQAPGQGLEWMGGIIPIFGTANYAQKFQGRVTITADKSTSTAYMELSSLRSEDTAVYYCARHGNYYYYYGMDVWGQGTTVTVSS",
+  "candidate_scope": "mutation_count in {1,2,3,4,5}",
+  "hidden_evaluation_scope": "mutation_count in {4,5}",
+  "split_rule": "FNV1a32(candidate_id) mod 10; training 0-6; hidden 4/5-mutants 7-9",
+  "total_eligible_rows": 6323,
+  "training_pool_rows": 4459,
+  "hidden_4_5_rows": 1673,
+  "unused_lower_order_holdout_rows": 191,
+  "training_pool_by_mutation_count": {
+    "1": 10,
+    "2": 84,
+    "3": 386,
+    "4": 1195,
+    "5": 2784
+  },
+  "hidden_test_by_mutation_count": {
+    "4": 511,
+    "5": 1162
+  },
+  "budget_target_counts": {
+    "5": 317,
+    "10": 633,
+    "20": 1265,
+    "40": 2530
+  },
+  "training_ids_sha256": "a724783ad49269f8ed792a05b7af92a7464fd98979708074d6b2fec70dde9c49",
+  "training_labels_sha256": "7564e9fddc1308b1ef65675e8f5d1645f483e0844dc15d04e5250873bcb6d728",
+  "hidden_ids_sha256": "e973e653369a5c31b0f62ac207e4a3e3894606315b5934bbc5e813ebb113fe78",
+  "hidden_truth_sha256": "c30d71a879a2eaae4c96444127b9f7332959dbfcac2eba20749fdba4e9e3d9b1",
+  "training_label_values_printed": false,
+  "hidden_truth_values_printed": false
+}
