@@ -157,15 +157,16 @@ def main(xlsx_path, out_dir):
     frame = frame.drop_duplicates("candidate_id", keep="first").copy()
     frame["bucket"] = frame["candidate_id"].map(lambda x: fnv1a32(x) % 10)
 
-    visible = frame[frame["bucket"] <= 6].copy()
+    training_pool = frame[frame["bucket"] <= 6].copy()
     hidden = frame[frame["bucket"] >= 7].copy()
 
-    if len(visible) < 500 or len(hidden) < 100:
+    if len(training_pool) < 500 or len(hidden) < 100:
         raise RuntimeError(
-            f"Insufficient 3-5 mutation split: visible={len(visible)}, hidden={len(hidden)}"
+            "Insufficient 3-5 mutation split: "
+            f"training_pool={len(training_pool)}, hidden={len(hidden)}"
         )
 
-    training_pool = frame[frame["bucket"] <= 6].copy()\n    hidden = frame[frame["bucket"] >= 7].copy()\n\n    training_pool_out = pd.DataFrame(
+    training_pool_out = pd.DataFrame(
         {
             "candidate_id": training_pool["candidate_id"],
             "mutant": training_pool["_mutant"],
