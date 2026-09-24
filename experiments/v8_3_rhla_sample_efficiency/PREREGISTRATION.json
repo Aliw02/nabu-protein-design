@@ -49,7 +49,8 @@
   "fixed_candidate_pool": {
     "definition": "Intersection of hidden triple-mutant candidates scoreable by every frozen budget model; computed before truth reveal.",
     "minimum_coverage_fraction_of_hidden_triple_test": 0.5,
-    "qualification_before_reveal": true
+    "qualification_before_reveal": true,
+    "minimum_rows": 50
   },
   "architecture": {
     "name": "NABU V8.3 Dual-Objective Router",
