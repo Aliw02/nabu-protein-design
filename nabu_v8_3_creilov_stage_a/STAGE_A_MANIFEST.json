@@ -1,0 +1,127 @@
+{
+  "version": "NABU_V8_3_CREILOV_STAGE_A_FREEZE_V1",
+  "status": "CANDIDATES_FROZEN_BEFORE_HIDDEN_TRUTH_REVEAL",
+  "base_freeze_commit": "c8afdcd7698231d95a39ef13a3fe22b6e3f507c5",
+  "input_seal": {
+    "version": "NABU_V8_3_CREILOV_SEAL_V1",
+    "source_file": "CreiLOV_clean.xlsx",
+    "source_sha256": "5b1bfaa6788808dfd2692a3757e5d5aa30eb6097653543c1e1c60caa079ad27f",
+    "sheet": "Sheet1",
+    "genotype_column": "genotype",
+    "fitness_column_name_only": "mean_log",
+    "mutation_count_source": "n_mut",
+    "genotype_mode": "sequence_relative_to_WT",
+    "visible_rule": "mutation_count <= 3",
+    "hidden_rule": "mutation_count in {4,5}",
+    "visible_rows": 1175,
+    "hidden_rows": 13168,
+    "visible_sha256": "6c3f7f33bacb00a3930e1f48f45e4ffa8c7b0e3a732fc91066d7eadcbfd18362",
+    "hidden_ids_sha256": "15419b78447d11f65b54d7c4965da4dc287077a0520533ab6d7d561ffd832e69",
+    "hidden_truth_sha256": "cf052a4385eda19aec7cb19de45e0aa2f6aa072f5219bd28648a4172afea4287",
+    "hidden_truth_values_printed": false
+  },
+  "visible_rows": 1175,
+  "hidden_identity_rows": 13168,
+  "eligible_hidden_rows": 13168,
+  "eligible_fraction": 1.0,
+  "real_router": {
+    "B3_oof_spearman": 0.902645331139814,
+    "B4_oof_spearman": 0.902645331139814,
+    "B4_minus_B3": 0.0,
+    "elite_diagnostic": {
+      "region_fraction": 0.2,
+      "region_count": 235,
+      "B3": {
+        "top50_mean_percentile": 0.9373446808510637,
+        "top50_top1pct_hits": 8,
+        "top50_mean_visible_score": 4.130592923453326
+      },
+      "B4": {
+        "top50_mean_percentile": 0.9373446808510637,
+        "top50_top1pct_hits": 8,
+        "top50_mean_visible_score": 4.130592923453326
+      },
+      "delta_top50_mean_percentile": 0.0,
+      "delta_top50_top1pct_hits": 0,
+      "allow_elite_rerank": false
+    },
+    "mode": "B3_PROTECTED_NO_HIGHER_ORDER",
+    "details": {
+      "boundary_preserved": true,
+      "reason": "Visible OOF did not support global or elite higher-order use."
+    }
+  },
+  "shuffle_router": {
+    "B3_oof_spearman": -0.008900079224121416,
+    "B4_oof_spearman": -0.008900079224121416,
+    "B4_minus_B3": 0.0,
+    "elite_diagnostic": {
+      "region_fraction": 0.2,
+      "region_count": 235,
+      "B3": {
+        "top50_mean_percentile": 0.4759829787234042,
+        "top50_top1pct_hits": 1,
+        "top50_mean_visible_score": 3.9642624970944467
+      },
+      "B4": {
+        "top50_mean_percentile": 0.4759829787234042,
+        "top50_top1pct_hits": 1,
+        "top50_mean_visible_score": 3.9642624970944467
+      },
+      "delta_top50_mean_percentile": 0.0,
+      "delta_top50_top1pct_hits": 0,
+      "allow_elite_rerank": false
+    },
+    "mode": "B3_PROTECTED_NO_HIGHER_ORDER",
+    "details": {
+      "boundary_preserved": true,
+      "reason": "Visible OOF did not support global or elite higher-order use."
+    }
+  },
+  "model_diagnostics": {
+    "main": {
+      "entries": 20,
+      "support_min": 123,
+      "support_median": 176.5,
+      "support_max": 182
+    },
+    "pair": {
+      "entries": 182,
+      "support_min": 12,
+      "support_median": 18.0,
+      "support_max": 19
+    },
+    "triplet_crossfit": {
+      "entries": 0,
+      "support_min": 0,
+      "support_median": 0.0,
+      "support_max": 0
+    },
+    "quartet_crossfit": {
+      "entries": 0,
+      "support_min": 0,
+      "support_median": 0.0,
+      "support_max": 0
+    },
+    "oof": {
+      "b3_spearman_visible": 0.902645331139814,
+      "b4_spearman_visible": 0.902645331139814,
+      "residual3_std": 0.051550143934868634,
+      "residual4_std": 0.051550143934868634
+    },
+    "fold_counts": {
+      "0": 231,
+      "1": 243,
+      "2": 230,
+      "3": 243,
+      "4": 228
+    }
+  },
+  "hashes": {
+    "preregistration_sha256": "39bbda994207aa2f9d361afaee2707bda93805240f5fa29784e7fa4293d8e1c7",
+    "all_hidden_scores_sha256": "db485b4e54f3279aaf7796ba861e893e2fe80e7e3b17fd3dc57ec795f06b7187",
+    "candidate_freeze_sha256": "88a667bc59444065efbe9dd4dda9c2a70ac68c998762a9b6f3afa039c7b69859",
+    "sealed_hidden_truth_sha256_expected": "cf052a4385eda19aec7cb19de45e0aa2f6aa072f5219bd28648a4172afea4287"
+  },
+  "hidden_truth_loaded": false
+}

@@ -1,0 +1,28 @@
+{
+  "version": "NABU_V8_3_EQFP611_SEAL_V1",
+  "source_file": "eqFP611_clean.xlsx",
+  "source_sha256": "27e26e9d198e04f81740349399a8e5fb4687f4f2af7b27b0f9d374e04b0a8d63",
+  "sheet": "genodata",
+  "genotype_column": "genotype",
+  "fitness_column_name_only": "combined",
+  "mutation_count_source": "n_mut",
+  "genotype_mode": "sequence_relative_to_WT",
+  "candidate_scope": "mutation_count in {3,4,5}",
+  "split_rule": "FNV1a32(candidate_id) mod 10; visible 0-6, hidden 7-9",
+  "visible_rows": 1599,
+  "hidden_rows": 689,
+  "visible_by_mutation_count": {
+    "3": 208,
+    "4": 483,
+    "5": 908
+  },
+  "hidden_by_mutation_count": {
+    "3": 78,
+    "4": 232,
+    "5": 379
+  },
+  "visible_sha256": "2bdf704827c20a435b7dc92e237fe2d80ee28e333036076f203ec1ecba93871f",
+  "hidden_ids_sha256": "4e2d83a05ff81b9feb64e786aad0edd9a94a975d2a7ec366dee706117807432e",
+  "hidden_truth_sha256": "a394b4b53d2fdc87460989145724cc99f136d534cccdb006777420e7825e69a4",
+  "hidden_truth_values_printed": false
+}

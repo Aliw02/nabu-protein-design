@@ -1,0 +1,140 @@
+{
+  "version": "NABU_V8_3_EQFP611_STAGE_A_FREEZE_V1",
+  "status": "CANDIDATES_FROZEN_BEFORE_HIDDEN_TRUTH_REVEAL",
+  "base_freeze_commit": "c8afdcd7698231d95a39ef13a3fe22b6e3f507c5",
+  "input_seal": {
+    "version": "NABU_V8_3_EQFP611_SEAL_V1",
+    "source_file": "eqFP611_clean.xlsx",
+    "source_sha256": "27e26e9d198e04f81740349399a8e5fb4687f4f2af7b27b0f9d374e04b0a8d63",
+    "sheet": "genodata",
+    "genotype_column": "genotype",
+    "fitness_column_name_only": "combined",
+    "mutation_count_source": "n_mut",
+    "genotype_mode": "sequence_relative_to_WT",
+    "candidate_scope": "mutation_count in {3,4,5}",
+    "split_rule": "FNV1a32(candidate_id) mod 10; visible 0-6, hidden 7-9",
+    "visible_rows": 1599,
+    "hidden_rows": 689,
+    "visible_by_mutation_count": {
+      "3": 208,
+      "4": 483,
+      "5": 908
+    },
+    "hidden_by_mutation_count": {
+      "3": 78,
+      "4": 232,
+      "5": 379
+    },
+    "visible_sha256": "2bdf704827c20a435b7dc92e237fe2d80ee28e333036076f203ec1ecba93871f",
+    "hidden_ids_sha256": "4e2d83a05ff81b9feb64e786aad0edd9a94a975d2a7ec366dee706117807432e",
+    "hidden_truth_sha256": "a394b4b53d2fdc87460989145724cc99f136d534cccdb006777420e7825e69a4",
+    "hidden_truth_values_printed": false
+  },
+  "visible_rows": 1599,
+  "hidden_identity_rows": 689,
+  "eligible_hidden_rows": 689,
+  "eligible_fraction": 1.0,
+  "real_router": {
+    "B3_oof_spearman": 0.7265534016488716,
+    "B4_oof_spearman": 0.7612530525962332,
+    "B4_minus_B3": 0.034699650947361604,
+    "elite_diagnostic": {
+      "region_fraction": 0.2,
+      "region_count": 320,
+      "B3": {
+        "top50_mean_percentile": 0.907554721701063,
+        "top50_top1pct_hits": 3,
+        "top50_mean_visible_score": 1.4452960894401583
+      },
+      "B4": {
+        "top50_mean_percentile": 0.9131207004377737,
+        "top50_top1pct_hits": 3,
+        "top50_mean_visible_score": 1.452127622516991
+      },
+      "delta_top50_mean_percentile": 0.005565978736710719,
+      "delta_top50_top1pct_hits": 0,
+      "allow_elite_rerank": true
+    },
+    "mode": "GLOBAL_HIGHER_ORDER",
+    "details": {
+      "boundary_preserved": null
+    }
+  },
+  "shuffle_router": {
+    "B3_oof_spearman": 0.013810338673811307,
+    "B4_oof_spearman": 0.018542080039073233,
+    "B4_minus_B3": 0.004731741365261926,
+    "elite_diagnostic": {
+      "region_fraction": 0.2,
+      "region_count": 320,
+      "B3": {
+        "top50_mean_percentile": 0.5411257035647279,
+        "top50_top1pct_hits": 0,
+        "top50_mean_visible_score": 0.6884763985308655
+      },
+      "B4": {
+        "top50_mean_percentile": 0.5766854283927455,
+        "top50_top1pct_hits": 0,
+        "top50_mean_visible_score": 0.7764145337378041
+      },
+      "delta_top50_mean_percentile": 0.035559724828017614,
+      "delta_top50_top1pct_hits": 0,
+      "allow_elite_rerank": true
+    },
+    "mode": "GLOBAL_HIGHER_ORDER",
+    "details": {
+      "boundary_preserved": null
+    }
+  },
+  "model_diagnostics": {
+    "main": {
+      "entries": 13,
+      "support_min": 526,
+      "support_median": 543.0,
+      "support_max": 568
+    },
+    "pair": {
+      "entries": 78,
+      "support_min": 141,
+      "support_median": 162.0,
+      "support_max": 179
+    },
+    "triplet_crossfit": {
+      "entries": 286,
+      "support_min": 30,
+      "support_median": 39.5,
+      "support_max": 50
+    },
+    "quartet_crossfit": {
+      "entries": 715,
+      "support_min": 2,
+      "support_median": 7.0,
+      "support_max": 10
+    },
+    "oof": {
+      "b3_spearman_visible": 0.7265534016488716,
+      "b4_spearman_visible": 0.7612530525962332,
+      "residual3_std": 0.299958920708111,
+      "residual4_std": 0.2718583166743672
+    },
+    "fold_counts": {
+      "0": 322,
+      "1": 316,
+      "2": 330,
+      "3": 330,
+      "4": 301
+    }
+  },
+  "higher_order_qualification": {
+    "triplet_entries": 286,
+    "quartet_entries": 715,
+    "passed": true
+  },
+  "hashes": {
+    "preregistration_sha256": "422dbae51482da286ed6369ff24ab8200c645cd32e93604fb52dd8e700516783",
+    "all_hidden_scores_sha256": "c8e4236f778010b0396ffcd85046822d5900ac0b071d7774573e26ab57af2493",
+    "candidate_freeze_sha256": "0c97bdd7e4bd3278fce85cb55dd3f3735f740ae80c63934376bd34c8e9a6c9ce",
+    "sealed_hidden_truth_sha256_expected": "a394b4b53d2fdc87460989145724cc99f136d534cccdb006777420e7825e69a4"
+  },
+  "hidden_truth_loaded": false
+}
