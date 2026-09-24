@@ -1,0 +1,38 @@
+{
+  "version": "NABU_V7_RESULT",
+  "rows": 14146,
+  "visible": 9951,
+  "hidden": 4195,
+  "eligible_hidden": 4195,
+  "freeze_sha256": "fe8720260dd700d8d98888399aa110f69f299b3e9d362a760484d392ff934aa4",
+  "B2_ADDITIVE": {
+    "spearman": 0.8562238593233498,
+    "top1_percentile": 0.9996424314660309,
+    "top5_mean_percentile": 0.9908224076281288,
+    "top50_top1pct_enrichment": 30.0,
+    "normalized_top1_regret": 9.085159240324049e-05
+  },
+  "B3_RAW_PAIR": {
+    "spearman": 0.8995114808552996,
+    "top1_percentile": 0.9991656734207389,
+    "top5_mean_percentile": 0.9921096543504172,
+    "top50_top1pct_enrichment": 20.0,
+    "normalized_top1_regret": 0.004679025311220415
+  },
+  "B5_NABU_CONSENSUS": {
+    "spearman": 0.9033056490083221,
+    "top1_percentile": 0.9991656734207389,
+    "top5_mean_percentile": 0.9921096543504172,
+    "top50_top1pct_enrichment": 24.0,
+    "normalized_top1_regret": 0.004679025311220415
+  },
+  "SHUFFLED_B5": {
+    "spearman": 0.31460910536825915,
+    "top1_percentile": 0.4020262216924911,
+    "top5_mean_percentile": 0.6865077473182359,
+    "top50_top1pct_enrichment": 14.000000000000002,
+    "normalized_top1_regret": 0.5034081946037947
+  },
+  "b5_vs_raw_pair_design_metric_wins": 1,
+  "preregistered_pass": false
+}

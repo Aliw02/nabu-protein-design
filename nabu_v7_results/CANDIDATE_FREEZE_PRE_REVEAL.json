@@ -1,0 +1,815 @@
+{
+  "version": "NABU_V7_CANDIDATE_FREEZE",
+  "eligible_hidden": 4195,
+  "arms": {
+    "B2_ADDITIVE": [
+      {
+        "candidate_id": "R4D:T6S:G33T:D60Q",
+        "predicted_score": 1.2812775204889366
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:G33T:T112E",
+        "predicted_score": 1.2810801607343905
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:D60Q:T112E",
+        "predicted_score": 1.279497729659852
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:D60Q:V106M",
+        "predicted_score": 1.2789937392592248
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:V106M:T112E",
+        "predicted_score": 1.2768636391826247
+      },
+      {
+        "candidate_id": "R4D:T6S:G33T:R97D:V106M",
+        "predicted_score": 1.2767093096884037
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:R97D:V106M",
+        "predicted_score": 1.2751268786138652
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:V106M",
+        "predicted_score": 1.260181658957632
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:G33T:R97D",
+        "predicted_score": 1.2556178243445182
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:Q46R:D60Q",
+        "predicted_score": 1.2510545621652993
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:V106M",
+        "predicted_score": 1.2433023189780934
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:G33T",
+        "predicted_score": 1.240672604688285
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:D60Q",
+        "predicted_score": 1.2390901736137465
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:A28K:D60Q",
+        "predicted_score": 1.2383240678816532
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:I91C:V106M",
+        "predicted_score": 1.2382167967877455
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:A28H:R97D",
+        "predicted_score": 1.237156053290441
+      },
+      {
+        "candidate_id": "R4D:T6S:G33T:R97D",
+        "predicted_score": 1.2368057440429256
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:V106M:T112E",
+        "predicted_score": 1.236258723381973
+      },
+      {
+        "candidate_id": "R4D:T6S:A28K:D60Q:T112E",
+        "predicted_score": 1.236193967805053
+      },
+      {
+        "candidate_id": "R4D:T6S:A28K:G33T:R97D",
+        "predicted_score": 1.236039638310832
+      },
+      {
+        "candidate_id": "L3N:R4D:T6S:G33T:D60Q",
+        "predicted_score": 1.2350443412553964
+      },
+      {
+        "candidate_id": "R4D:T6S:A28K:D60Q:R97D",
+        "predicted_score": 1.2344572072362936
+      },
+      {
+        "candidate_id": "R4D:T6S:R97D:V106M:T112E",
+        "predicted_score": 1.2323918627366135
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46R:D60Q:T112E",
+        "predicted_score": 1.2251988862675862
+      },
+      {
+        "candidate_id": "R4D:T6S:A28K:G33T",
+        "predicted_score": 1.221094418654599
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:A28K:V106M",
+        "predicted_score": 1.218810637424887
+      },
+      {
+        "candidate_id": "L3N:R4D:T6S:A28H:G33T",
+        "predicted_score": 1.2181650012758576
+      },
+      {
+        "candidate_id": "L3N:R4D:T6S:G33T:V106M",
+        "predicted_score": 1.2155309107986303
+      },
+      {
+        "candidate_id": "L3N:R4D:T6S:D60Q:V106M",
+        "predicted_score": 1.2139484797240918
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:R97D:T112E",
+        "predicted_score": 1.2113003773927282
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:Q46R:T112E",
+        "predicted_score": 1.2083195462880476
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:Q46R:V106M",
+        "predicted_score": 1.2078155558874202
+      },
+      {
+        "candidate_id": "R4D:T6S:A28K:Q46R:D60Q",
+        "predicted_score": 1.2077508003105002
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:V106M:V108Q",
+        "predicted_score": 1.2052655777140115
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:G33T:D95Q",
+        "predicted_score": 1.2039245973279125
+      },
+      {
+        "candidate_id": "R4D:T6S:G33T:I91C",
+        "predicted_score": 1.1998956622168058
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:D95Q:V106M",
+        "predicted_score": 1.1997080757761465
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:I91C",
+        "predicted_score": 1.1983132311422673
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:I91C:V106M",
+        "predicted_score": 1.197611880987094
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:A28K:T112E",
+        "predicted_score": 1.1955890520044015
+      },
+      {
+        "candidate_id": "G2E:L3N:R4D:T6S:D60Q",
+        "predicted_score": 1.1928569943802065
+      },
+      {
+        "candidate_id": "L3N:R4D:T6S:G33T:T112E",
+        "predicted_score": 1.1923093253781447
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:Q46R",
+        "predicted_score": 1.191637566063055
+      },
+      {
+        "candidate_id": "L3N:R4D:T6S:D60Q:T112E",
+        "predicted_score": 1.1907268943036062
+      },
+      {
+        "candidate_id": "L3N:R4D:T6S:G33T:R97D",
+        "predicted_score": 1.1905725648093854
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46R:V106M",
+        "predicted_score": 1.1890034755858276
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:V106M:V108Q",
+        "predicted_score": 1.188386237734473
+      },
+      {
+        "candidate_id": "R4D:T6S:A28K:Q46R:V106M",
+        "predicted_score": 1.188237369853734
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:G33T:V108Q",
+        "predicted_score": 1.1857565234446645
+      },
+      {
+        "candidate_id": "R4D:T6S:G33T:R97D:V108Q",
+        "predicted_score": 1.1818896627993052
+      }
+    ],
+    "B3_RAW_PAIR": [
+      {
+        "candidate_id": "R4D:T6S:D60Q:R97D:V106M",
+        "predicted_score": 1.9292885105925277
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:D60Q:T112E",
+        "predicted_score": 1.919738847662699
+      },
+      {
+        "candidate_id": "R4D:T6S:G33T:R97D:V106M",
+        "predicted_score": 1.9019680670082648
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:G33T:T112E",
+        "predicted_score": 1.8949318143453509
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:V106M:T112E",
+        "predicted_score": 1.8814571429156883
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:D60Q:V106M",
+        "predicted_score": 1.8597320849203887
+      },
+      {
+        "candidate_id": "R4D:T6S:R97D:V106M:T112E",
+        "predicted_score": 1.839553263627698
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:A28K:D60Q",
+        "predicted_score": 1.828604731366628
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:I91C:V106M",
+        "predicted_score": 1.8278679195167946
+      },
+      {
+        "candidate_id": "R4D:T6S:A28K:D60Q:T112E",
+        "predicted_score": 1.805513461581186
+      },
+      {
+        "candidate_id": "R4D:T6S:A28K:D60Q:R97D",
+        "predicted_score": 1.791876746770594
+      },
+      {
+        "candidate_id": "R4D:T6S:A28K:G33T:R97D",
+        "predicted_score": 1.7831003616014822
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:V106M:V108Q",
+        "predicted_score": 1.7764525974356415
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:G33T:R97D",
+        "predicted_score": 1.7659764910057933
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:D95Q:V106M",
+        "predicted_score": 1.7565654442551861
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:A28K:V106M",
+        "predicted_score": 1.7549665982053344
+      },
+      {
+        "candidate_id": "R4D:G33T:D60Q:R97D:V106M",
+        "predicted_score": 1.748444814593892
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:V106M:T112E",
+        "predicted_score": 1.7473087076054559
+      },
+      {
+        "candidate_id": "T6S:A28H:G33T:R97D:V106M",
+        "predicted_score": 1.7462241305561492
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:A28H:R97D",
+        "predicted_score": 1.7452138970190303
+      },
+      {
+        "candidate_id": "L3N:R4D:T6S:G33T:D60Q",
+        "predicted_score": 1.7409137673655635
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:V106M:V108Q",
+        "predicted_score": 1.733326879671063
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:G33T:D95Q",
+        "predicted_score": 1.7323879210655972
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:A28K:T112E",
+        "predicted_score": 1.7283985766840821
+      },
+      {
+        "candidate_id": "T6S:G33T:D60Q:R97D:T112E",
+        "predicted_score": 1.7248949247782552
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:R97D:T112E",
+        "predicted_score": 1.7248369047546084
+      },
+      {
+        "candidate_id": "L3N:R4D:T6S:D60Q:V106M",
+        "predicted_score": 1.7169243272751673
+      },
+      {
+        "candidate_id": "L3N:R4D:T6S:A28H:G33T",
+        "predicted_score": 1.7137256419946365
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:V108Q:T112E",
+        "predicted_score": 1.713452166445205
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:I91C:V106M",
+        "predicted_score": 1.7108279590408635
+      },
+      {
+        "candidate_id": "R4D:A28H:G33T:R97D:V106M",
+        "predicted_score": 1.707122426294834
+      },
+      {
+        "candidate_id": "R4D:T6S:G33T:D95Q:T112E",
+        "predicted_score": 1.7068512901339448
+      },
+      {
+        "candidate_id": "R4D:A28H:D60Q:R97D:V106M",
+        "predicted_score": 1.702452977897373
+      },
+      {
+        "candidate_id": "R4D:T6S:G33T:D60Q",
+        "predicted_score": 1.698062527048446
+      },
+      {
+        "candidate_id": "R4D:T6S:A28K:I91C:V106M",
+        "predicted_score": 1.6875013881127918
+      },
+      {
+        "candidate_id": "R4D:T6S:A28K:D60Q:V108Q",
+        "predicted_score": 1.6841711881002455
+      },
+      {
+        "candidate_id": "G2E:R4D:T6H:G33T:D60Q",
+        "predicted_score": 1.683400056857284
+      },
+      {
+        "candidate_id": "T6S:A28H:G33T:R97D:T112E",
+        "predicted_score": 1.6833910936180434
+      },
+      {
+        "candidate_id": "L3N:R4D:T6S:D60Q:T112E",
+        "predicted_score": 1.6826291777571838
+      },
+      {
+        "candidate_id": "R4D:T6S:A28K:G33T:V108Q",
+        "predicted_score": 1.6790827135912212
+      },
+      {
+        "candidate_id": "L3N:R4D:T6S:G33T:V106M",
+        "predicted_score": 1.674771168962257
+      },
+      {
+        "candidate_id": "R4D:T6S:G33T:R97D:V108Q",
+        "predicted_score": 1.6734410246929727
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:G33T:V108Q",
+        "predicted_score": 1.6721820491682964
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:D95Q:T112E",
+        "predicted_score": 1.6701406879294418
+      },
+      {
+        "candidate_id": "R4D:G33T:R97D:V106M:T112E",
+        "predicted_score": 1.6667499940206971
+      },
+      {
+        "candidate_id": "R4D:A28H:G33T:V106M:T112E",
+        "predicted_score": 1.6655361815499674
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:V106M",
+        "predicted_score": 1.6633919187689046
+      },
+      {
+        "candidate_id": "R4D:T6H:G33T:R97D:V106M",
+        "predicted_score": 1.6618793378968473
+      },
+      {
+        "candidate_id": "G2E:R4D:A28H:D60Q:V106M",
+        "predicted_score": 1.6600324161605733
+      },
+      {
+        "candidate_id": "R4D:T6H:D60Q:R97D:V106M",
+        "predicted_score": 1.6595131397739133
+      }
+    ],
+    "B5_NABU_CONSENSUS": [
+      {
+        "candidate_id": "R4D:T6S:D60Q:R97D:V106M",
+        "predicted_score": 2.9373742789619017
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:D60Q:T112E",
+        "predicted_score": 2.937000823369541
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:G33T:T112E",
+        "predicted_score": 2.9059664248819774
+      },
+      {
+        "candidate_id": "R4D:T6S:G33T:R97D:V106M",
+        "predicted_score": 2.9027022411613626
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:V106M:T112E",
+        "predicted_score": 2.8734917608070973
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:D60Q:V106M",
+        "predicted_score": 2.8486028822160216
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:A28K:D60Q",
+        "predicted_score": 2.678425050497205
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:I91C:V106M",
+        "predicted_score": 2.67702862984983
+      },
+      {
+        "candidate_id": "R4D:T6S:R97D:V106M:T112E",
+        "predicted_score": 2.6760192962556424
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:G33T:R97D",
+        "predicted_score": 2.6409909878924682
+      },
+      {
+        "candidate_id": "R4D:T6S:A28K:D60Q:T112E",
+        "predicted_score": 2.6384516032099983
+      },
+      {
+        "candidate_id": "R4D:T6S:G33T:D60Q",
+        "predicted_score": 2.6216462345616893
+      },
+      {
+        "candidate_id": "R4D:T6S:A28K:D60Q:R97D",
+        "predicted_score": 2.6133718392046337
+      },
+      {
+        "candidate_id": "R4D:T6S:A28K:G33T:R97D",
+        "predicted_score": 2.605538474262657
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:V106M:T112E",
+        "predicted_score": 2.5544115432706476
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:A28H:R97D",
+        "predicted_score": 2.5541405345665353
+      },
+      {
+        "candidate_id": "L3N:R4D:T6S:G33T:D60Q",
+        "predicted_score": 2.5414199336719943
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:A28K:V106M",
+        "predicted_score": 2.5118126201797693
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:V106M",
+        "predicted_score": 2.506562573063554
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:V106M:V108Q",
+        "predicted_score": 2.501235364226007
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:D95Q:V106M",
+        "predicted_score": 2.4553542008737255
+      },
+      {
+        "candidate_id": "L3N:R4D:T6S:A28H:G33T",
+        "predicted_score": 2.450138487973239
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:R97D:T112E",
+        "predicted_score": 2.4450995008082925
+      },
+      {
+        "candidate_id": "L3N:R4D:T6S:D60Q:V106M",
+        "predicted_score": 2.441795044593468
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:G33T:D95Q",
+        "predicted_score": 2.4333351337938667
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:A28K:T112E",
+        "predicted_score": 2.4019156037315366
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:V106M",
+        "predicted_score": 2.4005524930613786
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:V106M:V108Q",
+        "predicted_score": 2.386887563858264
+      },
+      {
+        "candidate_id": "L3N:R4D:T6S:G33T:V106M",
+        "predicted_score": 2.385655733055196
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:I91C:V106M",
+        "predicted_score": 2.382709376116838
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:D60Q",
+        "predicted_score": 2.377222155485058
+      },
+      {
+        "candidate_id": "T6S:A28H:G33T:R97D:V106M",
+        "predicted_score": 2.361937675276497
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:Q46R:D60Q",
+        "predicted_score": 2.34797922552732
+      },
+      {
+        "candidate_id": "R4D:T6S:G33T:R97D",
+        "predicted_score": 2.3464958532042184
+      },
+      {
+        "candidate_id": "L3N:R4D:T6S:D60Q:T112E",
+        "predicted_score": 2.3207146153346354
+      },
+      {
+        "candidate_id": "R4D:T6S:G33T:D95Q:T112E",
+        "predicted_score": 2.3168265947485907
+      },
+      {
+        "candidate_id": "T6S:G33T:D60Q:R97D:T112E",
+        "predicted_score": 2.311555037826867
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:G33T",
+        "predicted_score": 2.3014415989621164
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:G33T:V108Q",
+        "predicted_score": 2.2903023396707605
+      },
+      {
+        "candidate_id": "R4D:T6S:A28K:I91C:V106M",
+        "predicted_score": 2.2887132501484437
+      },
+      {
+        "candidate_id": "G2E:L3N:R4D:T6S:D60Q",
+        "predicted_score": 2.2874373177540175
+      },
+      {
+        "candidate_id": "R4D:T6S:A28H:V108Q:T112E",
+        "predicted_score": 2.2866777209326736
+      },
+      {
+        "candidate_id": "R4D:T6S:G33T:R97D:V108Q",
+        "predicted_score": 2.280227363063755
+      },
+      {
+        "candidate_id": "R4D:G33T:D60Q:R97D:V106M",
+        "predicted_score": 2.268873712458272
+      },
+      {
+        "candidate_id": "L3N:R4D:T6S:G33T:T112E",
+        "predicted_score": 2.2631441403641253
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46R:D60Q:T112E",
+        "predicted_score": 2.2527557918552965
+      },
+      {
+        "candidate_id": "R4D:T6S:A28K:G33T",
+        "predicted_score": 2.250084288534961
+      },
+      {
+        "candidate_id": "L3N:R4D:T6S:G33T:R97D",
+        "predicted_score": 2.24609189035118
+      },
+      {
+        "candidate_id": "R4D:T6S:A28K:D60Q:V108Q",
+        "predicted_score": 2.242549738778682
+      },
+      {
+        "candidate_id": "R4D:T6S:A28K:G33T:V108Q",
+        "predicted_score": 2.2400538585189596
+      }
+    ],
+    "SHUFFLED_B5": [
+      {
+        "candidate_id": "R4D:T6S:Q46V:R59N:V108Q",
+        "predicted_score": 1.2381729715330052
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46R:R59N:V106M",
+        "predicted_score": 1.2051655707474862
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46R:V106M:V108Q",
+        "predicted_score": 1.2049828737694692
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46R:R97D:V108Q",
+        "predicted_score": 1.1876227747738077
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46R:R59N:R97D",
+        "predicted_score": 1.1848078681607805
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46R:I91C:V106M",
+        "predicted_score": 1.184334967146067
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46V:R59N:D95Q",
+        "predicted_score": 1.1798189879562144
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46R:D60Q:T112E",
+        "predicted_score": 1.1791893667521691
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46C:R97D:T112E",
+        "predicted_score": 1.1747635262336833
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46R:R59N:I91C",
+        "predicted_score": 1.1702726745261707
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46R:D95Q:T112E",
+        "predicted_score": 1.167340135214092
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46C:V108Q:T112E",
+        "predicted_score": 1.164618898864919
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46C:D60Q:R97D",
+        "predicted_score": 1.1631468752724756
+      },
+      {
+        "candidate_id": "R4D:T6S:R97D:V106M:T112E",
+        "predicted_score": 1.161398830110316
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46V:R97D:T112E",
+        "predicted_score": 1.1612344490894266
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:G33T:Q46V",
+        "predicted_score": 1.1608681989626697
+      },
+      {
+        "candidate_id": "R4D:T6S:G33T:R59N:V106M",
+        "predicted_score": 1.1586890709480873
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46R:D95Q:V106M",
+        "predicted_score": 1.1580728646730651
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46C:R59N:V106M",
+        "predicted_score": 1.155656997907661
+      },
+      {
+        "candidate_id": "R4D:T6S:R97D:V108Q:T112E",
+        "predicted_score": 1.1549437988860523
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46R:T112E",
+        "predicted_score": 1.1538782931935805
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46V:T112E",
+        "predicted_score": 1.1524474426895992
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46R:V106M",
+        "predicted_score": 1.1484868423455468
+      },
+      {
+        "candidate_id": "R4D:T6S:R59N:D60Q:R97D",
+        "predicted_score": 1.1445342936245506
+      },
+      {
+        "candidate_id": "G2E:R4D:T6H:Q46V:T112E",
+        "predicted_score": 1.14215528292887
+      },
+      {
+        "candidate_id": "R4D:T6S:R59N:V108Q:T112E",
+        "predicted_score": 1.141197179773725
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46V:V106M",
+        "predicted_score": 1.1409324493001294
+      },
+      {
+        "candidate_id": "R4D:T6S:R59N:R97D:T112E",
+        "predicted_score": 1.140928651726713
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46C:D60Q:V108Q",
+        "predicted_score": 1.1407977127690414
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46R:R59N",
+        "predicted_score": 1.1405012887386148
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:Q46V:R97D",
+        "predicted_score": 1.1382601937311203
+      },
+      {
+        "candidate_id": "G2E:T6S:Q46V:R59N",
+        "predicted_score": 1.1380100056375242
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46V:R97D:V106M",
+        "predicted_score": 1.135959311442644
+      },
+      {
+        "candidate_id": "R4D:T6S:R59N:D60Q:V106M",
+        "predicted_score": 1.1359293045286987
+      },
+      {
+        "candidate_id": "R4D:T6S:R59N:D60Q:V108Q",
+        "predicted_score": 1.1325982865368929
+      },
+      {
+        "candidate_id": "R4D:T6S:R59N:D95Q:V106M",
+        "predicted_score": 1.1296328790477124
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46C:R59N:T112E",
+        "predicted_score": 1.1292132650456503
+      },
+      {
+        "candidate_id": "R4D:T6S:G33T:R97D:V108Q",
+        "predicted_score": 1.1250148144048648
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:Q46V",
+        "predicted_score": 1.1243389601996185
+      },
+      {
+        "candidate_id": "G2E:R4D:T6S:Q46R:R59N",
+        "predicted_score": 1.123913904986061
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:V106M:T112E",
+        "predicted_score": 1.1220554903476299
+      },
+      {
+        "candidate_id": "R4D:T6S:Q46V:D60Q:T112E",
+        "predicted_score": 1.1215264465958408
+      },
+      {
+        "candidate_id": "G2E:R4D:T6H:A28H:Q46V",
+        "predicted_score": 1.1198290082417628
+      },
+      {
+        "candidate_id": "R4D:T6S:R59N:I91C:V106M",
+        "predicted_score": 1.1195824737793239
+      },
+      {
+        "candidate_id": "G2E:R4D:T6H:Q46V:D60Q",
+        "predicted_score": 1.1151130696583618
+      },
+      {
+        "candidate_id": "R4D:T6S:G33T:R97D:V106M",
+        "predicted_score": 1.1127650960876596
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:R97D:V106M",
+        "predicted_score": 1.1125694522045309
+      },
+      {
+        "candidate_id": "R4D:T6S:D60Q:V106M:V108Q",
+        "predicted_score": 1.1108913417122992
+      },
+      {
+        "candidate_id": "G2E:T6H:A28H:Q46V:V108Q",
+        "predicted_score": 1.109455167399525
+      },
+      {
+        "candidate_id": "R4D:T6S:R59N:D95Q:V108Q",
+        "predicted_score": 1.1062971014691687
+      }
+    ]
+  },
+  "sha256_without_self_hash": "fe8720260dd700d8d98888399aa110f69f299b3e9d362a760484d392ff934aa4"
+}
