@@ -382,15 +382,20 @@ def main(input_dir, out_dir):
         )
         passive_ids[budget] = ids
 
-    for row in ordered.itertuples():
+    passive_id_sets = {
+        budget: set(passive_ids[budget])
+        for budget in BUDGETS
+    }
+
+    for _, row in ordered.iterrows():
+        candidate_id = str(row["candidate_id"])
         record = {
-            "candidate_id": row.candidate_id,
-            "budget_hash": int(row._budget_hash),
+            "candidate_id": candidate_id,
+            "budget_hash": int(row["_budget_hash"]),
         }
         for budget in BUDGETS:
             record[f"in_{budget:02d}pct"] = bool(
-                str(row.candidate_id)
-                in set(passive_ids[budget])
+                candidate_id in passive_id_sets[budget]
             )
         membership_rows.append(record)
 
