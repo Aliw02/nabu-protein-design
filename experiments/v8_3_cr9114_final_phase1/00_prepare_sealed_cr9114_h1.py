@@ -151,6 +151,10 @@ def clean_sequence(value):
     return re.sub(r"[^A-Za-z*]", "", str(value)).upper()
 
 
+def clean_alphanumeric_identity(value):
+    return re.sub(r"[^A-Za-z0-9*]", "", str(value)).upper()
+
+
 def infer_reference_from_identities(sequences):
     lengths = sequences.map(len)
     if lengths.nunique() != 1:
@@ -188,6 +192,60 @@ def build_mutant_strings(frame, genotype_col, mutation_count):
                 f"{int(mismatch.sum())}/{len(frame)}"
             )
         return encoded, "mutation_notation", None
+
+    raw_identity = frame[genotype_col].map(clean_alphanumeric_identity)
+    binary_fraction = raw_identity.map(
+        lambda value: bool(re.fullmatch(r"[01]+", value))
+    ).mean()
+
+    if binary_fraction > 0.95:
+        lengths = raw_identity.map(len)
+        if lengths.nunique() != 1:
+            raise RuntimeError(
+                "Binary CR9114 genotypes have inconsistent lengths."
+            )
+
+        zero_rows = frame[mutation_count.fillna(-1).eq(0)].copy()
+        if not zero_rows.empty:
+            reference = clean_alphanumeric_identity(
+                zero_rows.iloc[0][genotype_col]
+            )
+            reference_source = "explicit_zero_mutant"
+        else:
+            reference = infer_reference_from_identities(raw_identity)
+            reference_source = "identity_only_position_mode"
+
+        def encode_binary(identity):
+            tokens = []
+            for idx, (ref_state, state) in enumerate(
+                zip(reference, identity),
+                start=1,
+            ):
+                if ref_state != state:
+                    tokens.append(f"A{idx}B")
+            return ":".join(tokens)
+
+        encoded = raw_identity.map(encode_binary)
+        derived = encoded.map(
+            lambda x: 0 if x == "" else len(x.split(":"))
+        ).astype(int)
+
+        mismatch = (
+            mutation_count.notna()
+            & (derived != mutation_count.fillna(-1).astype(int))
+        )
+
+        if float(mismatch.mean()) > 0.01:
+            raise RuntimeError(
+                "Binary identity-derived counts disagree with num_mut: "
+                f"{int(mismatch.sum())}/{len(frame)}"
+            )
+
+        return (
+            encoded,
+            "binary_identity_relative_to_reference:" + reference_source,
+            reference,
+        )
 
     sequences = frame[genotype_col].map(clean_sequence)
     if sequences.map(len).eq(0).any():
