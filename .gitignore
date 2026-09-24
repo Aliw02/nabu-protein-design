@@ -62,3 +62,7 @@ scratch/
 # RhlA sealed sample-efficiency test
 RhlA_clean.xlsx
 rhla_sealed_input/.HIDDEN_TRUTH.sealed.csv
+
+# RhlA sealed sample-efficiency test
+RhlA_clean.xlsx
+rhla_sample_efficiency_sealed_input/.HIDDEN_TRIPLE_TRUTH.sealed.csv
