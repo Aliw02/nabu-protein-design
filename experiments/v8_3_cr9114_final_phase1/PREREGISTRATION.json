@@ -27,11 +27,20 @@
     "source_path": "Data/DMS/Clean/bnAbs_CR9114_H1_clean.xlsx",
     "github_blob_sha": "d9895e1f7e6a25fba4c6e2aced9843f7ad4a7000",
     "fresh_for_nabu": true,
-    "external_background": "Complete 16-site combinatorial CR9114 landscape; published work reports strong third- through fifth-order epistasis for H1 binding."
+    "external_background": "Complete 16-site combinatorial CR9114 landscape; published work reports extensive pairwise and higher-order epistasis for H1 binding. The original phenotype is -log K_D, so higher values correspond to stronger binding."
   },
   "candidate_scope": {
-    "training_labels_allowed_mutation_counts": [1, 2, 3, 4, 5],
-    "hidden_evaluation_mutation_counts": [4, 5],
+    "training_labels_allowed_mutation_counts": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "hidden_evaluation_mutation_counts": [
+      4,
+      5
+    ],
     "reason": "Directly test higher-order candidate ranking and active acquisition in natural 4- and 5-mutation genotypes while retaining lower-order evidence for memory construction."
   },
   "sealed_split": {
@@ -42,10 +51,19 @@
     "same_hidden_pool_for_all_passive_and_active_budgets": true
   },
   "budgets": {
-    "passive_percent_of_all_eligible_rows": [5, 10, 20, 40],
+    "passive_percent_of_all_eligible_rows": [
+      5,
+      10,
+      20,
+      40
+    ],
     "passive_order": "FNV1a32('BUDGET|' + candidate_id), ascending",
     "active_initial_budget_percent": 5,
-    "active_target_budgets_percent": [10, 20, 40],
+    "active_target_budgets_percent": [
+      10,
+      20,
+      40
+    ],
     "active_initial_membership": "exact same 5% passive set"
   },
   "higher_order_qualification_before_reveal": {
@@ -58,7 +76,7 @@
   "fixed_candidate_pool": {
     "definition": "Intersection of hidden 4/5-mutant candidates scoreable by passive 5%, all passive budgets, and all active budgets.",
     "minimum_rows": 500,
-    "minimum_coverage_fraction_of_hidden_test": 0.50,
+    "minimum_coverage_fraction_of_hidden_test": 0.5,
     "qualification_before_reveal": true
   },
   "primary_metrics": [
@@ -75,7 +93,7 @@
   },
   "active_controller_gate": {
     "question": "Can Active 10% or Active 20% reach the frozen Passive 40% V8.3 practical threshold?",
-    "spearman_retention_min": 0.90,
+    "spearman_retention_min": 0.9,
     "top10_mean_percentile_absolute_gap_max": 0.03,
     "top50_mean_percentile_absolute_gap_max": 0.02,
     "top50_top1pct_hits_allowed_loss_max": 1,
