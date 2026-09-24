@@ -15,10 +15,12 @@ GENOTYPE_NAMES = [
     "mutation", "mutations",
 ]
 COUNT_NAMES = [
-    "n_mut", "mutation_count", "mut_count", "n_mutations", "n_muts",
-    "num_mutations", "num_muts", "number_of_mutations",
+    "num_mut", "n_mut", "mutation_count", "mut_count", "n_mutations", "n_muts",
+    "num_mutations", "number_of_mutations",
 ]
 ACTIVITY_EXACT = [
+    "rls_log",
+    "rls",
     "activity",
     "normalized_activity",
     "overall_activity",
