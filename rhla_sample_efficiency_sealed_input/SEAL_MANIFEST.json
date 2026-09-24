@@ -1,0 +1,37 @@
+{
+  "version": "NABU_V8_3_RHLA_SAMPLE_EFFICIENCY_SEAL_V1",
+  "source_file": "RhlA_clean.xlsx",
+  "source_sha256": "d63fdd66be2a9394a89e8321a4e4553d30b2f8b553773d6faddfb5c114c0f876",
+  "sheet": "Sheet1",
+  "genotype_column": "genotype",
+  "fitness_objective": "overall enzyme activity",
+  "fitness_column_name_only": "RLs_log",
+  "mutation_count_column": "num_mut",
+  "genotype_mode": "full_or_compact_sequence_relative_to_identity_reference:explicit_zero_mutant",
+  "identity_reference_if_inferred": "SFQRAQLSQHA",
+  "candidate_scope": "mutation_count in {1,2,3}",
+  "hidden_evaluation_scope": "triple mutants only",
+  "split_rule": "FNV1a32(candidate_id) mod 10; training pool 0-6; hidden triple test 7-9",
+  "total_eligible_rows": 2345,
+  "training_pool_rows": 1608,
+  "hidden_triple_rows": 607,
+  "unused_lower_order_holdout_rows": 130,
+  "training_pool_by_mutation_count": {
+    "1": 19,
+    "2": 237,
+    "3": 1352
+  },
+  "hidden_test_by_mutation_count": {
+    "3": 607
+  },
+  "budget_target_counts": {
+    "5": 118,
+    "10": 235,
+    "20": 469,
+    "40": 938
+  },
+  "training_pool_sha256": "ab6910346b5315326700ec07b4bd6cff8871fc29b93d66ab13687855e09ec38b",
+  "hidden_ids_sha256": "225c318aa79366be211f473aacec7671501ab1437f4c9b9f5618c64f64d8b60c",
+  "hidden_truth_sha256": "d336c7d4b54478a437063394329a0f2d66fae30cf0c5a11f29eeeb18750e90d4",
+  "hidden_truth_values_printed": false
+}
