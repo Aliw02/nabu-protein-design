@@ -1,0 +1,141 @@
+{
+  "version": "NABU_V8_3_DUAL_OBJECTIVE_ROUTER_VALIDATION",
+  "dataset": "PHOQ_V83.csv",
+  "rows": 140517,
+  "visible": 98330,
+  "hidden": 42187,
+  "eligible_hidden": 42187,
+  "oof": {
+    "B3_spearman": 0.5284625424821041,
+    "B4_spearman": 0.5258494969458807,
+    "B4_minus_B3": -0.002613045536223435,
+    "elite_diagnostic": {
+      "region_fraction": 0.2,
+      "region_count": 19666,
+      "B3": {
+        "top50_mean_percentile": 0.9870450523746568,
+        "top50_top1pct_hits": 36,
+        "top50_mean_true": 22.604748792440006
+      },
+      "B4": {
+        "top50_mean_percentile": 0.9870814603884877,
+        "top50_top1pct_hits": 32,
+        "top50_mean_true": 22.629897147319998
+      },
+      "delta_top50_mean_percentile": 3.640801383086867e-05,
+      "delta_top50_top1pct_hits": -4,
+      "allow_elite_rerank": false
+    },
+    "router_mode": "B3_PROTECTED_NO_HIGHER_ORDER"
+  },
+  "metrics": {
+    "B3_RAW_PAIR": {
+      "spearman": 0.5419828937708228,
+      "top1_percentile": 0.9987081328371299,
+      "top5_mean_percentile": 0.9874487401332164,
+      "top10_mean_percentile": 0.9801834688411122,
+      "top50_mean_percentile": 0.9839770545428687,
+      "top10_top1pct_hits": 6,
+      "top50_top1pct_hits": 31,
+      "top10_top01pct_hits": 1,
+      "top50_top01pct_hits": 3,
+      "top50_mean_true_score": 17.37321698566,
+      "normalized_top1_regret": 0.6421373357421243
+    },
+    "B4_CROSSFIT_TRIPLET": {
+      "spearman": 0.5404339348196905,
+      "top1_percentile": 0.9987081328371299,
+      "top5_mean_percentile": 0.9691658567805248,
+      "top10_mean_percentile": 0.9719878161518951,
+      "top50_mean_percentile": 0.9796169436082206,
+      "top10_top1pct_hits": 6,
+      "top50_top1pct_hits": 29,
+      "top10_top01pct_hits": 2,
+      "top50_top01pct_hits": 3,
+      "top50_mean_true_score": 16.304157380859998,
+      "normalized_top1_regret": 0.6421373357421243
+    },
+    "B5_CROSSFIT_ADAPTIVE_HIGHER_ORDER": {
+      "spearman": 0.5404339348196905,
+      "top1_percentile": 0.9987081328371299,
+      "top5_mean_percentile": 0.9691658567805248,
+      "top10_mean_percentile": 0.9719878161518951,
+      "top50_mean_percentile": 0.9796169436082206,
+      "top10_top1pct_hits": 6,
+      "top50_top1pct_hits": 29,
+      "top10_top01pct_hits": 2,
+      "top50_top01pct_hits": 3,
+      "top50_mean_true_score": 16.304157380859998,
+      "normalized_top1_regret": 0.6421373357421243
+    },
+    "V8_3_ADAPTIVE_ROUTER": {
+      "spearman": 0.5419828937708228,
+      "top1_percentile": 0.9987081328371299,
+      "top5_mean_percentile": 0.9874487401332164,
+      "top10_mean_percentile": 0.9801834688411122,
+      "top50_mean_percentile": 0.9839770545428687,
+      "top10_top1pct_hits": 6,
+      "top50_top1pct_hits": 31,
+      "top10_top01pct_hits": 1,
+      "top50_top01pct_hits": 3,
+      "top50_mean_true_score": 17.37321698566,
+      "normalized_top1_regret": 0.6421373357421243
+    }
+  },
+  "V8_3_vs_B3": {
+    "spearman": 0.0,
+    "top1_percentile": 0.0,
+    "top5_mean_percentile": 0.0,
+    "top10_mean_percentile": 0.0,
+    "top50_mean_percentile": 0.0,
+    "top50_mean_true_score": 0.0,
+    "normalized_top1_regret": 0.0
+  },
+  "top50_replacement_vs_B3": {
+    "overlap": 50,
+    "added_count": 0,
+    "removed_count": 0,
+    "added_mean_true": null,
+    "removed_mean_true": null,
+    "replacement_gain_true": null
+  },
+  "model_diagnostics": {
+    "main": {
+      "entries": 80,
+      "support_min": 629,
+      "support_median": 4999.5,
+      "support_max": 5536
+    },
+    "pair": {
+      "entries": 2400,
+      "support_min": 2,
+      "support_median": 257.0,
+      "support_max": 299
+    },
+    "triplet_crossfit": {
+      "entries": 31145,
+      "support_min": 2,
+      "support_median": 13.0,
+      "support_max": 20
+    },
+    "quartet_crossfit": {
+      "entries": 0,
+      "support_min": 0,
+      "support_median": 0.0,
+      "support_max": 0
+    },
+    "oof": {
+      "b3_spearman_visible": 0.5284638843643293,
+      "b4_spearman_visible": 0.5258520442025469,
+      "residual3_std": 2.4134371980195666,
+      "residual4_std": 2.3348248050247573
+    },
+    "fold_counts": {
+      "0": 19411,
+      "1": 19737,
+      "2": 19594,
+      "3": 19825,
+      "4": 19763
+    }
+  }
+}
