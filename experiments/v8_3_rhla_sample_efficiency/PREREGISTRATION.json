@@ -12,31 +12,43 @@
     "source_path": "Data/DMS/Clean/RhlA_clean.xlsx",
     "github_blob_sha": "0cb393531ab6fff5fa8f037221d50cf543429dcd",
     "source_size_bytes": 287350,
-    "selection_reason": "Untouched in NABU repository history; public clean combinatorial dataset with genotype, mutation count, and fitness fields."
+    "selection_reason": "Untouched in NABU repository history; public clean combinatorial dataset with genotype, mutation count, and fitness fields.",
+    "objective": "RhlA overall enzyme activity only; selectivity and specific-activity phenotypes are excluded.",
+    "dataset_scope_note": "CombinGym RhlA contains measured single, double, and triple mutants across a sparse multi-site mutational space."
   },
   "candidate_scope": {
-    "allowed_mutation_counts": [3, 4, 5],
-    "reason": "Stay inside the mutation-count regime already validated by frozen V8.3 while allowing higher-order memory when support exists."
+    "training_labels_allowed_mutation_counts": [
+      1,
+      2,
+      3
+    ],
+    "hidden_evaluation_mutation_count": 3,
+    "reason": "Measure sample efficiency for predicting/designing unseen triple mutants from a nested subset of all available single/double/triple measurements."
   },
   "fixed_hidden_test": {
-    "rule": "FNV1a32(candidate_id) mod 10 in {7,8,9}",
-    "fraction_target": 0.30,
+    "rule": "candidate mutation_count == 3 AND FNV1a32(candidate_id) mod 10 in {7,8,9}",
     "fitness_hidden_until_stage_B": true,
-    "same_hidden_pool_for_all_budgets": true
+    "same_hidden_triple_pool_for_all_budgets": true,
+    "lower_order_rows_in_hidden_hash_buckets": "excluded from evaluation and never used as training labels"
   },
   "training_pool": {
-    "rule": "FNV1a32(candidate_id) mod 10 in {0,1,2,3,4,5,6}",
+    "rule": "mutation_count in {1,2,3} AND FNV1a32(candidate_id) mod 10 in {0,1,2,3,4,5,6}",
     "budget_order": "sort by FNV1a32('BUDGET|' + candidate_id), ascending",
     "nested": true
   },
   "budgets": {
-    "percent_of_all_eligible_rows": [5, 10, 20, 40],
-    "selection": "For each p, take the first ceil(p/100 * total_eligible_rows) rows from the deterministic training-pool ordering.",
+    "percent_of_all_eligible_rows": [
+      5,
+      10,
+      20,
+      40
+    ],
+    "selection": "For each p, take the first ceil(p/100 * total eligible 1-3 mutant rows) rows from the deterministic training-pool ordering.",
     "no_fitness_used_for_budget_selection": true
   },
   "fixed_candidate_pool": {
-    "definition": "Intersection of hidden candidates scoreable by the 5% B3/V8.3 model; the same pool is used at 5%, 10%, 20%, and 40%.",
-    "minimum_coverage_fraction_of_hidden_test": 0.50,
+    "definition": "Intersection of hidden triple-mutant candidates scoreable by every frozen budget model; computed before truth reveal.",
+    "minimum_coverage_fraction_of_hidden_triple_test": 0.5,
     "qualification_before_reveal": true
   },
   "architecture": {
@@ -49,7 +61,10 @@
     "post_reveal_retuning": false
   },
   "stage_a_outputs": {
-    "freeze_top_k": [10, 50],
+    "freeze_top_k": [
+      10,
+      50
+    ],
     "arms_per_budget": [
       "B3_RAW_PAIR",
       "B5_CROSSFIT_ADAPTIVE_HIGHER_ORDER",
@@ -70,7 +85,7 @@
   ],
   "practical_threshold_vs_40pct_reference": {
     "definition": "smallest budget satisfying all criteria below against the frozen 40% V8.3 reference",
-    "spearman_retention_min": 0.90,
+    "spearman_retention_min": 0.9,
     "top10_mean_percentile_absolute_gap_max": 0.03,
     "top50_mean_percentile_absolute_gap_max": 0.02,
     "top50_top1pct_hits_allowed_loss_max": 1
@@ -80,8 +95,8 @@
     "purpose": "measure whether adaptive routing adds value or protects the pairwise backbone as data availability changes."
   },
   "anti_leakage": {
-    "stage_0": "package training-pool labels, hidden identities, and sealed hidden truth without printing hidden fitness values",
-    "stage_A": "construct all four nested budgets, fit frozen V8.3, choose router mode independently from each budget visible OOF, freeze all predictions/candidates/hashes, then exit",
+    "stage_0": "package deterministic training-pool labels, hidden triple identities, and separate sealed hidden triple truth; lower-order rows assigned to hidden hash buckets remain unused",
+    "stage_A": "construct all four nested budgets from training-pool identities only, fit frozen V8.3 independently at each budget, freeze a common scoreable hidden-triple pool, predictions, candidates, router decisions and hashes, then exit",
     "stage_B": "verify every Stage-A hash before loading sealed hidden truth once and evaluating every frozen budget",
     "hidden_truth_forbidden_during_stage_A": true
   }
