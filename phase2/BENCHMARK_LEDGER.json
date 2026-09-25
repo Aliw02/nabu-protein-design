@@ -1,0 +1,114 @@
+{
+  "version": "NABU_PHASE2_BENCHMARK_LEDGER_V1",
+  "policy": "Datasets used for development, debugging, architecture choice, or interpretation are excluded from final blind PASS.",
+  "datasets": [
+    {
+      "name": "RhlA",
+      "status": "DEVELOPMENT_USED",
+      "counts_for_final_pass": false,
+      "roles": [
+        "2A0",
+        "2A1",
+        "2A2",
+        "2A3",
+        "2B"
+      ]
+    },
+    {
+      "name": "GB1",
+      "status": "DEVELOPMENT_USED",
+      "counts_for_final_pass": false,
+      "roles": [
+        "Phase1",
+        "2A4"
+      ]
+    },
+    {
+      "name": "TrpB",
+      "status": "DEVELOPMENT_USED",
+      "counts_for_final_pass": false,
+      "roles": [
+        "Phase1",
+        "2A4"
+      ]
+    },
+    {
+      "name": "PhoQ",
+      "status": "DEVELOPMENT_USED",
+      "counts_for_final_pass": false,
+      "roles": [
+        "Phase1",
+        "2A4_failure_case"
+      ]
+    },
+    {
+      "name": "PHOT",
+      "status": "HISTORICAL_USED",
+      "counts_for_final_pass": false,
+      "roles": [
+        "Phase1"
+      ]
+    },
+    {
+      "name": "eqFP611",
+      "status": "HISTORICAL_USED",
+      "counts_for_final_pass": false,
+      "roles": [
+        "Phase1"
+      ]
+    },
+    {
+      "name": "CreiLOV",
+      "status": "HISTORICAL_USED",
+      "counts_for_final_pass": false,
+      "roles": [
+        "Phase1"
+      ]
+    },
+    {
+      "name": "CR9114-H1",
+      "status": "HISTORICAL_USED",
+      "counts_for_final_pass": false,
+      "roles": [
+        "Phase1_final_gate"
+      ]
+    },
+    {
+      "name": "FLIP_AAV_RANDOM",
+      "status": "RESERVED_BLIND_NOT_LOADED",
+      "counts_for_final_pass": true,
+      "role": "PRIMARY_PUBLISHED_HEAD_TO_HEAD",
+      "published_reference": "Greenman et al., PLOS Computational Biology 2025, doi:10.1371/journal.pcbi.1012639",
+      "comparison_methods": [
+        "NABU_PHASE2_FROZEN",
+        "GREEDY",
+        "UCB",
+        "THOMPSON_SAMPLING",
+        "RANDOM"
+      ],
+      "primary_metric": "AUC_TOP100_RECOVERY_VS_MEASUREMENTS"
+    },
+    {
+      "name": "FLIP2_IRED_TWO_TO_MANY",
+      "status": "RESERVED_BLIND_NOT_LOADED",
+      "counts_for_final_pass": true,
+      "role": "SECONDARY_HIGHER_ORDER_TRANSFER",
+      "published_reference": "FLIP2, ICML 2026",
+      "primary_metrics": [
+        "SPEARMAN",
+        "NDCG"
+      ],
+      "secondary_metrics": [
+        "TOP_K_ENRICHMENT",
+        "NORMALIZED_REGRET",
+        "TOP1_PERCENT_RECALL"
+      ]
+    }
+  ],
+  "reveal_policy": {
+    "allowed_only_after": "PHASE2C_FROZEN",
+    "no_target_label_use_before_freeze": true,
+    "label_independent_bugfixes_after_reveal_require_versioned_rerun": true,
+    "overwrite_results": false
+  }
+}
