@@ -1,0 +1,62 @@
+{
+  "version": "NABU_V9_1_EVIDENCE_DEPTH_ROUTER_DEV_V1",
+  "status": "RETAIN_AS_NEXT_ARCHITECTURE_BASE",
+  "scientific_claim": false,
+  "phase3_opened": false,
+  "frozen_v83_unchanged": true,
+  "source_sha256": "aa45a2f85fb1af87b6b0e86397b3f8f292a061dc574be2536673b5bd490b0e74",
+  "pair_depth_gate": {
+    "oof_b2_spearman": 0.32860921025867007,
+    "oof_b3_spearman": 0.32860921025867007,
+    "b3_minus_b2": 0,
+    "pair_depth_enabled": false
+  },
+  "coverage": {
+    "strict_v83_scoreable": 131,
+    "all_main_supported": 3648,
+    "all_main_without_exact_pair": 3517,
+    "unseen_main_abstentions": 530
+  },
+  "metrics": {
+    "phase2_abstention": {
+      "spearman": -0.021770573158261506,
+      "ndcg": 0.9426983698477696,
+      "top1_hits": 0,
+      "normalized_regret": 0.23152235169646065
+    },
+    "b2_main_only": {
+      "spearman": 0.1699713865842453,
+      "ndcg": 0.956089633855261,
+      "top1_hits": 3,
+      "normalized_regret": 0.06470164950247742
+    },
+    "b3_available_always": {
+      "spearman": 0.17069814495434293,
+      "ndcg": 0.955141132280298,
+      "top1_hits": 3,
+      "normalized_regret": 0.06470164950247742
+    },
+    "v9_1": {
+      "spearman": 0.1699713865842453,
+      "ndcg": 0.956089633855261,
+      "top1_hits": 3,
+      "normalized_regret": 0.06470164950247742
+    }
+  },
+  "strict_subset_spearman": {
+    "b2": 0.11103934233705226,
+    "b3": 0.11938824534244381
+  },
+  "validation_spearman": {
+    "b2": 0.3213704524780877,
+    "v9_1": 0.3213704524780877
+  },
+  "prediction_sha256": "c0c69fa004cdff541285abb0675d219c7507383c007d38080bbe54205981bd50",
+  "ci": {
+    "run": 36196149069,
+    "artifact": 10889927267,
+    "digest": "sha256:561411c78357c1f8c29f32d7d0d96e45cd4c69ab7824818735600a93872691e1"
+  },
+  "decision": "RETAIN_V9_1_AS_NEXT_ARCHITECTURE_BASE",
+  "remaining_gap": "530 variants with unseen main mutation identity"
+}
