@@ -139,12 +139,12 @@ def test_public_mutation_set_validation_rejects_impossible_same_position_and_noo
         canonicalize_mutation_set(("A0C",))
 
 
-def test_facade_rejects_null_and_blank_candidate_ids():
+def test_facade_rejects_none_and_blank_candidate_ids():
     import pytest
 
     from nabu_protein.v83 import NabuV83Model
 
-    with pytest.raises(ValueError, match="null values"):
+    with pytest.raises(ValueError, match="None values"):
         NabuV83Model().fit(
             [("A1C", "B2D"), ("A1C", "C3E")],
             [1.0, 2.0],
@@ -214,3 +214,11 @@ def test_score_candidates_empty_scoreable_set_keeps_stable_schema():
     assert expected_columns.issubset(scored.columns)
     assert scored["scoreable"].tolist() == [False]
     assert scored[list(expected_columns)].isna().all().all()
+
+
+def test_nan_candidate_id_preserves_historical_stringified_fold_semantics():
+    import numpy as np
+
+    from nabu_protein.v83 import _normalize_candidate_ids
+
+    assert _normalize_candidate_ids([np.nan, "A"]) == ["nan", "A"]
