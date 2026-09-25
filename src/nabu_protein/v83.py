@@ -5,6 +5,7 @@ Reusable facade for the frozen NABU V8.3 Phase-1 core.
 from __future__ import annotations
 
 from itertools import combinations
+import re
 
 import numpy as np
 import pandas as pd
@@ -13,7 +14,35 @@ from .higher_order import fit_crossfitted_hierarchy, score_hierarchy
 from .router import apply_router, decide_router
 
 
+_MUTATION_TOKEN_RE = re.compile(r"[A-Z][0-9]+[A-Z*]")
+
+
+def canonicalize_mutation_set(mutation_set):
+    """Validate and canonicalize one pre-parsed mutation collection."""
+    if isinstance(mutation_set, str):
+        raise ValueError(
+            "mutation_set must be an iterable of mutation tokens, not a raw string."
+        )
+    tokens = tuple(str(token) for token in mutation_set)
+    invalid = [
+        token
+        for token in tokens
+        if _MUTATION_TOKEN_RE.fullmatch(token) is None
+    ]
+    if invalid:
+        raise ValueError(f"Invalid mutation token(s): {invalid}")
+    if len(set(tokens)) != len(tokens):
+        raise ValueError("mutation_set contains duplicate mutation tokens.")
+    return tuple(
+        sorted(
+            tokens,
+            key=lambda token: (int(token[1:-1]), token),
+        )
+    )
+
+
 def is_scoreable(mutation_set, model) -> bool:
+    mutation_set = canonicalize_mutation_set(mutation_set)
     return bool(
         all(
             mutation in model["base"]["main"]
@@ -52,7 +81,10 @@ class NabuV83Model:
             raise ValueError("labels must contain only finite numeric values.")
         if len(set(candidate_ids)) != len(candidate_ids):
             raise ValueError("candidate_ids must be unique.")
-        canonical_sets = [tuple(ms) for ms in mutation_sets]
+        canonical_sets = [
+            canonicalize_mutation_set(ms)
+            for ms in mutation_sets
+        ]
         if len(set(canonical_sets)) != len(canonical_sets):
             raise ValueError(
                 "mutation_sets must be unique; aggregate or deduplicate replicate rows before fit."
@@ -77,7 +109,10 @@ class NabuV83Model:
         if self.model is None:
             raise RuntimeError("Model must be fit before scoring.")
 
-        mutation_sets = list(mutation_sets)
+        mutation_sets = [
+            canonicalize_mutation_set(ms)
+            for ms in mutation_sets
+        ]
         candidate_ids = [str(x) for x in candidate_ids]
         if len(mutation_sets) != len(candidate_ids):
             raise ValueError(
