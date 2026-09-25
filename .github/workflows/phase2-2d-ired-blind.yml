@@ -1,0 +1,81 @@
+name: NABU Phase 2D IRED Blind Transfer V1
+
+on:
+  push:
+    branches:
+      - phase2/roadmap-scaffold
+    paths:
+      - "phase2/2D_untouched_transfer/run_ired_blind.py"
+      - "phase2/2D_untouched_transfer/ired_scoreability_preflight.py"
+      - "phase2/2D_untouched_transfer/requirements-phase2d.txt"
+      - "phase2/2D_untouched_transfer/FROZEN_PROTOCOL.json"
+      - "phase2/2D_untouched_transfer/PREREGISTRATION.md"
+      - ".github/workflows/phase2-2d-ired-blind.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ired-blind:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout frozen Phase-2 branch
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install frozen environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -r phase2/2D_untouched_transfer/requirements-phase2d.txt
+          python -m pip install -e . --no-deps
+
+      - name: Run Phase 2D contracts
+        run: |
+          python -m pytest -q phase2/2D_untouched_transfer/tests
+
+      - name: Download first-touch pinned IRED source
+        run: |
+          mkdir -p .phase2d_blind_source .ci_artifacts/phase2d_ired_blind_v1
+          curl -L --fail --retry 3             "https://flip.protein.properties/assets/splits/ired/two_to_many.csv.gz"             -o .phase2d_blind_source/ired_two_to_many.csv.gz
+          echo "aa45a2f85fb1af87b6b0e86397b3f8f292a061dc574be2536673b5bd490b0e74  .phase2d_blind_source/ired_two_to_many.csv.gz" | sha256sum -c -
+
+      - name: Mandatory label-blind full-test scoreability gate
+        run: |
+          python phase2/2D_untouched_transfer/ired_scoreability_preflight.py             --ired-gz .phase2d_blind_source/ired_two_to_many.csv.gz             --out .ci_artifacts/phase2d_ired_blind_v1/IRED_SCOREABILITY_PREFLIGHT.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(
+              Path(".ci_artifacts/phase2d_ired_blind_v1/IRED_SCOREABILITY_PREFLIGHT.json").read_text()
+          )
+          if not report["full_test_scoreable"]:
+              raise SystemExit(
+                  "IRED full test is not structurally scoreable; target reveal blocked."
+              )
+          print("IRED identity gate PASS: full official test is structurally scoreable.")
+          PY
+
+      - name: Run untouched IRED target evaluation
+        run: |
+          python phase2/2D_untouched_transfer/run_ired_blind.py             .phase2d_blind_source/ired_two_to_many.csv.gz             --out .ci_artifacts/phase2d_ired_blind_v1
+
+      - name: Preserve source checksum and execution head
+        if: always()
+        run: |
+          sha256sum .phase2d_blind_source/ired_two_to_many.csv.gz             > .ci_artifacts/phase2d_ired_blind_v1/SOURCE_SHA256.txt || true
+          git rev-parse HEAD             > .ci_artifacts/phase2d_ired_blind_v1/EXECUTION_HEAD.txt
+
+      - name: Upload immutable blind evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nabu-phase2d-ired-blind-v1
+          path: .ci_artifacts/phase2d_ired_blind_v1
