@@ -1,8 +1,11 @@
 """
-NABU Protein Core Architecture
-==============================
-Mathematical implementation of Structured State Memory, Pairwise Epistatic Residuals,
-and Empirical Bayesian Shrinkage for Combinatorial Protein Fitness Landscapes.
+NABU Legacy Pairwise Core
+=========================
+Compatibility implementation of the earlier additive + pairwise package API.
+
+This module is NOT the frozen Phase-1 V8.3 scientific core. The canonical
+B2/B3/B4/B5 hierarchy and dual-objective router live in higher_order.py,
+router.py, and v83.py.
 """
 
 from __future__ import annotations
@@ -76,8 +79,10 @@ class ComponentMemoryModel:
 
 class NabuProteinModel:
     """
-    Full NABU Protein Design Engine.
-    Combines Component Additive Memory with Pairwise Residual Epistasis and Empirical Bayesian Shrinkage.
+    Legacy additive + pairwise NABU model kept for API compatibility.
+
+    This class does not include the V8.3 cross-fitted triplet/quartet memories
+    or the dual-objective router. Use NabuV83Model for the canonical frozen core.
     """
 
     def __init__(
