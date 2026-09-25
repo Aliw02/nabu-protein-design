@@ -66,4 +66,7 @@ def test_ired_reference_is_derived_without_target(tmp_path):
     result = preflight(aav_zip, fasta, ired)
     assert result["ired"]["derived_reference"] == "ACDE"
     assert result["ired"]["reference_present_as_exact_row"]
-    assert result["gates"]["ired_identity_gate_pass"]
+    assert result["ired"]["fit_train_rows"] == 1
+    assert result["ired"]["validation_rows"] == 1
+    assert result["ired"]["test_rows"] == 1
+    assert "test_structural_scoreability_fraction" in result["ired"]
