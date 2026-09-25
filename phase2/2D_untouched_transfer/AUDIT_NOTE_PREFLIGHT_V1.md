@@ -35,3 +35,19 @@ V2 changes only identity-pool scoping:
 - No target values were read to identify or fix this bug.
 
 The V1 artifact is preserved and is not overwritten.
+
+## V2 contract-test rerun audit
+
+Two automatic V2 workflow attempts failed before any blind source download:
+
+- run `36163922402` at head `794bd03f9cfa67efe635749bb4960d878363e485`;
+- run `36163945248` at head `2c92fcf5e24ead81b22d9eb758952f0ce81e9274`.
+
+Failure occurred in the synthetic contract fixture. The fixture encoded normal AAV
+train/test rows with `validation=False`, while the released protein-uq loader
+uses `validation.isna()` for the BO training pool. Consequently the synthetic
+published pool was empty and the representability assertion failed.
+
+This is label-independent and occurred before download steps. The fix changes
+only the synthetic fixture to use missing validation values for ordinary rows.
+No scientific rule, source byte, model rule, metric, or blind label is changed.
