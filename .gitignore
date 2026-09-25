@@ -81,3 +81,7 @@ phase2/2A_closed_loop_acquisition/2A1_baselines/results/rhla_baseline_tournament
 phase2/2A_closed_loop_acquisition/2A2_micro_batch_loop/results/rhla_micro_batch_ablation/*/
 
 
+
+# Phase 2C pinned development download
+.phase2c_data/
+phase2/2C_assembly_plus_acquisition/results/gb1_gated_v2_local/
