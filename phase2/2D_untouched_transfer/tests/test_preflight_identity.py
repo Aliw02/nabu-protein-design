@@ -20,7 +20,7 @@ def _write_fixture(tmp_path: Path):
             "sequence": ["ACDE", "ACDF"],
             "target": [999.0, -999.0],
             "set": ["train", "test"],
-            "validation": [False, False],
+            "validation": [None, False],
         }
     )
     with zipfile.ZipFile(aav_zip, "w") as archive:
