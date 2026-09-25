@@ -11,10 +11,13 @@ Completed engineering/scientific development stages:
 - **2A.4 — Multi-Landscape Evaluation:** PASS WITH LIMITATION
 - **2B — Candidate Assembly:** PASS WITH LIMITATION
 - **2C — Assembly + Acquisition:** PASS / V3 FROZEN
+- **2D — Untouched External Benchmark:** COMPLETE / FINAL SCIENTIFIC GATE NOT PASSED
 
-Next stage:
+Phase-2 final status:
 
-- **2D — Untouched External Benchmark**
+- **Engineering integrity:** PASS
+- **Final scientific gate:** NOT PASSED
+- **Post-blind Phase-2 retuning:** prohibited
 
 ## Frozen Phase-1 dependency
 
@@ -201,3 +204,73 @@ Overall 2C development verdict:
 > **PASS**
 
 V3 is now frozen. No additional tuning on GB1, TrpB or PhoQ is allowed before 2D.
+
+
+## 2D result
+
+Phase 2D was executed under the frozen Phase-2C V3 architecture.
+
+### AAV/Random
+
+Identity-only preflight was performed before any target reveal.
+
+- published BO candidate pool: 59,459;
+- representable by frozen NABU mutation semantics: 27,018 (45.44%);
+- unrepresentable: 32,441 (54.56%);
+- AAV target labels revealed: no.
+
+The unsupported pool contains length-changing variants outside frozen V8.3
+insertion semantics. The preregistered rule prohibited silently reducing the
+candidate pool.
+
+Result:
+
+> **ADAPTER_SCOPE_FAIL — LABEL BLIND**
+
+The primary published AAV head-to-head was therefore not executed.
+
+### FLIP2 IRED two-to-many
+
+The official split was evaluated without Phase-2 scientific retuning:
+
+- fit/train: 3,746;
+- validation held out: 662;
+- test: 4,178.
+
+Label-blind structural scoreability before target reveal:
+
+- frozen-V8.3 scoreable: 131 / 4,178 (3.135%);
+- unscoreable: 4,047 / 4,178.
+
+Authoritative blind execution:
+
+- workflow run: `36165359008`;
+- execution head: `5c4b55e60bb0ccca769194e78095051e7023b9d2`;
+- artifact ID: `10877951045`;
+- artifact digest: `sha256:32e9b34d6bc7453a54ac1699c5d22a8516185d925a822152f2538770bb22a461`.
+
+Full-test result:
+
+- Spearman: **-0.0217705732**;
+- NDCG: **0.9426983698**;
+- Top-1% hits: **0 / 42**;
+- normalized regret at Top-1% budget: **0.2315223517**.
+
+Result:
+
+> **BLIND RESULT COMPLETE — NEGATIVE HIGHER-ORDER TRANSFER**
+
+### Final Phase-2 verdict
+
+The preregistered final scientific gate required completion of the primary AAV
+head-to-head plus external IRED transfer evidence.
+
+AAV could not be executed fairly under frozen semantics and IRED transfer was
+negative.
+
+> **NABU Phase 2: FINAL SCIENTIFIC GATE NOT PASSED.**
+
+The Phase-2C development PASS remains valid. Any architecture that adds insertion
+semantics, changes scoreability, or introduces a new evidence-backoff mechanism
+must be versioned as new research rather than used to retune the frozen Phase-2
+claim.
