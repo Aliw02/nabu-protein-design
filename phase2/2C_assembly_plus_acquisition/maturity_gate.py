@@ -159,3 +159,66 @@ class EvidenceMaturityGateV1:
         }
         self.history.append(row)
         return bool(self.latched_open)
+
+
+class EvidenceMaturityGateV3:
+    """Per-round dynamic maturity gate for Phase 2C V3."""
+
+    name = "evidence_maturity_gate_v3"
+
+    def __init__(self, batch_size: int = 8):
+        if batch_size < 1:
+            raise ValueError("batch_size must be positive.")
+        self.batch_size = int(batch_size)
+        self.first_ready_at_measurement: int | None = None
+        self.ready_rounds = 0
+        self.not_ready_rounds = 0
+        self.fallback_rounds_after_first_ready = 0
+        self.transition_count = 0
+        self._previous_ready: bool | None = None
+        self.history: list[dict] = []
+
+    def update(
+        self,
+        measurements_spent: int,
+        mature_count: int,
+        diagnostics: dict,
+    ) -> bool:
+        ready_now = int(mature_count) >= self.batch_size
+
+        if ready_now:
+            self.ready_rounds += 1
+            if self.first_ready_at_measurement is None:
+                self.first_ready_at_measurement = int(
+                    measurements_spent
+                )
+        else:
+            self.not_ready_rounds += 1
+            if self.first_ready_at_measurement is not None:
+                self.fallback_rounds_after_first_ready += 1
+
+        if (
+            self._previous_ready is not None
+            and ready_now != self._previous_ready
+        ):
+            self.transition_count += 1
+        self._previous_ready = bool(ready_now)
+
+        row = {
+            "measurements_spent": int(measurements_spent),
+            "ready_now": bool(ready_now),
+            "first_ready_at_measurement": (
+                None
+                if self.first_ready_at_measurement is None
+                else int(self.first_ready_at_measurement)
+            ),
+            "ready_rounds": int(self.ready_rounds),
+            "not_ready_rounds": int(self.not_ready_rounds),
+            "fallback_rounds_after_first_ready": int(
+                self.fallback_rounds_after_first_ready
+            ),
+            "transition_count": int(self.transition_count),
+            **diagnostics,
+        }
+        self.history.append(row)
+        return bool(ready_now)
