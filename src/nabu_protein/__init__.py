@@ -25,7 +25,7 @@ from .higher_order import (
     parse_mutations as parse_v83_mutations,
     score_hierarchy,
 )
-from .router import apply_router
+from .router import apply_router, decide_router
 from .metrics import evaluate_v83
 from .v83 import NabuV83Model, is_scoreable
 
@@ -46,6 +46,7 @@ __all__ = [
     "score_hierarchy",
     "model_diagnostics",
     "apply_router",
+    "decide_router",
     "evaluate_v83",
     "parse_v83_mutations",
     "fnv1a32",
