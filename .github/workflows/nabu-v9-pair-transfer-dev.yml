@@ -31,19 +31,30 @@ jobs:
           python -m pip install -r phase2/2D_untouched_transfer/requirements-phase2d.txt
           python -m pip install -e . --no-deps
 
-      - name: Run V9 contract tests
+      - name: Run V9 and frozen V8.3 contract tests
         run: |
           python -m pytest -q experiments/v9_pair_transfer_dev/tests
+          python -m pytest -q tests/test_v83_contracts.py tests/test_frozen_v83_parity.py
 
       - name: Download pinned IRED source
         run: |
           mkdir -p .v9_source
-          curl -L --fail --retry 3             https://flip.protein.properties/assets/splits/ired/two_to_many.csv.gz             -o .v9_source/ired_two_to_many.csv.gz
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import urlretrieve
+
+          url = "https://flip.protein.properties/assets/splits/ired/two_to_many.csv.gz"
+          path = Path(".v9_source/ired_two_to_many.csv.gz")
+          urlretrieve(url, path)
+          print(path)
+          PY
           echo "aa45a2f85fb1af87b6b0e86397b3f8f292a061dc574be2536673b5bd490b0e74  .v9_source/ired_two_to_many.csv.gz" | sha256sum -c -
 
       - name: Run V9 IRED development diagnostic
         run: |
-          python experiments/v9_pair_transfer_dev/run_v9_pair_transfer_ired.py             .v9_source/ired_two_to_many.csv.gz             --out v9_pair_transfer_results
+          python experiments/v9_pair_transfer_dev/run_v9_pair_transfer_ired.py \
+            .v9_source/ired_two_to_many.csv.gz \
+            --out v9_pair_transfer_results
 
       - name: Upload V9 results
         uses: actions/upload-artifact@v4
