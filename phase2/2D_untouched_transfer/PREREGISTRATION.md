@@ -156,3 +156,23 @@ Let `N` be the complete official test set and
 
 All metrics use the complete official test set. No scoreable-only metric may be
 substituted for the full-test primary result.
+
+
+## IRED frozen full-test evidence backoff
+
+The identity-only scoreability gate found that strict frozen-V8.3 scoreability
+does not cover the complete official test domain. Before any target reveal,
+the following `IRED_EVIDENCE_BACKOFF_V1` policy is frozen:
+
+- all main effects supported + at least one supported internal pair:
+  use unchanged `V8_3_ADAPTIVE_ROUTER`;
+- all main effects supported + no supported internal pair:
+  use unchanged `B2_ADDITIVE`;
+- one or more unseen main mutation identities:
+  use the fit/train global mean as an abstention score.
+
+Equal scores retain stable source order. The full 4,178-row test set remains the
+primary metric domain. The strict-scoreable subset is diagnostic only.
+
+This changes no learned parameter, memory, threshold, router rule, or Phase-1
+mathematics and is frozen from identity evidence only.
