@@ -63,7 +63,7 @@ def oof_elite_diagnostic(candidate_ids, labels, model, fraction=0.20):
                 np.mean([percentile(all_truth, x) for x in vals])
             ),
             "top50_top1pct_hits": int(np.sum(vals >= cutoff1)),
-            "top50_mean_visible_score": float(np.mean(vals)),
+            "top50_mean_true": float(np.mean(vals)),
         }
 
     b3 = summarize(b3_top)
