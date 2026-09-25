@@ -8,7 +8,7 @@
 - [x] 2A.3 — Evidence-Adaptive Controller
 - [x] 2A.4 — Multi-Landscape Evaluation
 - [x] 2B — Candidate Assembly
-- [x] 2C — Assembly + Acquisition (frozen with limitation)
+- [x] 2C — Assembly + Acquisition (V3 PASS / frozen)
 - [ ] 2D — Freeze + Untouched Transfer ← **NEXT**
 
 2A.2 development freeze: use **micro_8** as the primary 2A.3 development cadence and **micro_16** as a sensitivity control. This is a development choice, not a universal optimum claim.
@@ -19,7 +19,7 @@
 
 2B development freeze: candidate assembly is **PASS WITH LIMITATION**. The engine is valid and generates novel-to-table combinations, but RhlA quality improves only after evidence matures. 2C must use a generic evidence-state maturity gate; do not hardcode a 20% dataset threshold.
 
-2C development freeze: V2 is **FROZEN WITH LIMITATION**. It passed engineering/leakage checks and increased GB1 Top-1% discoveries from 3 to 10, but did not improve the preregistered best-fitness AUC. No V3 tuning on GB1 is allowed before 2D.
+2C development freeze: **V3 PASS** across GB1, TrpB and PhoQ under the same preregistered multilandscape protocol. Dynamic per-round maturity gating improved the combined system over acquisition-only on all three landscapes by the frozen development win rule. V3 is frozen; no further development-landscape tuning is allowed before 2D.
 
 ---
 
@@ -632,10 +632,10 @@ Each section has its own `results/` directory. Never dump all Phase-2 outputs in
 
 # Immediate next step
 
-The current implementation task is **2C — Assembly + Acquisition**.
+**2C is complete and frozen.**
 
-2C must be completed and frozen using development datasets only.
+The next implementation task is **2D — Untouched External Benchmark**.
 
-Do not download or inspect target labels from the reserved AAV/Random or FLIP2 IRED final benchmarks before the 2C freeze commit exists.
+The reserved AAV/Random and FLIP2 IRED datasets may be revealed only under the frozen protocol in `FINAL_VALIDATION_PROTOCOL.md`.
 
-After 2C freezes, execute the preregistered 2D blind benchmark exactly as specified in `FINAL_VALIDATION_PROTOCOL.md`.
+Do not alter the V3 gate, support threshold, search budget, acquisition policy, metrics or winner rule after blind reveal.
