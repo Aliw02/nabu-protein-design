@@ -214,6 +214,7 @@ def run_condition(
     seed_count: int,
     target_count: int,
     batch_size: int,
+    probe_count: int,
 ) -> dict:
     condition_dir = output_dir / condition_name
     campaign = DesignCampaign(
@@ -232,7 +233,7 @@ def run_condition(
         min_main_support=2,
         min_pair_support=2,
         beam_width=256,
-        probe_count=64,
+        probe_count=int(probe_count),
         target_order=3,
     )
 
@@ -354,6 +355,7 @@ def main() -> None:
     parser.add_argument("--seed-count", type=int, default=64)
     parser.add_argument("--target-count", type=int, default=256)
     parser.add_argument("--batch-size", type=int, default=8)
+    parser.add_argument("--probe-count", type=int, default=64)
     args = parser.parse_args()
 
     raw = pd.read_csv(args.source_csv)
@@ -379,7 +381,7 @@ def main() -> None:
         min_main_support=2,
         min_pair_support=2,
         beam_width=256,
-        probe_count=64,
+        probe_count=int(args.probe_count),
         target_order=3,
     )
 
@@ -454,6 +456,7 @@ def main() -> None:
             seed_count=args.seed_count,
             target_count=args.target_count,
             batch_size=args.batch_size,
+            probe_count=args.probe_count,
         )
         summaries.append(summary)
         print(
@@ -520,7 +523,11 @@ def main() -> None:
     scientific_pass = all(scientific_checks.values())
 
     manifest = {
-        "version": "NABU_PHASE2C_GB1_GATED_V1",
+        "version": (
+            "NABU_PHASE2C_GB1_GATED_V2"
+            if int(args.probe_count) == 256
+            else "NABU_PHASE2C_GB1_GATED_V1"
+        ),
         "scientific_claim": False,
         "stage": "2C_ASSEMBLY_PLUS_ACQUISITION_DEVELOPMENT",
         "development_dataset": "GB1_Wu2016",
@@ -537,7 +544,7 @@ def main() -> None:
         "batch_size": int(args.batch_size),
         "gate": {
             "target_order": 3,
-            "probe_count": 64,
+            "probe_count": int(args.probe_count),
             "beam_width": 256,
             "min_main_support": 2,
             "min_pair_support": 2,
