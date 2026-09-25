@@ -61,3 +61,39 @@ def test_scoreability_matches_frozen_phase1_rule():
     assert is_scoreable(("A1C", "B2D", "C3E"), model) is True
     assert is_scoreable(("A1C", "C3E"), model) is False
     assert is_scoreable(("A1C", "D4F"), model) is False
+
+
+def test_facade_rejects_duplicate_candidates_and_nonfinite_labels():
+    import numpy as np
+    import pytest
+
+    from nabu_protein.v83 import NabuV83Model
+
+    model = NabuV83Model()
+
+    with pytest.raises(ValueError, match="candidate_ids must be unique"):
+        model.fit(
+            [("A1C", "B2D"), ("A1C", "C3E")],
+            [1.0, 2.0],
+            ["dup", "dup"],
+        )
+
+    with pytest.raises(ValueError, match="labels must contain only finite"):
+        model.fit(
+            [("A1C", "B2D"), ("A1C", "C3E")],
+            [1.0, np.nan],
+            ["a", "b"],
+        )
+
+
+def test_facade_rejects_duplicate_mutation_rows_before_crossfit():
+    import pytest
+
+    from nabu_protein.v83 import NabuV83Model
+
+    with pytest.raises(ValueError, match="mutation_sets must be unique"):
+        NabuV83Model().fit(
+            [("A1C", "B2D"), ("A1C", "B2D")],
+            [1.0, 1.1],
+            ["replicate-a", "replicate-b"],
+        )
