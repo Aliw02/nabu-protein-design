@@ -46,11 +46,20 @@ class NabuV83Model:
             raise ValueError(
                 "mutation_sets, labels, and candidate_ids must have equal length."
             )
+        if len(labels) == 0:
+            raise ValueError("At least one visible candidate is required.")
+        if not np.isfinite(labels).all():
+            raise ValueError("labels must contain only finite numeric values.")
         if len(set(candidate_ids)) != len(candidate_ids):
             raise ValueError("candidate_ids must be unique.")
+        canonical_sets = [tuple(ms) for ms in mutation_sets]
+        if len(set(canonical_sets)) != len(canonical_sets):
+            raise ValueError(
+                "mutation_sets must be unique; aggregate or deduplicate replicate rows before fit."
+            )
 
         self.model = fit_crossfitted_hierarchy(
-            mutation_sets,
+            canonical_sets,
             labels,
             candidate_ids,
         )
