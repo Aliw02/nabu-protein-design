@@ -27,7 +27,7 @@ from .higher_order import (
 )
 from .router import apply_router, decide_router
 from .metrics import evaluate_v83
-from .v83 import NabuV83Model, is_scoreable
+from .v83 import NabuV83Model, canonicalize_mutation_set, is_scoreable
 
 __version__ = "0.4.0"
 __author__ = "NABU Protein Design Contributors"
@@ -40,6 +40,7 @@ __all__ = [
     "evaluate_metrics",
     "fnv1a_hash",
     "NabuV83Model",
+    "canonicalize_mutation_set",
     "is_scoreable",
     "FROZEN_CORE_COMMIT",
     "fit_crossfitted_hierarchy",
