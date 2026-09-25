@@ -6,10 +6,13 @@ import hashlib
 import io
 import json
 from collections import Counter
+from itertools import combinations
 from pathlib import Path
 import zipfile
 
 import pandas as pd
+
+from nabu_protein.higher_order import crossfit_fold
 
 STANDARD_AA = set("ACDEFGHIKLMNPQRSTVWY")
 AAV_ALLOWED = STANDARD_AA | {"*"}
@@ -169,6 +172,113 @@ def _derive_ired_reference(frame: pd.DataFrame) -> dict:
     return result
 
 
+
+def _mutation_set(sequence: str, reference: str) -> tuple[str, ...]:
+    if len(sequence) != len(reference):
+        raise ValueError("Sequence/reference length mismatch.")
+    return tuple(
+        f"{source}{index}{target}"
+        for index, (source, target) in enumerate(
+            zip(reference, sequence),
+            start=1,
+        )
+        if source != target
+    )
+
+
+def _ired_structural_scoreability(
+    frame: pd.DataFrame,
+    reference: str,
+) -> dict:
+    set_text = frame["set"].astype(str).str.lower()
+    validation_true = frame["validation"].eq(True)
+
+    fit_frame = frame[
+        set_text.eq("train") & ~validation_true
+    ].copy()
+    validation_frame = frame[validation_true].copy()
+    test_frame = frame[set_text.eq("test")].copy()
+
+    fit_sets = [
+        _mutation_set(str(sequence).strip().upper(), reference)
+        for sequence in fit_frame["sequence"]
+    ]
+    test_sets = [
+        _mutation_set(str(sequence).strip().upper(), reference)
+        for sequence in test_frame["sequence"]
+    ]
+
+    main_support = Counter(
+        token
+        for mutation_set in fit_sets
+        for token in mutation_set
+    )
+    pair_support = Counter(
+        pair
+        for mutation_set in fit_sets
+        for pair in combinations(mutation_set, 2)
+    )
+
+    def scoreable(mutation_set: tuple[str, ...]) -> bool:
+        return bool(
+            mutation_set
+            and all(token in main_support for token in mutation_set)
+            and any(pair in pair_support for pair in combinations(mutation_set, 2))
+        )
+
+    scoreable_mask = [scoreable(ms) for ms in test_sets]
+    missing_main_rows = sum(
+        any(token not in main_support for token in ms)
+        for ms in test_sets
+    )
+    no_supported_pair_rows = sum(
+        bool(ms)
+        and all(
+            pair not in pair_support
+            for pair in combinations(ms, 2)
+        )
+        for ms in test_sets
+    )
+
+    fold_counts = Counter(
+        crossfit_fold(str(sequence).strip().upper())
+        for sequence in fit_frame["sequence"]
+    )
+
+    return {
+        "fit_train_rows": int(len(fit_frame)),
+        "validation_rows": int(len(validation_frame)),
+        "test_rows": int(len(test_frame)),
+        "fit_mutation_order_counts": _summary(
+            [len(ms) for ms in fit_sets]
+        ),
+        "test_mutation_order_counts": _summary(
+            [len(ms) for ms in test_sets]
+        ),
+        "fit_main_identity_entries": int(len(main_support)),
+        "fit_pair_identity_entries": int(len(pair_support)),
+        "test_structurally_scoreable_rows": int(sum(scoreable_mask)),
+        "test_structurally_unscoreable_rows": int(
+            len(scoreable_mask) - sum(scoreable_mask)
+        ),
+        "test_structural_scoreability_fraction": (
+            float(sum(scoreable_mask) / len(scoreable_mask))
+            if scoreable_mask else 0.0
+        ),
+        "test_rows_with_unseen_main_identity": int(missing_main_rows),
+        "test_rows_without_any_supported_pair_identity": int(
+            no_supported_pair_rows
+        ),
+        "fit_crossfit_fold_counts": {
+            str(index): int(fold_counts.get(index, 0))
+            for index in range(5)
+        },
+        "all_five_fit_crossfit_folds_populated": bool(
+            set(fold_counts) == set(range(5))
+        ),
+    }
+
+
 def preflight(
     aav_zip: Path,
     aav_reference_fasta: Path,
@@ -192,6 +302,13 @@ def preflight(
 
     ired_profile = _sequence_profile(ired)
     ired_profile.update(_derive_ired_reference(ired))
+    if ired_profile["derived_reference"] is not None:
+        ired_profile.update(
+            _ired_structural_scoreability(
+                ired,
+                ired_profile["derived_reference"],
+            )
+        )
 
     return {
         "version": "NABU_PHASE2D_IDENTITY_PREFLIGHT_V2",
@@ -217,6 +334,10 @@ def preflight(
                 ired_profile["train_fixed_length"]
                 and ired_profile["train_standard_amino_acids_only"]
                 and ired_profile["reference_present_as_exact_row"]
+                and ired_profile.get(
+                    "all_five_fit_crossfit_folds_populated",
+                    False,
+                )
             ),
         },
     }
