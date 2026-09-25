@@ -728,33 +728,6 @@ def run_condition(
                 encoding="utf-8",
             )
 
-        if state_matched_ablation is not None:
-            if (
-                "assembly_truth" not in state_matched_ablation
-                and state_matched_ablation[
-                    "measurements_spent"
-                ]
-                == len(measured)
-            ):
-                state_matched_ablation[
-                    "assembly_truth"
-                ] = _batch_truth_diagnostic(
-                    oracle,
-                    state_matched_ablation[
-                        "assembly_ids"
-                    ],
-                    evaluator.top1_cutoff,
-                )
-                state_matched_ablation[
-                    "acquisition_truth"
-                ] = _batch_truth_diagnostic(
-                    oracle,
-                    state_matched_ablation[
-                        "acquisition_ids"
-                    ],
-                    evaluator.top1_cutoff,
-                )
-
         measured = _reveal_into_measured(
             oracle=oracle,
             identity_lookup=universe_identity,
@@ -830,6 +803,28 @@ def run_condition(
             selection_hashes
         ).encode("utf-8")
     ).hexdigest()
+
+    # Same-state alternate truth is inspected only after the complete
+    # campaign selection transcript has been frozen. It can never affect
+    # a subsequent campaign decision.
+    if state_matched_ablation is not None:
+        state_matched_ablation[
+            "truth_lookup_after_complete_campaign_freeze"
+        ] = True
+        state_matched_ablation[
+            "assembly_truth"
+        ] = _batch_truth_diagnostic(
+            oracle,
+            state_matched_ablation["assembly_ids"],
+            evaluator.top1_cutoff,
+        )
+        state_matched_ablation[
+            "acquisition_truth"
+        ] = _batch_truth_diagnostic(
+            oracle,
+            state_matched_ablation["acquisition_ids"],
+            evaluator.top1_cutoff,
+        )
 
     final_ids = measured[
         "candidate_id"
@@ -973,6 +968,85 @@ def _joint_degradation(
     )
 
 
+def _hidden_truth_first_selection_invariance(
+    landscape_name: str,
+    universe: pd.DataFrame,
+    codec,
+    reservoir: pd.DataFrame,
+    seed_ids: list[str],
+    batch_size: int,
+    beam_width: int,
+    proposal_frontier: int,
+    min_support: int,
+) -> dict:
+    target_count = len(seed_ids) + int(batch_size)
+
+    original = run_condition(
+        landscape_name=landscape_name,
+        universe=universe,
+        codec=codec,
+        reservoir=reservoir,
+        seed_ids=seed_ids,
+        condition="acquisition_then_gated_assembly",
+        output_dir=None,
+        target_count=target_count,
+        batch_size=batch_size,
+        beam_width=beam_width,
+        proposal_frontier=proposal_frontier,
+        min_support=min_support,
+    )
+
+    perturbed = universe.copy()
+    seed_set = set(str(value) for value in seed_ids)
+    hidden_mask = ~perturbed["candidate_id"].astype(str).isin(seed_set)
+    perturbed.loc[
+        hidden_mask,
+        "DMS_score",
+    ] = (
+        -1_000_000.0
+        - np.arange(
+            int(hidden_mask.sum()),
+            dtype=float,
+        )
+    )
+
+    shadow = run_condition(
+        landscape_name=landscape_name,
+        universe=perturbed,
+        codec=codec,
+        reservoir=reservoir,
+        seed_ids=seed_ids,
+        condition="acquisition_then_gated_assembly",
+        output_dir=None,
+        target_count=target_count,
+        batch_size=batch_size,
+        beam_width=beam_width,
+        proposal_frontier=proposal_frontier,
+        min_support=min_support,
+    )
+
+    same = (
+        original["selection_transcript_sha256"]
+        == shadow["selection_transcript_sha256"]
+    )
+    if not same:
+        raise RuntimeError(
+            f"Hidden-truth perturbation changed the first pre-reveal "
+            f"selection for {landscape_name}."
+        )
+
+    return {
+        "pass": True,
+        "original_first_selection_transcript_sha256": original[
+            "selection_transcript_sha256"
+        ],
+        "perturbed_first_selection_transcript_sha256": shadow[
+            "selection_transcript_sha256"
+        ],
+        "unrevealed_labels_perturbed": int(hidden_mask.sum()),
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=(
@@ -1057,6 +1131,7 @@ def main() -> None:
     all_summaries = []
     landscape_records = []
     replay_checks = {}
+    hidden_truth_checks = {}
 
     for landscape_name in (
         "GB1",
@@ -1091,6 +1166,20 @@ def main() -> None:
         seeds = bootstrap_ids(
             reservoir,
             seed_count=args.bootstrap_count,
+        )
+
+        hidden_truth_checks[
+            landscape_name
+        ] = _hidden_truth_first_selection_invariance(
+            landscape_name=landscape_name,
+            universe=universe,
+            codec=codec,
+            reservoir=reservoir,
+            seed_ids=seeds,
+            batch_size=args.batch_size,
+            beam_width=args.beam_width,
+            proposal_frontier=args.proposal_frontier,
+            min_support=args.min_support,
         )
 
         source_record = {
@@ -1358,6 +1447,7 @@ def main() -> None:
             ),
         },
         "deterministic_replay": replay_checks,
+        "hidden_truth_first_selection_invariance": hidden_truth_checks,
         "verdict_table": verdict_rows,
         "comparison": rows,
         "blind_phase2d_data_loaded": False,
