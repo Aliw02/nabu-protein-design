@@ -9,8 +9,10 @@ src/nabu_protein/
     core.py           Legacy pairwise package API kept for compatibility
     higher_order.py   Frozen Phase-1 B2/B3/B4/B5 hierarchy
     router.py         Frozen V8.3 dual-objective OOF router
-    v83.py            Reusable facade over the frozen V8.3 core
-    cli.py            Existing legacy CLI; not yet migrated to the V8.3 facade
+    metrics.py        Canonical frozen V8.3 evaluation metrics
+    v83.py            Reusable validated facade over the frozen V8.3 core
+    v83_cli.py        Explicit convenience CLI for the frozen V8.3 package
+    cli.py            Legacy pairwise compatibility CLI
 ```
 
 The canonical Phase-1 scientific source is:
@@ -72,9 +74,13 @@ Do not move or delete these directories during package hardening. Their referenc
 ```text
 tests/
     test_frozen_v83_parity.py
+    test_v83_contracts.py
+    test_metrics.py
+    test_historical_stage_a_parity.py
+    test_stage_ab_sealing.py
 ```
 
-The first hardening gate compares the packaged B2/B3/B4/B5 implementation and router against the historical frozen experiment implementation.
+The hardening suite covers exact frozen-implementation parity, public API contracts, canonical metrics, sealed Stage-A historical score parity, RhlA budget parity, and Stage-A/Stage-B freeze semantics.
 
 Expected policy:
 
@@ -95,12 +101,22 @@ It may:
 
 It must not automatically rewrite frozen benchmark outputs.
 
-## 8. Current cleanup order
+## 8. Engineering preflight status
 
-1. Prove exact V8.3 package parity.
-2. Add deterministic unit/integration coverage.
-3. Migrate or replace the legacy CLI only after parity is established.
-4. Harden reproducibility and dataset provenance.
-5. Convert historical workflows to read-only/manual validation.
-6. Audit root-level legacy artifacts before any physical directory moves.
-7. Only after the engineering preflight is complete should a Phase-2 experimental branch be created.
+Completed on `engineering/v8-3-package-hardening`:
+
+1. Exact frozen V8.3 implementation parity.
+2. Historical parity on PHOT, GB1, TrpB, PhoQ, CreiLOV, eqFP611, RhlA, and CR9114-H1.
+3. Deterministic unit and integration coverage.
+4. Explicit frozen-V8.3 package facade and convenience CLI.
+5. Reproducibility and dataset-provenance manifests.
+6. Historical workflows converted to read-only/manual validation.
+7. Root-level legacy launcher notes relabelled rather than silently treated as current.
+
+Still intentionally deferred:
+
+- physical relocation/deletion of historical `lightning_*` and frozen result roots;
+- any Phase-2 branch or new scientific mechanism;
+- merging freeze branches back into `main`.
+
+Physical cleanup remains lower priority than preserving audit provenance.
