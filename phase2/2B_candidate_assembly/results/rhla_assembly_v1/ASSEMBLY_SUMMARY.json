@@ -1,0 +1,41 @@
+{
+  "version": "NABU_PHASE2B_ASSEMBLY_POC_V1",
+  "scientific_claim": false,
+  "stage": "2B_ASSEMBLY_ONLY_DEVELOPMENT",
+  "status": "ENGINEERING_PASS_DESIGN_QUALITY_LIMITED_AT_5PCT",
+  "source_pool_size": 1608,
+  "bootstrap_count": 81,
+  "reference_sequence": "SFQRAQLSQHA",
+  "vocabulary_size": 30,
+  "target_order": 3,
+  "beam_width": 256,
+  "proposal_count": 64,
+  "proposal_sha256_before_truth_lookup": "21b96d774bfc2d0ece6c27fda1b04d5d87ac651a964c21d4512ade2e77c071db",
+  "proposal_scoreable_count": 64,
+  "proposal_measured_overlap": 0,
+  "proposal_duplicate_count": 0,
+  "unmeasured_truth_perturbation_invariant": true,
+  "oracle_match_count": 26,
+  "oracle_unmatched_count": 38,
+  "matched_best_true_fitness": -0.2285832274753846,
+  "matched_top1_hits": 0,
+  "source_top1_cutoff": -0.05722340163769095,
+  "assembly_trace": [
+    {
+      "order": 2,
+      "generated_unique": 383,
+      "scoreable": 160,
+      "beam_kept": 256
+    },
+    {
+      "order": 3,
+      "generated_unique": 2757,
+      "scoreable": 2299,
+      "beam_kept": 256
+    }
+  ],
+  "ci_validation": {
+    "workflow_run_id": 36139547795,
+    "status": "PASS"
+  }
+}
