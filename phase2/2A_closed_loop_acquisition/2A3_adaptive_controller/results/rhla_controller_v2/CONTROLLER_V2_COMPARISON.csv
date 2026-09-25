@@ -1,0 +1,5 @@
+condition,policy,batch_size,final_best_true_fitness,final_regret,final_top1_hits,acquired_top1_hits_after_bootstrap,first_top1_measurement,post_bootstrap_normalized_discovery_auc,final_scoreable_coverage,final_router_mode,final_visible_b3_oof_spearman,pressure_initial,pressure_final,pressure_mean,reference_gap,final_gap
+historical_50_50_micro_8,historical_50_50,8,0.7064209323835852,0.0,5,5,105,0.9765864164602768,0.9782270606531882,B3_PROTECTED_NO_HIGHER_ORDER,0.5402626843418991,,,,,
+relative_evidence_v2_micro_8,relative_evidence_v2,8,0.7064209323835852,0.0,4,4,105,0.9719201017286555,0.9704510108864697,B3_PROTECTED_NO_HIGHER_ORDER,0.539463665018607,0.5,0.3672365277899267,0.4155626746724318,0.6811625418125975,0.39532586456376817
+historical_50_50_micro_16,historical_50_50,16,0.7064209323835852,0.0,3,3,113,0.9705038053328457,0.9782270606531882,B3_PROTECTED_NO_HIGHER_ORDER,0.4539689568592467,,,,,
+relative_evidence_v2_micro_16,relative_evidence_v2,16,0.7064209323835852,0.0,4,4,113,0.9681706479670351,0.9751166407465007,B3_PROTECTED_NO_HIGHER_ORDER,0.47565857541288503,0.5,0.36394470164164777,0.4167896824456292,0.6811625418125975,0.3897546309091239
