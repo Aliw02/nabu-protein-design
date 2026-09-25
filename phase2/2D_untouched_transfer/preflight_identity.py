@@ -97,20 +97,37 @@ def _sequence_profile(frame: pd.DataFrame) -> dict:
 
 def _aav_profile(frame: pd.DataFrame, reference: str) -> dict:
     profile = _sequence_profile(frame)
-    seqs = frame["sequence"].astype(str).str.strip().str.upper()
+
+    # Match the released protein-uq loader exactly for the BO candidate pool:
+    # set == "train" and validation is NaN. Validation=True rows are held out.
+    set_text = frame["set"].astype(str).str.lower()
+    published_pool = frame[
+        set_text.eq("train") & frame["validation"].isna()
+    ].copy()
+    seqs = published_pool["sequence"].astype(str).str.strip().str.upper()
+
     same_length = seqs.str.len().eq(len(reference))
     allowed = seqs.map(lambda seq: set(seq).issubset(AAV_ALLOWED))
     representable = same_length & allowed
+
     profile.update(
         {
             "reference_length": int(len(reference)),
+            "published_bo_pool_rule": "set == train AND validation is NaN",
+            "published_bo_pool_rows": int(len(published_pool)),
+            "published_bo_pool_length_counts": _summary(seqs.str.len().tolist()),
+            "published_bo_pool_alphabet": sorted(set("".join(seqs.tolist()))),
             "representable_rows_frozen_token_grammar": int(representable.sum()),
             "unrepresentable_rows_frozen_token_grammar": int((~representable).sum()),
-            "representable_fraction": float(representable.mean()),
-            "complete_pool_representable": bool(representable.all()),
+            "representable_fraction": (
+                float(representable.mean()) if len(representable) else 0.0
+            ),
+            "complete_pool_representable": bool(
+                len(representable) > 0 and representable.all()
+            ),
             "representation_rule": (
-                "same length as pinned WT and alphabet limited to "
-                "20 standard amino acids plus '*' deletion token"
+                "published BO pool only; same length as pinned WT and alphabet "
+                "limited to 20 standard amino acids plus '*' deletion token"
             ),
         }
     )
@@ -177,7 +194,7 @@ def preflight(
     ired_profile.update(_derive_ired_reference(ired))
 
     return {
-        "version": "NABU_PHASE2D_IDENTITY_PREFLIGHT_V1",
+        "version": "NABU_PHASE2D_IDENTITY_PREFLIGHT_V2",
         "target_values_read": False,
         "sources": {
             "aav_splits_zip_sha256": sha256_file(aav_zip),
