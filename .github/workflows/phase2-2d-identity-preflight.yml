@@ -9,6 +9,10 @@ on:
       - ".github/workflows/phase2-2d-identity-preflight.yml"
   workflow_dispatch:
 
+concurrency:
+  group: phase2d-preflight-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
