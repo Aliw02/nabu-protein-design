@@ -1,0 +1,7 @@
+landscape,batch_size,delta_auc_v2_minus_50_50,delta_top1_hits_v2_minus_50_50,delta_regret_v2_minus_50_50,delta_first_top1_measurement_v2_minus_50_50
+GB1,8,-0.07022649255748259,0,1.0059608285899997,0
+GB1,16,0.0,0,0.0,0
+TRPB,8,0.0,0,0.0,0
+TRPB,16,0.0,0,0.0,0
+PHOQ,8,0.0,1,0.0,0
+PHOQ,16,0.027876341426371465,0,0.0,0
