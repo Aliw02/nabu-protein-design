@@ -1,0 +1,52 @@
+name: NABU Phase 2A3 Adaptive Controller
+
+on:
+  pull_request:
+    branches:
+      - engineering/v8-3-package-hardening
+    paths:
+      - "phase2/2A_closed_loop_acquisition/2A0_campaign_simulator/**"
+      - "phase2/2A_closed_loop_acquisition/2A1_baselines/**"
+      - "phase2/2A_closed_loop_acquisition/2A2_micro_batch_loop/**"
+      - "phase2/2A_closed_loop_acquisition/2A3_adaptive_controller/**"
+      - ".github/workflows/phase2-2a3-adaptive-controller.yml"
+      - "src/nabu_protein/**"
+      - "requirements-hardening.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-2a3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pinned hardening environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -e . --no-deps
+
+      - name: Run Phase 2A tests through 2A3
+        run: |
+          python -m pytest -q             phase2/2A_closed_loop_acquisition/2A0_campaign_simulator/tests             phase2/2A_closed_loop_acquisition/2A1_baselines/tests             phase2/2A_closed_loop_acquisition/2A2_micro_batch_loop/tests             phase2/2A_closed_loop_acquisition/2A3_adaptive_controller/tests
+
+      - name: Run RhlA adaptive controller ablation
+        run: |
+          python             phase2/2A_closed_loop_acquisition/2A3_adaptive_controller/run_adaptive_controller_ablation.py             --out .ci_artifacts/phase2_2a3_rhla_controller_v1
+
+      - name: Upload controller artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nabu-phase2-2a3-rhla-controller-v1
+          path: .ci_artifacts/phase2_2a3_rhla_controller_v1
