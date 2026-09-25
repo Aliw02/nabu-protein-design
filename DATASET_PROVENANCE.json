@@ -1,0 +1,52 @@
+{
+  "version": "NABU_DATASET_PROVENANCE_V1",
+  "note": "Only provenance explicitly present in the repository is recorded. Unknown source locations remain null rather than inferred.",
+  "datasets": {
+    "CreiLOV": {
+      "source_file": "CreiLOV_clean.xlsx",
+      "source_url": null,
+      "source_repository_commit": null,
+      "source_sha256": "5b1bfaa6788808dfd2692a3757e5d5aa30eb6097653543c1e1c60caa079ad27f",
+      "seal_manifest": "creilov_sealed_input/SEAL_MANIFEST.json"
+    },
+    "eqFP611": {
+      "source_file": "eqFP611_clean.xlsx",
+      "source_url": "https://raw.githubusercontent.com/sitonglab/CombinGym/c5dccd514a9acfe1089a5f1555faea98afd78019/Data/DMS/Clean/eqFP611_clean.xlsx",
+      "source_repository_commit": "c5dccd514a9acfe1089a5f1555faea98afd78019",
+      "source_sha256": "27e26e9d198e04f81740349399a8e5fb4687f4f2af7b27b0f9d374e04b0a8d63",
+      "seal_manifest": "eqfp611_sealed_input/SEAL_MANIFEST.json"
+    },
+    "RhlA": {
+      "source_file": "RhlA_clean.xlsx",
+      "source_url": "https://raw.githubusercontent.com/sitonglab/CombinGym/c5dccd514a9acfe1089a5f1555faea98afd78019/Data/DMS/Clean/RhlA_clean.xlsx",
+      "source_repository_commit": "c5dccd514a9acfe1089a5f1555faea98afd78019",
+      "source_sha256": "d63fdd66be2a9394a89e8321a4e4553d30b2f8b553773d6faddfb5c114c0f876",
+      "seal_manifest": "rhla_sample_efficiency_sealed_input/SEAL_MANIFEST.json"
+    },
+    "CR9114-H1": {
+      "source_file": "bnAbs_CR9114_H1_clean.xlsx",
+      "source_url": "https://raw.githubusercontent.com/sitonglab/CombinGym/c5dccd514a9acfe1089a5f1555faea98afd78019/Data/DMS/Clean/bnAbs_CR9114_H1_clean.xlsx",
+      "source_repository_commit": "c5dccd514a9acfe1089a5f1555faea98afd78019",
+      "source_sha256": "1a1053862608769f5c7dd34cb93e003d26bcf8404a57dd8edcaa5b6463640084",
+      "seal_manifest": "cr9114_h1_final_gate_sealed_input/SEAL_MANIFEST.json"
+    },
+    "GB1": {
+      "source_url": "https://raw.githubusercontent.com/rcronk/mutate/0861a3f1f6c58a9597fde689eb7f9a07b38e2638/ridge/data/gb1_wu2016_landscape.csv",
+      "source_repository_commit": "0861a3f1f6c58a9597fde689eb7f9a07b38e2638",
+      "source_sha256": null,
+      "source_reference": ".github/workflows/nabu-v8-3-multilandscape-validation.yml"
+    },
+    "TrpB": {
+      "source_url": "https://raw.githubusercontent.com/rcronk/mutate/0861a3f1f6c58a9597fde689eb7f9a07b38e2638/ridge/data/johnston2024_trpb_landscape.csv",
+      "source_repository_commit": "0861a3f1f6c58a9597fde689eb7f9a07b38e2638",
+      "source_sha256": null,
+      "source_reference": ".github/workflows/nabu-v8-3-multilandscape-validation.yml"
+    },
+    "PhoQ": {
+      "source_url": "https://raw.githubusercontent.com/hury07/fasthit/0f9c51aa7caaab0b4618b0cab4f3107e7251091b/fasthit/landscapes/data/phoq/PhoQ.csv",
+      "source_repository_commit": "0f9c51aa7caaab0b4618b0cab4f3107e7251091b",
+      "source_sha256": null,
+      "source_reference": ".github/workflows/nabu-v8-3-multilandscape-validation.yml"
+    }
+  }
+}
