@@ -1,17 +1,6 @@
 name: NABU Phase 2C Gated Design
 
 on:
-  pull_request:
-    branches:
-      - engineering/v8-3-package-hardening
-    paths:
-      - "phase2/2C_assembly_plus_acquisition/**"
-      - "phase2/2B_candidate_assembly/**"
-      - "phase2/2A_closed_loop_acquisition/2A0_campaign_simulator/**"
-      - "phase2/2A_closed_loop_acquisition/2A1_baselines/**"
-      - ".github/workflows/phase2-2c-gated-design.yml"
-      - "src/nabu_protein/**"
-      - "requirements-hardening.txt"
   workflow_dispatch:
 
 permissions:
