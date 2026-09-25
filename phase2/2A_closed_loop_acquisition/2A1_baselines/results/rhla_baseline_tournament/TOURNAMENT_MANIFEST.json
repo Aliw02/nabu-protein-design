@@ -1,0 +1,34 @@
+{
+  "version": "NABU_PHASE2A1_BASELINE_TOURNAMENT_V1",
+  "scientific_claim": false,
+  "stage": "2A1_BASELINE_CHARACTERIZATION",
+  "input": "rhla_sample_efficiency_sealed_input/TRAINING_POOL.csv",
+  "pool_size": 1608,
+  "seed_fraction": 0.05,
+  "target_fraction": 0.2,
+  "seed_count": 81,
+  "target_count": 322,
+  "batch_size": 16,
+  "shared_bootstrap_selection_sha256": "f1c3dfd6dae2c88983bab03d3011b65d31475552af9dbd1faa9df54dbb48efc3",
+  "ci_validation": {
+    "workflow_run_id": 36133001063,
+    "head_sha": "3e723bb49a9404fd78adafb2a545eed8cc4e9161",
+    "tests_passed": 11,
+    "status": "PASS"
+  },
+  "baselines": [
+    "deterministic_random",
+    "greedy_v83",
+    "exploration_only",
+    "historical_50_50",
+    "static_initial_v83"
+  ],
+  "comparison": [
+    {"baseline":"deterministic_random","final_best_true_fitness":0.3209789125409283,"final_regret":0.38544201984265686,"final_top1_hits":3,"acquired_top1_hits_after_bootstrap":3,"first_top1_measurement":161,"post_bootstrap_normalized_discovery_auc":0.947548486388722},
+    {"baseline":"greedy_v83","final_best_true_fitness":0.3082915435500567,"final_regret":0.39812938883352844,"final_top1_hits":5,"acquired_top1_hits_after_bootstrap":5,"first_top1_measurement":225,"post_bootstrap_normalized_discovery_auc":0.9373918738163654},
+    {"baseline":"exploration_only","final_best_true_fitness":0.3082915435500567,"final_regret":0.39812938883352844,"final_top1_hits":2,"acquired_top1_hits_after_bootstrap":2,"first_top1_measurement":97,"post_bootstrap_normalized_discovery_auc":0.9631908030687623},
+    {"baseline":"historical_50_50","final_best_true_fitness":0.7064209323835852,"final_regret":0.0,"final_top1_hits":3,"acquired_top1_hits_after_bootstrap":3,"first_top1_measurement":113,"post_bootstrap_normalized_discovery_auc":0.9705038053328457},
+    {"baseline":"static_initial_v83","final_best_true_fitness":0.1080629537125374,"final_regret":0.5983579786710478,"final_top1_hits":2,"acquired_top1_hits_after_bootstrap":2,"first_top1_measurement":225,"post_bootstrap_normalized_discovery_auc":0.9310710099432862}
+  ],
+  "interpretation_rule": "Do not select a Phase-2 winner or tune a new controller from this single landscape alone. Use these results to establish controls for later multi-landscape work."
+}
