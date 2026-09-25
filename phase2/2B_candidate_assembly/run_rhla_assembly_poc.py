@@ -126,6 +126,46 @@ def main() -> None:
     proposal_ids = proposals["candidate_id"].astype(str).tolist()
     proposal_hash = sha256_ids(proposal_ids)
 
+    # Negative leakage control: perturb every unrevealed label while preserving
+    # the measured seed. Assembly must remain identical before evaluation.
+    perturbed_truth = truth.copy()
+    unmeasured_mask = ~perturbed_truth["candidate_id"].isin(seed_set)
+    perturbed_truth.loc[unmeasured_mask, LABEL_COLUMN] = (
+        -1000000.0
+        - np.arange(int(unmeasured_mask.sum()), dtype=float)
+    )
+    shadow_seed_truth = perturbed_truth[
+        perturbed_truth["candidate_id"].isin(seed_set)
+    ].copy()
+    shadow_measured = seed_identity.merge(
+        shadow_seed_truth,
+        on="candidate_id",
+        how="inner",
+        validate="one_to_one",
+    )
+    shadow_model = NabuV83Model().fit(
+        shadow_measured["mutation_set"].tolist(),
+        shadow_measured[LABEL_COLUMN].to_numpy(dtype=float),
+        shadow_measured["candidate_id"].astype(str).tolist(),
+    )
+    shadow_assembler = CandidateAssembler(
+        model=shadow_model,
+        vocabulary=vocabulary,
+        measured_mutation_sets=shadow_measured["mutation_set"].tolist(),
+    )
+    shadow_proposals, _ = shadow_assembler.assemble(
+        target_order=args.target_order,
+        beam_width=args.beam_width,
+        proposal_count=args.proposal_count,
+    )
+    shadow_ids = shadow_proposals["candidate_id"].astype(str).tolist()
+    leakage_invariant = proposal_ids == shadow_ids
+    if not leakage_invariant:
+        raise RuntimeError(
+            "Assembly proposals changed after unrevealed truth perturbation."
+        )
+
+
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
 
@@ -140,6 +180,7 @@ def main() -> None:
         "reference_sequence": reference.sequence,
         "vocabulary_size": int(len(vocabulary.tokens)),
         "truth_exposed_to_assembler_before_freeze": False,
+        "unmeasured_truth_perturbation_invariant": bool(leakage_invariant),
         "assembly_trace": trace,
     }
     (out / "PROPOSAL_FREEZE.json").write_text(
@@ -189,6 +230,7 @@ def main() -> None:
         "proposal_duplicate_count": int(
             len(proposal_ids) - len(set(proposal_ids))
         ),
+        "unmeasured_truth_perturbation_invariant": bool(leakage_invariant),
         "oracle_match_count": int(matched.sum()),
         "oracle_unmatched_count": int((~matched).sum()),
         "matched_best_true_fitness": (
