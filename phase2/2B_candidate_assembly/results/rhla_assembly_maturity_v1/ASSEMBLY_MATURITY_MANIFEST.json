@@ -1,0 +1,28 @@
+{
+  "version": "NABU_PHASE2B_ASSEMBLY_MATURITY_V1",
+  "scientific_claim": false,
+  "stage": "2B_ASSEMBLY_EVIDENCE_MATURITY",
+  "status": "PASS_WITH_LIMITATION",
+  "single_changed_variable": "measured_evidence_fraction",
+  "fractions": [
+    0.05,
+    0.1,
+    0.2
+  ],
+  "nested_identity_only_seeds": true,
+  "target_order": 3,
+  "beam_width": 256,
+  "proposal_count": 64,
+  "key_findings": {
+    "5pct": "26 historical matches; best -0.228583; 0 Top-1% hits; pair entries 169; triple frontier scoreability 2299/2757",
+    "10pct": "20 historical matches; best -0.228583; 0 Top-1% hits; pair entries 250; triple frontier scoreability 2605/2690",
+    "20pct": "22 historical matches; best 0.308292; 2 Top-1% hits; pair entries 333; triple frontier scoreability 2537/2537",
+    "interpretation": "Assembly quality is not monotonic from 5% to 10%, but materially improves at the 20% RhlA evidence state. Improvement occurs while the router remains B3-protected and triplet/quartet memories remain empty."
+  },
+  "ci_validation": {
+    "workflow_run_id": 36139810766,
+    "head_sha": "30180e816668c8b90bbb592b39e52af10d1bf4e7",
+    "tests_passed": 5,
+    "status": "PASS"
+  }
+}

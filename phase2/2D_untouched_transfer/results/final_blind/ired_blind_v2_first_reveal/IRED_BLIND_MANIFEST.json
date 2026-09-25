@@ -1,0 +1,316 @@
+{
+  "version": "NABU_PHASE2D_IRED_BLIND_V2",
+  "scientific_claim": false,
+  "status": "BLIND_RESULT_COMPLETE",
+  "source_sha256": "aa45a2f85fb1af87b6b0e86397b3f8f292a061dc574be2536673b5bd490b0e74",
+  "source_expected_sha256": "aa45a2f85fb1af87b6b0e86397b3f8f292a061dc574be2536673b5bd490b0e74",
+  "frozen_phase2c_version": "NABU_PHASE2C_MULTILANDSCAPE_V3",
+  "frozen_core_commit": "c8afdcd7698231d95a39ef13a3fe22b6e3f507c5",
+  "fit_rule": "set == train AND validation != True",
+  "validation_rule": "validation == True held out; no tuning",
+  "test_rule": "set == test",
+  "fit_count": 3746,
+  "validation_count": 662,
+  "test_count": 4178,
+  "reference_sha256": "27fbaa950b2c68b73f7595a2a53e86a8ab627118640b8e181a08b57a324e2fdb",
+  "reference_length": 290,
+  "identity_preflight": {
+    "version": "NABU_PHASE2D_IRED_SCOREABILITY_PREFLIGHT_V1",
+    "target_values_read": false,
+    "fit_rule": "set == train AND validation != True",
+    "validation_rule": "validation == True held out",
+    "test_rule": "set == test",
+    "fit_count": 3746,
+    "validation_count": 662,
+    "test_count": 4178,
+    "reference_sha256": "27fbaa950b2c68b73f7595a2a53e86a8ab627118640b8e181a08b57a324e2fdb",
+    "reference_length": 290,
+    "fit_main_identity_entries": 1412,
+    "fit_pair_identity_entries": 2708,
+    "test_mutation_count_distribution": {
+      "3": 2053,
+      "4": 1172,
+      "5": 569,
+      "6": 236,
+      "7": 89,
+      "8": 41,
+      "9": 10,
+      "10": 4,
+      "11": 2,
+      "12": 1,
+      "15": 1
+    },
+    "all_main_supported_count": 3648,
+    "any_pair_supported_count": 133,
+    "scoreable_count": 131,
+    "unscoreable_count": 4047,
+    "scoreable_fraction": 0.03135471517472475,
+    "scoreable_test_identity_set_sha256": "1a7f6929405a131ab5b7746b3b02980e623a908726f1650de8d7ce338875a77e",
+    "full_test_scoreable": false,
+    "unscoreable_examples": [
+      {
+        "sequence_sha256": "1294edd7a8f31a653e0e69d307499e0b29c8aaa7b1b3496bbd3739fa5c0eeaa7",
+        "mutation_count": 4,
+        "all_main_supported": false,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 1
+      },
+      {
+        "sequence_sha256": "e7cecf061ef4538542e9ae4128c0cdfe30c4ba926a10adbf457760ca0b27ad8a",
+        "mutation_count": 3,
+        "all_main_supported": true,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 0
+      },
+      {
+        "sequence_sha256": "0a82677ae6f6231f4004bcc8614522ba0583c9acdeb8a95b6fcc39a8045c34fb",
+        "mutation_count": 3,
+        "all_main_supported": true,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 0
+      },
+      {
+        "sequence_sha256": "0ba38646429d071086d7369cc6e9622bbc3e871b9c81efe1d3b4f93291f6af2c",
+        "mutation_count": 3,
+        "all_main_supported": true,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 0
+      },
+      {
+        "sequence_sha256": "e091ade18c1ea408daa4f7bb2b877ec7b99739ded848099528ab07e5bd75a3c4",
+        "mutation_count": 4,
+        "all_main_supported": true,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 0
+      },
+      {
+        "sequence_sha256": "2772c7219462b45a3abdbc1cad1c8a6aa17f45528ce56a5e868658e3718c900b",
+        "mutation_count": 4,
+        "all_main_supported": false,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 1
+      },
+      {
+        "sequence_sha256": "0f0058503333c97c63930473c15960aa8846c3f1fd7e7601916a74159f801e7d",
+        "mutation_count": 4,
+        "all_main_supported": true,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 0
+      },
+      {
+        "sequence_sha256": "0049074b87b2377a7bb7e6bf71b58e902f676be308ee93b00920e0af2bedfd1e",
+        "mutation_count": 5,
+        "all_main_supported": true,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 0
+      },
+      {
+        "sequence_sha256": "a72d458e0b7112312dc984f11768419f996fe7719b90bcd516f40a3c9edfb541",
+        "mutation_count": 4,
+        "all_main_supported": false,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 1
+      },
+      {
+        "sequence_sha256": "4587b19eeba4b01d60f51a2010509d51ee9799298cf3aa696b714d4697d9223e",
+        "mutation_count": 3,
+        "all_main_supported": true,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 0
+      },
+      {
+        "sequence_sha256": "cf8a5b79acd4c5a5281ec2c4215a7aac3fec056c6566992e6936da19aec4706c",
+        "mutation_count": 3,
+        "all_main_supported": true,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 0
+      },
+      {
+        "sequence_sha256": "6fc5e752268095d6ba71ebb02074dc44846a9b1e5cc7c07b0caace844c2a595c",
+        "mutation_count": 6,
+        "all_main_supported": true,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 0
+      },
+      {
+        "sequence_sha256": "524da0bf6ebf65022781520001bf66be8634b4d89acc4ae97acfe66dbf7a66da",
+        "mutation_count": 4,
+        "all_main_supported": false,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 1
+      },
+      {
+        "sequence_sha256": "45f57d9550d0667463862ac63561e647c08849af08588674baf732c30904a5a3",
+        "mutation_count": 3,
+        "all_main_supported": true,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 0
+      },
+      {
+        "sequence_sha256": "1480f76468cf006051784e6c8220fbe49db7643dc51a66629572c1bd0a9a14ec",
+        "mutation_count": 4,
+        "all_main_supported": true,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 0
+      },
+      {
+        "sequence_sha256": "1c04a04e25d22009ec5632fcc668ea7e33076d3c0c9d98e9d12ce80bce9b832d",
+        "mutation_count": 6,
+        "all_main_supported": true,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 0
+      },
+      {
+        "sequence_sha256": "0f9c4152e1243790cbc4d32cbb6286dcf946fd72b3a509aa7af5a9f1afb8ec12",
+        "mutation_count": 5,
+        "all_main_supported": false,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 1
+      },
+      {
+        "sequence_sha256": "257404f6bfc80ff5e815394203e04f6a6c9eb1e04f25ef0d8ba6d89bb841448e",
+        "mutation_count": 3,
+        "all_main_supported": false,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 1
+      },
+      {
+        "sequence_sha256": "3f93b327fc80b48d153f41ed626f48fbe94ee50cdee3b14e03c9e72643c81bdb",
+        "mutation_count": 5,
+        "all_main_supported": true,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 0
+      },
+      {
+        "sequence_sha256": "be2fd07f95335a3a2e12eea35d7b2d1a0349c5167f2c8ae17035a15edf7f703f",
+        "mutation_count": 4,
+        "all_main_supported": true,
+        "supported_pair_count": 0,
+        "scoreable": false,
+        "missing_main_count": 0
+      }
+    ]
+  },
+  "abstention_policy": {
+    "scoreable_count": 131,
+    "unscoreable_count": 4047,
+    "abstention_floor": -7.032513484641273,
+    "rule": "unscoreable rows tie below all scoreable frozen-router rows",
+    "b2_fallback_used": false
+  },
+  "router_decision": {
+    "B3_oof_spearman": 0.32860921025867007,
+    "B4_oof_spearman": 0.32860921025867007,
+    "B4_minus_B3": 0.0,
+    "elite_diagnostic": {
+      "region_fraction": 0.2,
+      "region_count": 750,
+      "B3": {
+        "top50_mean_percentile": 0.710571276027763,
+        "top50_top1pct_hits": 1,
+        "top50_mean_true": -0.17849083700536109
+      },
+      "B4": {
+        "top50_mean_percentile": 0.710571276027763,
+        "top50_top1pct_hits": 1,
+        "top50_mean_true": -0.17849083700536109
+      },
+      "delta_top50_mean_percentile": 0.0,
+      "delta_top50_top1pct_hits": 0,
+      "allow_elite_rerank": false
+    },
+    "mode": "B3_PROTECTED_NO_HIGHER_ORDER",
+    "details": {
+      "boundary_preserved": true,
+      "reason": "Visible OOF did not support global or elite higher-order use."
+    }
+  },
+  "model_diagnostics": {
+    "main": {
+      "entries": 1412,
+      "support_min": 1,
+      "support_median": 4.0,
+      "support_max": 22
+    },
+    "pair": {
+      "entries": 2708,
+      "support_min": 1,
+      "support_median": 1.0,
+      "support_max": 1
+    },
+    "triplet_crossfit": {
+      "entries": 0,
+      "support_min": 0,
+      "support_median": 0.0,
+      "support_max": 0
+    },
+    "quartet_crossfit": {
+      "entries": 0,
+      "support_min": 0,
+      "support_median": 0.0,
+      "support_max": 0
+    },
+    "oof": {
+      "b3_spearman_visible": 0.32860921025867007,
+      "b4_spearman_visible": 0.32860921025867007,
+      "residual3_std": 1.0860461793761866,
+      "residual4_std": 1.0860461793761866
+    },
+    "fold_counts": {
+      "0": 743,
+      "1": 726,
+      "2": 752,
+      "3": 754,
+      "4": 771
+    }
+  },
+  "prediction_sha256": "6216df66cd44d4b77f74bdd77481eae1190af73e1e1518cb4d9facfd965e00b9",
+  "metrics": {
+    "spearman": -0.021770573158261506,
+    "ndcg": 0.9426983698477694,
+    "top1_percent_k": 42,
+    "top1_percent_hits": 0,
+    "top1_percent_recall": 0.0,
+    "top1_percent_enrichment": 0.0,
+    "normalized_regret_top1pct": 0.23152235169646065,
+    "best_true_in_predicted_top1pct": 1.1889779702946226,
+    "global_test_min": -4.841122414314039,
+    "global_test_max": 3.0056905644635106
+  },
+  "primary_metrics": {
+    "spearman": -0.021770573158261506,
+    "ndcg": 0.9426983698477694
+  },
+  "scoreable_only_diagnostic_not_primary": {
+    "count": 131,
+    "spearman": 0.11938824534244381,
+    "ndcg": 0.8771807667453829
+  },
+  "secondary_metrics": {
+    "top1_percent_k": 42,
+    "top1_percent_hits": 0,
+    "top1_percent_recall": 0.0,
+    "top1_percent_enrichment": 0.0,
+    "normalized_regret_top1pct": 0.23152235169646065
+  },
+  "interpretation_rule": "Report this untouched result as observed. No Phase-2 scientific retuning is allowed after reveal."
+}

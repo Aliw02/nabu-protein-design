@@ -1,0 +1,4 @@
+fraction,seed_count,proposal_scoreable_count,oracle_match_count,matched_best_true_fitness,matched_top1_hits,matched_mean_percentile,matched_median_percentile,router_mode,pair_entries,triplet_entries,quartet_entries
+0.05,81,64,26,-0.2285832274753846,0,0.7467470340604668,0.7991293532338308,B3_PROTECTED_NO_HIGHER_ORDER,169,0,0
+0.1,161,64,20,-0.2285832274753846,0,0.6672263681592038,0.7251243781094527,B3_PROTECTED_NO_HIGHER_ORDER,250,0,0
+0.2,322,64,22,0.3082915435500567,2,0.7922037539574852,0.8050373134328358,B3_PROTECTED_NO_HIGHER_ORDER,333,0,0

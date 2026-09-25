@@ -1,0 +1,36 @@
+{
+  "version": "NABU_PHASE2A4_MULTILANDSCAPE_EVALUATION_V1",
+  "scientific_claim": false,
+  "stage": "2A4_MULTILANDSCAPE_GENERALIZATION",
+  "status": "PASS_WITH_LIMITATION",
+  "controllers_frozen_before_run": true,
+  "per_landscape_retuning": false,
+  "landscapes": [
+    "GB1",
+    "TRPB",
+    "PHOQ"
+  ],
+  "pool_size": 2048,
+  "seed_count": 64,
+  "target_count": 256,
+  "primary_cadence": 8,
+  "sensitivity_cadence": 16,
+  "source_hashes": {
+    "GB1": "02ef9bc1784a67ee14cf4024596a8fcfc7129779911c6589ed896373552125b1",
+    "TRPB": "208d7ba38c3c7b12009cc3c34be1d9b95deb0009b50ede89a0a8ef3347c62f19",
+    "PHOQ": "18e6d4ecc271d0106521a2205d4d80a8f7531e70c4fd5e01e82d12d9eeff8ff9"
+  },
+  "ci_validation": {
+    "workflow_run_id": 36138401706,
+    "head_sha": "706d0db7bdc7bfb4f71824c47361007cbb3cd652",
+    "tests_passed": 31,
+    "status": "PASS"
+  },
+  "key_findings": {
+    "GB1": "historical_50_50 beat random at micro_8; V2 degraded at micro_8 and tied historical at micro_16",
+    "TRPB": "historical_50_50 and V2 both beat random at micro_8 and tied each other at both cadences",
+    "PHOQ": "random micro_8 exceeded both active controllers; V2 modestly improved over historical at micro_16 but did not resolve the landscape failure",
+    "generalization": "active acquisition gains reproduced on GB1 and TRPB but not PHOQ; no universal controller superiority established"
+  },
+  "gate_decision": "2B candidate assembly may begin as a separate assembly stage, carrying acquisition instability as an explicit limitation. Do not treat 2A controller behavior as universally solved before 2C."
+}

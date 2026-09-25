@@ -1,0 +1,51 @@
+name: NABU Phase 2C Gated Design V2
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-2c-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pinned hardening environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -e . --no-deps
+
+      - name: Run Phase 2C contract tests
+        run: |
+          python -m pytest -q             phase2/2C_assembly_plus_acquisition/tests
+
+      - name: Download pinned GB1 source
+        run: |
+          mkdir -p .phase2c_data .ci_artifacts/phase2_2c_gb1_v2
+          curl -L --fail             "https://raw.githubusercontent.com/rcronk/mutate/0861a3f1f6c58a9597fde689eb7f9a07b38e2638/ridge/data/gb1_wu2016_landscape.csv"             -o .phase2c_data/gb1_raw.csv
+
+      - name: Verify GB1 source hash
+        run: |
+          echo "02ef9bc1784a67ee14cf4024596a8fcfc7129779911c6589ed896373552125b1  .phase2c_data/gb1_raw.csv" | sha256sum -c -
+
+      - name: Run preregistered Phase 2C V2
+        run: |
+          python             phase2/2C_assembly_plus_acquisition/run_gb1_2c.py             .phase2c_data/gb1_raw.csv             --probe-count 256             --out .ci_artifacts/phase2_2c_gb1_v2
+
+      - name: Upload Phase 2C V2 artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nabu-phase2-2c-gb1-gated-v2
+          path: .ci_artifacts/phase2_2c_gb1_v2

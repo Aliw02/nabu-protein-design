@@ -1,0 +1,26 @@
+{
+  "stage": "ROUND_SELECTION_FROZEN",
+  "round_index": 1,
+  "candidate_ids": [
+    "A5I:H10Y",
+    "S1W:R4T:L7Q",
+    "S1W:F2A:R4C",
+    "R4H:S8K",
+    "F2A:A5I:L7V",
+    "F2W:S8K",
+    "A5M:Q9K:H10F",
+    "R4Q:A5M:S8T",
+    "Q3N:R4P:A5M",
+    "R4P:H10Y:A11S",
+    "R4P:S8K:Q9R",
+    "Q3N:S8R:H10F",
+    "S1W:S8R",
+    "S1W:R4Q:S8T",
+    "R4C:L7I:H10F",
+    "A5I:S8C:Q9K"
+  ],
+  "selection_sha256_before_label_reveal": "6fa1d5ff3d83fee82110ea7dc38903d1152fe8c7180fb536f35c74f9f3f66c79",
+  "measurements_before_reveal": 97,
+  "router_mode_before_reveal": "B3_PROTECTED_NO_HIGHER_ORDER",
+  "truth_exposed_to_policy_before_selection_freeze": false
+}

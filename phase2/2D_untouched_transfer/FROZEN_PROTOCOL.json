@@ -1,0 +1,101 @@
+{
+  "version": "NABU_PHASE2D_BLIND_V1",
+  "phase2c_version": "NABU_PHASE2C_MULTILANDSCAPE_V3",
+  "scientific_retuning_allowed": false,
+  "aav": {
+    "source_repo": "microsoft/protein-uq",
+    "source_commit": "5e7b2b9cd219805eaabe73b21d4d9955cf882448",
+    "source_url": "https://raw.githubusercontent.com/microsoft/protein-uq/5e7b2b9cd219805eaabe73b21d4d9955cf882448/data/aav/splits.zip",
+    "split": "sampled",
+    "initial_ratio": 0.1,
+    "fold_seeds": [
+      0,
+      1,
+      2
+    ],
+    "num_training_sizes": 5,
+    "training_size_scale": "log",
+    "end_ratio": 1,
+    "primary_metric": "AUC_TOP100_RECOVERY_VS_MEASUREMENTS",
+    "competitors": [
+      "NABU_PHASE2_FROZEN",
+      "GREEDY",
+      "UCB",
+      "THOMPSON_SAMPLING",
+      "RANDOM"
+    ],
+    "allow_outside_pool_assembly": false,
+    "unsupported_identity_policy": "FAIL_NO_SILENT_SUBSETTING"
+  },
+  "ired": {
+    "source_url": "https://flip.protein.properties/assets/splits/ired/two_to_many.csv.gz",
+    "split": "two_to_many",
+    "primary_metrics": [
+      "SPEARMAN",
+      "NDCG"
+    ],
+    "secondary_metrics": [
+      "TOP_K_ENRICHMENT",
+      "NORMALIZED_REGRET",
+      "TOP1_PERCENT_RECALL"
+    ],
+    "official_set_assignment_authoritative": true,
+    "unsupported_identity_policy": "FAIL_NO_SILENT_SUBSETTING",
+    "fit_rule": "set == train AND validation != True",
+    "validation_rule": "validation == True held out; no Phase-2D tuning",
+    "test_rule": "set == test",
+    "expected_first_touch_counts": {
+      "fit_train": 3746,
+      "validation": 662,
+      "test": 4178
+    },
+    "scoreability_gate": "identity-only frozen V8.3 main+pair structural coverage on full test",
+    "silent_test_subsetting": false,
+    "secondary_metric_definitions": {
+      "k": "ceil(0.01 * N_test)",
+      "top1_percent_recall": "true_topK intersection predicted_topK divided by K",
+      "top1_percent_enrichment": "hits * N_test / K^2",
+      "normalized_regret_top1pct": "(global_test_max - best_true_in_predicted_topK) / (global_test_max - global_test_min)",
+      "ndcg": "sklearn.ndcg_score(target - target.min, prediction)",
+      "spearman": "scipy.stats.spearmanr(target, prediction)"
+    },
+    "identity_scoreability_first_touch": {
+      "test_count": 4178,
+      "scoreable_count": 131,
+      "unscoreable_count": 4047,
+      "scoreable_fraction": 0.03135471517472475,
+      "target_values_read": false
+    },
+    "rejected_identity_only_alternative": {
+      "status": "REJECTED_BEFORE_TARGET_REVEAL",
+      "policy": {
+        "version": "IRED_EVIDENCE_BACKOFF_V1",
+        "frozen_before_target_reveal": true,
+        "router_rule": "all_main_supported AND any_internal_pair_supported -> V8_3_ADAPTIVE_ROUTER",
+        "additive_rule": "all_main_supported AND NOT any_internal_pair_supported -> B2_ADDITIVE",
+        "abstention_rule": "NOT all_main_supported -> FIT_TRAIN_GLOBAL_MEAN",
+        "tie_break": "STABLE_SOURCE_ORDER",
+        "strict_scoreable_subset_role": "DIAGNOSTIC_ONLY"
+      },
+      "reason": "B2/global-mean fallback would override frozen V8.3 scoreability semantics; not selected for blind evaluation."
+    },
+    "authoritative_full_test_policy": {
+      "version": "V2",
+      "frozen_before_target_reveal": true,
+      "scoreable": "unchanged V8_3_ADAPTIVE_ROUTER",
+      "unscoreable": "single tied abstention score below all finite scoreable router scores",
+      "floor_formula": "min(scoreable_router_score) - 1.0",
+      "primary_metrics_use_full_test": true,
+      "scoreable_only_metrics_primary": false,
+      "b2_fallback_allowed": false
+    }
+  },
+  "first_touch": {
+    "mode": "IDENTITY_ONLY_PREFLIGHT",
+    "forbidden_columns": [
+      "target"
+    ],
+    "record_sha256": true,
+    "preserve_failures": true
+  }
+}

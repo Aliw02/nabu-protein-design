@@ -1,0 +1,69 @@
+name: NABU Phase 2C Multilandscape Benchmark
+
+on:
+  pull_request:
+    branches:
+      - engineering/v8-3-package-hardening
+    paths:
+      - "phase2/2C_assembly_plus_acquisition/**"
+      - "phase2/2B_candidate_assembly/**"
+      - "phase2/2A_closed_loop_acquisition/2A0_campaign_simulator/**"
+      - "phase2/2A_closed_loop_acquisition/2A1_baselines/**"
+      - "src/nabu_protein/**"
+      - ".github/workflows/phase2-2c-multilandscape.yml"
+      - "requirements-hardening.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-2c:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pinned environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -e . --no-deps
+
+      - name: Run Phase 2C contract tests
+        run: |
+          python -m pytest -q             phase2/2C_assembly_plus_acquisition/tests             phase2/2B_candidate_assembly/tests
+
+      - name: Download pinned development landscapes
+        run: |
+          mkdir -p .phase2c_data .ci_artifacts/phase2_2c_multilandscape
+
+          curl -L --fail             "https://raw.githubusercontent.com/rcronk/mutate/0861a3f1f6c58a9597fde689eb7f9a07b38e2638/ridge/data/gb1_wu2016_landscape.csv"             -o .phase2c_data/gb1.csv
+
+          curl -L --fail             "https://raw.githubusercontent.com/rcronk/mutate/0861a3f1f6c58a9597fde689eb7f9a07b38e2638/ridge/data/johnston2024_trpb_landscape.csv"             -o .phase2c_data/trpb.csv
+
+          curl -L --fail             "https://raw.githubusercontent.com/hury07/fasthit/0f9c51aa7caaab0b4618b0cab4f3107e7251091b/fasthit/landscapes/data/phoq/PhoQ.csv"             -o .phase2c_data/phoq.csv
+
+      - name: Verify pinned source hashes
+        run: |
+          echo "02ef9bc1784a67ee14cf4024596a8fcfc7129779911c6589ed896373552125b1  .phase2c_data/gb1.csv" | sha256sum -c -
+          echo "208d7ba38c3c7b12009cc3c34be1d9b95deb0009b50ede89a0a8ef3347c62f19  .phase2c_data/trpb.csv" | sha256sum -c -
+          echo "18e6d4ecc271d0106521a2205d4d80a8f7531e70c4fd5e01e82d12d9eeff8ff9  .phase2c_data/phoq.csv" | sha256sum -c -
+
+      - name: Run Phase 2C benchmark
+        run: |
+          python             phase2/2C_assembly_plus_acquisition/run_multilandscape_benchmark.py             --gb1 .phase2c_data/gb1.csv             --trpb .phase2c_data/trpb.csv             --phoq .phase2c_data/phoq.csv             --out .ci_artifacts/phase2_2c_multilandscape
+
+      - name: Upload Phase 2C artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nabu-phase2-2c-multilandscape-v1
+          path: .ci_artifacts/phase2_2c_multilandscape

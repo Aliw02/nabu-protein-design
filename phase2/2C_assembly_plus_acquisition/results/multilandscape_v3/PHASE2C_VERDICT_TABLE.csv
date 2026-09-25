@@ -1,0 +1,4 @@
+landscape,combined_win,joint_degradation,delta_auc,delta_regret,delta_top1_hits
+GB1,True,False,0.07132582534529269,-1.99985418253,6
+TRPB,True,False,0.038913032318061536,-0.06588730075702587,10
+PHOQ,True,False,0.02685444748054437,-4.265919999999994,4

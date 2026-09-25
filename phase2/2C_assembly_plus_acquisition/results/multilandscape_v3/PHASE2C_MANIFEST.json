@@ -1,0 +1,69 @@
+{
+  "version": "NABU_PHASE2C_MULTILANDSCAPE_V3",
+  "scientific_claim": false,
+  "stage": "2C_V3_DYNAMIC_GATE_MULTILANDSCAPE_DEVELOPMENT_BENCHMARK",
+  "verdict": "PASS",
+  "ci_validation": {
+    "workflow_run_id": 36160574928,
+    "head_sha": "316910cfc96a4bb98027b01c6f7cbba91646edc2",
+    "tests_passed": 17,
+    "status": "PASS",
+    "artifact_id": 10876390166,
+    "artifact_digest": "sha256:d12852968cd865775e34abd3474f04e4226e98440b70b6093e8f48763b5c152d"
+  },
+  "protocol": {
+    "reservoir_size": 2048,
+    "bootstrap_count": 64,
+    "target_count": 256,
+    "batch_size": 8,
+    "assembly_target_order": 3,
+    "beam_width": 256,
+    "proposal_frontier": 1024,
+    "min_support": 2,
+    "gate": "dynamic per-round readiness; assembly only when >= full batch of mature proposals"
+  },
+  "landscapes": {
+    "GB1": {
+      "source_sha256": "02ef9bc1784a67ee14cf4024596a8fcfc7129779911c6589ed896373552125b1",
+      "reference_genotype": "VDGV",
+      "assay_universe_size": 149361,
+      "reservoir_ids_sha256": "2d4c97bfd55a4f42106560edf123d2b7da767173fadd0432f203a70fe155620a",
+      "bootstrap_ids_sha256": "a1f8744e07862525e5c4f672672e6eace956a17d22a8152042420e0f4ef475a4",
+      "combined_delta_auc": 0.07132582534529269,
+      "combined_delta_regret": -1.99985418253,
+      "combined_delta_top1_hits": 6
+    },
+    "TRPB": {
+      "source_sha256": "208d7ba38c3c7b12009cc3c34be1d9b95deb0009b50ede89a0a8ef3347c62f19",
+      "reference_genotype": "VFVS",
+      "assay_universe_size": 159129,
+      "reservoir_ids_sha256": "dec13922bcb440f07e4b3bb2e16be3056b49b04205149f21fc708d1333249242",
+      "bootstrap_ids_sha256": "8217179fae894bb7e30ae33ef85e42d691419dc398363e6a69c589e58a7208ca",
+      "combined_delta_auc": 0.038913032318061536,
+      "combined_delta_regret": -0.06588730075702587,
+      "combined_delta_top1_hits": 10
+    },
+    "PHOQ": {
+      "source_sha256": "18e6d4ecc271d0106521a2205d4d80a8f7531e70c4fd5e01e82d12d9eeff8ff9",
+      "reference_genotype": "AVST",
+      "assay_universe_size": 140517,
+      "reservoir_ids_sha256": "c372bbebccdf77dd689e50688ec7094d7b53fbdcfdcbe4a43061f10885d8c313",
+      "bootstrap_ids_sha256": "21db8b0c1c0708eff8d426b48a2a880712692b0f483209a447979e09d8f0e152",
+      "combined_delta_auc": 0.02685444748054437,
+      "combined_delta_regret": -4.265919999999994,
+      "combined_delta_top1_hits": 4
+    }
+  },
+  "deterministic_replay": {
+    "GB1": true,
+    "TRPB": true,
+    "PHOQ": true
+  },
+  "hidden_truth_first_selection_invariance": {
+    "GB1": true,
+    "TRPB": true,
+    "PHOQ": true
+  },
+  "blind_phase2d_data_loaded": false,
+  "authority": "This V3 multilandscape result supersedes earlier GB1-only 2C development attempts for Phase-2C status; earlier attempts remain preserved."
+}

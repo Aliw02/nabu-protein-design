@@ -1,0 +1,14 @@
+{
+  "version": "NABU_PHASE2D_AAV_ADAPTER_SCOPE_V1",
+  "dataset": "FLIP_AAV_SAMPLED",
+  "status": "ADAPTER_SCOPE_FAIL",
+  "target_values_read": false,
+  "source_sha256": "ad91ba8d5b390d793fc9393f8003ff7b0290fbe2e13db58cb6ad72bc981a99fd",
+  "reference_sha256": "9b5e572c2a18d27482b629efeb48f573e866fe61bb6aea58bb8c087e4177fbcb",
+  "published_bo_pool_rows": 59459,
+  "representable_rows_frozen_token_grammar": 27018,
+  "unrepresentable_rows_frozen_token_grammar": 32441,
+  "representable_fraction": 0.4543971476143225,
+  "reason": "The published fixed BO pool contains length-changing AAV variants. Frozen NABU V8.3 accepts position-indexed substitutions/deletions but has no insertion token semantics. Running on the representable subset would violate the preregistered no-silent-subsetting rule.",
+  "scientific_action": "Do not reveal AAV target values and do not run a subset benchmark under Phase-2D Blind V1. Preserve as an external-scope limitation."
+}

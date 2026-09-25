@@ -1,0 +1,5 @@
+condition,post_bootstrap_normalized_discovery_auc,final_best_true_fitness,final_regret,final_top1_hits,assembly_top1_hits,first_top1_measurement,first_gate_open_measurement,assembly_rounds
+random_only,0.2435197024521407,2.50198076876,6.25998488695,1,0,216,216,0
+acquisition_only,0.6914481392558537,7.55686908836,1.20509656735,3,0,120,184,0
+random_then_gated_assembly,0.2435197024521407,2.50198076876,6.25998488695,2,1,216,216,1
+acquisition_then_gated_assembly,0.6914481392558537,7.55686908836,1.20509656735,10,7,120,184,2

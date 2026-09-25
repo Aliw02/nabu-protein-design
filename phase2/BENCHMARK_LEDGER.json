@@ -1,0 +1,165 @@
+{
+  "version": "NABU_PHASE2_BENCHMARK_LEDGER_V1",
+  "policy": "Datasets used for development, debugging, architecture choice, or interpretation are excluded from final blind PASS.",
+  "datasets": [
+    {
+      "name": "RhlA",
+      "status": "DEVELOPMENT_USED",
+      "counts_for_final_pass": false,
+      "roles": [
+        "2A0",
+        "2A1",
+        "2A2",
+        "2A3",
+        "2B"
+      ]
+    },
+    {
+      "name": "GB1",
+      "status": "DEVELOPMENT_USED",
+      "counts_for_final_pass": false,
+      "roles": [
+        "Phase1",
+        "2A4",
+        "2C_V3_DEVELOPMENT"
+      ]
+    },
+    {
+      "name": "TrpB",
+      "status": "DEVELOPMENT_USED",
+      "counts_for_final_pass": false,
+      "roles": [
+        "Phase1",
+        "2A4",
+        "2C_V3_DEVELOPMENT"
+      ]
+    },
+    {
+      "name": "PhoQ",
+      "status": "DEVELOPMENT_USED",
+      "counts_for_final_pass": false,
+      "roles": [
+        "Phase1",
+        "2A4_failure_case",
+        "2C_V3_DEVELOPMENT"
+      ]
+    },
+    {
+      "name": "PHOT",
+      "status": "HISTORICAL_USED",
+      "counts_for_final_pass": false,
+      "roles": [
+        "Phase1"
+      ]
+    },
+    {
+      "name": "eqFP611",
+      "status": "HISTORICAL_USED",
+      "counts_for_final_pass": false,
+      "roles": [
+        "Phase1"
+      ]
+    },
+    {
+      "name": "CreiLOV",
+      "status": "HISTORICAL_USED",
+      "counts_for_final_pass": false,
+      "roles": [
+        "Phase1"
+      ]
+    },
+    {
+      "name": "CR9114-H1",
+      "status": "HISTORICAL_USED",
+      "counts_for_final_pass": false,
+      "roles": [
+        "Phase1_final_gate"
+      ]
+    },
+    {
+      "name": "FLIP_AAV_RANDOM",
+      "status": "BLIND_IDENTITY_PREFLIGHT_ADAPTER_SCOPE_FAIL",
+      "counts_for_final_pass": true,
+      "role": "PRIMARY_PUBLISHED_HEAD_TO_HEAD",
+      "published_reference": "Greenman et al., PLOS Computational Biology 2025, doi:10.1371/journal.pcbi.1012639",
+      "comparison_methods": [
+        "NABU_PHASE2_FROZEN",
+        "GREEDY",
+        "UCB",
+        "THOMPSON_SAMPLING",
+        "RANDOM"
+      ],
+      "primary_metric": "AUC_TOP100_RECOVERY_VS_MEASUREMENTS",
+      "target_labels_revealed": false,
+      "identity_preflight": {
+        "workflow_run_id": 36164741113,
+        "artifact_id": 10876827869,
+        "artifact_digest": "sha256:c6ed4dcd89258edf37886d21a2cdb95964a8457a88c3a0eefa1c668fb1279132"
+      },
+      "published_bo_pool_size": 59459,
+      "representable_count": 27018,
+      "unrepresentable_count": 32441,
+      "representable_fraction": 0.4543971476143225,
+      "primary_head_to_head_executed": false,
+      "outcome": "EXTERNAL_SCOPE_LIMITATION"
+    },
+    {
+      "name": "FLIP2_IRED_TWO_TO_MANY",
+      "status": "BLIND_EXECUTED_V2_NEGATIVE_TRANSFER",
+      "counts_for_final_pass": true,
+      "role": "SECONDARY_HIGHER_ORDER_TRANSFER",
+      "published_reference": "FLIP2, ICML 2026",
+      "primary_metrics": [
+        "SPEARMAN",
+        "NDCG"
+      ],
+      "secondary_metrics": [
+        "TOP_K_ENRICHMENT",
+        "NORMALIZED_REGRET",
+        "TOP1_PERCENT_RECALL"
+      ],
+      "target_labels_revealed": true,
+      "workflow_run_id": 36165359008,
+      "execution_head": "5c4b55e60bb0ccca769194e78095051e7023b9d2",
+      "artifact_id": 10877951045,
+      "artifact_digest": "sha256:32e9b34d6bc7453a54ac1699c5d22a8516185d925a822152f2538770bb22a461",
+      "source_sha256": "aa45a2f85fb1af87b6b0e86397b3f8f292a061dc574be2536673b5bd490b0e74",
+      "test_count": 4178,
+      "scoreable_count": 131,
+      "scoreable_fraction": 0.03135471517472475,
+      "result": {
+        "spearman": -0.021770573158261506,
+        "ndcg": 0.9426983698477696,
+        "top1_percent_k": 42,
+        "top1_percent_hits": 0,
+        "top1_percent_recall": 0,
+        "top1_percent_enrichment": 0,
+        "normalized_regret_top1pct": 0.23152235169646065
+      },
+      "outcome": "NEGATIVE_HIGHER_ORDER_TRANSFER"
+    }
+  ],
+  "reveal_policy": {
+    "allowed_only_after": "PHASE2C_FROZEN",
+    "no_target_label_use_before_freeze": true,
+    "label_independent_bugfixes_after_reveal_require_versioned_rerun": true,
+    "overwrite_results": false
+  },
+  "phase2c_freeze": {
+    "status": "FROZEN_PASS",
+    "version": "NABU_PHASE2C_MULTILANDSCAPE_V3",
+    "results_artifact_id": 10876390166,
+    "results_artifact_digest": "sha256:d12852968cd865775e34abd3474f04e4226e98440b70b6093e8f48763b5c152d",
+    "blind_data_loaded_before_freeze": false
+  },
+  "phase2d_final": {
+    "status": "FINAL_SCIENTIFIC_GATE_NOT_PASSED",
+    "engineering_integrity": "PASS",
+    "aav_primary_completed": false,
+    "ired_completed": true,
+    "final_scientific_pass": false,
+    "no_post_reveal_retuning": true,
+    "authoritative_verdict": "phase2/2D_untouched_transfer/FINAL_VERDICT.md",
+    "machine_readable_verdict": "phase2/2D_untouched_transfer/results/final_blind/PHASE2D_FINAL_VERDICT.json"
+  }
+}
