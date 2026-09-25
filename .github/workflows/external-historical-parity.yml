@@ -3,10 +3,25 @@ name: NABU External Historical Parity Gate
 on:
   push:
     branches:
-      - engineering/v8-3-package-hardening
+      - main
     paths:
-      - "src/nabu_protein/**"
+      - "src/nabu_protein/higher_order.py"
+      - "src/nabu_protein/router.py"
+      - "src/nabu_protein/v83.py"
+      - "src/nabu_protein/metrics.py"
       - "scripts/check_external_v83_parity.py"
+      - "scripts/check_phot_v83_parity.py"
+      - ".github/workflows/external-historical-parity.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "src/nabu_protein/higher_order.py"
+      - "src/nabu_protein/router.py"
+      - "src/nabu_protein/v83.py"
+      - "src/nabu_protein/metrics.py"
+      - "scripts/check_external_v83_parity.py"
+      - "scripts/check_phot_v83_parity.py"
       - ".github/workflows/external-historical-parity.yml"
   workflow_dispatch:
 
