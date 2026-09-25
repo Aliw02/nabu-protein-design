@@ -1,5 +1,20 @@
 # NABU Phase 2 Roadmap
 
+## Execution status
+
+- [x] 2A.0 — Campaign Simulator and Oracle Isolation
+- [x] 2A.1 — Baselines
+- [x] 2A.2 — Micro-Batch Closed Loop
+- [ ] 2A.3 — Evidence-Adaptive Controller ← **NEXT**
+- [ ] 2A.4 — Multi-Landscape Evaluation
+- [ ] 2B — Candidate Assembly
+- [ ] 2C — Assembly + Acquisition
+- [ ] 2D — Freeze + Untouched Transfer
+
+2A.2 development freeze: use **micro_8** as the primary 2A.3 development cadence and **micro_16** as a sensitivity control. This is a development choice, not a universal optimum claim.
+
+---
+
 ## Purpose
 
 Phase 2 changes NABU from static ranking of a supplied candidate library into a controlled closed-loop combinatorial design system.
