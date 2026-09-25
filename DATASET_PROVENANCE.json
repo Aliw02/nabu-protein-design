@@ -33,20 +33,23 @@
     "GB1": {
       "source_url": "https://raw.githubusercontent.com/rcronk/mutate/0861a3f1f6c58a9597fde689eb7f9a07b38e2638/ridge/data/gb1_wu2016_landscape.csv",
       "source_repository_commit": "0861a3f1f6c58a9597fde689eb7f9a07b38e2638",
-      "source_sha256": null,
-      "source_reference": ".github/workflows/nabu-v8-3-multilandscape-validation.yml"
+      "source_sha256": "02ef9bc1784a67ee14cf4024596a8fcfc7129779911c6589ed896373552125b1",
+      "source_reference": ".github/workflows/nabu-v8-3-multilandscape-validation.yml",
+      "parity_status": "PACKAGE_PARITY_PASS"
     },
     "TrpB": {
       "source_url": "https://raw.githubusercontent.com/rcronk/mutate/0861a3f1f6c58a9597fde689eb7f9a07b38e2638/ridge/data/johnston2024_trpb_landscape.csv",
       "source_repository_commit": "0861a3f1f6c58a9597fde689eb7f9a07b38e2638",
-      "source_sha256": null,
-      "source_reference": ".github/workflows/nabu-v8-3-multilandscape-validation.yml"
+      "source_sha256": "208d7ba38c3c7b12009cc3c34be1d9b95deb0009b50ede89a0a8ef3347c62f19",
+      "source_reference": ".github/workflows/nabu-v8-3-multilandscape-validation.yml",
+      "parity_status": "PACKAGE_PARITY_PASS"
     },
     "PhoQ": {
       "source_url": "https://raw.githubusercontent.com/hury07/fasthit/0f9c51aa7caaab0b4618b0cab4f3107e7251091b/fasthit/landscapes/data/phoq/PhoQ.csv",
       "source_repository_commit": "0f9c51aa7caaab0b4618b0cab4f3107e7251091b",
-      "source_sha256": null,
-      "source_reference": ".github/workflows/nabu-v8-3-multilandscape-validation.yml"
+      "source_sha256": "18e6d4ecc271d0106521a2205d4d80a8f7531e70c4fd5e01e82d12d9eeff8ff9",
+      "source_reference": ".github/workflows/nabu-v8-3-multilandscape-validation.yml",
+      "parity_status": "PACKAGE_PARITY_PASS"
     }
   }
 }
