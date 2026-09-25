@@ -8,10 +8,11 @@ Completed engineering/scientific development stages:
 - **2A.1 — Baselines:** PASS
 - **2A.2 — Micro-Batch Refit Ablation:** PASS
 - **2A.3 — Evidence-Adaptive Controller:** DEVELOPMENT COMPLETE
+- **2A.4 — Multi-Landscape Evaluation:** PASS WITH LIMITATION
 
 Next stage:
 
-- **2A.4 — Multi-Landscape Evaluation**
+- **2B — Candidate Assembly**
 
 ## Frozen Phase-1 dependency
 
@@ -90,11 +91,13 @@ This is a development decision, not a universal claim that batch size 8 is optim
 
 ## Gate before 2B
 
-Still required:
+2A gate decision:
 
-1. **2A.4 — Multi-Landscape Evaluation**
-
-Only after both are interpretable and stable should Phase 2B candidate assembly begin.
+- **OPEN TO 2B WITH LIMITATION**
+- active acquisition gains reproduced on GB1 and TrpB;
+- PhoQ remains an explicit acquisition failure case;
+- 2B must isolate candidate assembly from acquisition;
+- assembly + acquisition remains deferred to 2C.
 
 
 ## 2A.3 result
@@ -120,3 +123,18 @@ Freeze decision:
 - do not create V3 by further tuning on RhlA before 2A.4;
 - primary cadence remains micro_8;
 - micro_16 remains a sensitivity control.
+
+
+## 2A.4 result
+
+Pinned multi-landscape evaluation completed on GB1, TrpB and PhoQ with no per-landscape retuning.
+
+- GB1: historical 50/50 beat random at micro_8; V2 did not improve the primary micro_8 result.
+- TrpB: historical 50/50 and V2 both beat random and tied each other.
+- PhoQ: random acquisition outperformed both active controllers at micro_8; V2 improved over historical at micro_16 but did not remove the landscape failure.
+
+Conclusion:
+
+> Active acquisition gains reproduce on more than one landscape, but controller behavior remains landscape-sensitive.
+
+2B Candidate Assembly is allowed to begin as a separate mechanism. The PhoQ acquisition limitation must remain explicit until 2C/2D.
