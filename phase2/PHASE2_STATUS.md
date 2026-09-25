@@ -10,10 +10,11 @@ Completed engineering/scientific development stages:
 - **2A.3 — Evidence-Adaptive Controller:** DEVELOPMENT COMPLETE
 - **2A.4 — Multi-Landscape Evaluation:** PASS WITH LIMITATION
 - **2B — Candidate Assembly:** PASS WITH LIMITATION
+- **2C — Assembly + Acquisition:** DEVELOPMENT COMPLETE / FROZEN WITH LIMITATION
 
 Next stage:
 
-- **2C — Assembly + Acquisition**
+- **2D — Untouched External Benchmark**
 
 ## Frozen Phase-1 dependency
 
@@ -161,3 +162,30 @@ Evidence-maturity result:
 The 20% improvement occurred with B3-protected routing and no triplet/quartet memories, so denser pairwise evidence was sufficient to improve assembly ranking.
 
 2C must use a generic evidence-state maturity gate before enabling assembly. A fixed 20% threshold is not frozen as universal.
+
+
+## 2C result
+
+Phase 2C V1 and V2 were evaluated on GB1 development data.
+
+V1:
+- engineering PASS;
+- combined Top-1% hits 7 vs 3 acquisition-only;
+- preregistered best-fitness AUC did not improve;
+- scientific development gate not passed.
+
+V2 changed only the maturity probe from 64 to the full 256-proposal beam.
+
+V2:
+- engineering PASS;
+- hidden-truth perturbation PASS;
+- gate opened at 184 measurements;
+- 2 assembly rounds;
+- combined Top-1% hits 10 vs 3 acquisition-only;
+- 7 Top-1% hits came from assembly;
+- preregistered best-fitness AUC remained 0.691448 and therefore the V2 scientific development gate was not passed.
+
+Decision:
+- no V3 tuning on GB1;
+- freeze V2 with limitation;
+- proceed only to the independently preregistered 2D blind benchmark for the final Phase-2 verdict.
