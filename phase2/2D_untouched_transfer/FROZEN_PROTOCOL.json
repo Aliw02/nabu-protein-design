@@ -58,6 +58,15 @@
       "normalized_regret_top1pct": "(global_test_max - best_true_in_predicted_topK) / (global_test_max - global_test_min)",
       "ndcg": "sklearn.ndcg_score(target - target.min, prediction)",
       "spearman": "scipy.stats.spearmanr(target, prediction)"
+    },
+    "full_test_policy": {
+      "version": "IRED_EVIDENCE_BACKOFF_V1",
+      "frozen_before_target_reveal": true,
+      "router_rule": "all_main_supported AND any_internal_pair_supported -> V8_3_ADAPTIVE_ROUTER",
+      "additive_rule": "all_main_supported AND NOT any_internal_pair_supported -> B2_ADDITIVE",
+      "abstention_rule": "NOT all_main_supported -> FIT_TRAIN_GLOBAL_MEAN",
+      "tie_break": "STABLE_SOURCE_ORDER",
+      "strict_scoreable_subset_role": "DIAGNOSTIC_ONLY"
     }
   },
   "first_touch": {
