@@ -7,10 +7,11 @@ Completed engineering/scientific development stages:
 - **2A.0 — Campaign Simulator and Oracle Isolation:** PASS
 - **2A.1 — Baselines:** PASS
 - **2A.2 — Micro-Batch Refit Ablation:** PASS
+- **2A.3 — Evidence-Adaptive Controller:** DEVELOPMENT COMPLETE
 
 Next stage:
 
-- **2A.3 — Evidence-Adaptive Controller**
+- **2A.4 — Multi-Landscape Evaluation**
 
 ## Frozen Phase-1 dependency
 
@@ -91,7 +92,31 @@ This is a development decision, not a universal claim that batch size 8 is optim
 
 Still required:
 
-1. **2A.3 — Evidence-Adaptive Controller**
-2. **2A.4 — Multi-Landscape Evaluation**
+1. **2A.4 — Multi-Landscape Evaluation**
 
 Only after both are interpretable and stable should Phase 2B candidate assembly begin.
+
+
+## 2A.3 result
+
+Two adaptive-controller versions were evaluated on RhlA.
+
+V1:
+- engineering PASS;
+- scientific development underperformance versus historical 50/50;
+- failure preserved and diagnosed.
+
+V2:
+- self-referenced evidence-gap calibration;
+- starts at exploration pressure 0.5;
+- pressure falls as evidence gaps shrink;
+- deterministic and dataset-name independent;
+- improved over V1;
+- did not uniformly beat historical 50/50 on RhlA.
+
+Freeze decision:
+- carry `historical_50_50` as the fixed reference;
+- carry `relative_evidence_v2` as the adaptive candidate;
+- do not create V3 by further tuning on RhlA before 2A.4;
+- primary cadence remains micro_8;
+- micro_16 remains a sensitivity control.
