@@ -753,7 +753,7 @@ def run_condition(
                 "selection_source": selection_source,
                 "selection_sha256": selection_hash,
                 "gate_open": bool(
-                    gate.latched_open
+                    gate_open
                 ),
                 "gate_first_ready_at_measurement": (
                     gate.first_ready_at_measurement
@@ -1247,7 +1247,7 @@ def main() -> None:
                 f"best={summary['final']['best_true_fitness']:.6f} "
                 f"top1={int(summary['final']['cumulative_top1_hits'])} "
                 f"auc={summary['post_bootstrap_normalized_discovery_auc']:.6f} "
-                f"gate={summary['gate_opened_at_measurement']} "
+                f"gate={summary['gate_first_ready_at_measurement']} "
                 f"assembly={summary['assembly_selected_count']}"
             )
 
