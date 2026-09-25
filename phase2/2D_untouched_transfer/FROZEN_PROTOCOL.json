@@ -59,15 +59,6 @@
       "ndcg": "sklearn.ndcg_score(target - target.min, prediction)",
       "spearman": "scipy.stats.spearmanr(target, prediction)"
     },
-    "full_test_policy": {
-      "version": "IRED_EVIDENCE_BACKOFF_V1",
-      "frozen_before_target_reveal": true,
-      "router_rule": "all_main_supported AND any_internal_pair_supported -> V8_3_ADAPTIVE_ROUTER",
-      "additive_rule": "all_main_supported AND NOT any_internal_pair_supported -> B2_ADDITIVE",
-      "abstention_rule": "NOT all_main_supported -> FIT_TRAIN_GLOBAL_MEAN",
-      "tie_break": "STABLE_SOURCE_ORDER",
-      "strict_scoreable_subset_role": "DIAGNOSTIC_ONLY"
-    },
     "identity_scoreability_first_touch": {
       "test_count": 4178,
       "scoreable_count": 131,
@@ -75,8 +66,22 @@
       "scoreable_fraction": 0.03135471517472475,
       "target_values_read": false
     },
-    "full_test_abstention_policy": {
+    "rejected_identity_only_alternative": {
+      "status": "REJECTED_BEFORE_TARGET_REVEAL",
+      "policy": {
+        "version": "IRED_EVIDENCE_BACKOFF_V1",
+        "frozen_before_target_reveal": true,
+        "router_rule": "all_main_supported AND any_internal_pair_supported -> V8_3_ADAPTIVE_ROUTER",
+        "additive_rule": "all_main_supported AND NOT any_internal_pair_supported -> B2_ADDITIVE",
+        "abstention_rule": "NOT all_main_supported -> FIT_TRAIN_GLOBAL_MEAN",
+        "tie_break": "STABLE_SOURCE_ORDER",
+        "strict_scoreable_subset_role": "DIAGNOSTIC_ONLY"
+      },
+      "reason": "B2/global-mean fallback would override frozen V8.3 scoreability semantics; not selected for blind evaluation."
+    },
+    "authoritative_full_test_policy": {
       "version": "V2",
+      "frozen_before_target_reveal": true,
       "scoreable": "unchanged V8_3_ADAPTIVE_ROUTER",
       "unscoreable": "single tied abstention score below all finite scoreable router scores",
       "floor_formula": "min(scoreable_router_score) - 1.0",
