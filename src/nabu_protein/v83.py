@@ -34,11 +34,10 @@ _SCORE_COLUMNS = (
 def _normalize_candidate_ids(candidate_ids):
     normalized = []
     for value in candidate_ids:
-        if value is None or (
-            isinstance(value, (float, np.floating))
-            and np.isnan(value)
-        ):
-            raise ValueError("candidate_ids must not contain null values.")
+        if value is None:
+            raise ValueError("candidate_ids must not contain None values.")
+        # Preserve the historical Phase-1 behavior for CSV blank identities:
+        # pandas NaN stringifies to "nan" before deterministic fold hashing.
         text = str(value)
         if not text.strip():
             raise ValueError("candidate_ids must not contain blank values.")
