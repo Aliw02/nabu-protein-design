@@ -148,6 +148,7 @@ src/nabu_protein/                         Reusable package
   router.py                                Frozen V8.3 dual-objective router
   metrics.py                               Canonical V8.3 evaluation metrics
   v83.py                                   Reusable frozen V8.3 facade
+  v83_cli.py                               Explicit frozen V8.3 convenience CLI
 experiments/v8_1_crossfit_higher_order_dev/
 experiments/v8_2_objective_tournament/
 experiments/v8_3_multilandscape_validation/
@@ -181,6 +182,11 @@ nabu-v83-benchmark dataset.csv --out results_nabu_v83
 
 That convenience command is deterministic but is **not** a replacement for a
 preregistered Stage-A/Stage-B sealed scientific validation.
+
+For programmatic use, `NabuV83Model.fit(...)` expects stable candidate IDs.
+Those IDs participate in the deterministic five-fold cross-fitting hash, so
+changing IDs while keeping the same variants can change fold assignment. For
+historical reproduction, preserve the original candidate IDs exactly.
 
 For the exact engineering test environment used during package hardening:
 
