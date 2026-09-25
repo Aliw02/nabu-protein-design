@@ -104,6 +104,12 @@ def scoreability_preflight(source_gz: Path) -> dict:
     out = pd.DataFrame(rows)
     mutation_counts = Counter(out["mutation_count"].astype(int).tolist())
     unscoreable = out[~out["scoreable"]]
+    scoreable_hashes = sorted(
+        out.loc[out["scoreable"], "sequence_sha256"].astype(str).tolist()
+    )
+    scoreable_set_sha256 = hashlib.sha256(
+        "\n".join(scoreable_hashes).encode("utf-8")
+    ).hexdigest()
 
     return {
         "version": "NABU_PHASE2D_IRED_SCOREABILITY_PREFLIGHT_V1",
@@ -126,6 +132,7 @@ def scoreability_preflight(source_gz: Path) -> dict:
         "scoreable_count": int(out["scoreable"].sum()),
         "unscoreable_count": int((~out["scoreable"]).sum()),
         "scoreable_fraction": float(out["scoreable"].mean()),
+        "scoreable_test_identity_set_sha256": scoreable_set_sha256,
         "full_test_scoreable": bool(out["scoreable"].all()),
         "unscoreable_examples": unscoreable.head(20).to_dict(orient="records"),
     }
