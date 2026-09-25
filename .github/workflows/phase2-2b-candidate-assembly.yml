@@ -1,0 +1,51 @@
+name: NABU Phase 2B Candidate Assembly
+
+on:
+  pull_request:
+    branches:
+      - engineering/v8-3-package-hardening
+    paths:
+      - "phase2/2B_candidate_assembly/**"
+      - ".github/workflows/phase2-2b-candidate-assembly.yml"
+      - "phase2/2A_closed_loop_acquisition/2A0_campaign_simulator/**"
+      - "src/nabu_protein/**"
+      - "requirements-hardening.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-2b:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pinned hardening environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -e . --no-deps
+
+      - name: Run Phase 2B tests
+        run: |
+          python -m pytest -q             phase2/2B_candidate_assembly/tests
+
+      - name: Run RhlA assembly-only POC
+        run: |
+          python             phase2/2B_candidate_assembly/run_rhla_assembly_poc.py             --out .ci_artifacts/phase2_2b_rhla_assembly_v1
+
+      - name: Upload assembly artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nabu-phase2-2b-rhla-assembly-v1
+          path: .ci_artifacts/phase2_2b_rhla_assembly_v1
