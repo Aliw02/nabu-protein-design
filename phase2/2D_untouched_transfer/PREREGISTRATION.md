@@ -176,3 +176,35 @@ primary metric domain. The strict-scoreable subset is diagnostic only.
 
 This changes no learned parameter, memory, threshold, router rule, or Phase-1
 mathematics and is frozen from identity evidence only.
+
+## IRED V2 full-test abstention policy — frozen before target reveal
+
+Identity-only scoreability preflight on the first-touch official source found:
+
+- official test rows: 4178;
+- frozen-V8.3 structurally scoreable: 131 (3.135471517%);
+- structurally unscoreable: 4047;
+- rows with unseen main identity: 530;
+- rows without any supported pair identity: 4045.
+
+No target values were read to obtain these counts.
+
+To preserve the frozen V8.3 scoreability semantics while still evaluating the
+complete official test set:
+
+1. score structurally scoreable rows using the unchanged
+   `V8_3_ADAPTIVE_ROUTER`;
+2. do not invoke B2/B3/B4/B5 as a new fallback for rows that frozen V8.3 marks
+   unscoreable;
+3. assign every unscoreable row the same deterministic abstention score,
+   strictly below the minimum finite router score among scoreable test rows;
+4. compute primary Spearman and NDCG on all 4178 rows;
+5. report structural scoreability/abstention coverage beside every result;
+6. scoreable-only metrics may be reported only as diagnostics and may never
+   replace the full-test primary metrics.
+
+The abstention floor affects rank only. Its numeric value is
+`min(scoreable_router_score) - 1.0`.
+
+This policy is an evaluation wrapper for frozen abstention, not a scientific
+retune of NABU.
