@@ -7,7 +7,7 @@ import sys
 HERE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(HERE))
 
-from run_ired_blind import evaluate_complete_test
+from run_ired_blind_v2 import evaluate_complete_test
 
 
 def test_complete_test_metrics_perfect_ranking():
