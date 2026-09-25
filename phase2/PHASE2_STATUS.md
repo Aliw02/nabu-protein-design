@@ -9,10 +9,11 @@ Completed engineering/scientific development stages:
 - **2A.2 — Micro-Batch Refit Ablation:** PASS
 - **2A.3 — Evidence-Adaptive Controller:** DEVELOPMENT COMPLETE
 - **2A.4 — Multi-Landscape Evaluation:** PASS WITH LIMITATION
+- **2B — Candidate Assembly:** PASS WITH LIMITATION
 
 Next stage:
 
-- **2B — Candidate Assembly**
+- **2C — Assembly + Acquisition**
 
 ## Frozen Phase-1 dependency
 
@@ -138,3 +139,25 @@ Conclusion:
 > Active acquisition gains reproduce on more than one landscape, but controller behavior remains landscape-sensitive.
 
 2B Candidate Assembly is allowed to begin as a separate mechanism. The PhoQ acquisition limitation must remain explicit until 2C/2D.
+
+
+## 2B result
+
+Candidate Assembly V1 is reference-aware, deterministic and leak-resistant.
+
+RhlA assembly POC:
+- 64 proposals;
+- 64 scoreable;
+- 0 measured overlap;
+- 0 duplicates;
+- hidden-truth perturbation invariant PASS;
+- 38/64 proposals were novel to the historical candidate table.
+
+Evidence-maturity result:
+- 5% evidence: 0 matched Top-1% hits;
+- 10% evidence: 0 matched Top-1% hits;
+- 20% evidence: 2 matched Top-1% hits and best known fitness 0.308292.
+
+The 20% improvement occurred with B3-protected routing and no triplet/quartet memories, so denser pairwise evidence was sufficient to improve assembly ranking.
+
+2C must use a generic evidence-state maturity gate before enabling assembly. A fixed 20% threshold is not frozen as universal.
