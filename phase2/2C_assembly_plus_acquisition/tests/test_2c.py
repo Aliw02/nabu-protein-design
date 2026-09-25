@@ -65,3 +65,20 @@ def test_adapter_is_label_independent_for_identity():
     left_ids = adapt_gb1_frame(left)["candidate_id"].tolist()
     right_ids = adapt_gb1_frame(right)["candidate_id"].tolist()
     assert left_ids == right_ids
+
+
+def test_support_policy_identity_lookup_can_include_design_universe():
+    from baselines import HistoricalFiftyFiftyPolicy
+
+    identity_lookup = pd.DataFrame(
+        {
+            "candidate_id": ["V39A", "D40A", "V39A:D40A"],
+            "mutation_set": [
+                ("V39A",),
+                ("D40A",),
+                ("V39A", "D40A"),
+            ],
+        }
+    )
+    policy = HistoricalFiftyFiftyPolicy(identity_lookup)
+    assert "V39A:D40A" in policy._mutation_by_id
