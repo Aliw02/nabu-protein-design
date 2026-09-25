@@ -1,0 +1,65 @@
+name: NABU Phase 2D Blind Identity Preflight
+
+on:
+  push:
+    branches:
+      - phase2/roadmap-scaffold
+    paths:
+      - "phase2/2D_untouched_transfer/**"
+      - ".github/workflows/phase2-2d-identity-preflight.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  identity-preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout frozen Phase-2 branch
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install frozen test environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -e . --no-deps
+
+      - name: Run 2D preflight contract tests
+        run: |
+          python -m pytest -q phase2/2D_untouched_transfer/tests
+
+      - name: Create blind source workspace
+        run: |
+          mkdir -p .phase2d_blind_source .ci_artifacts/phase2d_identity_preflight
+
+      - name: Download pinned AAV sampled source archive
+        run: |
+          curl -L --fail --retry 3             "https://raw.githubusercontent.com/microsoft/protein-uq/5e7b2b9cd219805eaabe73b21d4d9955cf882448/data/aav/splits.zip"             -o .phase2d_blind_source/aav_splits.zip
+          curl -L --fail --retry 3             "https://raw.githubusercontent.com/microsoft/protein-uq/5e7b2b9cd219805eaabe73b21d4d9955cf882448/data/aav/P03135.fasta"             -o .phase2d_blind_source/P03135.fasta
+
+      - name: Download official FLIP2 IRED two-to-many
+        run: |
+          curl -L --fail --retry 3             "https://flip.protein.properties/assets/splits/ired/two_to_many.csv.gz"             -o .phase2d_blind_source/ired_two_to_many.csv.gz
+
+      - name: Run label-blind identity/source preflight
+        run: |
+          python phase2/2D_untouched_transfer/preflight_identity.py             --aav-zip .phase2d_blind_source/aav_splits.zip             --aav-reference .phase2d_blind_source/P03135.fasta             --ired-gz .phase2d_blind_source/ired_two_to_many.csv.gz             --out .ci_artifacts/phase2d_identity_preflight/IDENTITY_PREFLIGHT.json
+
+      - name: Preserve source checksums
+        run: |
+          sha256sum             .phase2d_blind_source/aav_splits.zip             .phase2d_blind_source/P03135.fasta             .phase2d_blind_source/ired_two_to_many.csv.gz             > .ci_artifacts/phase2d_identity_preflight/SOURCE_SHA256.txt
+
+      - name: Upload immutable preflight evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nabu-phase2d-identity-preflight-v1
+          path: .ci_artifacts/phase2d_identity_preflight
