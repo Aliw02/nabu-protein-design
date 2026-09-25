@@ -43,6 +43,10 @@ jobs:
           curl -L --fail \
             "https://raw.githubusercontent.com/hury07/fasthit/0f9c51aa7caaab0b4618b0cab4f3107e7251091b/fasthit/landscapes/data/phoq/PhoQ.csv" \
             -o .external_parity/phoq_raw.csv
+          curl -L --fail \
+            "https://media.githubusercontent.com/media/microsoft/InverseFoldDir/0ec24449fa050c38fbac6bbbb1659eae2fcf746e/datasets/proteingym/dms_subs/PHOT_CHLRE_Chen_2023.csv" \
+            -o .external_parity/phot_raw.csv
+          echo "f73e370f79addebf48786ecfee146ac592a9024b0772c844d5d98c7e3c140530  .external_parity/phot_raw.csv" | sha256sum --check -
           sha256sum .external_parity/*_raw.csv | tee .ci_artifacts/external_parity/SOURCE_SHA256.txt
 
       - name: Adapt external datasets using historical adapters
@@ -77,6 +81,10 @@ jobs:
             .external_parity/PHOQ_V83.csv \
             nabu_v8_3_multilandscape_results/PHOQ_V8_3_RESULTS.json \
             --out .ci_artifacts/external_parity/PHOQ_PARITY.json
+          python scripts/check_phot_v83_parity.py \
+            .external_parity/phot_raw.csv \
+            nabu_v8_3_router_results/V8_3_RESULTS.json \
+            --out .ci_artifacts/external_parity/PHOT_PARITY.json
 
       - name: Upload parity diagnostics
         if: always()
