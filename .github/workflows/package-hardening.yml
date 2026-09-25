@@ -3,7 +3,11 @@ name: NABU Package Hardening
 on:
   push:
     branches:
-      - engineering/v8-3-package-hardening
+      - main
+      - "engineering/**"
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
