@@ -17,8 +17,8 @@ python -m pytest -q phase2/2D_untouched_transfer/tests
 if ($LASTEXITCODE -ne 0) { throw "Phase 2D contract tests failed. Blind target reveal aborted." }
 
 Write-Host "[2D] STARTING IRED BLIND TARGET REVEAL"
-Write-Host "[2D] Frozen policy: IRED_EVIDENCE_BACKOFF_V1"
-python phase2/2D_untouched_transfer/run_ired_blind.py $ired --out $outDir
+Write-Host "[2D] Frozen policy: IRED_ABSTENTION_V2"
+python phase2/2D_untouched_transfer/run_ired_blind_v2.py $ired --out $outDir
 if ($LASTEXITCODE -ne 0) { throw "IRED blind run failed. Preserve this failed run before any fix." }
 
 Write-Host "[2D] IRED BLIND RUN COMPLETE"
