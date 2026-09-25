@@ -1,0 +1,53 @@
+name: NABU V9 Pair Transfer Development
+
+on:
+  push:
+    branches:
+      - exp/nabu-v9-pair-transfer-dev
+    paths:
+      - "experiments/v9_pair_transfer_dev/**"
+      - "src/nabu_protein/**"
+      - "requirements-hardening.txt"
+      - "phase2/2D_untouched_transfer/requirements-phase2d.txt"
+      - ".github/workflows/nabu-v9-pair-transfer-dev.yml"
+  workflow_dispatch:
+
+jobs:
+  v9-pair-transfer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install exact dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -r phase2/2D_untouched_transfer/requirements-phase2d.txt
+          python -m pip install -e . --no-deps
+
+      - name: Run V9 contract tests
+        run: |
+          python -m pytest -q experiments/v9_pair_transfer_dev/tests
+
+      - name: Download pinned IRED source
+        run: |
+          mkdir -p .v9_source
+          curl -L --fail --retry 3             https://flip.protein.properties/assets/splits/ired/two_to_many.csv.gz             -o .v9_source/ired_two_to_many.csv.gz
+          echo "aa45a2f85fb1af87b6b0e86397b3f8f292a061dc574be2536673b5bd490b0e74  .v9_source/ired_two_to_many.csv.gz" | sha256sum -c -
+
+      - name: Run V9 IRED development diagnostic
+        run: |
+          python experiments/v9_pair_transfer_dev/run_v9_pair_transfer_ired.py             .v9_source/ired_two_to_many.csv.gz             --out v9_pair_transfer_results
+
+      - name: Upload V9 results
+        uses: actions/upload-artifact@v4
+        with:
+          name: nabu-v9-pair-transfer-dev
+          path: v9_pair_transfer_results/
+          if-no-files-found: error
