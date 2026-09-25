@@ -1,0 +1,47 @@
+{
+  "version": "NABU_PHASE2D_IRED_BLIND_V2_SUMMARY",
+  "status": "BLIND_RESULT_COMPLETE_NEGATIVE_TRANSFER",
+  "workflow_run_id": 36165359008,
+  "execution_head": "5c4b55e60bb0ccca769194e78095051e7023b9d2",
+  "artifact_id": 10877951045,
+  "artifact_digest": "sha256:32e9b34d6bc7453a54ac1699c5d22a8516185d925a822152f2538770bb22a461",
+  "source_sha256": "aa45a2f85fb1af87b6b0e86397b3f8f292a061dc574be2536673b5bd490b0e74",
+  "frozen_phase2c_version": "NABU_PHASE2C_MULTILANDSCAPE_V3",
+  "frozen_core_commit": "c8afdcd7698231d95a39ef13a3fe22b6e3f507c5",
+  "split": {
+    "fit_train": 3746,
+    "validation_held_out": 662,
+    "test": 4178
+  },
+  "identity_scoreability": {
+    "scoreable": 131,
+    "unscoreable": 4047,
+    "fraction": 0.03135471517472475,
+    "all_main_supported": 3648,
+    "any_pair_supported": 133,
+    "target_values_read_during_preflight": false
+  },
+  "authoritative_full_test_policy": {
+    "version": "IRED_ABSTENTION_V2",
+    "scoreable": "unchanged V8_3_ADAPTIVE_ROUTER",
+    "unscoreable": "single tied abstention score below all scoreable router scores",
+    "b2_fallback_used": false
+  },
+  "router_mode": "B3_PROTECTED_NO_HIGHER_ORDER",
+  "full_test_metrics": {
+    "spearman": -0.021770573158261506,
+    "ndcg": 0.9426983698477696,
+    "top1_percent_k": 42,
+    "top1_percent_hits": 0,
+    "top1_percent_recall": 0,
+    "top1_percent_enrichment": 0,
+    "normalized_regret_top1pct": 0.23152235169646065
+  },
+  "scoreable_only_diagnostic_not_primary": {
+    "count": 131,
+    "spearman": 0.11938824534244381,
+    "ndcg": 0.8771807667453829
+  },
+  "prediction_sha256": "4842087ac1e487a3c3fd6156ee28006207014651ba71daabb06b9b19eebd8fbd",
+  "interpretation": "Untouched higher-order transfer result is negative. Preserve without Phase-2 retuning."
+}
