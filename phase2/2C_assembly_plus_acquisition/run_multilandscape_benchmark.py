@@ -42,7 +42,7 @@ from assembly import (  # noqa: E402
     ReferenceProtein,
 )
 from maturity_gate import (  # noqa: E402
-    EvidenceMaturityGateV1,
+    EvidenceMaturityGateV3,
     mature_assembly_frontier,
 )
 from four_site_codec import (  # noqa: E402
@@ -501,7 +501,7 @@ def run_condition(
             ["candidate_id", "mutation_set"]
         ]
     )
-    gate = EvidenceMaturityGateV1(
+    gate = EvidenceMaturityGateV3(
         batch_size=batch_size
     )
     evaluator = FullUniverseEvaluator(
@@ -700,8 +700,8 @@ def run_condition(
             "candidate_ids": selected_ids,
             "selection_sha256_before_reveal": selection_hash,
             "gate_open": bool(gate_open),
-            "gate_opened_at_measurement": (
-                gate.opened_at_measurement
+            "gate_first_ready_at_measurement": (
+                gate.first_ready_at_measurement
             ),
             "maturity": maturity_diagnostics,
             "truth_exposed_to_selection_before_freeze": False,
@@ -782,8 +782,8 @@ def run_condition(
                 "gate_open": bool(
                     gate.latched_open
                 ),
-                "gate_opened_at_measurement": (
-                    gate.opened_at_measurement
+                "gate_first_ready_at_measurement": (
+                    gate.first_ready_at_measurement
                 ),
                 "mature_count_before_reveal": int(
                     maturity_diagnostics[
@@ -842,7 +842,7 @@ def run_condition(
     )
     summary.update(
         {
-            "version": "NABU_PHASE2C_CONDITION_RESULT_V1",
+            "version": "NABU_PHASE2C_CONDITION_RESULT_V3",
             "landscape": landscape_name,
             "condition": condition,
             "bootstrap_count": int(
@@ -857,11 +857,23 @@ def run_condition(
             "rounds_completed": int(
                 round_index
             ),
-            "gate_opened_at_measurement": (
-                gate.opened_at_measurement
+            "gate_first_ready_at_measurement": (
+                gate.first_ready_at_measurement
             ),
             "assembly_active_rounds": int(
                 assembly_active_rounds
+            ),
+            "gate_ready_rounds": int(
+                gate.ready_rounds
+            ),
+            "gate_not_ready_rounds": int(
+                gate.not_ready_rounds
+            ),
+            "gate_fallback_rounds_after_first_ready": int(
+                gate.fallback_rounds_after_first_ready
+            ),
+            "gate_transition_count": int(
+                gate.transition_count
             ),
             "assembly_selected_count": int(
                 len(assembly_selected_ids)
@@ -1207,8 +1219,8 @@ def main() -> None:
             "first_top1_measurement": summary[
                 "first_top1_measurement"
             ],
-            "gate_opened_at_measurement": summary[
-                "gate_opened_at_measurement"
+            "gate_first_ready_at_measurement": summary[
+                "gate_first_ready_at_measurement"
             ],
             "assembly_active_rounds": summary[
                 "assembly_active_rounds"
@@ -1315,9 +1327,9 @@ def main() -> None:
     )
 
     manifest = {
-        "version": "NABU_PHASE2C_MULTILANDSCAPE_V1",
+        "version": "NABU_PHASE2C_MULTILANDSCAPE_V3",
         "scientific_claim": False,
-        "stage": "2C_ASSEMBLY_PLUS_ACQUISITION_DEVELOPMENT_BENCHMARK",
+        "stage": "2C_V3_DYNAMIC_GATE_MULTILANDSCAPE_DEVELOPMENT_BENCHMARK",
         "verdict": verdict,
         "landscapes": landscape_records,
         "conditions": list(CONDITIONS),
