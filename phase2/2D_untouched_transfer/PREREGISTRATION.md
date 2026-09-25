@@ -135,3 +135,24 @@ No test row may be silently dropped.
 If structural scoreability is below 100%, a full-test handling rule must be
 versioned and frozen before target reveal. Target values may not be used to
 choose that rule.
+
+## IRED secondary-metric definitions
+
+Let `N` be the complete official test set and
+`K = ceil(0.01 * N)`.
+
+- **Top-1% recall:** intersection size between predicted top-K and true top-K,
+  divided by K.
+- **Top-1% enrichment:** observed true-top-K fraction among predicted top-K
+  divided by the random expectation K/N. Equivalently
+  `hits * N / K^2`.
+- **Normalized regret at top-1% budget:** let `b` be the best true target among
+  predicted top-K, and let `y_min/y_max` be the global test extrema.
+  Report `(y_max - b) / (y_max - y_min)`; 0 is optimal.
+- **NDCG:** match FLIP2 baseline code: shift test targets by their minimum to
+  make relevance nonnegative, then use scikit-learn `ndcg_score` with the
+  frozen NABU prediction as the ranking score.
+- **Spearman:** scipy `spearmanr(target, prediction)`.
+
+All metrics use the complete official test set. No scoreable-only metric may be
+substituted for the full-test primary result.
