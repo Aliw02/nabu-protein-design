@@ -5,13 +5,15 @@
 - [x] 2A.0 — Campaign Simulator and Oracle Isolation
 - [x] 2A.1 — Baselines
 - [x] 2A.2 — Micro-Batch Closed Loop
-- [ ] 2A.3 — Evidence-Adaptive Controller ← **NEXT**
-- [ ] 2A.4 — Multi-Landscape Evaluation
+- [x] 2A.3 — Evidence-Adaptive Controller
+- [ ] 2A.4 — Multi-Landscape Evaluation ← **NEXT**
 - [ ] 2B — Candidate Assembly
 - [ ] 2C — Assembly + Acquisition
 - [ ] 2D — Freeze + Untouched Transfer
 
 2A.2 development freeze: use **micro_8** as the primary 2A.3 development cadence and **micro_16** as a sensitivity control. This is a development choice, not a universal optimum claim.
+
+2A.3 development freeze: carry **historical_50_50** and **relative_evidence_v2** into 2A.4 without further RhlA tuning. V1 remains preserved as a failed development attempt.
 
 ---
 
