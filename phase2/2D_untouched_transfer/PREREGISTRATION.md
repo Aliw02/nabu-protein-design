@@ -74,9 +74,11 @@ Source:
 - first-touch SHA256 is recorded and becomes mandatory for all reruns.
 
 Frozen split:
-- train: variants assigned by FLIP2 to train/validation, corresponding to
-  0, 1, or 2 mutations;
-- test: higher-order variants;
+- fit/train: official `set == train` rows with `validation != True`
+  (3746 rows in the first-touch official file);
+- validation: official `validation == True` rows are held out from fitting
+  (662 rows) and are not used to tune Phase-2D;
+- test: official `set == test` higher-order variants (4178 rows);
 - official set/validation assignments are authoritative.
 
 Primary metrics:
@@ -118,3 +120,18 @@ Every fix requires:
 4. a complete rerun.
 
 Scientific retuning is prohibited.
+
+## IRED full-test scoreability rule
+
+Before any target values are read, the identity-only preflight must compute
+frozen-V8.3 structural scoreability on every official test identity.
+
+A test identity is structurally scoreable iff:
+- every mutation token exists in the fit/train main-effect identity support; and
+- at least one internal mutation pair exists in the fit/train pair identity support.
+
+No test row may be silently dropped.
+
+If structural scoreability is below 100%, a full-test handling rule must be
+versioned and frozen before target reveal. Target values may not be used to
+choose that rule.
