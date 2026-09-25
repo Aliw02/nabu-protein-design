@@ -8,26 +8,55 @@
     "source_url": "https://raw.githubusercontent.com/microsoft/protein-uq/5e7b2b9cd219805eaabe73b21d4d9955cf882448/data/aav/splits.zip",
     "split": "sampled",
     "initial_ratio": 0.1,
-    "fold_seeds": [0, 1, 2],
+    "fold_seeds": [
+      0,
+      1,
+      2
+    ],
     "num_training_sizes": 5,
     "training_size_scale": "log",
-    "end_ratio": 1.0,
+    "end_ratio": 1,
     "primary_metric": "AUC_TOP100_RECOVERY_VS_MEASUREMENTS",
-    "competitors": ["NABU_PHASE2_FROZEN", "GREEDY", "UCB", "THOMPSON_SAMPLING", "RANDOM"],
+    "competitors": [
+      "NABU_PHASE2_FROZEN",
+      "GREEDY",
+      "UCB",
+      "THOMPSON_SAMPLING",
+      "RANDOM"
+    ],
     "allow_outside_pool_assembly": false,
     "unsupported_identity_policy": "FAIL_NO_SILENT_SUBSETTING"
   },
   "ired": {
     "source_url": "https://flip.protein.properties/assets/splits/ired/two_to_many.csv.gz",
     "split": "two_to_many",
-    "primary_metrics": ["SPEARMAN", "NDCG"],
-    "secondary_metrics": ["TOP_K_ENRICHMENT", "NORMALIZED_REGRET", "TOP1_PERCENT_RECALL"],
+    "primary_metrics": [
+      "SPEARMAN",
+      "NDCG"
+    ],
+    "secondary_metrics": [
+      "TOP_K_ENRICHMENT",
+      "NORMALIZED_REGRET",
+      "TOP1_PERCENT_RECALL"
+    ],
     "official_set_assignment_authoritative": true,
-    "unsupported_identity_policy": "FAIL_NO_SILENT_SUBSETTING"
+    "unsupported_identity_policy": "FAIL_NO_SILENT_SUBSETTING",
+    "fit_rule": "set == train AND validation != True",
+    "validation_rule": "validation == True held out; no Phase-2D tuning",
+    "test_rule": "set == test",
+    "expected_first_touch_counts": {
+      "fit_train": 3746,
+      "validation": 662,
+      "test": 4178
+    },
+    "scoreability_gate": "identity-only frozen V8.3 main+pair structural coverage on full test",
+    "silent_test_subsetting": false
   },
   "first_touch": {
     "mode": "IDENTITY_ONLY_PREFLIGHT",
-    "forbidden_columns": ["target"],
+    "forbidden_columns": [
+      "target"
+    ],
     "record_sha256": true,
     "preserve_failures": true
   }
