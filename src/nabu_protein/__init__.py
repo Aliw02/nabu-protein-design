@@ -26,6 +26,7 @@ from .higher_order import (
     score_hierarchy,
 )
 from .router import apply_router
+from .metrics import evaluate_v83
 from .v83 import NabuV83Model, is_scoreable
 
 __version__ = "0.4.0"
@@ -45,6 +46,7 @@ __all__ = [
     "score_hierarchy",
     "model_diagnostics",
     "apply_router",
+    "evaluate_v83",
     "parse_v83_mutations",
     "fnv1a32",
 ]
