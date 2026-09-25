@@ -16,6 +16,11 @@ jobs:
   v9-pair-transfer:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
 
     steps:
       - uses: actions/checkout@v4
