@@ -1,0 +1,120 @@
+# NABU Phase 2D — Frozen Blind Execution Preregistration
+
+**Version:** NABU_PHASE2D_BLIND_V1  
+**Date:** 2026-09-25  
+**Depends on:** NABU_PHASE2C_MULTILANDSCAPE_V3 (FROZEN PASS)
+
+## Scientific rule
+
+Phase 2D is evaluation only. No Phase-2C architecture, support threshold, router rule,
+assembly rule, batch rule, acquisition rule, or Phase-1 V8.3 mathematics may be
+retuned after blind-data contact.
+
+All failed runs are preserved.
+
+## 2D-A — FLIP AAV sampled/random active optimization
+
+Published protocol source:
+Greenman, Amini & Yang, PLOS Computational Biology (2025),
+"Benchmarking uncertainty quantification for protein engineering".
+
+Pinned released-code reference:
+- repository: microsoft/protein-uq
+- commit: 5e7b2b9cd219805eaabe73b21d4d9955cf882448
+- AAV source archive:
+  https://raw.githubusercontent.com/microsoft/protein-uq/5e7b2b9cd219805eaabe73b21d4d9955cf882448/data/aav/splits.zip
+
+Published campaign contract:
+- AAV sampled/random training pool only;
+- initial observed subset = 10% of that training pool;
+- 3 folds / initialization seeds: 0, 1, 2;
+- 5 total log-spaced training-set sizes from 10% through 100%;
+- identical initial subsets/checkpoints for every compared method;
+- primary metric = AUC of global Top-100 recovery vs measurements/fraction observed;
+- report mean, standard deviation, per-fold values, and paired deltas.
+
+Competitors:
+- frozen NABU Phase-2 fixed-pool acquisition path;
+- greedy;
+- UCB;
+- Thompson Sampling;
+- random.
+
+### Fairness boundary for assembly
+
+The published AAV BO benchmark is a fixed-candidate-pool comparison.
+No method may assay a sequence outside that common pool.
+
+Therefore Phase-2C generative assembly is not allowed to enlarge the AAV pool.
+2D-A evaluates frozen NABU ranking/acquisition under fixed-pool fairness.
+Assembly evidence remains the preregistered 2C V3 development result and is
+reported separately in the final Phase-2 verdict.
+
+### AAV representation capability gate
+
+Before target values are used, identity-only preflight must report:
+- train/test counts;
+- sequence lengths;
+- character alphabet;
+- duplicate identities;
+- fraction representable by the frozen NABU substitution/deletion token grammar.
+
+No target column may be read by the preflight code.
+
+If the complete published AAV training pool cannot be represented without
+changing NABU input semantics, record ADAPTER_SCOPE_FAIL. Do not silently
+discard unsupported identities and do not redefine the benchmark after seeing
+fitness outcomes.
+
+## 2D-B — FLIP2 IRED two-to-many
+
+Source:
+- official FLIP2 download:
+  https://flip.protein.properties/assets/splits/ired/two_to_many.csv.gz
+- first-touch SHA256 is recorded and becomes mandatory for all reruns.
+
+Frozen split:
+- train: variants assigned by FLIP2 to train/validation, corresponding to
+  0, 1, or 2 mutations;
+- test: higher-order variants;
+- official set/validation assignments are authoritative.
+
+Primary metrics:
+- Spearman rank correlation;
+- NDCG.
+
+Secondary metrics:
+- Top-k enrichment;
+- normalized regret;
+- Top-1% recall where defined.
+
+Published FLIP2 comparison values are contextual baselines; direct comparisons
+are made only where metric definitions are identical.
+
+### IRED representation capability gate
+
+Identity-only preflight must verify fixed-length standard-amino-acid sequences
+and derive mutation identities relative to the unique/reference sequence using
+only sequence/set metadata. If reference derivation is ambiguous, execution
+halts before target use and records ADAPTER_SCOPE_FAIL.
+
+## Source-contact rule
+
+The first blind-data operation is identity-only preflight.
+It may download the official files but must not access the target column.
+It records complete-file SHA256 values, source URLs, archive members, schema,
+identity counts, sequence-length distributions and alphabets.
+
+After first-touch hashes are recorded, no different source bytes may replace
+them in the same blind version.
+
+## Post-reveal bug rule
+
+Only demonstrably label-independent implementation bugs may be fixed.
+Every fix requires:
+1. preserving the failed run;
+2. an AUDIT_NOTE;
+3. a new version;
+4. a complete rerun.
+
+Scientific retuning is prohibited.
