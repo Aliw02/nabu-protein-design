@@ -9,7 +9,7 @@
 - [x] 2A.4 — Multi-Landscape Evaluation
 - [x] 2B — Candidate Assembly
 - [x] 2C — Assembly + Acquisition (V3 PASS / frozen)
-- [ ] 2D — Freeze + Untouched Transfer ← **NEXT**
+- [x] 2D — Freeze + Untouched Transfer (complete; final scientific gate not passed)
 
 2A.2 development freeze: use **micro_8** as the primary 2A.3 development cadence and **micro_16** as a sensitivity control. This is a development choice, not a universal optimum claim.
 
@@ -19,7 +19,9 @@
 
 2B development freeze: candidate assembly is **PASS WITH LIMITATION**. The engine is valid and generates novel-to-table combinations, but RhlA quality improves only after evidence matures. 2C must use a generic evidence-state maturity gate; do not hardcode a 20% dataset threshold.
 
-2C development freeze: **V3 PASS** across GB1, TrpB and PhoQ under the same preregistered multilandscape protocol. Dynamic per-round maturity gating improved the combined system over acquisition-only on all three landscapes by the frozen development win rule. V3 is frozen; no further development-landscape tuning is allowed before 2D.
+2C development freeze: **V3 PASS** across GB1, TrpB and PhoQ under the same preregistered multilandscape protocol. Dynamic per-round maturity gating improved the combined system over acquisition-only on all three landscapes by the frozen development win rule. V3 remains frozen.
+
+2D final record: the AAV/Random primary head-to-head ended in a label-blind adapter-scope failure because only 45.44% of the published BO pool is representable by frozen Phase-2 mutation semantics. FLIP2 IRED two-to-many was executed blind and produced negative higher-order transfer (Spearman -0.02177; Top-1% hits 0/42). The final Phase-2 scientific gate was therefore **NOT PASSED**.
 
 ---
 
@@ -630,12 +632,16 @@ Each section has its own `results/` directory. Never dump all Phase-2 outputs in
 
 ---
 
-# Immediate next step
+# Phase-2 closure
 
-**2C is complete and frozen.**
+**Phase 2 execution is complete.**
 
-The next implementation task is **2D — Untouched External Benchmark**.
+Authoritative final verdict:
 
-The reserved AAV/Random and FLIP2 IRED datasets may be revealed only under the frozen protocol in `FINAL_VALIDATION_PROTOCOL.md`.
+`phase2/2D_untouched_transfer/FINAL_VERDICT.md`
 
-Do not alter the V3 gate, support threshold, search budget, acquisition policy, metrics or winner rule after blind reveal.
+The final scientific gate was not passed.
+
+Do not retune the frozen Phase-2 architecture against the blind 2D outcomes.
+Further work on insertion semantics, broader evidence transfer, scoreability,
+or new backoff logic belongs to a new version / Phase-3 research track.
