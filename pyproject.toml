@@ -44,6 +44,7 @@ dev = [
 
 [project.scripts]
 nabu-protein = "nabu_protein.cli:main"
+nabu-v83-benchmark = "nabu_protein.v83_cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
