@@ -10,7 +10,7 @@ Completed engineering/scientific development stages:
 - **2A.3 — Evidence-Adaptive Controller:** DEVELOPMENT COMPLETE
 - **2A.4 — Multi-Landscape Evaluation:** PASS WITH LIMITATION
 - **2B — Candidate Assembly:** PASS WITH LIMITATION
-- **2C — Assembly + Acquisition:** DEVELOPMENT COMPLETE / FROZEN WITH LIMITATION
+- **2C — Assembly + Acquisition:** PASS / V3 FROZEN
 
 Next stage:
 
@@ -166,26 +166,38 @@ The 20% improvement occurred with B3-protected routing and no triplet/quartet me
 
 ## 2C result
 
-Phase 2C V1 and V2 were evaluated on GB1 development data.
+The authoritative Phase-2C result is **V3 Dynamic Maturity Gate**.
 
-V1:
-- engineering PASS;
-- combined Top-1% hits 7 vs 3 acquisition-only;
-- preregistered best-fitness AUC did not improve;
-- scientific development gate not passed.
+Development suite:
 
-V2 changed only the maturity probe from 64 to the full 256-proposal beam.
+- GB1;
+- TrpB;
+- PhoQ.
 
-V2:
-- engineering PASS;
-- hidden-truth perturbation PASS;
-- gate opened at 184 measurements;
-- 2 assembly rounds;
-- combined Top-1% hits 10 vs 3 acquisition-only;
-- 7 Top-1% hits came from assembly;
-- preregistered best-fitness AUC remained 0.691448 and therefore the V2 scientific development gate was not passed.
+The exact same 2048-reservoir / 64-bootstrap / 256-budget / batch-8 protocol was applied without per-landscape tuning.
 
-Decision:
-- no V3 tuning on GB1;
-- freeze V2 with limitation;
-- proceed only to the independently preregistered 2D blind benchmark for the final Phase-2 verdict.
+V1 multilandscape failed engineering because a permanently latched maturity gate could not guarantee a full assembly batch on later rounds. The failure is preserved.
+
+V3 changed only gate persistence:
+
+- assembly is used on a round only when the current mature frontier can supply the complete batch;
+- otherwise that round falls back to the frozen acquisition policy.
+
+V3 integrity:
+
+- 17 contract tests PASS;
+- full deterministic replay PASS on all 3 landscapes;
+- first-decision hidden-truth perturbation invariant PASS on all 3 landscapes;
+- no reserved 2D blind target labels loaded.
+
+Primary combined system `acquisition_then_gated_assembly` beat `acquisition_only` under the preregistered rule on all three landscapes:
+
+- GB1: ΔAUC +0.071326, Δregret -1.999854, ΔTop-1% hits +6;
+- TrpB: ΔAUC +0.038913, Δregret -0.065887, ΔTop-1% hits +10;
+- PhoQ: ΔAUC +0.026854, Δregret -4.265920, ΔTop-1% hits +4.
+
+Overall 2C development verdict:
+
+> **PASS**
+
+V3 is now frozen. No additional tuning on GB1, TrpB or PhoQ is allowed before 2D.
