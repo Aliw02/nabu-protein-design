@@ -7,8 +7,8 @@
 - [x] 2A.2 — Micro-Batch Closed Loop
 - [x] 2A.3 — Evidence-Adaptive Controller
 - [x] 2A.4 — Multi-Landscape Evaluation
-- [ ] 2B — Candidate Assembly ← **NEXT**
-- [ ] 2C — Assembly + Acquisition
+- [x] 2B — Candidate Assembly
+- [ ] 2C — Assembly + Acquisition ← **NEXT**
 - [ ] 2D — Freeze + Untouched Transfer
 
 2A.2 development freeze: use **micro_8** as the primary 2A.3 development cadence and **micro_16** as a sensitivity control. This is a development choice, not a universal optimum claim.
@@ -16,6 +16,8 @@
 2A.3 development freeze: carry **historical_50_50** and **relative_evidence_v2** into 2A.4 without further RhlA tuning. V1 remains preserved as a failed development attempt.
 
 2A.4 development freeze: multi-landscape acquisition is **PASS WITH LIMITATION**. Gains reproduced on GB1 and TrpB, while PhoQ remains a real failure case. The 2B gate is open only because candidate assembly will be developed separately from acquisition; combined behavior remains a 2C question.
+
+2B development freeze: candidate assembly is **PASS WITH LIMITATION**. The engine is valid and generates novel-to-table combinations, but RhlA quality improves only after evidence matures. 2C must use a generic evidence-state maturity gate; do not hardcode a 20% dataset threshold.
 
 ---
 
