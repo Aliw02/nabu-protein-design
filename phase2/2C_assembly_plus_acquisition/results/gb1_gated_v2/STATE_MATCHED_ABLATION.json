@@ -1,0 +1,35 @@
+{
+  "measurements_spent": 184,
+  "assembly_ids": [
+    "D40N:G41C:V54A",
+    "V39A:D40N:V54A",
+    "D40V:G41C:V54A",
+    "D40W:G41C:V54A",
+    "V39A:D40V:V54A",
+    "V39A:D40V:G41C",
+    "V39M:D40V:V54A",
+    "D40N:G41S:V54A"
+  ],
+  "assembly_sha256": "36d38ae5d0e5bb886eb292d0511a5d5b0f11e82f9bd1c4763e6c55e0a196bfc3",
+  "acquisition_ids": [
+    "V39W:D40A:G41E:V54C",
+    "V39Y:D40S:G41Y:V54H",
+    "V39T:D40A:G41E:V54M",
+    "V39A:D40Q:G41A:V54S",
+    "V39A:D40Q:G41S:V54A",
+    "V39L:D40S:G41Y:V54I",
+    "V39M:D40Q:G41C:V54G",
+    "V39M:D40Y:G41V:V54C"
+  ],
+  "acquisition_sha256": "9d9fceed1091477e4c19031f52b584cb6985c341830fdd4496251e6a65daafb9",
+  "truth_exposed_before_both_freezes": false,
+  "gate_mature_count": 8,
+  "post_freeze_evaluation": {
+    "assembly_best": 5.43037947261,
+    "acquisition_best": 1.61558826469,
+    "assembly_mean": 2.274017832430375,
+    "acquisition_mean": 0.2266031471879475,
+    "assembly_top1_hits": 4,
+    "acquisition_top1_hits": 0
+  }
+}
