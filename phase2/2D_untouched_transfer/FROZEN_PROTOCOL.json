@@ -50,7 +50,15 @@
       "test": 4178
     },
     "scoreability_gate": "identity-only frozen V8.3 main+pair structural coverage on full test",
-    "silent_test_subsetting": false
+    "silent_test_subsetting": false,
+    "secondary_metric_definitions": {
+      "k": "ceil(0.01 * N_test)",
+      "top1_percent_recall": "true_topK intersection predicted_topK divided by K",
+      "top1_percent_enrichment": "hits * N_test / K^2",
+      "normalized_regret_top1pct": "(global_test_max - best_true_in_predicted_topK) / (global_test_max - global_test_min)",
+      "ndcg": "sklearn.ndcg_score(target - target.min, prediction)",
+      "spearman": "scipy.stats.spearmanr(target, prediction)"
+    }
   },
   "first_touch": {
     "mode": "IDENTITY_ONLY_PREFLIGHT",
