@@ -1,0 +1,42 @@
+{
+  "version": "NABU_PHASE2C_GB1_GATED_V1",
+  "scientific_claim": false,
+  "stage": "2C_ASSEMBLY_PLUS_ACQUISITION_DEVELOPMENT",
+  "status": "ENGINEERING_PASS_SCIENTIFIC_GATE_NOT_PASSED",
+  "development_dataset": "GB1_Wu2016",
+  "assay_universe_size": 149360,
+  "reservoir_size": 2048,
+  "seed_count": 64,
+  "target_count": 256,
+  "batch_size": 8,
+  "gate": {
+    "target_order": 3,
+    "probe_count": 64,
+    "beam_width": 256,
+    "min_main_support": 2,
+    "min_pair_support": 2,
+    "requires_outside_reservoir": true
+  },
+  "hidden_truth_perturbation_checks": {
+    "random_only": true,
+    "acquisition_only": true,
+    "random_then_gated_assembly": true,
+    "acquisition_then_gated_assembly": true
+  },
+  "scientific_development_checks": {
+    "auc_strictly_improves": false,
+    "final_regret_nonworse": true,
+    "top1_hits_nonworse": true,
+    "assembly_activated": true
+  },
+  "scientific_development_pass": false,
+  "key_result": "Combined campaign increased final Top-1% hits from 3 to 7, with 4 hits contributed by one assembly batch, but did not strictly improve the preregistered best-fitness AUC.",
+  "engineering_bug_audit": {
+    "initial_run_id": 36158465404,
+    "failure": "support-policy identity lookup covered only reservoir and failed after an assembled measurement outside reservoir",
+    "fix": "expand support lookup identity universe without changing candidate reservoir, gate, labels, budget, or scientific criteria",
+    "corrected_run_id": 36158730272,
+    "corrected_head_sha": "5bc9a53580efa34613e6acdf7622f158218bbf7b",
+    "corrected_status": "PASS"
+  }
+}
