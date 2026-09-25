@@ -1,147 +1,194 @@
-# Phase 2C — Maturity-Gated Assembly + Acquisition V1
+# Phase 2C — Maturity-Gated Assembly + Acquisition Development Benchmark
 
 ## Goal
 
-Test the first complete NABU closed-loop design system in which the model:
+Run the first complete NABU closed-loop combinatorial-design benchmark in which measured evidence can mature into generation of candidates that were not supplied in the original acquisition reservoir.
 
-1. measures candidates from a supplied reservoir;
-2. refits frozen V8.3;
-3. checks whether evidence is mature enough for design;
-4. when mature, assembles candidates that were not supplied in the reservoir;
-5. freezes proposals before truth reveal;
-6. assays them virtually;
-7. learns from those measurements and repeats.
+This is a **real retrospective development evaluation**.
 
-This is a development POC. It is not the final blind Phase-2 verdict.
+It is not a proof-of-concept and it is not the final blind Phase-2 verdict.
 
-## Development landscape
+The final blind verdict remains quarantined in Phase 2D.
 
-GB1 Wu 2016 four-site landscape.
+## Development landscapes
 
-Biological reference:
+The complete protocol is run without per-landscape retuning on:
 
-- Protein G B1 domain, 56 aa;
-- mutable residues: V39, D40, G41, V54;
-- WT four-site genotype: VDGV.
+- GB1 Wu 2016 — reference four-site genotype `VDGV`;
+- TrpB Johnston 2024 — reference four-site genotype `VFVS`;
+- PhoQ — reference four-site genotype `AVST`.
 
-GB1 is already a development dataset and therefore is permanently excluded from the final blind Phase-2 PASS.
+These landscapes have already been used as development evidence and are permanently excluded from the final blind Phase-2 PASS.
 
-## Known candidate reservoir versus design universe
+## Reference-relative mutation coordinates
 
-To test whether assembly adds something beyond a supplied candidate table:
+For every landscape, the four experimentally varied residues are mapped to benchmark-local positions 1..4.
 
-- the **assay universe** is the available GB1 landscape identities;
-- the **supplied candidate reservoir** is a deterministic identity-only 2048-candidate subset;
-- every condition begins from the same 64-candidate identity-only bootstrap inside that reservoir;
-- acquisition-only methods may select only from the supplied reservoir;
-- assembly may propose valid GB1 triple mutants outside the supplied reservoir;
-- proposal eligibility may use identity availability but never hidden fitness.
+A genotype is represented only by substitutions away from its biological four-site reference genotype.
 
-Final measurement budget:
+No fitness label participates in mutation encoding or vocabulary construction.
 
-- 256 total measurements.
+## Assay universe versus supplied reservoir
 
-Batch size:
+For every landscape:
 
-- 8.
+- **assay universe** = all measured genotype identities with finite historical fitness;
+- **supplied reservoir** = deterministic identity-only subset of 2048 assay-universe genotypes;
+- **bootstrap** = 64 deterministic identity-only genotypes from the reservoir;
+- **final budget** = 256 total measurements;
+- **batch size** = 8.
+
+Acquisition-only methods may select only from the supplied reservoir.
+
+Assembly may generate valid triple mutants outside the supplied reservoir.
+
+Retrospective assay-universe membership may be used only as identity metadata so the virtual oracle can answer a proposal. Hidden fitness is not available to selection.
 
 ## Frozen acquisition references
 
 - deterministic random;
-- historical 50/50.
+- historical 50/50 support-deficit + V8.3 exploitation controller.
 
-Relative-Evidence V2 is not introduced as another moving part in the first 2C experiment.
+Relative-Evidence V2 is not added to this first 2C combination benchmark because 2A.4 did not establish it as superior to the historical 50/50 reference.
 
-## Generic maturity gate
+## CandidateAssembler V1 settings
 
-Do **not** open assembly at a fixed measurement percentage.
+Keep the frozen 2B mechanism:
 
-At every round, run the frozen CandidateAssembler V1 proposal probe.
+- target order = 3;
+- beam width = 256;
+- proposal frontier retained for maturity filtering = 1024;
+- reference-aware mutation validation;
+- no measured duplicates.
 
-A proposed triple is **mature** only when:
+No assembly parameter is changed between landscapes.
 
-- it is valid against the GB1 reference;
-- it is outside the measured set;
-- it is outside the supplied candidate reservoir;
-- it exists in the identity-only assay universe;
+## Generic Evidence-Maturity Gate V1
+
+At every round, CandidateAssembler V1 creates a pre-reveal proposal frontier.
+
+A proposal is **mature** only if all of the following hold:
+
+- valid against the biological four-site reference;
+- outside the measured set;
+- outside the supplied 2048-candidate reservoir;
+- identity exists in the retrospective assay universe;
 - every mutation has main-memory support >= 2;
 - every internal mutation pair has pair-memory support >= 2.
 
-Assembly opens only if the current model can supply at least one complete experimental batch of 8 mature proposals.
+The gate opens only when at least one complete experimental batch of 8 mature proposals exists.
+
+Once opened, the gate is latched open.
 
 Rationale:
 
-- support >= 2 means repeated measured evidence rather than one isolated observation;
-- this matches the repeated-support convention already used by NABU higher-order memories;
-- the gate depends on evidence structure, not dataset name or percent measured.
+- support >= 2 represents repeated measured evidence rather than an isolated observation;
+- it is consistent with NABU's existing repeated-support higher-order memory convention;
+- the rule is based on evidence state, not dataset identity or percentage measured.
 
-No target label is used by the gate.
+No hidden fitness value is used by the gate.
 
 ## Conditions
 
-All use the same bootstrap, reservoir, oracle and total budget.
+Every condition uses the same assay universe, supplied reservoir, bootstrap, budget and batch cadence.
 
-1. **random_only**
-   - random reservoir acquisition for the full campaign.
+### 1. random_only
 
-2. **acquisition_only**
-   - historical 50/50 reservoir acquisition for the full campaign.
+Deterministic random reservoir acquisition for the entire campaign.
 
-3. **random_then_gated_assembly**
-   - random acquisition while gate is closed;
-   - once gate opens, use mature assembled proposals.
+### 2. acquisition_only
 
-4. **acquisition_then_gated_assembly**
-   - historical 50/50 acquisition while gate is closed;
-   - once gate opens, use mature assembled proposals.
+Historical 50/50 reservoir acquisition for the entire campaign.
 
-## State-matched assembly ablation
+### 3. random_then_gated_assembly
 
-At the first gate-open state of the combined campaign:
+- deterministic random reservoir acquisition while the gate is closed;
+- after the gate opens, experimental batches come only from mature assembled proposals.
 
-- freeze the assembly batch;
-- freeze the historical-50/50 acquisition batch from the exact same pre-reveal model state;
-- only then look up both batches' virtual truth for diagnostic comparison;
-- the alternate acquisition labels must not affect the main campaign.
+This is the assembly control without intelligent acquisition warm-up.
 
-This isolates immediate assembly quality from state differences.
+### 4. acquisition_then_gated_assembly
+
+- historical 50/50 reservoir acquisition while the gate is closed;
+- after the gate opens, experimental batches come only from mature assembled proposals.
+
+This is the primary maturity-gated combined system.
+
+## State-matched first-gate ablation
+
+At the first gate-open state of `acquisition_then_gated_assembly`:
+
+- freeze the first mature assembly batch;
+- independently freeze the historical-50/50 acquisition batch from the exact same pre-reveal model state;
+- hash both lists before any truth lookup;
+- evaluate the alternate acquisition batch only diagnostically;
+- alternate labels never enter the main campaign.
+
+This gives a direct same-state comparison of assembly versus acquisition.
 
 ## Anti-leakage requirements
 
-- hidden labels are accessible only through the oracle;
-- every batch ID list is hashed before reveal;
-- gate diagnostics are recorded before reveal;
-- assembled proposals are frozen before reveal;
-- changing all currently unrevealed labels while preserving measured labels must not change the next decision;
-- no blind AAV or IRED benchmark labels may be loaded.
+Before every real campaign reveal:
 
-## Primary metric
+- batch IDs are finalized;
+- selection source is recorded;
+- SHA256 of the batch is stored;
+- maturity diagnostics are stored;
+- no selected label has been returned by the oracle.
 
-Post-bootstrap normalized discovery AUC over the full GB1 assay universe.
+Selection code receives only:
 
-## Scientific 2C V1 gate
+- measured IDs and measured labels;
+- assay-universe identities;
+- supplied-reservoir identities;
+- reference and mutation vocabulary;
+- fitted V8.3 state.
 
-Engineering PASS requires:
+It never receives unmeasured fitness values.
 
-- deterministic replay;
-- hidden-truth perturbation invariance;
-- pre-reveal hashes;
-- no invalid assembled candidates;
-- no duplicate measurements;
-- if assembly activates, every assembled candidate is outside the supplied reservoir and passes the maturity rule.
+A hidden-truth perturbation test must show that changing unrevealed labels cannot alter the next pre-reveal decision from an identical measured state.
 
-Scientific development PASS requires the primary combined condition
-`acquisition_then_gated_assembly` to satisfy all of:
+## Primary metrics
 
-1. discovery AUC > acquisition_only;
-2. final regret <= acquisition_only;
-3. final Top-1% hit count >= acquisition_only;
-4. at least one post-gate assembly batch is actually measured.
+Per condition and landscape:
 
-If these are not met, preserve the result as a 2C development failure/limitation rather than tuning against the same run.
+- post-bootstrap normalized discovery AUC;
+- final best true fitness;
+- final regret;
+- cumulative Top-1% hits;
+- measurements to first Top-1% discovery.
 
-## Boundary
+Assembly diagnostics:
 
-A 2C development PASS does not equal final Phase-2 PASS.
+- gate-open measurement;
+- assembly-active rounds;
+- number of assembled measurements;
+- number of assembled measurements outside the original reservoir;
+- assembled Top-1% hits;
+- mature-proposal count by round;
+- main/pair/triplet/quartet memory growth;
+- router trajectory.
 
-After 2C is frozen, final evidence comes only from the reserved 2D blind benchmarks defined in `phase2/FINAL_VALIDATION_PROTOCOL.md`.
+## Per-landscape scientific win criterion
+
+The primary combined condition `acquisition_then_gated_assembly` is a development win over `acquisition_only` on a landscape only if:
+
+1. post-bootstrap discovery AUC is strictly higher;
+2. final regret is <= acquisition_only;
+3. final Top-1% hit count is >= acquisition_only;
+4. at least one assembly batch is actually measured.
+
+## Overall 2C development verdict
+
+- **PASS**: the combined system meets the per-landscape win criterion on at least two of the three landscapes and shows no clear joint degradation of both AUC and final regret on the remaining landscape.
+- **PASS_WITH_LIMITATION**: at least one landscape meets the win criterion but the full suite is mixed.
+- **NO_SCIENTIFIC_WIN**: no landscape meets the win criterion.
+- **ENGINEERING_FAIL**: integrity, determinism, validity or leakage checks fail.
+
+Do not alter the gate or assembly rule after seeing one landscape and then count later landscapes as preregistered evidence.
+
+## Phase-2D boundary
+
+No AAV/Random or FLIP2 IRED target labels may be loaded during 2C.
+
+After 2C is complete, the entire system is frozen before the reserved external benchmarks are revealed.
