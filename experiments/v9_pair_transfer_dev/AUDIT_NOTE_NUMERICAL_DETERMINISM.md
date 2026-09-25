@@ -33,3 +33,24 @@ V9_PAIR_TRANSFER_NOT_YET_SUPPORTED.
 
 The V2 rerun is an engineering reproducibility check and does not create a new
 scientific hypothesis.
+
+
+## V2 cross-run outcome
+
+V2 preserved the same scientific metrics and rank orders but did not achieve
+bitwise cross-run equality.
+
+Runs:
+- run 36195648704 (coefficient canonicalization)
+- run 36195665646 (single-thread BLAS)
+- run 36195668525 (same stabilized head plus audit commit)
+
+Across stabilized runs the V9 rank order remained identical, but raw prediction
+differences remained on the order of 1e-12 to 1e-11.
+
+The factor system has 1299 parameters (bias + 1298 mutation nodes) and design
+rank 1290. Therefore the node-factor representation is underdetermined and
+numerically sensitive in its minimum-norm parameterization.
+
+This is now treated as a property of the V9.0 factorization design rather than
+a CI-only defect. No further numerical patching will be used to rescue V9.0.
