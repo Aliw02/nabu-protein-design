@@ -437,6 +437,38 @@ def run(source_gz: Path, output_dir: Path) -> dict:
         for name, prediction in arms.items()
     }
 
+    strict_mask = np.asarray(
+        [
+            bool(
+                all(mutation in base["main"] for mutation in mutations)
+                and any(
+                    pair in base["pair"]
+                    for pair in combinations(mutations, 2)
+                )
+            )
+            for mutations in test_mutations
+        ],
+        dtype=bool,
+    )
+    outside_strict = ~strict_mask
+    if int(outside_strict.sum()) < 2:
+        raise RuntimeError("Need at least two rows outside frozen strict scoreability.")
+
+    outside_strict_metrics = {
+        "B2_MAIN_ONLY": evaluate(
+            test_target[outside_strict],
+            b2_test[outside_strict],
+        ),
+        "V9_PAIR_TRANSFER": evaluate(
+            test_target[outside_strict],
+            v9_test[outside_strict],
+        ),
+        "V9_PAIR_TRANSFER_PERMUTED_CONTROL": evaluate(
+            test_target[outside_strict],
+            perm_test[outside_strict],
+        ),
+    }
+
     promising = bool(
         metrics["V9_PAIR_TRANSFER"]["spearman"]
         > metrics["B2_MAIN_ONLY"]["spearman"]
@@ -450,6 +482,10 @@ def run(source_gz: Path, output_dir: Path) -> dict:
         <= metrics["B2_MAIN_ONLY"]["normalized_regret_top1pct"]
         and metrics["V9_PAIR_TRANSFER"]["spearman"]
         > metrics["V9_PAIR_TRANSFER_PERMUTED_CONTROL"]["spearman"]
+        and outside_strict_metrics["V9_PAIR_TRANSFER"]["spearman"]
+        > outside_strict_metrics["B2_MAIN_ONLY"]["spearman"]
+        and outside_strict_metrics["V9_PAIR_TRANSFER"]["spearman"]
+        > outside_strict_metrics["V9_PAIR_TRANSFER_PERMUTED_CONTROL"]["spearman"]
         and np.isfinite(v9_test).all()
     )
 
@@ -513,6 +549,10 @@ def run(source_gz: Path, output_dir: Path) -> dict:
             "role": "HELD_OUT_DIAGNOSTIC_NOT_USED_FOR_SELECTION",
         },
         "test_metrics": metrics,
+        "outside_original_strict_scoreability": {
+            "count": int(outside_strict.sum()),
+            "metrics": outside_strict_metrics,
+        },
         "deltas": {
             "V9_minus_B2_spearman": float(
                 metrics["V9_PAIR_TRANSFER"]["spearman"]
