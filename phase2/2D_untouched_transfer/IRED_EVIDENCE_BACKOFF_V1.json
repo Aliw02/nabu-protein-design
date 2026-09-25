@@ -1,0 +1,23 @@
+{
+  "version": "IRED_EVIDENCE_BACKOFF_V1",
+  "frozen_before_target_reveal": true,
+  "primary_domain": "ALL_4178_OFFICIAL_TEST_ROWS",
+  "rules": [
+    {
+      "condition": "all_main_supported AND any_internal_pair_supported",
+      "prediction": "V8_3_ADAPTIVE_ROUTER"
+    },
+    {
+      "condition": "all_main_supported AND NOT any_internal_pair_supported",
+      "prediction": "B2_ADDITIVE"
+    },
+    {
+      "condition": "NOT all_main_supported",
+      "prediction": "FIT_TRAIN_GLOBAL_MEAN"
+    }
+  ],
+  "tie_break": "STABLE_SOURCE_ORDER",
+  "no_target_aware_choice": true,
+  "strict_scoreable_subset_role": "DIAGNOSTIC_ONLY",
+  "scientific_retuning": false
+}
