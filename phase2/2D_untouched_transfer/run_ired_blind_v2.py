@@ -35,6 +35,31 @@ def sha256_predictions(frame: pd.DataFrame) -> str:
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
+def apply_abstention_v2(
+    router_raw: np.ndarray,
+    scoreable: np.ndarray,
+) -> tuple[np.ndarray, float]:
+    router_raw = np.asarray(router_raw, dtype=float)
+    scoreable = np.asarray(scoreable, dtype=bool)
+    if router_raw.shape != scoreable.shape:
+        raise ValueError("router_raw and scoreable must have the same shape.")
+
+    finite_scoreable = router_raw[scoreable]
+    if len(finite_scoreable) == 0 or not np.isfinite(finite_scoreable).all():
+        raise RuntimeError(
+            "No finite frozen-router scores for scoreable IRED test rows."
+        )
+
+    abstention_floor = float(np.min(finite_scoreable) - 1.0)
+    prediction = router_raw.copy()
+    prediction[~scoreable] = abstention_floor
+    if not np.isfinite(prediction).all():
+        raise RuntimeError(
+            "Full-test abstention ranking contains non-finite values."
+        )
+    return prediction, abstention_floor
+
+
 def evaluate_complete_test(target: np.ndarray, prediction: np.ndarray) -> dict:
     if len(target) != len(prediction) or len(target) == 0:
         raise ValueError("Target/prediction length mismatch or empty test.")
@@ -154,17 +179,12 @@ def run(source_gz: Path, output_dir: Path) -> dict:
         )
 
     router_raw = scored["V8_3_ADAPTIVE_ROUTER"].to_numpy(dtype=float)
-    finite_scoreable = router_raw[runtime_scoreable]
-    if len(finite_scoreable) == 0 or not np.isfinite(finite_scoreable).all():
-        raise RuntimeError("No finite frozen-router scores for scoreable IRED test rows.")
-
-    abstention_floor = float(np.min(finite_scoreable) - 1.0)
-    prediction = router_raw.copy()
-    prediction[~runtime_scoreable] = abstention_floor
+    prediction, abstention_floor = apply_abstention_v2(
+        router_raw,
+        runtime_scoreable,
+    )
 
     target = test_frame["target"].to_numpy(dtype=float)
-    if not np.isfinite(prediction).all():
-        raise RuntimeError("Full-test abstention ranking contains non-finite values.")
 
     metrics = evaluate_complete_test(target, prediction)
 
