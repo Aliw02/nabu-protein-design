@@ -507,37 +507,77 @@ Results belong in:
 
 ---
 
-# 2D — Freeze + Untouched Transfer
+# 2D — Freeze + Untouched External Benchmark
 
 ## Goal
 
-Freeze the final Phase-2 design/acquisition system and test it once on an untouched landscape.
+Freeze the final Phase-2 design/acquisition system and evaluate it on reserved external datasets that have not participated in development.
 
-### Before reveal
+The authoritative protocol is:
+
+`phase2/FINAL_VALIDATION_PROTOCOL.md`
+
+The machine-readable dataset status is:
+
+`phase2/BENCHMARK_LEDGER.json`
+
+### Development datasets are excluded from final PASS
+
+RhlA, GB1, TrpB, PhoQ, PHOT, eqFP611, CreiLOV and CR9114-H1 remain part of the cumulative evidence record, but they do not count as blind final evidence because they have already influenced development or interpretation.
+
+### Reserved final benchmarks
+
+Primary direct head-to-head:
+
+- FLIP AAV/Random;
+- published retrospective Bayesian-optimization comparison against greedy, UCB, Thompson Sampling and random;
+- use the same candidate pool, initial folds, measurement checkpoints and oracle;
+- primary winner metric: area under Top-100 recovery versus measurements.
+
+Secondary external transfer:
+
+- FLIP2 IRED two-to-many;
+- train domain: 0–2 mutations;
+- test domain: higher-order variants;
+- report Spearman, NDCG, enrichment and regret against published FLIP2 baselines where directly comparable.
+
+### Before any blind target labels are loaded
 
 Freeze:
 
-- architecture;
+- 2C architecture;
+- maturity gate;
 - acquisition policy;
 - batch schedule;
 - assembly rules;
 - reference constraints;
 - aggregation policy;
 - metrics;
+- winner rule;
 - success criteria;
-- random seeds / deterministic tie-breaking;
+- random seeds / folds;
+- deterministic tie-breaking;
 - source hashes;
 - candidate/selection manifests.
 
+Adapters for blind datasets must be debugged on synthetic/development fixtures only.
+
 ### After reveal
 
-No retuning of the reported Phase-2 system on the untouched landscape.
+No scientific retuning is allowed.
 
-If it fails, record the failure and move improvements to a later version.
+Only demonstrably label-independent implementation bug fixes may be made, and each such fix requires:
+
+- preservation of the failed run;
+- a new version;
+- an audit note;
+- complete rerun.
+
+The direct benchmark winner must be reported from the preregistered primary metric. If uncertainty prevents a meaningful distinction, report a tie/unresolved result rather than changing the metric.
 
 Results belong in:
 
-`phase2/2D_untouched_transfer/results/`
+`phase2/2D_untouched_transfer/results/final_blind/`
 
 ---
 
@@ -590,10 +630,10 @@ Each section has its own `results/` directory. Never dump all Phase-2 outputs in
 
 # Immediate next step
 
-The first implementation task is **2A.0 Campaign Simulator and Oracle Isolation**.
+The current implementation task is **2C — Assembly + Acquisition**.
 
-Do not start the adaptive controller yet.
+2C must be completed and frozen using development datasets only.
 
-First prove that we have a leak-free, deterministic, replayable closed-loop engine around the frozen V8.3 package.
+Do not download or inspect target labels from the reserved AAV/Random or FLIP2 IRED final benchmarks before the 2C freeze commit exists.
 
-Only after 2A.0 passes should we implement and compare acquisition policies.
+After 2C freezes, execute the preregistered 2D blind benchmark exactly as specified in `FINAL_VALIDATION_PROTOCOL.md`.
