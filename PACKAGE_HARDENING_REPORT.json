@@ -1,11 +1,20 @@
 {
-  "version": "NABU_V8_3_PACKAGE_HARDENING_REPORT_V1",
-  "status": "ENGINEERING_HARDENING_PASS_READY_FOR_REVIEW",
+  "version": "NABU_V8_3_PACKAGE_HARDENING_REPORT_V2",
+  "status": "ENGINEERING_HARDENING_PASS_DRAFT_PR_REVIEW_READY",
   "phase2_branch_created": false,
   "repository": "Aliw02/nabu-protein-design",
   "base_main_commit": "c2cae3ccc39833e22e5606e1378136908e3241b9",
   "engineering_branch": "engineering/v8-3-package-hardening",
-  "engineering_head_before_report": "8a6331f41f6dda80d798ac6bc7ea2f32e3f8cec5",
+  "validated_head_before_report": "78018e6b00a55eb0cc384b91942963d3c14475e8",
+  "report_is_documentation_only": true,
+  "review_pull_request": {
+    "number": 6,
+    "url": "https://github.com/Aliw02/nabu-protein-design/pull/6",
+    "draft": true,
+    "mergeable": true,
+    "base": "main",
+    "head": "engineering/v8-3-package-hardening"
+  },
   "canonical_frozen_core": {
     "branch": "freeze/nabu-v8-3-dual-objective-router-validated",
     "commit": "c8afdcd7698231d95a39ef13a3fe22b6e3f507c5",
@@ -32,8 +41,14 @@
       "unique candidate IDs",
       "unique canonical mutation rows",
       "mutation-token validation",
-      "mutation-set canonical ordering"
-    ]
+      "mutation-set canonical ordering",
+      "single substitution per residue position",
+      "1-based positive residue positions",
+      "no no-op substitutions",
+      "None and blank candidate-ID rejection while preserving historical CSV NaN stringification"
+    ],
+    "stable_empty_scoring_schema": true,
+    "candidate_id_fold_semantics_documented": true
   },
   "parity": {
     "synthetic_exact_frozen_implementation": "PASS",
@@ -80,13 +95,17 @@
     }
   },
   "ci_evidence": {
-    "package_hardening_latest_pre_report": {
-      "run_id": 36124360150,
-      "head_sha": "8a6331f41f6dda80d798ac6bc7ea2f32e3f8cec5",
-      "conclusion": "success"
+    "package_hardening": {
+      "run_id": 36125329996,
+      "head_sha": "78018e6b00a55eb0cc384b91942963d3c14475e8",
+      "event": "pull_request",
+      "conclusion": "success",
+      "tests": "20 passed"
     },
     "external_historical_parity": {
-      "run_id": 36124159476,
+      "run_id": 36125330038,
+      "head_sha": "78018e6b00a55eb0cc384b91942963d3c14475e8",
+      "event": "pull_request",
       "conclusion": "success",
       "datasets": [
         "PHOT",
@@ -96,7 +115,9 @@
       ]
     },
     "cr9114_final_core_parity": {
-      "run_id": 36124159474,
+      "run_id": 36125329939,
+      "head_sha": "78018e6b00a55eb0cc384b91942963d3c14475e8",
+      "event": "pull_request",
       "conclusion": "success"
     }
   },
@@ -115,28 +136,28 @@
     "historical_environment_reconstruction_claimed": false
   },
   "ci_policy": {
-    "historical_workflows_target_deleted_exp_branches": false,
     "historical_validation_writes_to_repository": false,
     "historical_validation_outputs_are_ephemeral_artifacts": true,
-    "heavy_parity_runs_on_core_review_or_main_and_manual": true
+    "package_suite_runs_on_main_engineering_and_pull_requests": true,
+    "heavy_parity_runs_on_main_pull_requests_and_manual": true
   },
   "repository_audit": {
     "repository_map": "REPOSITORY_MAP.md",
-    "comparison_base": "c2cae3ccc39833e22e5606e1378136908e3241b9",
-    "comparison_head": "8a6331f41f6dda80d798ac6bc7ea2f32e3f8cec5",
-    "changed_files": 30,
+    "changed_files_in_draft_pr": 31,
     "historical_experiment_files_changed": 0,
     "sealed_input_files_changed": 0,
     "historical_result_files_changed": 0,
-    "tracked_hidden_truth_or_sealed_label_files_added": 0
+    "tracked_hidden_truth_or_sealed_label_files_added": 0,
+    "physical_legacy_artifact_relocation_deferred": true
   },
   "legal_metadata": {
     "package_license_consistent_with_repository": true,
     "license": "Proprietary / All Rights Reserved"
   },
   "remaining_before_merge": [
-    "Review this hardening branch as an engineering change set.",
-    "Do not create a Phase-2 branch until this hardening change set is accepted.",
+    "Human review of Draft PR #6.",
+    "Keep the PR draft until the engineering change set is accepted.",
+    "Do not create a Phase-2 branch until the hardening change set is accepted.",
     "Do not merge any freeze branch back into main."
   ]
 }
