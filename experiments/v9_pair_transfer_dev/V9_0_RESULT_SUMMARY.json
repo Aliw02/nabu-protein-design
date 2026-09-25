@@ -1,0 +1,86 @@
+{
+  "version": "NABU_V9_0_PAIR_TRANSFER_DEV_V2",
+  "status": "REJECTED_DEVELOPMENT_HYPOTHESIS",
+  "phase3_opened": false,
+  "frozen_v83_unchanged": true,
+  "source_sha256": "aa45a2f85fb1af87b6b0e86397b3f8f292a061dc574be2536673b5bd490b0e74",
+  "split": {
+    "fit": 3746,
+    "validation": 662,
+    "test": 4178
+  },
+  "coverage": {
+    "all_main_supported": 3648,
+    "strict_v83_scoreable": 131,
+    "non_strict_transfer_region": 3517
+  },
+  "metrics": {
+    "phase2_abstention": {
+      "spearman": -0.021770573158261506,
+      "ndcg": 0.9426983698477696,
+      "top1_hits": 0,
+      "normalized_regret": 0.23152235169646065
+    },
+    "b2_main_only": {
+      "spearman": 0.1699713865842453,
+      "ndcg": 0.956089633855261,
+      "top1_hits": 3,
+      "normalized_regret": 0.06470164950247742
+    },
+    "v9_pair_transfer": {
+      "spearman": 0.09519204788811461,
+      "ndcg": 0.9476372228819965,
+      "top1_hits": 0,
+      "normalized_regret": 0.2157016494720109
+    },
+    "permuted_control": {
+      "spearman": 0.08614438388851126,
+      "ndcg": 0.9440795935264988,
+      "top1_hits": 0,
+      "normalized_regret": 0.2176459052136837
+    }
+  },
+  "non_strict_spearman": {
+    "b2": 0.1859297219110677,
+    "v9": 0.1014947272240323
+  },
+  "validation_spearman": {
+    "b2": 0.3213704524780877,
+    "v9": 0.26074493496076884
+  },
+  "factorization": {
+    "double_rows": 2708,
+    "nodes": 1298,
+    "parameters": 1299,
+    "design_rank": 1290
+  },
+  "ci": [
+    {
+      "run": 36195301072,
+      "artifact": 10890505328,
+      "digest": "sha256:bd662551c89037f30bf10a217876661ce94a06f5a85320b5c001782d09e19914"
+    },
+    {
+      "run": 36195319675,
+      "artifact": 10889661516,
+      "digest": "sha256:b903aee6a24aae0c5da8d7ea8973ee66e15f0199cc1aa5c27a354e47be6e2c07"
+    },
+    {
+      "run": 36195648704,
+      "artifact": 10890461127,
+      "digest": "sha256:676d7a2e513562f99ce6b4b1c883fdde7593316ca7e3a07fbf621f67dba867fa"
+    },
+    {
+      "run": 36195665646,
+      "artifact": 10890491085,
+      "digest": "sha256:ddf947839a7cb48f039893d81ee266c493b96a9562ebce740e46a7fbae68f804"
+    },
+    {
+      "run": 36195668525,
+      "artifact": 10889497219,
+      "digest": "sha256:b20220ae1c9d8c2fa9383e89d0d72030bb00afdd8e828dded888a3d9b16dbf15"
+    }
+  ],
+  "decision": "DO_NOT_PROMOTE_V9_0",
+  "next": "V9_1_GRACEFUL_EVIDENCE_DEPTH_ROUTER"
+}
