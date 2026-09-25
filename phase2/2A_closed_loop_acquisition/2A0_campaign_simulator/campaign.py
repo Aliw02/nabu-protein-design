@@ -391,7 +391,7 @@ class CampaignSimulator:
             "candidate_ids": selected_ids,
             "selection_sha256_before_label_reveal": selection_hash,
             "crossfit_fold_counts": fold_counts,
-            "truth_loaded_before_selection_freeze": False,
+            "truth_exposed_to_policy_before_selection_freeze": False,
         }
         self._write_json("bootstrap/selection_before_reveal.json", pre_reveal)
 
@@ -512,7 +512,7 @@ class CampaignSimulator:
                 "selection_sha256_before_label_reveal": frozen.selection_sha256,
                 "measurements_before_reveal": frozen.measurements_before_reveal,
                 "router_mode_before_reveal": frozen.router_mode_before_reveal,
-                "truth_loaded_before_selection_freeze": False,
+                "truth_exposed_to_policy_before_selection_freeze": False,
             },
         )
         return frozen
