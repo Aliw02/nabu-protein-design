@@ -1,37 +1,67 @@
-# 2C — Assembly + Acquisition
+# 2C — Assembly + Acquisition Development Benchmark
 
-This stage combines the two Phase-2 mechanisms for the first time.
+Phase 2C combines the validated Phase-2 acquisition loop with the reference-aware CandidateAssembler.
 
-Development POC:
+This stage is a **retrospective development benchmark**, not a POC and not the final blind evaluation.
 
-- GB1 Wu 2016;
-- true GB1 reference sequence;
-- mutable sites V39, D40, G41 and V54;
-- supplied identity-only reservoir of 2048 variants;
-- 64-measurement shared bootstrap;
-- 256-measurement final budget;
-- batch size 8.
+## Development suite
+
+The exact same protocol is applied to:
+
+- GB1, reference genotype `VDGV`;
+- TrpB, reference genotype `VFVS`;
+- PhoQ, reference genotype `AVST`.
+
+The controller and gate do not inspect the landscape name.
+
+## Protocol
+
+Per landscape:
+
+- assay universe: all measured variants with finite fitness;
+- supplied reservoir: 2048 identities selected without fitness;
+- bootstrap: 64;
+- final measurement budget: 256;
+- batch size: 8;
+- assembly target: triple mutants;
+- beam width: 256;
+- proposal frontier: 1024;
+- maturity support threshold: 2.
 
 ## Maturity gate
 
-Assembly is not enabled by a fixed measurement percentage.
+Assembly does not activate at a fixed measurement percentage.
 
-The gate opens only when CandidateAssembler V1 can provide a complete batch of novel-to-reservoir, assayable triple-mutant proposals for which:
+A proposal is mature only when:
 
-- every main mutation has support >= 2;
-- every internal pair has support >= 2.
+- it is valid against the four-site reference;
+- it is unmeasured;
+- it is outside the supplied reservoir;
+- it is assayable in the retrospective universe;
+- every mutation has main support >= 2;
+- every internal pair has pair support >= 2.
 
-## Controls
+The gate opens when at least eight mature proposals exist and remains open thereafter.
 
-- random only;
-- historical 50/50 acquisition only;
-- random then gated assembly;
-- historical 50/50 acquisition then gated assembly.
+## Conditions
 
-At the first gate-open state, a state-matched assembly-vs-acquisition batch ablation is also frozen before virtual truth lookup.
+- `random_only`
+- `acquisition_only`
+- `random_then_gated_assembly`
+- `acquisition_then_gated_assembly`
+
+The primary combined system is `acquisition_then_gated_assembly`.
+
+At its first gate-open state, the benchmark freezes a same-state historical-50/50 acquisition batch and an assembly batch before either truth lookup, then reports their diagnostic outcomes separately.
+
+## Integrity
+
+Every selected batch is hashed before reveal.
+
+The primary combined campaign is replayed independently on every landscape and its full selection transcript SHA256 must match.
 
 ## Final boundary
 
-GB1 is development-only evidence.
+A 2C PASS remains development evidence.
 
-The reserved blind AAV and IRED benchmarks remain quarantined until 2C is frozen.
+AAV/Random and FLIP2 IRED remain quarantined until the entire 2C system is frozen for Phase 2D.
