@@ -13,7 +13,8 @@ The machine-readable benchmark classification is in `BENCHMARK_LEDGER.json`.
 - 2A.2: micro-batch cadence ablation on RhlA.
 - 2A.3: adaptive-controller V1/V2 development on RhlA.
 - 2A.4: multi-landscape acquisition evaluation on GB1, TrpB and PhoQ.
-- 2B: reference-aware candidate assembly and evidence-maturity analysis on RhlA.\n- 2C V3: dynamic maturity-gated assembly + acquisition benchmark on GB1, TrpB and PhoQ; development verdict PASS.
+- 2B: reference-aware candidate assembly and evidence-maturity analysis on RhlA.
+- 2C V3: dynamic maturity-gated assembly + acquisition benchmark on GB1, TrpB and PhoQ; development verdict PASS.
 
 These results remain part of the total scientific record but cannot be used as final blind evidence.
 
@@ -40,21 +41,61 @@ Examples already retained:
 
 - 2A.3 V1 underperformance;
 - 2A.4 PhoQ failure case;
-- 2B weak 5% and 10% assembly quality.\n- 2C multilandscape V1 permanent-latch engineering failure.\n- earlier GB1-only 2C V1/V2 attempts, retained but superseded for current 2C status by multilandscape V3.
+- 2B weak 5% and 10% assembly quality.
+- 2C multilandscape V1 permanent-latch engineering failure.
+- earlier GB1-only 2C V1/V2 attempts, retained but superseded for current 2C status by multilandscape V3.
 
 ## Final blind evidence
 
-Reserved and not yet loaded:
+Phase 2D has been executed under the frozen Phase-2C V3 protocol.
 
-1. FLIP AAV/Random — direct published active-optimization head-to-head.
-2. FLIP2 IRED two-to-many — higher-order transfer challenge.
+### AAV/Random
 
-The final blind outputs will be stored under:
+- status: **ADAPTER_SCOPE_FAIL — LABEL BLIND**;
+- identity-preflight workflow: `36164741113`;
+- identity-preflight artifact: `10876827869`;
+- artifact digest: `sha256:c6ed4dcd89258edf37886d21a2cdb95964a8457a88c3a0eefa1c668fb1279132`;
+- published BO pool: 59,459 identities;
+- representable by frozen Phase-2 semantics: 27,018 (45.44%);
+- unrepresentable: 32,441;
+- target labels revealed: **no**;
+- primary published AAV head-to-head executed: **no**.
 
-`phase2/2D_untouched_transfer/results/final_blind/`
+The preregistered no-subsetting rule was preserved.
 
-and will not replace any development results.
+### FLIP2 IRED two-to-many
 
+- status: **BLIND RESULT COMPLETE — NEGATIVE HIGHER-ORDER TRANSFER**;
+- workflow run: `36165359008`;
+- execution head: `5c4b55e60bb0ccca769194e78095051e7023b9d2`;
+- artifact ID: `10877951045`;
+- artifact digest: `sha256:32e9b34d6bc7453a54ac1699c5d22a8516185d925a822152f2538770bb22a461`;
+- source SHA256: `aa45a2f85fb1af87b6b0e86397b3f8f292a061dc574be2536673b5bd490b0e74`;
+- full test: 4,178 variants;
+- frozen-V8.3 scoreable: 131 (3.135%);
+- full-test Spearman: **-0.0217705732**;
+- full-test NDCG: **0.9426983698**;
+- Top-1% discoveries: **0 / 42**;
+- normalized regret at Top-1% budget: **0.2315223517**.
+
+Compact authoritative outputs:
+
+- `phase2/2D_untouched_transfer/results/final_blind/IRED_BLIND_V2_SUMMARY.json`
+- `phase2/2D_untouched_transfer/results/final_blind/PHASE2D_FINAL_VERDICT.json`
+- `phase2/2D_untouched_transfer/FINAL_VERDICT.md`
+
+Full predictions and blind-run diagnostics remain preserved in CI artifact
+`10877951045`.
+
+### Final Phase-2 scientific status
+
+Engineering integrity: **PASS**.
+
+Final scientific gate: **NOT PASSED**.
+
+The 2C V3 development PASS remains valid, but the preregistered final Phase-2
+external-validation requirements were not satisfied. No Phase-2 scientific
+retuning is permitted after these blind outcomes.
 
 ## Phase 2C V3 authoritative record
 
