@@ -545,32 +545,51 @@ def run_condition(
         )
 
         current_reservoir = reservoir_unmeasured()
-        mature, maturity_diagnostics = (
-            mature_assembly_frontier(
-                model=model,
-                vocabulary=vocabulary,
-                codec=codec,
-                measured_frame=measured,
-                reservoir_ids=reservoir_ids,
-                assay_universe_ids=universe_ids,
-                target_order=3,
-                beam_width=beam_width,
-                proposal_frontier=proposal_frontier,
-                min_support=min_support,
-            )
-        )
-        gate_open = gate.update(
-            measurements_spent=len(measured),
-            mature_count=len(mature),
-            diagnostics=maturity_diagnostics,
-        )
+        assembly_capable = condition in {
+            "random_then_gated_assembly",
+            "acquisition_then_gated_assembly",
+        }
 
-        use_assembly = (
-            condition
-            in {
-                "random_then_gated_assembly",
-                "acquisition_then_gated_assembly",
+        if assembly_capable:
+            mature, maturity_diagnostics = (
+                mature_assembly_frontier(
+                    model=model,
+                    vocabulary=vocabulary,
+                    codec=codec,
+                    measured_frame=measured,
+                    reservoir_ids=reservoir_ids,
+                    assay_universe_ids=universe_ids,
+                    target_order=3,
+                    beam_width=beam_width,
+                    proposal_frontier=proposal_frontier,
+                    min_support=min_support,
+                )
+            )
+            gate_open = gate.update(
+                measurements_spent=len(measured),
+                mature_count=len(mature),
+                diagnostics=maturity_diagnostics,
+            )
+        else:
+            mature = pd.DataFrame()
+            maturity_diagnostics = {
+                "target_order": 3,
+                "beam_width": int(beam_width),
+                "proposal_frontier": int(proposal_frontier),
+                "min_support": int(min_support),
+                "raw_proposal_count": 0,
+                "assayable_count": 0,
+                "outside_reservoir_count": 0,
+                "unmeasured_count": 0,
+                "support_mature_count": 0,
+                "mature_count": 0,
+                "assembly_trace": [],
+                "not_evaluated_for_nonassembly_control": True,
             }
+            gate_open = False
+
+        use_assembly = bool(
+            assembly_capable
             and gate_open
         )
 
