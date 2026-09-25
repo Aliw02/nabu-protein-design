@@ -97,3 +97,28 @@ def test_facade_rejects_duplicate_mutation_rows_before_crossfit():
             [1.0, 1.1],
             ["replicate-a", "replicate-b"],
         )
+
+
+def test_public_mutation_sets_are_canonicalized_before_lookup():
+    from nabu_protein.v83 import canonicalize_mutation_set
+
+    assert canonicalize_mutation_set(("C3E", "A1C", "B2D")) == (
+        "A1C",
+        "B2D",
+        "C3E",
+    )
+
+
+def test_public_mutation_set_validation_rejects_malformed_and_duplicates():
+    import pytest
+
+    from nabu_protein.v83 import canonicalize_mutation_set
+
+    with pytest.raises(ValueError, match="raw string"):
+        canonicalize_mutation_set("A1C:B2D")
+
+    with pytest.raises(ValueError, match="Invalid mutation"):
+        canonicalize_mutation_set(("A1C", "bad"))
+
+    with pytest.raises(ValueError, match="duplicate mutation"):
+        canonicalize_mutation_set(("A1C", "A1C"))
