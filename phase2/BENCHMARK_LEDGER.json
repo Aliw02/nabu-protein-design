@@ -20,7 +20,8 @@
       "counts_for_final_pass": false,
       "roles": [
         "Phase1",
-        "2A4"
+        "2A4",
+        "2C_V3_DEVELOPMENT"
       ]
     },
     {
@@ -29,7 +30,8 @@
       "counts_for_final_pass": false,
       "roles": [
         "Phase1",
-        "2A4"
+        "2A4",
+        "2C_V3_DEVELOPMENT"
       ]
     },
     {
@@ -38,7 +40,8 @@
       "counts_for_final_pass": false,
       "roles": [
         "Phase1",
-        "2A4_failure_case"
+        "2A4_failure_case",
+        "2C_V3_DEVELOPMENT"
       ]
     },
     {
@@ -110,5 +113,12 @@
     "no_target_label_use_before_freeze": true,
     "label_independent_bugfixes_after_reveal_require_versioned_rerun": true,
     "overwrite_results": false
+  },
+  "phase2c_freeze": {
+    "status": "FROZEN_PASS",
+    "version": "NABU_PHASE2C_MULTILANDSCAPE_V3",
+    "results_artifact_id": 10876390166,
+    "results_artifact_digest": "sha256:d12852968cd865775e34abd3474f04e4226e98440b70b6093e8f48763b5c152d",
+    "blind_data_loaded_before_freeze": false
   }
 }
