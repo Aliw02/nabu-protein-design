@@ -353,6 +353,23 @@ def run(source_gz: Path, output_dir: Path) -> dict:
     v9_prediction = np.array([value for value, _ in v9_rows], dtype=float)
     v9_diag = [diag for _, diag in v9_rows]
 
+    replay_factor = fit_pair_factorization(
+        model,
+        fit_mutations,
+        fit_target,
+        permute_targets=False,
+    )
+    replay_prediction = np.array(
+        [
+            score_v9(mutations, model, replay_factor)[0]
+            for mutations in test_mutations
+        ],
+        dtype=float,
+    )
+    deterministic_replay = bool(
+        np.array_equal(v9_prediction, replay_prediction)
+    )
+
     permuted_prediction = np.array(
         [
             score_v9(mutations, model, permuted_factor)[0]
@@ -443,6 +460,7 @@ def run(source_gz: Path, output_dir: Path) -> dict:
             and non_strict_v9 > non_strict_b2
         ),
         "finite_predictions": True,
+        "deterministic_replay": deterministic_replay,
     }
 
     diagnostics = pd.DataFrame(v9_diag)
@@ -494,6 +512,10 @@ def run(source_gz: Path, output_dir: Path) -> dict:
             name: prediction_hash(test_ids, values)
             for name, values in arms.items()
         },
+        "deterministic_replay_sha256": prediction_hash(
+            test_ids,
+            replay_prediction,
+        ),
         "decision_checks": checks,
         "development_decision": (
             "V9_PAIR_TRANSFER_PROMISING"
