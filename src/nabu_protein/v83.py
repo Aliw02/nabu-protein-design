@@ -16,6 +16,37 @@ from .router import apply_router, decide_router
 
 _MUTATION_TOKEN_RE = re.compile(r"[A-Z][0-9]+[A-Z*]")
 
+_SCORE_COLUMNS = (
+    "B2_ADDITIVE",
+    "B3_RAW_PAIR",
+    "B4_CROSSFIT_TRIPLET",
+    "B5_CROSSFIT_ADAPTIVE_HIGHER_ORDER",
+    "triplet_delta",
+    "quartet_delta",
+    "triplet_supported",
+    "quartet_supported",
+    "triplet_confidence",
+    "quartet_confidence",
+    "V8_3_ADAPTIVE_ROUTER",
+)
+
+
+def _normalize_candidate_ids(candidate_ids):
+    normalized = []
+    for value in candidate_ids:
+        if value is None or (
+            isinstance(value, (float, np.floating))
+            and np.isnan(value)
+        ):
+            raise ValueError("candidate_ids must not contain null values.")
+        text = str(value)
+        if not text.strip():
+            raise ValueError("candidate_ids must not contain blank values.")
+        normalized.append(text)
+    if len(set(normalized)) != len(normalized):
+        raise ValueError("candidate_ids must be unique.")
+    return normalized
+
 
 def canonicalize_mutation_set(mutation_set):
     """Validate and canonicalize one pre-parsed mutation collection."""
@@ -33,6 +64,28 @@ def canonicalize_mutation_set(mutation_set):
         raise ValueError(f"Invalid mutation token(s): {invalid}")
     if len(set(tokens)) != len(tokens):
         raise ValueError("mutation_set contains duplicate mutation tokens.")
+
+    parsed = [
+        (int(token[1:-1]), token[0], token[-1], token)
+        for token in tokens
+    ]
+    if any(position < 1 for position, _, _, _ in parsed):
+        raise ValueError("mutation positions must be 1-based positive integers.")
+
+    positions = [position for position, _, _, _ in parsed]
+    if len(set(positions)) != len(positions):
+        raise ValueError(
+            "mutation_set contains multiple substitutions at the same residue position."
+        )
+
+    no_ops = [
+        token
+        for _, source, target, token in parsed
+        if target != "*" and source == target
+    ]
+    if no_ops:
+        raise ValueError(f"Mutation token(s) do not change residue state: {no_ops}")
+
     return tuple(
         sorted(
             tokens,
@@ -66,7 +119,7 @@ class NabuV83Model:
 
     def fit(self, mutation_sets, labels, candidate_ids):
         mutation_sets = list(mutation_sets)
-        candidate_ids = [str(x) for x in candidate_ids]
+        candidate_ids = _normalize_candidate_ids(candidate_ids)
         labels = np.asarray(labels, dtype=float)
 
         if not (
@@ -79,8 +132,6 @@ class NabuV83Model:
             raise ValueError("At least one visible candidate is required.")
         if not np.isfinite(labels).all():
             raise ValueError("labels must contain only finite numeric values.")
-        if len(set(candidate_ids)) != len(candidate_ids):
-            raise ValueError("candidate_ids must be unique.")
         canonical_sets = [
             canonicalize_mutation_set(ms)
             for ms in mutation_sets
@@ -113,14 +164,11 @@ class NabuV83Model:
             canonicalize_mutation_set(ms)
             for ms in mutation_sets
         ]
-        candidate_ids = [str(x) for x in candidate_ids]
+        candidate_ids = _normalize_candidate_ids(candidate_ids)
         if len(mutation_sets) != len(candidate_ids):
             raise ValueError(
                 "mutation_sets and candidate_ids must have equal length."
             )
-        if len(set(candidate_ids)) != len(candidate_ids):
-            raise ValueError("candidate_ids must be unique.")
-
         frame = pd.DataFrame(
             {
                 "candidate_id": candidate_ids,
@@ -136,7 +184,8 @@ class NabuV83Model:
 
         scoreable = frame[frame["scoreable"]].copy()
         if scoreable.empty:
-            frame["V8_3_ADAPTIVE_ROUTER"] = np.nan
+            for column in _SCORE_COLUMNS:
+                frame[column] = np.nan
             return frame
 
         rows = [
