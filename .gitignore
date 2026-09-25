@@ -75,3 +75,7 @@ rhla_sample_efficiency_sealed_input/.HIDDEN_TRIPLE_TRUTH.sealed.csv
 bnAbs_CR9114_H1_clean.xlsx
 cr9114_h1_final_gate_sealed_input/.TRAINING_LABELS.sealed.csv
 cr9114_h1_final_gate_sealed_input/.HIDDEN_4_5_TRUTH.sealed.csv
+
+# Phase 2 intermediate baseline campaign run logs
+phase2/2A_closed_loop_acquisition/2A1_baselines/results/rhla_baseline_tournament/*/
+
