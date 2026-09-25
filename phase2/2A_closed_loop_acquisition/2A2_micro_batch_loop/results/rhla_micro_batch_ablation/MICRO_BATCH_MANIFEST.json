@@ -164,7 +164,7 @@
       "refits_after_bootstrap": 8,
       "max_batch_size": 32,
       "final_best_true_fitness": 0.7064209323835852,
-      "final_regret": 0,
+      "final_regret": 0.0,
       "final_top1_hits": 3,
       "acquired_top1_hits_after_bootstrap": 3,
       "first_top1_measurement": 273,
@@ -179,7 +179,7 @@
       "refits_after_bootstrap": 16,
       "max_batch_size": 16,
       "final_best_true_fitness": 0.7064209323835852,
-      "final_regret": 0,
+      "final_regret": 0.0,
       "final_top1_hits": 3,
       "acquired_top1_hits_after_bootstrap": 3,
       "first_top1_measurement": 113,
@@ -194,7 +194,7 @@
       "refits_after_bootstrap": 31,
       "max_batch_size": 8,
       "final_best_true_fitness": 0.7064209323835852,
-      "final_regret": 0,
+      "final_regret": 0.0,
       "final_top1_hits": 5,
       "acquired_top1_hits_after_bootstrap": 5,
       "first_top1_measurement": 105,
@@ -209,7 +209,7 @@
       "refits_after_bootstrap": 61,
       "max_batch_size": 4,
       "final_best_true_fitness": 0.7064209323835852,
-      "final_regret": 0,
+      "final_regret": 0.0,
       "final_top1_hits": 3,
       "acquired_top1_hits_after_bootstrap": 3,
       "first_top1_measurement": 193,
@@ -219,11 +219,5 @@
       "final_visible_b3_oof_spearman": 0.5335251147444585
     }
   ],
-  "interpretation_rule": "Differences among rows isolate refit cadence under the same historical 50/50 acquisition rule. Do not infer a universal optimal batch size from RhlA alone.",
-  "ci_validation": {
-    "workflow_run_id": 36134786351,
-    "head_sha": "161c6691d61c5308e7e79b791fee9cba3fd43060",
-    "tests_passed": 15,
-    "status": "PASS"
-  }
+  "interpretation_rule": "Differences among rows isolate refit cadence under the same historical 50/50 acquisition rule. Do not infer a universal optimal batch size from RhlA alone."
 }

@@ -76,6 +76,8 @@ bnAbs_CR9114_H1_clean.xlsx
 cr9114_h1_final_gate_sealed_input/.TRAINING_LABELS.sealed.csv
 cr9114_h1_final_gate_sealed_input/.HIDDEN_4_5_TRUTH.sealed.csv
 
-# Phase 2 intermediate baseline campaign run logs
+# Phase 2 intermediate campaign run logs
 phase2/2A_closed_loop_acquisition/2A1_baselines/results/rhla_baseline_tournament/*/
+phase2/2A_closed_loop_acquisition/2A2_micro_batch_loop/results/rhla_micro_batch_ablation/*/
+
 
