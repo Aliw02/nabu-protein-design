@@ -101,3 +101,77 @@ def test_packaged_v83_reproduces_frozen_stage_a_scores(case):
     ).head(50)["candidate_id"].astype(str).tolist()
 
     assert actual_top50 == expected_top50
+
+
+def test_packaged_v83_reproduces_rhla_frozen_budget_scores():
+    from nabu_protein.higher_order import fnv1a32
+
+    training = pd.read_csv(
+        ROOT / "rhla_sample_efficiency_sealed_input/TRAINING_POOL.csv"
+    )
+    expected = pd.read_csv(
+        ROOT
+        / "nabu_v8_3_rhla_sample_efficiency_stage_a"
+        / "ALL_BUDGET_PREDICTIONS.csv"
+    )
+    manifest = json.loads(
+        (
+            ROOT
+            / "nabu_v8_3_rhla_sample_efficiency_stage_a"
+            / "STAGE_A_MANIFEST.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    ordered = training.copy()
+    ordered["_budget_hash"] = ordered["candidate_id"].map(
+        lambda cid: fnv1a32("BUDGET|" + str(cid))
+    )
+    ordered = ordered.sort_values(
+        ["_budget_hash", "candidate_id"],
+        ascending=[True, True],
+    ).reset_index(drop=True)
+
+    for percent in (5, 10, 20, 40):
+        count = int(manifest["budget_counts"][str(percent)])
+        visible = ordered.head(count).copy()
+
+        model = NabuV83Model().fit(
+            visible["mutant"].map(parse_mutations).tolist(),
+            visible["DMS_score"].to_numpy(dtype=float),
+            visible["candidate_id"].astype(str).tolist(),
+        )
+
+        expected_router = manifest["router_by_budget"][str(percent)]["mode"]
+        assert model.router_decision["mode"] == expected_router
+
+        actual = model.score_candidates(
+            expected["mutant"].map(parse_mutations).tolist(),
+            expected["candidate_id"].astype(str).tolist(),
+        )
+        assert bool(actual["scoreable"].all())
+
+        prefix = f"P{percent:02d}"
+        mapping = {
+            f"{prefix}_B3": "B3_RAW_PAIR",
+            f"{prefix}_B4": "B4_CROSSFIT_TRIPLET",
+            f"{prefix}_B5": "B5_CROSSFIT_ADAPTIVE_HIGHER_ORDER",
+            f"{prefix}_V83": "V8_3_ADAPTIVE_ROUTER",
+        }
+
+        merged = expected[
+            ["candidate_id", *mapping.keys()]
+        ].merge(
+            actual[["candidate_id", *mapping.values()]],
+            on="candidate_id",
+            how="inner",
+            validate="one_to_one",
+        )
+        assert len(merged) == len(expected) == len(actual)
+
+        for expected_column, actual_column in mapping.items():
+            np.testing.assert_allclose(
+                merged[actual_column].to_numpy(dtype=float),
+                merged[expected_column].to_numpy(dtype=float),
+                rtol=1e-13,
+                atol=1e-13,
+            )
