@@ -274,3 +274,39 @@ The Phase-2C development PASS remains valid. Any architecture that adds insertio
 semantics, changes scoreability, or introduces a new evidence-backoff mechanism
 must be versioned as new research rather than used to retune the frozen Phase-2
 claim.
+
+
+## 2D final result
+
+Authoritative IRED blind run:
+
+- workflow run: `36165359008`;
+- execution head: `5c4b55e60bb0ccca769194e78095051e7023b9d2`;
+- artifact ID: `10877951045`;
+- artifact digest: `sha256:32e9b34d6bc7453a54ac1699c5d22a8516185d925a822152f2538770bb22a461`;
+- source SHA256: `aa45a2f85fb1af87b6b0e86397b3f8f292a061dc574be2536673b5bd490b0e74`.
+
+IRED full official test set:
+
+- fit/train: 3,746;
+- held-out validation: 662;
+- test: 4,178;
+- strict frozen-V8.3 scoreable: 131 / 4,178 (3.135%);
+- full-test Spearman under the preregistered `IRED_ABSTENTION_V2` policy: **-0.021771**;
+- full-test NDCG: **0.942698**;
+- Top-1% recovery: **0 / 42**;
+- normalized regret at Top-1% budget: **0.231522**.
+
+The strict 131-row scoreable subset is diagnostic only:
+
+- Spearman: 0.119388;
+- NDCG: 0.877181.
+
+AAV/Random label-blind preflight:
+
+- published BO pool: 59,459;
+- representable under frozen NABU grammar: 27,018 (45.44%);
+- unrepresentable: 32,441;
+- target labels revealed: **no**.
+
+The preregistered no-silent-subsetting rule therefore blocked the AAV head-to-head.
