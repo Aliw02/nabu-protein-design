@@ -44,9 +44,22 @@ jobs:
         run: |
           python             phase2/2A_closed_loop_acquisition/2A3_adaptive_controller/run_adaptive_controller_ablation.py             --out .ci_artifacts/phase2_2a3_rhla_controller_v1
 
-      - name: Upload controller artifacts
+      - name: Run RhlA relative-evidence controller V2 ablation
+        run: |
+          python \
+            phase2/2A_closed_loop_acquisition/2A3_adaptive_controller/run_relative_controller_v2_ablation.py \
+            --out .ci_artifacts/phase2_2a3_rhla_controller_v2
+
+      - name: Upload V1 controller artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: nabu-phase2-2a3-rhla-controller-v1
           path: .ci_artifacts/phase2_2a3_rhla_controller_v1
+
+      - name: Upload V2 controller artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nabu-phase2-2a3-rhla-controller-v2
+          path: .ci_artifacts/phase2_2a3_rhla_controller_v2
