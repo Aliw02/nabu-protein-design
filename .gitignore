@@ -85,3 +85,7 @@ phase2/2A_closed_loop_acquisition/2A2_micro_batch_loop/results/rhla_micro_batch_
 # Phase 2C pinned development download
 .phase2c_data/
 phase2/2C_assembly_plus_acquisition/results/gb1_gated_v2_local/
+
+# Phase 2D local blind-source and output workspace
+.phase2d_blind_source/
+.phase2d_local/
