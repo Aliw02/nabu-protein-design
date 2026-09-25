@@ -6,12 +6,11 @@ on:
       - phase2/roadmap-scaffold
     paths:
       - ".github/workflows/phase2-2d-ired-blind-v2.yml"
-      - "phase2/2D_untouched_transfer/run_ired_blind_v2.py"
-      - "phase2/2D_untouched_transfer/ired_scoreability_preflight.py"
-      - "phase2/2D_untouched_transfer/tests/**"
-      - "phase2/2D_untouched_transfer/FROZEN_PROTOCOL.json"
-      - "phase2/2D_untouched_transfer/IRED_BLIND_POLICY_STATUS.md"
   workflow_dispatch:
+
+concurrency:
+  group: phase2d-ired-blind-v2
+  cancel-in-progress: true
 
 permissions:
   contents: read
