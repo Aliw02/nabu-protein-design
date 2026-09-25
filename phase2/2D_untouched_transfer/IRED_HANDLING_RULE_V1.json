@@ -1,0 +1,28 @@
+{
+  "version": "NABU_PHASE2D_IRED_HANDLING_V1",
+  "frozen_before_target_reveal": true,
+  "identity_preflight_source_sha256": "aa45a2f85fb1af87b6b0e86397b3f8f292a061dc574be2536673b5bd490b0e74",
+  "official_test_count": 4178,
+  "frozen_v83_scoreable_count": 131,
+  "frozen_v83_scoreable_fraction": 0.03135471517472475,
+  "primary_full_test_status": "MODEL_SCOPE_FAIL",
+  "reason": "Frozen V8.3 requires every mutation to have main support and at least one internal pair to have pair support. Only 131/4178 official IRED test identities satisfy this identity-only structural rule.",
+  "full_test_prediction_policy": "NO_IMPUTATION_NO_FALLBACK",
+  "silent_test_subsetting": false,
+  "phase2_architecture_changes_allowed": false,
+  "target_reveal_allowed_for_diagnostic": true,
+  "diagnostic_population": "the exact identity-only frozen-V8.3 scoreable test subset",
+  "diagnostic_metrics": [
+    "SPEARMAN_SCOREABLE_SUBSET",
+    "NDCG_SCOREABLE_SUBSET_FLIP2_DEFINITION",
+    "GLOBAL_TOP1_PERCENT_SUPPORT_RECALL",
+    "BEST_SCOREABLE_NORMALIZED_REGRET_VS_GLOBAL_TEST_BEST",
+    "PREDICTED_TOP1_NORMALIZED_REGRET_VS_GLOBAL_TEST_BEST"
+  ],
+  "ndcg_definition": "sklearn.metrics.ndcg_score; if any diagnostic y_true is negative, shift all y_true by subtracting min(y_true); predictions are unshifted ranking scores",
+  "candidate_id_rule": "SHA256 uppercase amino-acid sequence",
+  "fit_rule": "set == train AND validation != True",
+  "validation_rule": "validation == True excluded from fit and never used for tuning",
+  "test_rule": "set == test",
+  "result_interpretation": "Diagnostic subset metrics do not convert MODEL_SCOPE_FAIL into a Phase-2D PASS and are not directly comparable to published full-test FLIP2 baselines."
+}
