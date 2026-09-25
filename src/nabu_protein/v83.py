@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 
 from .higher_order import fit_crossfitted_hierarchy, score_hierarchy
-from .router import apply_router
+from .router import apply_router, decide_router
 
 
 def is_scoreable(mutation_set, model) -> bool:
@@ -66,21 +66,10 @@ class NabuV83Model:
         self.visible_ids = candidate_ids
         self.visible_labels = labels
 
-        dummy = pd.DataFrame(
-            {
-                "candidate_id": ["DUMMY"],
-                "B3_RAW_PAIR": [0.0],
-                "B5_CROSSFIT_ADAPTIVE_HIGHER_ORDER": [0.0],
-            }
-        )
-        self.router_decision = apply_router(
-            dummy,
+        self.router_decision = decide_router(
             self.model,
             self.visible_ids,
             self.visible_labels,
-            "B3_RAW_PAIR",
-            "B5_CROSSFIT_ADAPTIVE_HIGHER_ORDER",
-            "V8_3_ADAPTIVE_ROUTER",
         )
         return self
 
