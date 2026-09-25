@@ -1,0 +1,109 @@
+name: NABU External Historical Parity Gate
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/nabu_protein/higher_order.py"
+      - "src/nabu_protein/router.py"
+      - "src/nabu_protein/v83.py"
+      - "src/nabu_protein/metrics.py"
+      - "scripts/check_external_v83_parity.py"
+      - "scripts/check_phot_v83_parity.py"
+      - ".github/workflows/external-historical-parity.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "src/nabu_protein/higher_order.py"
+      - "src/nabu_protein/router.py"
+      - "src/nabu_protein/v83.py"
+      - "src/nabu_protein/metrics.py"
+      - "scripts/check_external_v83_parity.py"
+      - "scripts/check_phot_v83_parity.py"
+      - ".github/workflows/external-historical-parity.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  external-parity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pinned hardening environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -e . --no-deps
+
+      - name: Download pinned public sources
+        run: |
+          mkdir -p .external_parity .ci_artifacts/external_parity
+          curl -L --fail \
+            "https://raw.githubusercontent.com/rcronk/mutate/0861a3f1f6c58a9597fde689eb7f9a07b38e2638/ridge/data/gb1_wu2016_landscape.csv" \
+            -o .external_parity/gb1_raw.csv
+          curl -L --fail \
+            "https://raw.githubusercontent.com/rcronk/mutate/0861a3f1f6c58a9597fde689eb7f9a07b38e2638/ridge/data/johnston2024_trpb_landscape.csv" \
+            -o .external_parity/trpb_raw.csv
+          curl -L --fail \
+            "https://raw.githubusercontent.com/hury07/fasthit/0f9c51aa7caaab0b4618b0cab4f3107e7251091b/fasthit/landscapes/data/phoq/PhoQ.csv" \
+            -o .external_parity/phoq_raw.csv
+          curl -L --fail \
+            "https://media.githubusercontent.com/media/microsoft/InverseFoldDir/0ec24449fa050c38fbac6bbbb1659eae2fcf746e/datasets/proteingym/dms_subs/PHOT_CHLRE_Chen_2023.csv" \
+            -o .external_parity/phot_raw.csv
+          echo "f73e370f79addebf48786ecfee146ac592a9024b0772c844d5d98c7e3c140530  .external_parity/phot_raw.csv" | sha256sum --check -
+          sha256sum .external_parity/*_raw.csv | tee .ci_artifacts/external_parity/SOURCE_SHA256.txt
+
+      - name: Adapt external datasets using historical adapters
+        run: |
+          python experiments/v8_3_multilandscape_validation/prepare_four_site.py \
+            .external_parity/gb1_raw.csv \
+            --variant-column variant \
+            --fitness-column fitness \
+            --out .external_parity/GB1_Wu2016_V83.csv
+          python experiments/v8_3_multilandscape_validation/prepare_four_site.py \
+            .external_parity/trpb_raw.csv \
+            --variant-column variant \
+            --fitness-column fitness \
+            --out .external_parity/TRPB_Johnston2024_V83.csv
+          python experiments/v8_3_multilandscape_validation/prepare_four_site.py \
+            .external_parity/phoq_raw.csv \
+            --variant-column Variants \
+            --fitness-column Fitness \
+            --out .external_parity/PHOQ_V83.csv
+
+      - name: Compare packaged V8.3 with frozen historical outputs
+        run: |
+          python scripts/check_external_v83_parity.py \
+            .external_parity/GB1_Wu2016_V83.csv \
+            nabu_v8_3_multilandscape_results/GB1_V8_3_RESULTS.json \
+            --out .ci_artifacts/external_parity/GB1_PARITY.json
+          python scripts/check_external_v83_parity.py \
+            .external_parity/TRPB_Johnston2024_V83.csv \
+            nabu_v8_3_multilandscape_results/TRPB_V8_3_RESULTS.json \
+            --out .ci_artifacts/external_parity/TRPB_PARITY.json
+          python scripts/check_external_v83_parity.py \
+            .external_parity/PHOQ_V83.csv \
+            nabu_v8_3_multilandscape_results/PHOQ_V8_3_RESULTS.json \
+            --out .ci_artifacts/external_parity/PHOQ_PARITY.json
+          python scripts/check_phot_v83_parity.py \
+            .external_parity/phot_raw.csv \
+            nabu_v8_3_router_results/V8_3_RESULTS.json \
+            --out .ci_artifacts/external_parity/PHOT_PARITY.json
+
+      - name: Upload parity diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nabu-external-historical-parity
+          path: .ci_artifacts/external_parity

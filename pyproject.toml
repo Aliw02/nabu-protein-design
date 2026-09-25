@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "nabu-protein"
 version = "0.4.0"
-description = "NABU: Ultra-fast combinatorial protein fitness prediction and directed evolution architecture"
+description = "NABU: Few-shot combinatorial protein fitness inference and adaptive epistatic design architecture"
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "Proprietary / All Rights Reserved" }
@@ -44,6 +44,7 @@ dev = [
 
 [project.scripts]
 nabu-protein = "nabu_protein.cli:main"
+nabu-v83-benchmark = "nabu_protein.v83_cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

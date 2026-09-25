@@ -1,0 +1,77 @@
+name: NABU CR9114 Final Core Parity Gate
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/nabu_protein/higher_order.py"
+      - "src/nabu_protein/router.py"
+      - "src/nabu_protein/v83.py"
+      - "scripts/check_cr9114_passive40_parity.py"
+      - ".github/workflows/cr9114-package-parity.yml"
+      - "requirements-validation.txt"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "src/nabu_protein/higher_order.py"
+      - "src/nabu_protein/router.py"
+      - "src/nabu_protein/v83.py"
+      - "scripts/check_cr9114_passive40_parity.py"
+      - ".github/workflows/cr9114-package-parity.yml"
+      - "requirements-validation.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cr9114-passive40-parity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pinned validation environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-validation.txt
+          python -m pip install -e . --no-deps
+
+      - name: Download and verify pinned CR9114-H1 source
+        run: |
+          mkdir -p .external_cr9114 .ci_artifacts/cr9114_parity
+          curl -L --fail \
+            "https://raw.githubusercontent.com/sitonglab/CombinGym/c5dccd514a9acfe1089a5f1555faea98afd78019/Data/DMS/Clean/bnAbs_CR9114_H1_clean.xlsx" \
+            -o .external_cr9114/bnAbs_CR9114_H1_clean.xlsx
+          echo "1a1053862608769f5c7dd34cb93e003d26bcf8404a57dd8edcaa5b6463640084  .external_cr9114/bnAbs_CR9114_H1_clean.xlsx" \
+            | sha256sum --check -
+          sha256sum .external_cr9114/bnAbs_CR9114_H1_clean.xlsx \
+            > .ci_artifacts/cr9114_parity/SOURCE_SHA256.txt
+
+      - name: Recreate sealed identities and labels ephemerally
+        run: |
+          python experiments/v8_3_cr9114_final_phase1/00_prepare_sealed_cr9114_h1.py \
+            .external_cr9114/bnAbs_CR9114_H1_clean.xlsx \
+            --out .external_cr9114/sealed
+
+      - name: Compare packaged V8.3 with frozen CR9114 Passive-40 predictions
+        run: |
+          python scripts/check_cr9114_passive40_parity.py \
+            .external_cr9114/sealed \
+            nabu_v8_3_cr9114_final_gate_stage_a/ALL_FINAL_GATE_PREDICTIONS.csv \
+            nabu_v8_3_cr9114_final_gate_stage_a/STAGE_A_MANIFEST.json \
+            --out .ci_artifacts/cr9114_parity/PASSIVE40_PARITY.json
+
+      - name: Upload parity diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nabu-cr9114-passive40-package-parity
+          path: .ci_artifacts/cr9114_parity

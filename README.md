@@ -142,7 +142,13 @@ See [PHASE2_PLAN.md](PHASE2_PLAN.md).
 ## Repository structure
 
 ```text
-src/nabu_protein/                         Core package
+src/nabu_protein/                         Reusable package
+  core.py                                  Legacy pairwise compatibility API
+  higher_order.py                          Frozen B2/B3/B4/B5 hierarchy
+  router.py                                Frozen V8.3 dual-objective router
+  metrics.py                               Canonical V8.3 evaluation metrics
+  v83.py                                   Reusable frozen V8.3 facade
+  v83_cli.py                               Explicit frozen V8.3 convenience CLI
 experiments/v8_1_crossfit_higher_order_dev/
 experiments/v8_2_objective_tournament/
 experiments/v8_3_multilandscape_validation/
@@ -165,6 +171,31 @@ Historical experiment README and RUNBOOK files are retained unchanged as audit r
 pip install -e .
 ```
 
+The historical `nabu-protein` command is retained as a legacy pairwise
+compatibility CLI. It is not the frozen V8.3 engine.
+
+For the packaged frozen V8.3 convenience benchmark:
+
+```bash
+nabu-v83-benchmark dataset.csv --out results_nabu_v83
+```
+
+That convenience command is deterministic but is **not** a replacement for a
+preregistered Stage-A/Stage-B sealed scientific validation.
+
+For programmatic use, `NabuV83Model.fit(...)` expects stable candidate IDs.
+Those IDs participate in the deterministic five-fold cross-fitting hash, so
+changing IDs while keeping the same variants can change fold assignment. For
+historical reproduction, preserve the original candidate IDs exactly.
+
+For the exact engineering test environment used during package hardening:
+
+```bash
+pip install -r requirements-hardening.txt
+pip install -e . --no-deps
+pytest -q tests
+```
+
 ## Documentation
 
 - [ARCHITECTURE.md](ARCHITECTURE.md) — frozen V8.3 core and optional acquisition layer
@@ -174,3 +205,6 @@ pip install -e .
 - [PHASE1_FINAL_REPORT.md](PHASE1_FINAL_REPORT.md) — closure report
 - [PHASE2_PLAN.md](PHASE2_PLAN.md) — Phase-2 plan
 - [PATENT_NOTICE.md](PATENT_NOTICE.md) — legal notice
+- [REPOSITORY_MAP.md](REPOSITORY_MAP.md) — canonical runtime vs historical artifacts
+- [REPRODUCIBILITY.md](REPRODUCIBILITY.md) — reproducibility and CI policy
+- [DATASET_PROVENANCE.json](DATASET_PROVENANCE.json) — explicit dataset provenance
