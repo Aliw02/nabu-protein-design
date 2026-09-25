@@ -122,3 +122,95 @@ def test_public_mutation_set_validation_rejects_malformed_and_duplicates():
 
     with pytest.raises(ValueError, match="duplicate mutation"):
         canonicalize_mutation_set(("A1C", "A1C"))
+
+
+def test_public_mutation_set_validation_rejects_impossible_same_position_and_noop():
+    import pytest
+
+    from nabu_protein.v83 import canonicalize_mutation_set
+
+    with pytest.raises(ValueError, match="same residue position"):
+        canonicalize_mutation_set(("A10C", "A10D"))
+
+    with pytest.raises(ValueError, match="do not change residue state"):
+        canonicalize_mutation_set(("A10A",))
+
+    with pytest.raises(ValueError, match="1-based positive"):
+        canonicalize_mutation_set(("A0C",))
+
+
+def test_facade_rejects_null_and_blank_candidate_ids():
+    import pytest
+
+    from nabu_protein.v83 import NabuV83Model
+
+    with pytest.raises(ValueError, match="null values"):
+        NabuV83Model().fit(
+            [("A1C", "B2D"), ("A1C", "C3E")],
+            [1.0, 2.0],
+            ["a", None],
+        )
+
+    with pytest.raises(ValueError, match="blank values"):
+        NabuV83Model().fit(
+            [("A1C", "B2D"), ("A1C", "C3E")],
+            [1.0, 2.0],
+            ["a", "   "],
+        )
+
+
+def test_score_candidates_empty_scoreable_set_keeps_stable_schema():
+    from nabu_protein.v83 import NabuV83Model
+
+    candidate_ids = [
+        "V0",
+        "V1",
+        "V2",
+        "V3",
+        "V4",
+        "V5",
+        "V6",
+        "V7",
+        "V8",
+        "V9",
+    ]
+    mutation_sets = [
+        ("A1C", "B2D"),
+        ("A1C", "C3E"),
+        ("A1C", "D4F"),
+        ("B2D", "C3E"),
+        ("B2D", "D4F"),
+        ("C3E", "D4F"),
+        ("A1C", "B2D", "C3E"),
+        ("A1C", "B2D", "D4F"),
+        ("A1C", "C3E", "D4F"),
+        ("B2D", "C3E", "D4F"),
+    ]
+    labels = [float(i) for i in range(len(candidate_ids))]
+
+    model = NabuV83Model().fit(
+        mutation_sets,
+        labels,
+        candidate_ids,
+    )
+    scored = model.score_candidates(
+        [("X20Y", "Z21A")],
+        ["unseen"],
+    )
+
+    expected_columns = {
+        "B2_ADDITIVE",
+        "B3_RAW_PAIR",
+        "B4_CROSSFIT_TRIPLET",
+        "B5_CROSSFIT_ADAPTIVE_HIGHER_ORDER",
+        "triplet_delta",
+        "quartet_delta",
+        "triplet_supported",
+        "quartet_supported",
+        "triplet_confidence",
+        "quartet_confidence",
+        "V8_3_ADAPTIVE_ROUTER",
+    }
+    assert expected_columns.issubset(scored.columns)
+    assert scored["scoreable"].tolist() == [False]
+    assert scored[list(expected_columns)].isna().all().all()
