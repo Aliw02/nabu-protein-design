@@ -3,9 +3,21 @@ name: NABU CR9114 Final Core Parity Gate
 on:
   push:
     branches:
-      - engineering/v8-3-package-hardening
+      - main
     paths:
-      - "src/nabu_protein/**"
+      - "src/nabu_protein/higher_order.py"
+      - "src/nabu_protein/router.py"
+      - "src/nabu_protein/v83.py"
+      - "scripts/check_cr9114_passive40_parity.py"
+      - ".github/workflows/cr9114-package-parity.yml"
+      - "requirements-validation.txt"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "src/nabu_protein/higher_order.py"
+      - "src/nabu_protein/router.py"
+      - "src/nabu_protein/v83.py"
       - "scripts/check_cr9114_passive40_parity.py"
       - ".github/workflows/cr9114-package-parity.yml"
       - "requirements-validation.txt"
