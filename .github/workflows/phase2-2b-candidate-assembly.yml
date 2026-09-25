@@ -43,9 +43,20 @@ jobs:
         run: |
           python             phase2/2B_candidate_assembly/run_rhla_assembly_poc.py             --out .ci_artifacts/phase2_2b_rhla_assembly_v1
 
-      - name: Upload assembly artifacts
+      - name: Run RhlA assembly evidence-maturity ablation
+        run: |
+          python             phase2/2B_candidate_assembly/run_rhla_assembly_maturity.py             --out .ci_artifacts/phase2_2b_rhla_assembly_maturity_v1
+
+      - name: Upload assembly POC artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: nabu-phase2-2b-rhla-assembly-v1
           path: .ci_artifacts/phase2_2b_rhla_assembly_v1
+
+      - name: Upload assembly maturity artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nabu-phase2-2b-rhla-assembly-maturity-v1
+          path: .ci_artifacts/phase2_2b_rhla_assembly_maturity_v1
