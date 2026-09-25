@@ -121,8 +121,8 @@ def hidden_truth_perturbation_check(
     right = DesignCampaign(perturbed, reservoir)
     right.bootstrap(seed_count)
 
-    left_policy = make_policy(policy_name, reservoir)
-    right_policy = make_policy(policy_name, reservoir)
+    left_policy = make_policy(policy_name, full_frame)
+    right_policy = make_policy(policy_name, full_frame)
 
     left_ids, left_source, left_gate = next_decision(
         left, gate, left_policy, batch_size, use_assembly
@@ -223,7 +223,7 @@ def run_condition(
     )
     bootstrap = campaign.bootstrap(seed_count)
 
-    policy = make_policy(pre_gate_policy_name, reservoir)
+    policy = make_policy(pre_gate_policy_name, full_frame)
     gate = EvidenceMaturityGate(
         vocabulary=vocabulary,
         reservoir_ids=reservoir["candidate_id"].astype(str),
@@ -275,7 +275,7 @@ def run_condition(
                     gate=gate,
                     acquisition_policy=make_policy(
                         "historical_50_50",
-                        reservoir,
+                        full_frame,
                     ),
                     batch_size=actual_batch,
                 )
