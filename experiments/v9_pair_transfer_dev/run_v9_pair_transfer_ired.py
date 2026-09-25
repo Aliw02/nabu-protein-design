@@ -19,7 +19,7 @@ from nabu_protein.v83 import NabuV83Model
 SEED = 161
 EXPECTED_IRED_SHA256 = "aa45a2f85fb1af87b6b0e86397b3f8f292a061dc574be2536673b5bd490b0e74"
 STANDARD_AA = set("ACDEFGHIKLMNPQRSTVWY")
-VERSION = "NABU_V9_0_PAIR_TRANSFER_DEV_V1"
+VERSION = "NABU_V9_0_PAIR_TRANSFER_DEV_V2"
 
 
 def sha256_file(path: Path) -> str:
@@ -140,6 +140,9 @@ def fit_pair_factorization(
         residual,
         rcond=None,
     )
+    # Canonicalize sub-picounit LAPACK/BLAS noise across runners.
+    # This is label-independent numerical stabilization only.
+    coefficients = np.round(coefficients, decimals=12)
     fitted = design @ coefficients
     error = residual - fitted
 
@@ -157,8 +160,12 @@ def fit_pair_factorization(
         "double_count": int(len(edges)),
         "node_count": int(len(nodes)),
         "design_rank": int(rank),
-        "singular_value_min": float(np.min(singular_values)),
-        "singular_value_max": float(np.max(singular_values)),
+        "singular_value_min": float(
+            np.round(np.min(singular_values), decimals=12)
+        ),
+        "singular_value_max": float(
+            np.round(np.max(singular_values), decimals=12)
+        ),
         "fit_rmse": float(np.sqrt(np.mean(error ** 2))),
         "target_mean": float(np.mean(residual)),
         "target_std": float(np.std(residual)),
