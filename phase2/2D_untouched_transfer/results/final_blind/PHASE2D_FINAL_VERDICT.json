@@ -1,0 +1,40 @@
+{
+  "version": "NABU_PHASE2D_FINAL_VERDICT_V1",
+  "status": "PHASE2_FINAL_SCIENTIFIC_GATE_NOT_PASSED",
+  "engineering_integrity": "PASS",
+  "phase2c_development": {
+    "status": "PASS",
+    "version": "NABU_PHASE2C_MULTILANDSCAPE_V3"
+  },
+  "aav": {
+    "status": "ADAPTER_SCOPE_FAIL_LABEL_BLIND",
+    "target_labels_revealed": false,
+    "published_bo_pool": 59459,
+    "representable": 27018,
+    "unrepresentable": 32441,
+    "representable_fraction": 0.4543971476143225,
+    "primary_head_to_head_executed": false
+  },
+  "ired": {
+    "status": "BLIND_RESULT_COMPLETE_NEGATIVE_TRANSFER",
+    "workflow_run_id": 36165359008,
+    "execution_head": "5c4b55e60bb0ccca769194e78095051e7023b9d2",
+    "artifact_id": 10877951045,
+    "artifact_digest": "sha256:32e9b34d6bc7453a54ac1699c5d22a8516185d925a822152f2538770bb22a461",
+    "source_sha256": "aa45a2f85fb1af87b6b0e86397b3f8f292a061dc574be2536673b5bd490b0e74",
+    "test_count": 4178,
+    "scoreable_count": 131,
+    "scoreable_fraction": 0.03135471517472475,
+    "full_test_spearman": -0.021770573158261506,
+    "full_test_ndcg": 0.9426983698477696,
+    "top1_percent_hits": 0,
+    "top1_percent_k": 42,
+    "normalized_regret_top1pct": 0.23152235169646065
+  },
+  "final_pass_requirements": {
+    "aav_primary_completed": false,
+    "ired_completed": true,
+    "final_scientific_pass": false
+  },
+  "retuning_after_blind_reveal_allowed": false
+}
