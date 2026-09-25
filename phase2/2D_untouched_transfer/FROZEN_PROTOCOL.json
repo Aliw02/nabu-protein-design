@@ -67,6 +67,22 @@
       "abstention_rule": "NOT all_main_supported -> FIT_TRAIN_GLOBAL_MEAN",
       "tie_break": "STABLE_SOURCE_ORDER",
       "strict_scoreable_subset_role": "DIAGNOSTIC_ONLY"
+    },
+    "identity_scoreability_first_touch": {
+      "test_count": 4178,
+      "scoreable_count": 131,
+      "unscoreable_count": 4047,
+      "scoreable_fraction": 0.03135471517472475,
+      "target_values_read": false
+    },
+    "full_test_abstention_policy": {
+      "version": "V2",
+      "scoreable": "unchanged V8_3_ADAPTIVE_ROUTER",
+      "unscoreable": "single tied abstention score below all finite scoreable router scores",
+      "floor_formula": "min(scoreable_router_score) - 1.0",
+      "primary_metrics_use_full_test": true,
+      "scoreable_only_metrics_primary": false,
+      "b2_fallback_allowed": false
     }
   },
   "first_touch": {
