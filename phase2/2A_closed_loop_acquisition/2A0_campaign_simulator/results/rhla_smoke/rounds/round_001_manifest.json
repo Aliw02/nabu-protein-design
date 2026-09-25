@@ -1,0 +1,96 @@
+{
+  "stage": "ROUND_REVEALED_AND_REFIT",
+  "round_index": 1,
+  "candidate_ids": [
+    "A5I:H10Y",
+    "S1W:R4T:L7Q",
+    "S1W:F2A:R4C",
+    "R4H:S8K",
+    "F2A:A5I:L7V",
+    "F2W:S8K",
+    "A5M:Q9K:H10F",
+    "R4Q:A5M:S8T",
+    "Q3N:R4P:A5M",
+    "R4P:H10Y:A11S",
+    "R4P:S8K:Q9R",
+    "Q3N:S8R:H10F",
+    "S1W:S8R",
+    "S1W:R4Q:S8T",
+    "R4C:L7I:H10F",
+    "A5I:S8C:Q9K"
+  ],
+  "selection_sha256_before_label_reveal": "6fa1d5ff3d83fee82110ea7dc38903d1152fe8c7180fb536f35c74f9f3f66c79",
+  "revealed_labels_sha256": "c512c2500bf2549428e5d7e6aaf7289ac96d306f6e49ffe0f58dc496d61d85a1",
+  "measurements_before_reveal": 97,
+  "measurements_after_reveal": 113,
+  "router_mode_before_reveal": "B3_PROTECTED_NO_HIGHER_ORDER",
+  "router_mode_after_refit": "B3_PROTECTED_NO_HIGHER_ORDER",
+  "diagnostics_after_refit": {
+    "router": {
+      "B3_oof_spearman": 0.6049471022689468,
+      "B4_oof_spearman": 0.6049471022689468,
+      "B4_minus_B3": 0.0,
+      "elite_diagnostic": {
+        "region_fraction": 0.2,
+        "region_count": 23,
+        "B3": {
+          "top50_mean_percentile": 0.6581377452866487,
+          "top50_top1pct_hits": 0,
+          "top50_mean_true": -1.457382133320289
+        },
+        "B4": {
+          "top50_mean_percentile": 0.6581377452866487,
+          "top50_top1pct_hits": 0,
+          "top50_mean_true": -1.457382133320289
+        },
+        "delta_top50_mean_percentile": 0.0,
+        "delta_top50_top1pct_hits": 0,
+        "allow_elite_rerank": false
+      },
+      "mode": "B3_PROTECTED_NO_HIGHER_ORDER",
+      "details": {
+        "boundary_preserved": true,
+        "reason": "Visible OOF did not support global or elite higher-order use."
+      }
+    },
+    "model": {
+      "main": {
+        "entries": 30,
+        "support_min": 6,
+        "support_median": 10.0,
+        "support_max": 24
+      },
+      "pair": {
+        "entries": 212,
+        "support_min": 1,
+        "support_median": 1.0,
+        "support_max": 5
+      },
+      "triplet_crossfit": {
+        "entries": 0,
+        "support_min": 0,
+        "support_median": 0.0,
+        "support_max": 0
+      },
+      "quartet_crossfit": {
+        "entries": 0,
+        "support_min": 0,
+        "support_median": 0.0,
+        "support_max": 0
+      },
+      "oof": {
+        "b3_spearman_visible": 0.6049471022689468,
+        "b4_spearman_visible": 0.6049471022689468,
+        "residual3_std": 1.4779458505343686,
+        "residual4_std": 1.4779458505343686
+      },
+      "fold_counts": {
+        "0": 17,
+        "1": 23,
+        "2": 25,
+        "3": 27,
+        "4": 21
+      }
+    }
+  }
+}

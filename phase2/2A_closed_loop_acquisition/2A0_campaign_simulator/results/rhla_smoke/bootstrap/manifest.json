@@ -1,0 +1,168 @@
+{
+  "stage": "bootstrap_selection_frozen",
+  "frozen_core_commit": "c8afdcd7698231d95a39ef13a3fe22b6e3f507c5",
+  "seed_count": 81,
+  "candidate_ids": [
+    "S1W:R4H:A5M",
+    "S1W:R4P:S8T",
+    "R4L:L7V",
+    "R4A:S8C:A11S",
+    "L7Q:Q9K:H10Y",
+    "S1W:Q6R:S8R",
+    "S1W:Q3N:R4H",
+    "Q3G:S8R",
+    "Q3G:R4T:A5I",
+    "Q3N:S8K:Q9A",
+    "F2Q:Q3G:A5I",
+    "Q3N:R4P:Q6R",
+    "L7V:S8L",
+    "F2Q:Q3G:H10F",
+    "L7I:S8L:Q9R",
+    "Q6R:L7V:A11S",
+    "L7V:S8K:H10Y",
+    "S1W:R4L:S8K",
+    "Q6R:S8L:Q9A",
+    "F2A:Q3G:S8K",
+    "Q3G:S8T",
+    "R4P:S8T:Q9R",
+    "R4L:L7V:Q9R",
+    "R4Q:Q6R:S8C",
+    "F2Q:Q3N:Q6R",
+    "R4A:S8R:H10Y",
+    "F2W:Q3N:L7I",
+    "F2Q:Q3N:Q9A",
+    "Q6R:S8T:Q9K",
+    "S1W:R4L:S8L",
+    "S1W:R4T:Q9A",
+    "S1W:R4C:L7I",
+    "F2A:Q3N:R4H",
+    "F2A:S8L:A11S",
+    "R4Q:S8R:A11S",
+    "S1W:Q6R:S8T",
+    "R4A:S8L:Q9A",
+    "S1W:R4C:Q9R",
+    "F2A:R4P:Q9K",
+    "Q3G:R4C:Q9K",
+    "R4H:H10Y:A11S",
+    "R4Q:A5M",
+    "A5M:Q9R:H10F",
+    "Q3G:A5I:S8T",
+    "Q3G:R4T:L7V",
+    "Q3G:A5I",
+    "R4H:S8K:A11S",
+    "Q3N:S8K:Q9K",
+    "F2A:Q3G:S8L",
+    "F2Q:R4L:S8C",
+    "R4C:L7V:H10F",
+    "A5I:Q6R",
+    "R4T:Q9K:A11S",
+    "R4H:S8T:H10Y",
+    "S1W:R4P:Q6R",
+    "A5M:L7I:S8T",
+    "S1W:R4L:S8C",
+    "L7Q:S8R:H10Y",
+    "S1W:Q3G:S8T",
+    "L7Q:A11S",
+    "R4C:L7V:Q9A",
+    "S1W:L7V:Q9R",
+    "R4Q:L7Q:A11S",
+    "F2Q:S8T:H10Y",
+    "Q3N:R4Q:Q9K",
+    "Q3G:R4A:L7I",
+    "Q3N:A5M:Q9K",
+    "L7Q:H10Y",
+    "S1W:F2W:S8L",
+    "Q6R:L7V:S8T",
+    "Q3N:R4L:L7Q",
+    "S8L:Q9R:H10Y",
+    "Q3G:A5I:S8R",
+    "F2Q:S8K:Q9R",
+    "Q3N:L7V:S8L",
+    "F2A:Q3N:R4C",
+    "S1W:F2Q:Q6R",
+    "R4P:S8C:Q9A",
+    "S8R:Q9A:H10F",
+    "A5I:L7V:Q9R",
+    "Q3N:R4L:L7V"
+  ],
+  "selection_sha256_before_label_reveal": "f1c3dfd6dae2c88983bab03d3011b65d31475552af9dbd1faa9df54dbb48efc3",
+  "crossfit_fold_counts": {
+    "0": 15,
+    "1": 16,
+    "2": 16,
+    "3": 20,
+    "4": 14
+  },
+  "truth_exposed_to_policy_before_selection_freeze": false,
+  "status": "BOOTSTRAP_REVEALED_AND_MODEL_FIT",
+  "revealed_labels_sha256": "70ffc8648e7d8f8a347f03052bf3a739bcbc42393d2417a9f741d367b82f5539",
+  "measurements_after_reveal": 81,
+  "diagnostics_after_fit": {
+    "router": {
+      "B3_oof_spearman": 0.483130081300813,
+      "B4_oof_spearman": 0.483130081300813,
+      "B4_minus_B3": 0.0,
+      "elite_diagnostic": {
+        "region_fraction": 0.2,
+        "region_count": 17,
+        "B3": {
+          "top50_mean_percentile": 0.6299927378358751,
+          "top50_top1pct_hits": 0,
+          "top50_mean_true": -1.4449294051752617
+        },
+        "B4": {
+          "top50_mean_percentile": 0.6299927378358751,
+          "top50_top1pct_hits": 0,
+          "top50_mean_true": -1.4449294051752617
+        },
+        "delta_top50_mean_percentile": 0.0,
+        "delta_top50_top1pct_hits": 0,
+        "allow_elite_rerank": false
+      },
+      "mode": "B3_PROTECTED_NO_HIGHER_ORDER",
+      "details": {
+        "boundary_preserved": true,
+        "reason": "Visible OOF did not support global or elite higher-order use."
+      }
+    },
+    "model": {
+      "main": {
+        "entries": 30,
+        "support_min": 2,
+        "support_median": 7.0,
+        "support_max": 16
+      },
+      "pair": {
+        "entries": 169,
+        "support_min": 1,
+        "support_median": 1.0,
+        "support_max": 5
+      },
+      "triplet_crossfit": {
+        "entries": 0,
+        "support_min": 0,
+        "support_median": 0.0,
+        "support_max": 0
+      },
+      "quartet_crossfit": {
+        "entries": 0,
+        "support_min": 0,
+        "support_median": 0.0,
+        "support_max": 0
+      },
+      "oof": {
+        "b3_spearman_visible": 0.483130081300813,
+        "b4_spearman_visible": 0.483130081300813,
+        "residual3_std": 1.5448302774618516,
+        "residual4_std": 1.5448302774618516
+      },
+      "fold_counts": {
+        "0": 15,
+        "1": 16,
+        "2": 16,
+        "3": 20,
+        "4": 14
+      }
+    }
+  }
+}
