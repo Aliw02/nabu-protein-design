@@ -53,6 +53,12 @@ jobs:
         run: |
           python phase2/2D_untouched_transfer/preflight_identity.py             --aav-zip .phase2d_blind_source/aav_splits.zip             --aav-reference .phase2d_blind_source/P03135.fasta             --ired-gz .phase2d_blind_source/ired_two_to_many.csv.gz             --out .ci_artifacts/phase2d_identity_preflight/IDENTITY_PREFLIGHT.json
 
+      - name: Run label-blind IRED full-test scoreability gate
+        run: |
+          python phase2/2D_untouched_transfer/ired_scoreability_preflight.py \
+            --ired-gz .phase2d_blind_source/ired_two_to_many.csv.gz \
+            --out .ci_artifacts/phase2d_identity_preflight/IRED_SCOREABILITY_PREFLIGHT.json
+
       - name: Preserve source checksums
         run: |
           sha256sum             .phase2d_blind_source/aav_splits.zip             .phase2d_blind_source/P03135.fasta             .phase2d_blind_source/ired_two_to_many.csv.gz             > .ci_artifacts/phase2d_identity_preflight/SOURCE_SHA256.txt
@@ -61,5 +67,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: nabu-phase2d-identity-preflight-v1
+          name: nabu-phase2d-identity-preflight-v2
           path: .ci_artifacts/phase2d_identity_preflight
