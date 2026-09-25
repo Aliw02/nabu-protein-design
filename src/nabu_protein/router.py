@@ -130,15 +130,8 @@ def rank_preserving_elite_rerank(
     }
 
 
-def apply_router(
-    frame,
-    model,
-    visible_ids,
-    visible_labels,
-    b3_col,
-    b5_col,
-    output_col,
-):
+def decide_router(model, visible_ids, visible_labels):
+    """Choose the frozen V8.3 routing regime from visible OOF evidence only."""
     b3_oof = float(
         spearmanr(model["oof_b3"], visible_labels).statistic
     )
@@ -155,20 +148,17 @@ def apply_router(
     )
 
     if global_delta > 0:
-        frame[output_col] = frame[b5_col].astype(float)
         mode = "GLOBAL_HIGHER_ORDER"
         details = {"boundary_preserved": None}
     elif elite["allow_elite_rerank"]:
-        details = rank_preserving_elite_rerank(
-            frame,
-            b3_col,
-            b5_col,
-            output_col,
-            fraction=0.20,
-        )
         mode = "RANK_PRESERVING_B3_TOP20_B5_RERANK"
+        details = {
+            "elite_fraction": 0.20,
+            "elite_count": None,
+            "boundary_preserved": True,
+            "outside_B3_order_preserved": True,
+        }
     else:
-        frame[output_col] = frame[b3_col].astype(float)
         mode = "B3_PROTECTED_NO_HIGHER_ORDER"
         details = {
             "boundary_preserved": True,
@@ -186,3 +176,31 @@ def apply_router(
         "mode": mode,
         "details": details,
     }
+
+
+def apply_router(
+    frame,
+    model,
+    visible_ids,
+    visible_labels,
+    b3_col,
+    b5_col,
+    output_col,
+):
+    decision = decide_router(model, visible_ids, visible_labels)
+    mode = decision["mode"]
+
+    if mode == "GLOBAL_HIGHER_ORDER":
+        frame[output_col] = frame[b5_col].astype(float)
+    elif mode == "RANK_PRESERVING_B3_TOP20_B5_RERANK":
+        decision["details"] = rank_preserving_elite_rerank(
+            frame,
+            b3_col,
+            b5_col,
+            output_col,
+            fraction=0.20,
+        )
+    else:
+        frame[output_col] = frame[b3_col].astype(float)
+
+    return decision
