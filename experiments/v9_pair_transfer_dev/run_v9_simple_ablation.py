@@ -492,10 +492,14 @@ def run(source_gz: Path, output_dir: Path, batch_size: int):
         context_prediction,
         test_ids,
     )
+    contact_replay_residual = np.zeros(len(test_ids), dtype=float)
+    contact_replay_residual[supported_indices] = np.asarray(
+        contact_model.predict(test_combined),
+        dtype=float,
+    )
     contact_replay = np.where(
         complete_clean_main,
-        clean_baseline
-        + np.asarray(contact_model.predict(test_combined), dtype=float),
+        clean_baseline + contact_replay_residual,
         b2_prediction,
     ).astype(float)
 
