@@ -685,7 +685,11 @@ def main():
     manifest_out_path = out / "RUN_MANIFEST.json"
 
     report_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
-    rows.to_csv(\n        rows_path,\n        index=False,\n        compression={"method": "gzip", "mtime": 0},\n    )
+    rows.to_csv(
+        rows_path,
+        index=False,
+        compression={"method": "gzip", "mtime": 0},
+    )
     components_path.write_text(json.dumps(components, indent=2), encoding="utf-8")
     manifest_out_path.write_text(
         json.dumps(run_manifest, indent=2), encoding="utf-8"
