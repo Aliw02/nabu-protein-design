@@ -67,7 +67,7 @@ jobs:
 
       - name: Run consensus versus contact-aware ablation
         run: |
-          python experiments/v9_pair_transfer_dev/run_v9_simple_ablation.py             .v9_source/ired_two_to_many.csv.gz             --out v9_simple_ablation_results             --batch-size 8
+          python experiments/v9_pair_transfer_dev/run_v9_simple_ablation.py             .v9_source/ired_two_to_many.csv.gz             --out v9_simple_ablation_results             --batch-size 16
 
       - name: Upload results
         uses: actions/upload-artifact@v4
