@@ -221,6 +221,7 @@ def encode_base_and_contact_features(
         revision=MODEL_REVISION,
         trust_remote_code=False,
         use_safetensors=True,
+        attn_implementation="eager",
     )
     encoder.eval()
     encoder.to("cpu")
