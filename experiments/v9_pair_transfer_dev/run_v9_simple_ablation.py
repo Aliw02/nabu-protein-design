@@ -259,10 +259,20 @@ def encode_base_and_contact_features(
                 padding=True,
                 add_special_tokens=True,
             )
-            output = encoder(**tokens).last_hidden_state
-            contacts = encoder.predict_contacts(
+            model_output = encoder(
+                **tokens,
+                output_attentions=True,
+                return_dict=True,
+            )
+            output = model_output.last_hidden_state
+
+            attns = torch.stack(model_output.attentions, dim=1)
+            attention_mask = tokens["attention_mask"]
+            attns *= attention_mask.unsqueeze(1).unsqueeze(2).unsqueeze(3)
+            attns *= attention_mask.unsqueeze(1).unsqueeze(2).unsqueeze(4)
+            contacts = encoder.contact_head(
                 tokens["input_ids"],
-                tokens["attention_mask"],
+                attns,
             )
 
         residue = (
