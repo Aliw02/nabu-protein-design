@@ -1,0 +1,82 @@
+{
+  "version": "NABU_CLEAN_PAIR_NESTED_OOF_CALIBRATION_V1_SUMMARY",
+  "status": "COMPLETE",
+  "phase3_opened": false,
+  "scientific_claim": false,
+  "decision": "CLEAN_PAIR_AFFINE_CALIBRATION_SUPPORTED",
+  "github_actions_run": 36231948658,
+  "workflow_head": "87ebd20e4cc2b22fbf7c93659dff7dbd73476c57",
+  "artifact_id": 10903185450,
+  "artifact_digest": "sha256:130f027bc978666bc8bcef1b0af70ed0c2ded1ba98ed8a5283f42c4dabf123a5",
+  "source_sha256": "aa45a2f85fb1af87b6b0e86397b3f8f292a061dc574be2536673b5bd490b0e74",
+  "counts": {
+    "fit": 3746,
+    "validation_used": 0,
+    "test_used": 0,
+    "clean_pairs": 1759,
+    "node_covered_oof": 1536
+  },
+  "pooled_metrics": {
+    "zero_interaction": {
+      "rmse": 1.317750670679634,
+      "mae": 1.0183018310280827
+    },
+    "train_mean": {
+      "rmse": 1.2833046629696756,
+      "mae": 0.9902387341193712,
+      "sign_accuracy": 0.6002604166666666
+    },
+    "raw_node_additive": {
+      "spearman": 0.3653291422861491,
+      "pearson": 0.37421737752112183,
+      "rmse": 1.5120075128305897,
+      "mae": 1.1608492299996416,
+      "sign_accuracy": 0.6282552083333334,
+      "prediction_std": 1.4137785091022412
+    },
+    "calibrated": {
+      "spearman": 0.36239514876266,
+      "pearson": 0.3698317908862655,
+      "rmse": 1.1922131389678097,
+      "mae": 0.9222608876019193,
+      "sign_accuracy": 0.6412760416666666,
+      "prediction_std": 0.4281094194513445
+    },
+    "permuted": {
+      "spearman": -0.005837469455917976,
+      "pearson": 0.016253106002322035,
+      "rmse": 1.9302652065579347,
+      "mae": 1.533983942032073,
+      "sign_accuracy": 0.501953125
+    }
+  },
+  "calibration": [
+    {
+      "fold": 0,
+      "alpha": 0.21418298743698663,
+      "beta": 0.27634134743660504
+    },
+    {
+      "fold": 1,
+      "alpha": 0.2035293322517762,
+      "beta": 0.3022006018862111
+    },
+    {
+      "fold": 2,
+      "alpha": 0.20894741030579828,
+      "beta": 0.29653659159440987
+    },
+    {
+      "fold": 3,
+      "alpha": 0.22746824236750565,
+      "beta": 0.32179570905742144
+    },
+    {
+      "fold": 4,
+      "alpha": 0.19093396167784135,
+      "beta": 0.3111435844338198
+    }
+  ],
+  "fold_rmse_wins_vs_train_mean": 5,
+  "interpretation": "Clean pair signal is real but raw magnitude is overdispersed; nested OOF affine calibration fixes magnitude sufficiently to retain this representation for V9 development."
+}
