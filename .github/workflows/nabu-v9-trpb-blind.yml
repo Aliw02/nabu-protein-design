@@ -1,0 +1,275 @@
+name: NABU V9 TrpB Blind External Validation
+
+on:
+  push:
+    branches:
+      - exp/nabu-v9-trpb-blind
+    paths:
+      - "experiments/v9_trpb_blind/**"
+      - ".github/workflows/nabu-v9-trpb-blind.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  OPENBLAS_NUM_THREADS: "1"
+  OMP_NUM_THREADS: "2"
+  MKL_NUM_THREADS: "1"
+  NUMEXPR_NUM_THREADS: "1"
+  TOKENIZERS_PARALLELISM: "false"
+  HF_HUB_DISABLE_TELEMETRY: "1"
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout blind branch
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install NABU contracts
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -r phase2/2D_untouched_transfer/requirements-phase2d.txt
+          python -m pip install -e . --no-deps
+
+      - name: Verify frozen consensus equivalence contracts
+        run: |
+          python -m pytest -q             experiments/tests/test_v9_trpb_scalable_consensus.py             experiments/v9_pair_transfer_dev/tests/test_v9_simple_ablation.py             experiments/v9_pair_transfer_dev/tests/test_v9_contextual.py             tests/test_v83_contracts.py             tests/test_frozen_v83_parity.py
+
+      - name: Download pinned FLIP2 TrpB two-to-many
+        run: |
+          mkdir -p .trpb_source
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import urlretrieve
+
+          url = "https://zenodo.org/records/18433203/files/trpb/two_to_many.csv.gz?download=1"
+          path = Path(".trpb_source/two_to_many.csv.gz")
+          urlretrieve(url, path)
+          print(path)
+          PY
+          echo "a611408d2db06907a023ddc8a1d94c12  .trpb_source/two_to_many.csv.gz" | md5sum -c -
+
+      - name: Mask test targets and freeze source manifest
+        run: |
+          python experiments/v9_trpb_blind/prepare_trpb_blind.py             .trpb_source/two_to_many.csv.gz             --out trpb_prepared
+
+      - name: Upload prediction-visible blind data
+        uses: actions/upload-artifact@v4
+        with:
+          name: trpb-prediction-visible
+          path: |
+            trpb_prepared/fit.csv.gz
+            trpb_prepared/test_masked.csv.gz
+            trpb_prepared/SOURCE_MANIFEST.json
+          if-no-files-found: error
+
+      - name: Upload sealed reveal targets
+        uses: actions/upload-artifact@v4
+        with:
+          name: trpb-reveal-sealed
+          path: trpb_prepared/test_reveal.csv.gz
+          if-no-files-found: error
+
+  train:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout blind branch
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install NABU and frozen encoder stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -r phase2/2D_untouched_transfer/requirements-phase2d.txt
+          python -m pip install -e . --no-deps
+          python -m pip install torch==2.14.0 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install transformers==5.17.0 safetensors joblib
+
+      - name: Download prediction-visible data only
+        uses: actions/download-artifact@v4
+        with:
+          name: trpb-prediction-visible
+          path: blind_data
+
+      - name: Fit frozen TrpB B2 and Context components
+        run: |
+          python experiments/v9_trpb_blind/train_trpb_frozen.py             blind_data/fit.csv.gz             --source-manifest blind_data/SOURCE_MANIFEST.json             --out trpb_frozen_model             --batch-size 32
+
+      - name: Upload frozen model state
+        uses: actions/upload-artifact@v4
+        with:
+          name: trpb-frozen-model
+          path: |
+            trpb_frozen_model/TRPB_FROZEN_STATE.joblib
+            trpb_frozen_model/TRPB_TRAIN_DIAGNOSTICS.json
+          if-no-files-found: error
+
+  predict:
+    needs: train
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+
+    steps:
+      - name: Checkout blind branch
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install masked prediction stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -r phase2/2D_untouched_transfer/requirements-phase2d.txt
+          python -m pip install -e . --no-deps
+          python -m pip install torch==2.14.0 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install transformers==5.17.0 safetensors joblib
+
+      - name: Download prediction-visible data only
+        uses: actions/download-artifact@v4
+        with:
+          name: trpb-prediction-visible
+          path: blind_data
+
+      - name: Download frozen model only
+        uses: actions/download-artifact@v4
+        with:
+          name: trpb-frozen-model
+          path: frozen_model
+
+      - name: Predict masked shard ${{ matrix.shard }}
+        run: |
+          python experiments/v9_trpb_blind/predict_trpb_shard.py             blind_data/test_masked.csv.gz             --state frozen_model/TRPB_FROZEN_STATE.joblib             --shard-index ${{ matrix.shard }}             --shard-count 16             --batch-size 32             --out shard_output
+
+      - name: Upload masked shard predictions
+        uses: actions/upload-artifact@v4
+        with:
+          name: trpb-shard-${{ matrix.shard }}
+          path: shard_output/
+          if-no-files-found: error
+
+  aggregate:
+    needs: predict
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout blind branch
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install aggregation stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas scipy
+
+      - name: Download prediction-visible manifest
+        uses: actions/download-artifact@v4
+        with:
+          name: trpb-prediction-visible
+          path: blind_data
+
+      - name: Download all masked shard predictions
+        uses: actions/download-artifact@v4
+        with:
+          pattern: trpb-shard-*
+          path: shards
+          merge-multiple: true
+
+      - name: Freeze consensus predictions before reveal
+        run: |
+          python experiments/v9_trpb_blind/aggregate_trpb_blind.py             shards             --source-manifest blind_data/SOURCE_MANIFEST.json             --out trpb_frozen_predictions
+
+      - name: Upload frozen pre-reveal predictions
+        uses: actions/upload-artifact@v4
+        with:
+          name: trpb-frozen-predictions
+          path: |
+            trpb_frozen_predictions/TRPB_FROZEN_PREDICTIONS.csv.gz
+            trpb_frozen_predictions/TRPB_FREEZE_MANIFEST.json
+          if-no-files-found: error
+
+  reveal:
+    needs: aggregate
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout blind branch
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install evaluation stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -r phase2/2D_untouched_transfer/requirements-phase2d.txt
+          python -m pip install -e . --no-deps
+
+      - name: Download frozen predictions
+        uses: actions/download-artifact@v4
+        with:
+          name: trpb-frozen-predictions
+          path: frozen_predictions
+
+      - name: Download source manifest
+        uses: actions/download-artifact@v4
+        with:
+          name: trpb-prediction-visible
+          path: blind_data
+
+      - name: Download training diagnostics
+        uses: actions/download-artifact@v4
+        with:
+          name: trpb-frozen-model
+          path: frozen_model
+
+      - name: Reveal test targets only after prediction freeze
+        uses: actions/download-artifact@v4
+        with:
+          name: trpb-reveal-sealed
+          path: reveal_data
+
+      - name: Evaluate frozen blind predictions
+        run: |
+          python experiments/v9_trpb_blind/evaluate_trpb_reveal.py             frozen_predictions/TRPB_FROZEN_PREDICTIONS.csv.gz             reveal_data/test_reveal.csv.gz             --freeze-manifest frozen_predictions/TRPB_FREEZE_MANIFEST.json             --source-manifest blind_data/SOURCE_MANIFEST.json             --train-diagnostics frozen_model/TRPB_TRAIN_DIAGNOSTICS.json             --out trpb_blind_results
+
+      - name: Upload final blind result
+        uses: actions/upload-artifact@v4
+        with:
+          name: nabu-v9-trpb-blind-result
+          path: trpb_blind_results/
+          if-no-files-found: error
