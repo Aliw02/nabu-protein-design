@@ -1,0 +1,180 @@
+name: NABU B2 Residual Context Development
+
+on:
+  push:
+    branches:
+      - exp/nabu-b2-residual-context-dev
+    paths:
+      - "experiments/b2_residual_context_dev/**"
+      - ".github/workflows/nabu-b2-residual-context-dev.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  OPENBLAS_NUM_THREADS: "1"
+  OMP_NUM_THREADS: "2"
+  MKL_NUM_THREADS: "1"
+  NUMEXPR_NUM_THREADS: "1"
+  TOKENIZERS_PARALLELISM: "false"
+  HF_HUB_DISABLE_TELEMETRY: "1"
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install base stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -r phase2/2D_untouched_transfer/requirements-phase2d.txt
+          python -m pip install -e . --no-deps
+      - name: Smoke test entrypoints
+        run: |
+          python experiments/b2_residual_context_dev/train.py --help
+          python experiments/b2_residual_context_dev/predict_shard.py --help
+          python experiments/b2_residual_context_dev/aggregate.py --help
+          python experiments/b2_residual_context_dev/evaluate.py --help
+      - name: Download pinned TrpB
+        run: |
+          mkdir -p .source
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import urlretrieve
+          url = "https://zenodo.org/records/18433203/files/trpb/two_to_many.csv.gz?download=1"
+          path = Path(".source/two_to_many.csv.gz")
+          urlretrieve(url, path)
+          PY
+          echo "a611408d2db06907a023ddc8a1d94c12  .source/two_to_many.csv.gz" | md5sum -c -
+      - name: Recreate masked development split
+        run: |
+          python experiments/v9_trpb_blind/prepare_trpb_blind.py             .source/two_to_many.csv.gz             --out prepared
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dev-visible
+          path: |
+            prepared/fit.csv.gz
+            prepared/test_masked.csv.gz
+            prepared/SOURCE_MANIFEST.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dev-reveal
+          path: prepared/test_reveal.csv.gz
+
+  train:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -r phase2/2D_untouched_transfer/requirements-phase2d.txt
+          python -m pip install -e . --no-deps
+          python -m pip install torch==2.14.0 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install transformers==5.17.0 safetensors joblib
+      - uses: actions/download-artifact@v4
+        with:
+          name: dev-visible
+          path: data
+      - name: Train B2 residual Context
+        run: |
+          python experiments/b2_residual_context_dev/train.py             data/fit.csv.gz             --source-manifest data/SOURCE_MANIFEST.json             --out trained             --batch-size 32
+      - uses: actions/upload-artifact@v4
+        with:
+          name: residual-context-state
+          path: trained/
+
+  predict:
+    needs: train
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -r phase2/2D_untouched_transfer/requirements-phase2d.txt
+          python -m pip install -e . --no-deps
+          python -m pip install torch==2.14.0 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install transformers==5.17.0 safetensors joblib
+      - uses: actions/download-artifact@v4
+        with:
+          name: dev-visible
+          path: data
+      - uses: actions/download-artifact@v4
+        with:
+          name: residual-context-state
+          path: state
+      - name: Predict shard ${{ matrix.shard }}
+        run: |
+          python experiments/b2_residual_context_dev/predict_shard.py             data/test_masked.csv.gz             --state state/B2_RESIDUAL_CONTEXT_STATE.joblib             --shard-index ${{ matrix.shard }}             --shard-count 16             --batch-size 32             --out shard
+      - uses: actions/upload-artifact@v4
+        with:
+          name: residual-context-shard-${{ matrix.shard }}
+          path: shard/
+
+  evaluate:
+    needs: predict
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install eval stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -r phase2/2D_untouched_transfer/requirements-phase2d.txt
+          python -m pip install -e . --no-deps
+      - uses: actions/download-artifact@v4
+        with:
+          name: dev-visible
+          path: data
+      - uses: actions/download-artifact@v4
+        with:
+          name: dev-reveal
+          path: reveal
+      - uses: actions/download-artifact@v4
+        with:
+          name: residual-context-state
+          path: state
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: residual-context-shard-*
+          path: shards
+          merge-multiple: true
+      - name: Freeze predictions
+        run: |
+          python experiments/b2_residual_context_dev/aggregate.py             shards             --source-manifest data/SOURCE_MANIFEST.json             --out frozen
+      - name: Evaluate preregistered development gate
+        run: |
+          python experiments/b2_residual_context_dev/evaluate.py             frozen/FROZEN_PREDICTIONS.csv.gz             reveal/test_reveal.csv.gz             --freeze-manifest frozen/FREEZE_MANIFEST.json             --train-diagnostics state/TRAIN_DIAGNOSTICS.json             --out result
+      - uses: actions/upload-artifact@v4
+        with:
+          name: b2-residual-context-dev-result
+          path: |
+            result/
+            frozen/FREEZE_MANIFEST.json
