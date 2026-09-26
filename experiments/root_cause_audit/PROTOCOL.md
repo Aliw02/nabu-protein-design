@@ -138,7 +138,7 @@ These flags are diagnostic labels, not scientific universal laws.
 - MATERIAL_RESIDUAL = residual RMS / target SD >= 0.50
 - MATERIAL_SIGN_INSTABILITY = conditional pair sign-flip rate >= 0.20
 - REPRESENTATION_GAP = oracle Spearman - learned counterpart Spearman >= 0.10
-- MATERIAL_B2_OR_B3_ERROR_ALIGNMENT = absolute Spearman(error, exact omitted residual) >= 0.50
+- MATERIAL_B2_OR_B3_ERROR_ALIGNMENT = absolute Spearman(error, exact omitted residual) >= 0.50\n- STRONG_ORACLE_SPEARMAN = exact O2 Spearman >= 0.50
 
 ## Root-cause decision tree
 
