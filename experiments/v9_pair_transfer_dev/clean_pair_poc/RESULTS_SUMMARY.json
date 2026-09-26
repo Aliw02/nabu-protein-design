@@ -1,0 +1,59 @@
+{
+  "version": "NABU_CLEAN_PAIR_UNSEEN_EDGE_POC_V1_SUMMARY",
+  "status": "COMPLETE",
+  "phase3_opened": false,
+  "scientific_claim": false,
+  "decision": "IDENTITY_ONLY_CLEAN_PAIR_TRANSFER_NOT_SUPPORTED",
+  "github_actions_run": 36226947062,
+  "head_sha": "f8db5b61ea17e37cf5d01601217ac3821cd90bf3",
+  "artifact_id": 10901272109,
+  "artifact_digest": "sha256:0a79fac414c2770702f2099f7a5735ef895668c9d48d1bf4308ba8bd65653f6f",
+  "source_sha256": "aa45a2f85fb1af87b6b0e86397b3f8f292a061dc574be2536673b5bd490b0e74",
+  "counts": {
+    "fit": 3746,
+    "validation_used": 0,
+    "test_used": 0,
+    "wt": 1,
+    "singles": 1037,
+    "doubles": 2708,
+    "clean_pairs": 1759,
+    "doubles_missing_single_counterpart": 949,
+    "node_covered_oof": 1536,
+    "one_node_cold": 217,
+    "two_node_cold": 6
+  },
+  "pooled_node_covered_metrics": {
+    "zero_interaction": {
+      "rmse": 1.317750670679634,
+      "mae": 1.0183018310280827
+    },
+    "train_mean": {
+      "rmse": 1.2833046629696756,
+      "mae": 0.9902387341193712,
+      "sign_accuracy": 0.6002604166666666
+    },
+    "node_additive_relation": {
+      "spearman": 0.3653291422861491,
+      "pearson": 0.37421737752112183,
+      "rmse": 1.5120075128305897,
+      "mae": 1.1608492299996416,
+      "sign_accuracy": 0.6282552083333334
+    },
+    "permuted_control": {
+      "spearman": -0.005837469455917976,
+      "pearson": 0.016253106002322035,
+      "rmse": 1.9302652065579347,
+      "mae": 1.533983942032073,
+      "sign_accuracy": 0.501953125
+    }
+  },
+  "decision_checks": {
+    "positive_spearman": true,
+    "rmse_beats_zero_interaction": false,
+    "rmse_beats_train_mean": false,
+    "spearman_beats_permuted_control": true,
+    "sign_accuracy_above_half": true,
+    "fold_direction_consistency_at_least_4_of_5": true
+  },
+  "diagnosis": "Clean pair residual contains reproducible rank/sign signal, but node-additive magnitude calibration is poor."
+}
