@@ -1,0 +1,80 @@
+{
+  "version": "NABU_V9_SIMPLE_ARCHITECTURE_ABLATION_V1_SUMMARY",
+  "status": "COMPLETE",
+  "phase3_opened": false,
+  "scientific_claim": false,
+  "canonical_run": 36238279578,
+  "workflow_head": "eeabc2ef4811abf64776fff06eda84925aafb3ba",
+  "artifact": {
+    "id": 10904602661,
+    "digest": "sha256:5baccb85e989ba5e368150ac846a024e4fb701e1b69841355bb5dc9de03090b0"
+  },
+  "metrics": {
+    "B2_MAIN_ONLY": {
+      "spearman": 0.1699713865842453,
+      "ndcg": 0.9560896338552609,
+      "top1_hits": 3,
+      "top1_k": 42,
+      "normalized_regret": 0.06470164950247742
+    },
+    "V9_CONTEXTUAL_ESM_RESIDUAL": {
+      "spearman": 0.17345155829097417,
+      "ndcg": 0.9564649249057549,
+      "top1_hits": 1,
+      "top1_k": 42,
+      "normalized_regret": 0.06470164950247742
+    },
+    "V9_CONSENSUS_B2_CONTEXT": {
+      "spearman": 0.17694469733650384,
+      "ndcg": 0.9569780967744098,
+      "top1_hits": 3,
+      "top1_k": 42,
+      "normalized_regret": 0.06470164950247742
+    },
+    "V9_CONTACT_AWARE_CONTEXT": {
+      "spearman": 0.17257282226420376,
+      "ndcg": 0.9565198334688213,
+      "top1_hits": 1,
+      "top1_k": 42,
+      "normalized_regret": 0.06470164950247742
+    }
+  },
+  "clean_region": {
+    "count": 1871,
+    "B2_MAIN_ONLY": {
+      "spearman": 0.21148643409702292,
+      "top1_hits": 3,
+      "top1_k": 19
+    },
+    "V9_CONTEXTUAL_ESM_RESIDUAL": {
+      "spearman": 0.25722536154280734,
+      "top1_hits": 1,
+      "top1_k": 19
+    },
+    "V9_CONSENSUS_B2_CONTEXT": {
+      "spearman": 0.22714520993201784,
+      "top1_hits": 3,
+      "top1_k": 19
+    },
+    "V9_CONTACT_AWARE_CONTEXT": {
+      "spearman": 0.2554801603171458,
+      "top1_hits": 1,
+      "top1_k": 19
+    }
+  },
+  "oof": {
+    "base_context": {
+      "spearman": 0.19883089641253648,
+      "rmse": 1.0077471656766392
+    },
+    "contact_aware": {
+      "spearman": 0.19667651667065686,
+      "rmse": 1.0137536524806763
+    }
+  },
+  "arm_pass": {
+    "V9_CONSENSUS_B2_CONTEXT": true,
+    "V9_CONTACT_AWARE_CONTEXT": false
+  },
+  "ablation_winner": "V9_CONSENSUS_B2_CONTEXT"
+}
