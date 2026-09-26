@@ -44,6 +44,11 @@ jobs:
       - name: Verify frozen consensus equivalence contracts
         run: |
           python -m pytest -q             experiments/tests/test_v9_trpb_scalable_consensus.py             experiments/v9_pair_transfer_dev/tests/test_v9_simple_ablation.py             experiments/v9_pair_transfer_dev/tests/test_v9_contextual.py             tests/test_v83_contracts.py             tests/test_frozen_v83_parity.py
+          python experiments/v9_trpb_blind/prepare_trpb_blind.py --help
+          python experiments/v9_trpb_blind/train_trpb_frozen.py --help
+          python experiments/v9_trpb_blind/predict_trpb_shard.py --help
+          python experiments/v9_trpb_blind/aggregate_trpb_blind.py --help
+          python experiments/v9_trpb_blind/evaluate_trpb_reveal.py --help
 
       - name: Download pinned FLIP2 TrpB two-to-many
         run: |
