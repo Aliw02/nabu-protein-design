@@ -9,7 +9,13 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from experiments.v9_pair_transfer_dev.run_v9_pair_transfer_ired import (
+import sys
+
+HERE = Path(__file__).resolve().parent
+DEV = HERE.parent / "v9_pair_transfer_dev"
+sys.path.insert(0, str(DEV))
+
+from run_v9_pair_transfer_ired import (
     derive_reference,
     mutation_set,
 )
