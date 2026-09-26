@@ -433,8 +433,18 @@ def run(source_gz: Path, output_dir: Path, batch_size: int):
         reference,
         batch_size=batch_size,
     )
+
+    clean_baseline, complete_clean_main = build_clean_additive_baseline(
+        test_mutations,
+        wt_target=wt_target,
+        clean_main=clean_main,
+        b2_prediction=b2_prediction,
+    )
+    supported_indices = np.where(complete_clean_main)[0]
+    supported_test_ids = [test_ids[index] for index in supported_indices]
+
     test_base, test_contact, test_combined = encode_base_and_contact_features(
-        test_ids,
+        supported_test_ids,
         reference,
         batch_size=batch_size,
     )
@@ -448,20 +458,15 @@ def run(source_gz: Path, output_dir: Path, batch_size: int):
         train_residual,
     )
 
-    context_residual = np.asarray(
+    context_residual = np.zeros(len(test_ids), dtype=float)
+    contact_residual = np.zeros(len(test_ids), dtype=float)
+    context_residual[supported_indices] = np.asarray(
         context_model.predict(test_base),
         dtype=float,
     )
-    contact_residual = np.asarray(
+    contact_residual[supported_indices] = np.asarray(
         contact_model.predict(test_combined),
         dtype=float,
-    )
-
-    clean_baseline, complete_clean_main = build_clean_additive_baseline(
-        test_mutations,
-        wt_target=wt_target,
-        clean_main=clean_main,
-        b2_prediction=b2_prediction,
     )
 
     context_prediction = np.where(
@@ -661,8 +666,9 @@ def run(source_gz: Path, output_dir: Path, batch_size: int):
             "contact_aware_dim": CONTACT_AWARE_FEATURE_DIM,
             "train_base_sha256_rounded_8dp": sha256_array(train_base),
             "train_contact_sha256_rounded_8dp": sha256_array(train_contact),
-            "test_base_sha256_rounded_8dp": sha256_array(test_base),
-            "test_contact_sha256_rounded_8dp": sha256_array(test_contact),
+            "supported_test_feature_count": int(len(supported_indices)),
+            "supported_test_base_sha256_rounded_8dp": sha256_array(test_base),
+            "supported_test_contact_sha256_rounded_8dp": sha256_array(test_contact),
         },
         "readouts": {
             "context_selected_alpha": float(
