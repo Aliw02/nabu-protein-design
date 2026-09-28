@@ -42,10 +42,10 @@ def load_trpb(path: Path):
     fit_y = fit["target"].to_numpy(dtype=float)
     test_y = test["target"].to_numpy(dtype=float)
     orders = np.asarray([len(x) for x in test_sets], dtype=int)
-    ids = test["row_id"].astype(str).tolist()
+    ids = test["sequence"].astype(str).tolist()
     return {
         "name": "TrpB",
-        "fit_ids": fit["row_id"].astype(str).tolist(),
+        "fit_ids": fit["sequence"].astype(str).tolist(),
         "test_ids": ids,
         "fit_sets": fit_sets,
         "test_sets": test_sets,
