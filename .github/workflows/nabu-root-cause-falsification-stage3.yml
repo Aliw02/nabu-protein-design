@@ -1,4 +1,5 @@
 name: NABU Root Cause Falsification Stage 3
+# operational retry after canonical TrpB ID fix
 
 on:
   push:
