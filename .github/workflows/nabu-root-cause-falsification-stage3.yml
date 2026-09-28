@@ -1,0 +1,108 @@
+name: NABU Root Cause Falsification Stage 3
+
+on:
+  push:
+    branches:
+      - exp/nabu-root-cause-audit
+    paths:
+      - "experiments/root_cause_falsification/STAGE3_PROTOCOL.md"
+      - "experiments/root_cause_falsification/run_stage3.py"
+      - ".github/workflows/nabu-root-cause-falsification-stage3.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  OPENBLAS_NUM_THREADS: "1"
+  OMP_NUM_THREADS: "2"
+  MKL_NUM_THREADS: "1"
+  NUMEXPR_NUM_THREADS: "1"
+
+jobs:
+  stage3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -r phase2/2D_untouched_transfer/requirements-phase2d.txt
+          python -m pip install -e . --no-deps
+
+      - name: Smoke test
+        run: |
+          python experiments/root_cause_falsification/run_stage3.py --help
+
+      - name: Download pinned revealed development sources only
+        run: |
+          mkdir -p .source
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import urlretrieve
+
+          urlretrieve(
+              "https://zenodo.org/records/18433203/files/trpb/two_to_many.csv.gz?download=1",
+              Path(".source/trpb_two_to_many.csv.gz"),
+          )
+          urlretrieve(
+              "https://raw.githubusercontent.com/rcronk/mutate/0861a3f1f6c58a9597fde689eb7f9a07b38e2638/ridge/data/gb1_wu2016_landscape.csv",
+              Path(".source/gb1_wu2016_landscape.csv"),
+          )
+          PY
+
+          echo "a611408d2db06907a023ddc8a1d94c12  .source/trpb_two_to_many.csv.gz" | md5sum -c -
+
+      - name: Verify GB1 immutable source identity
+        run: |
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+
+          path = Path(".source/gb1_wu2016_landscape.csv")
+          data = path.read_bytes()
+          blob = hashlib.sha1(
+              f"blob {len(data)}\0".encode("utf-8") + data
+          ).hexdigest()
+          expected = "a1e9f5146a9441210eaf88accfa660f02d80cbb7"
+          if blob != expected:
+              raise SystemExit(f"GB1 blob mismatch: {blob}")
+          if len(data) != 2993024:
+              raise SystemExit(f"GB1 size mismatch: {len(data)}")
+          print("GB1 immutable source verified.")
+          PY
+
+      - name: Prove NucB is absent
+        run: |
+          if find .source -iname '*nucb*' | grep -q .; then
+            echo "NucB unexpectedly present."
+            exit 1
+          fi
+          echo "NucB absent."
+
+      - name: Run preregistered Stage 3
+        run: |
+          python experiments/root_cause_falsification/run_stage3.py             --trpb .source/trpb_two_to_many.csv.gz             --gb1 .source/gb1_wu2016_landscape.csv             --out result
+
+      - name: Print compact Stage-3 decision
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          m = json.loads(Path("result/STAGE3_MATRIX.json").read_text())
+          print(json.dumps(m, indent=2))
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nabu-root-cause-falsification-stage3
+          path: result/
