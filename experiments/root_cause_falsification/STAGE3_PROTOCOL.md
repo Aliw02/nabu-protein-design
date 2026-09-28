@@ -152,3 +152,20 @@ Global output remains ROOT_CAUSE_NOT_YET_IDENTIFIED unless one mechanism explain
 - QUAD_DECOMPOSITION.json
 - RUN_MANIFEST.json
 - OUTPUT_HASHES.json
+
+
+## Exact root-promotion gate
+
+Stage 3 may promote:
+OBSERVATION_SCALE_COMPOSITION_DOMINANT_MECHANISM
+
+only if ALL conditions hold:
+1. Diagnostic A primary scale-rescue criterion passes on both datasets in the same mutation order;
+2. Diagnostic B outcome is SCALE_MEDIATES_MOST_CONTEXT_DEPENDENCE;
+3. Diagnostic C cross-order cancellation transfer is SUPPORTED on both datasets;
+4. On robust-asinh quad decomposition, e4 RMS / target SD < 0.50 on BOTH datasets.
+
+If any condition fails, global status remains:
+ROOT_CAUSE_NOT_YET_IDENTIFIED
+
+No other Stage-3 outcome may be promoted to root cause.
