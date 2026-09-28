@@ -196,5 +196,6 @@ Then:
 - GB1_TO_TRPB_V10.json
 - TRPB_TO_GB1_V10.json
 - FINAL_PRIOR_FREEZE.json only if V10_DEV_PASS
+- FINAL_PRIOR_MODEL.joblib only if V10_DEV_PASS
 - RUN_MANIFEST.json
 - OUTPUT_HASHES.json
