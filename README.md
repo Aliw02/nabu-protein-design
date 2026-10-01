@@ -177,5 +177,5 @@ pip install -e .
 - [NABU_V8_3_CANONICAL.md](NABU_V8_3_CANONICAL.md) — canonical Phase-1 core definition
 - [PHASE1_FINAL_REPORT.md](PHASE1_FINAL_REPORT.md) — closure report
 - [PHASE2_PLAN.md](PHASE2_PLAN.md) — Phase-2 plan
-- [SCIENTIFIC_CONSTRAINTS.md](SCIENTIFIC_CONSTRAINTS.md) — canonical rollback state and scientific constraints
+- [SCIENTIFIC_CONSTRAINTS.md](SCIENTIFIC_CONSTRAINTS.md) — canonical rollback state and scientific constraints\n- [SCIENTIFIC_LEDGER.md](SCIENTIFIC_LEDGER.md) — canonical evidence index, including negative results\n- [evidence/SEQUENCE_CONTEXT_FALSIFICATION_01.md](evidence/SEQUENCE_CONTEXT_FALSIFICATION_01.md) — frozen scalar ESM context falsification result
 - [PATENT_NOTICE.md](PATENT_NOTICE.md) — legal notice
