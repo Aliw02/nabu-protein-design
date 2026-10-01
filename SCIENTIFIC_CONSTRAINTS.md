@@ -102,7 +102,7 @@ The following results remain audit evidence but are **not** the active architect
 - cross-landscape random-forest higher-order prior transfer;
 - cross-order prior transfer;
 - final interaction-shape ablation;
-- NABU V10.0 B2 + external interaction-shape rank correction.
+- NABU V10.0 B2 + external interaction-shape rank correction;\n- scalar candidate-conditioned ESM-2 context-preference shift.
 
 V10.0 was explicitly rejected by its frozen development gate.
 
@@ -112,6 +112,17 @@ Canonical V10.0 rejection:
 - result commit: `be9aa004423a079906e7d59a33d0d87ff9102d25`
 
 Do not create V10.1 as a repair of the same rank-correction architecture.
+
+Canonical scalar sequence-context rejection:
+- evidence: `evidence/SEQUENCE_CONTEXT_FALSIFICATION_01.md`
+- run: `36875022535`
+- result commit: `c668ab156dbc22d02e29e5648fd0765938497d31`
+- complete artifact: `11168668376`
+- artifact digest: `sha256:66bd9258f4879491d61cc45713d6b54a1f609a874fcc85e19bd64b793b67d9b4`
+- TrpB quad partial context Spearman: **-0.0282515666**, permutation p **0.7202797203**
+- GB1 quad partial context Spearman: **-0.0372850148**, permutation p **0.6113886114**
+
+This rejects only that exact scalar ESM-2 scoring rule. Do not tune model size, score weights, or thresholds on the same revealed result and call it a repair.
 
 ## 5. Inference-time information contract
 
@@ -209,7 +220,7 @@ Before deleting an experimental branch:
 Branches designated for cleanup after this reset:
 
 - `exp/nabu-root-cause-audit` — retired after its canonical evidence is captured here;
-- `exp/nabu-v10-interaction-shape-dev` — retired; V10.0 rejected.
+- `exp/nabu-v10-interaction-shape-dev` — retired; V10.0 rejected;\n- `exp/nabu-sequence-context-falsification` — retired after canonical evidence preservation; scalar ESM context score rejected.
 
 Historical Phase-1/Phase-2 branches are audit history and are not part of this cleanup unless separately reviewed.
 
@@ -222,6 +233,8 @@ The unresolved question is:
 > What justified structural prior, available without target higher-order fitness labels, can explain or predict the context-dependent change in interaction effects strongly enough to improve higher-order transfer beyond the frozen B2 baseline?
 
 A sequence-aware or pretrained context prior is one candidate class, not a predetermined answer.
+
+The first preregistered scalar candidate-conditioned ESM-2 context score has now been rejected. A richer frozen sequence representation remains a distinct unresolved hypothesis class, not a permitted patch of the rejected scalar score.
 
 No implementation of that class should begin until a protocol satisfies the experiment admission checklist above.
 
