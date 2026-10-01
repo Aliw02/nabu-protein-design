@@ -102,7 +102,8 @@ The following results remain audit evidence but are **not** the active architect
 - cross-landscape random-forest higher-order prior transfer;
 - cross-order prior transfer;
 - final interaction-shape ablation;
-- NABU V10.0 B2 + external interaction-shape rank correction;\n- scalar candidate-conditioned ESM-2 context-preference shift.
+- NABU V10.0 B2 + external interaction-shape rank correction;\n- scalar candidate-conditioned ESM-2 context-preference shift;
+- pretrained ESM likelihood-based Möbius/beyond-pair scalar.
 
 V10.0 was explicitly rejected by its frozen development gate.
 
@@ -123,6 +124,19 @@ Canonical scalar sequence-context rejection:
 - GB1 quad partial context Spearman: **-0.0372850148**, permutation p **0.6113886114**
 
 This rejects only that exact scalar ESM-2 scoring rule. Do not tune model size, score weights, or thresholds on the same revealed result and call it a repair.
+
+Canonical pretrained Möbius rejection:
+- evidence: `evidence/PRETRAINED_MOBIUS_FALSIFICATION_02.md`
+- run: `36878521685`
+- result commit: `3ac80d29eb33f28250029131d94390a8ac40bb8d`
+- complete artifact: `11171700565`
+- artifact digest: `sha256:a8cbdd632cd3acff8e18ef72e351dfc214cda1ea2bec589325120f90abb5b110`
+- fresh holdout ranks: 192..383
+- TrpB quad partial Möbius Spearman: **0.0758840165**, permutation p **0.3096903097**
+- GB1 quad partial Möbius Spearman: **-0.0046879663**, permutation p **0.9590409590**
+- same sign across quad landscapes: **false**
+
+This independently rejects the exact ESM likelihood-algebra path on a disjoint candidate holdout. Do not tune ESM size, likelihood combinations, subset weights, or thresholds on these revealed results.
 
 ## 5. Inference-time information contract
 
@@ -221,6 +235,7 @@ Branches designated for cleanup after this reset:
 
 - `exp/nabu-root-cause-audit` — retired after its canonical evidence is captured here;
 - `exp/nabu-v10-interaction-shape-dev` — retired; V10.0 rejected;\n- `exp/nabu-sequence-context-falsification` — retired after canonical evidence preservation; scalar ESM context score rejected.
+- `exp/nabu-pretrained-mobius-falsification` — retired after canonical evidence preservation; ESM likelihood-Möbius scalar rejected.
 
 Historical Phase-1/Phase-2 branches are audit history and are not part of this cleanup unless separately reviewed.
 
@@ -234,7 +249,7 @@ The unresolved question is:
 
 A sequence-aware or pretrained context prior is one candidate class, not a predetermined answer.
 
-The first preregistered scalar candidate-conditioned ESM-2 context score has now been rejected. A richer frozen sequence representation remains a distinct unresolved hypothesis class, not a permitted patch of the rejected scalar score.
+Two preregistered frozen ESM likelihood-scalar hypotheses have now been rejected on disjoint candidate samples: candidate-conditioned context shift and explicit beyond-pair Möbius likelihood algebra. The ESM likelihood-scalar path is exhausted for this development track. A richer frozen sequence representation remains a distinct unresolved hypothesis class, not a permitted patch of either rejected scalar score.
 
 No implementation of that class should begin until a protocol satisfies the experiment admission checklist above.
 
@@ -246,6 +261,7 @@ No implementation of that class should begin until a protocol satisfies the expe
 - B2: frozen transfer baseline.
 - Root cause: NOT YET IDENTIFIED.
 - V10.0: REJECTED.
+- ESM likelihood-scalar path: REJECTED.
 - NucB: UNTOUCHED.
 - Phase 3: CLOSED.
 
