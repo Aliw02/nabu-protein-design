@@ -1,5 +1,7 @@
 # NABU Phase 2 — Closed-Loop Combinatorial Design
 
+> **2026-10-01 canonical reset:** Any further Phase-2D or replacement-architecture work must follow [SCIENTIFIC_CONSTRAINTS.md](SCIENTIFIC_CONSTRAINTS.md). The frozen B2 transfer baseline remains the reference, V10.0 is rejected, NucB remains untouched, and Phase 3 remains closed.
+
 ## Goal
 
 Phase 2 changes the task.
