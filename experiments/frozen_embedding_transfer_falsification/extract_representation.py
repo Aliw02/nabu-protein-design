@@ -259,10 +259,11 @@ def build_candidate_matrix(candidate_specs, items, matrix):
     rows = []
     vectors = []
 
-    for candidate in candidate_specs:
+    for representation_row_index, candidate in enumerate(candidate_specs):
         vec = candidate_r_ho(candidate, items, matrix)
         rows.append(
             {
+                "representation_row_index": representation_row_index,
                 "dataset": candidate["dataset"],
                 "order": candidate["order"],
                 "candidate_id": candidate["candidate_id"],
