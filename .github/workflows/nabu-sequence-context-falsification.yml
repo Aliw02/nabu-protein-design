@@ -1,0 +1,246 @@
+name: NABU Sequence Context Falsification
+
+on:
+  push:
+    branches:
+      - exp/nabu-sequence-context-falsification
+    paths:
+      - "experiments/sequence_context_falsification/**"
+      - ".github/workflows/nabu-sequence-context-falsification.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  OPENBLAS_NUM_THREADS: "1"
+  OMP_NUM_THREADS: "2"
+  MKL_NUM_THREADS: "1"
+  NUMEXPR_NUM_THREADS: "1"
+  TOKENIZERS_PARALLELISM: "false"
+  HF_HUB_DISABLE_TELEMETRY: "1"
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install preparation stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -r phase2/2D_untouched_transfer/requirements-phase2d.txt
+          python -m pip install -e . --no-deps
+
+      - name: Smoke preparation and evaluation scripts
+        run: |
+          python experiments/sequence_context_falsification/prepare.py --help
+          python experiments/sequence_context_falsification/evaluate.py --help
+
+      - name: Download pinned revealed development sources only
+        run: |
+          mkdir -p .source
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import urlretrieve
+
+          urlretrieve(
+              "https://zenodo.org/records/18433203/files/trpb/two_to_many.csv.gz?download=1",
+              Path(".source/trpb_two_to_many.csv.gz"),
+          )
+          urlretrieve(
+              "https://raw.githubusercontent.com/rcronk/mutate/0861a3f1f6c58a9597fde689eb7f9a07b38e2638/ridge/data/gb1_wu2016_landscape.csv",
+              Path(".source/gb1_wu2016_landscape.csv"),
+          )
+          PY
+          echo "a611408d2db06907a023ddc8a1d94c12  .source/trpb_two_to_many.csv.gz" | md5sum -c -
+
+      - name: Prove NucB absence before preparation
+        run: |
+          if find .source -iname '*nucb*' | grep -q .; then
+            echo "NucB unexpectedly present."
+            exit 1
+          fi
+          echo "NucB absent."
+
+      - name: Freeze label-independent sample and sealed reveal
+        run: |
+          python experiments/sequence_context_falsification/prepare.py \
+            --trpb .source/trpb_two_to_many.csv.gz \
+            --gb1 .source/gb1_wu2016_landscape.csv \
+            --visible-out prediction_visible \
+            --reveal-out reveal_sealed
+
+      - name: Enforce prediction-visible leakage boundary
+        run: |
+          python - <<'PY'
+          import pandas as pd
+          from pathlib import Path
+
+          p = Path("prediction_visible/SELECTED_CANDIDATES.csv")
+          frame = pd.read_csv(p)
+          forbidden = {
+              "raw_target",
+              "transformed_target",
+              "residual_ho",
+              "fitness",
+              "target",
+          }
+          overlap = forbidden & set(frame.columns)
+          if overlap:
+              raise SystemExit(f"Leakage columns in prediction-visible file: {sorted(overlap)}")
+          if len(frame) != 768:
+              raise SystemExit(f"Visible row count mismatch: {len(frame)}")
+          print("Prediction-visible contract verified.")
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: seq-context-prediction-visible
+          path: prediction_visible/
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: seq-context-reveal-sealed
+          path: reveal_sealed/
+          if-no-files-found: error
+
+  score:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen ESM stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -r phase2/2D_untouched_transfer/requirements-phase2d.txt
+          python -m pip install -e . --no-deps
+          python -m pip install torch==2.14.0 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install transformers==5.17.0 safetensors huggingface_hub
+
+      - name: Smoke frozen ESM scorer
+        run: |
+          python experiments/sequence_context_falsification/score_esm.py --help
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: seq-context-prediction-visible
+          path: prediction_visible
+
+      - name: Enforce no reveal artifact in scoring job
+        run: |
+          if find . -iname '*REVEAL_TARGETS*' | grep -q .; then
+            echo "Reveal target file visible to scoring job."
+            exit 1
+          fi
+          echo "Scoring job has no reveal target file."
+
+      - name: Run frozen candidate-conditioned ESM scoring
+        run: |
+          python experiments/sequence_context_falsification/score_esm.py \
+            --visible prediction_visible \
+            --out esm_scores \
+            --model-cache .hf_cache \
+            --batch-size 16
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: seq-context-frozen-scores
+          path: esm_scores/
+          if-no-files-found: error
+
+  evaluate:
+    needs: [prepare, score]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install evaluation stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-hardening.txt
+          python -m pip install -r phase2/2D_untouched_transfer/requirements-phase2d.txt
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: seq-context-prediction-visible
+          path: prediction_visible
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: seq-context-frozen-scores
+          path: frozen_scores
+
+      - name: Confirm score freeze before reveal
+        run: |
+          test -f frozen_scores/ESM_CANDIDATE_SCORES.csv
+          test -f frozen_scores/SCORE_OUTPUT_HASHES.json
+          echo "Frozen scores present before reveal download."
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: seq-context-reveal-sealed
+          path: reveal_sealed
+
+      - name: Evaluate frozen scores after reveal
+        run: |
+          python experiments/sequence_context_falsification/evaluate.py \
+            --visible prediction_visible \
+            --scores frozen_scores \
+            --reveal reveal_sealed \
+            --out evaluation
+
+      - name: Verify scientific boundary
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          d = json.loads(Path("evaluation/DECISION.json").read_text())
+          if d["nucb_consumed"] is not False:
+              raise SystemExit("NucB contract violated")
+          if d["phase3_opened"] is not False:
+              raise SystemExit("Phase 3 contract violated")
+          if not d["all_required_checks_pass"]:
+              raise SystemExit("Scientific integrity checks failed")
+          print(json.dumps(d, indent=2))
+          PY
+
+      - name: Build complete immutable evidence bundle
+        run: |
+          mkdir -p final_bundle/prediction_visible
+          mkdir -p final_bundle/frozen_scores
+          mkdir -p final_bundle/reveal_sealed
+          mkdir -p final_bundle/evaluation
+          cp -a prediction_visible/. final_bundle/prediction_visible/
+          cp -a frozen_scores/. final_bundle/frozen_scores/
+          cp -a reveal_sealed/. final_bundle/reveal_sealed/
+          cp -a evaluation/. final_bundle/evaluation/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nabu-sequence-context-falsification-complete
+          path: final_bundle/
+          if-no-files-found: error
