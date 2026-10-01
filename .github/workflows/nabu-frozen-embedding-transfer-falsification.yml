@@ -1,0 +1,389 @@
+name: NABU Frozen Embedding Transfer Falsification
+
+on:
+  push:
+    branches:
+      - exp/nabu-frozen-embedding-transfer-falsification
+    paths:
+      - "experiments/frozen_embedding_transfer_falsification/PROTOCOL.md"
+      - "experiments/frozen_embedding_transfer_falsification/prepare.py"
+      - "experiments/frozen_embedding_transfer_falsification/extract_representation.py"
+      - "experiments/frozen_embedding_transfer_falsification/decode_direction.py"
+      - "experiments/frozen_embedding_transfer_falsification/evaluate.py"
+      - ".github/workflows/nabu-frozen-embedding-transfer-falsification.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  OPENBLAS_NUM_THREADS: "1"
+  OMP_NUM_THREADS: "2"
+  MKL_NUM_THREADS: "1"
+  NUMEXPR_NUM_THREADS: "1"
+  TOKENIZERS_PARALLELISM: "false"
+  HF_HUB_DISABLE_TELEMETRY: "1"
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install preparation stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy==2.4.6 pandas==3.0.6 scipy==1.17.1
+
+      - name: Smoke preparation and evaluation scripts
+        run: |
+          python experiments/frozen_embedding_transfer_falsification/prepare.py --help
+          python experiments/frozen_embedding_transfer_falsification/evaluate.py --help
+
+      - name: Download pinned revealed development sources only
+        run: |
+          mkdir -p .source
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import urlretrieve
+
+          urlretrieve(
+              "https://zenodo.org/records/18433203/files/trpb/two_to_many.csv.gz?download=1",
+              Path(".source/trpb_two_to_many.csv.gz"),
+          )
+          urlretrieve(
+              "https://raw.githubusercontent.com/rcronk/mutate/0861a3f1f6c58a9597fde689eb7f9a07b38e2638/ridge/data/gb1_wu2016_landscape.csv",
+              Path(".source/gb1_wu2016_landscape.csv"),
+          )
+          PY
+          echo "a611408d2db06907a023ddc8a1d94c12  .source/trpb_two_to_many.csv.gz" | md5sum -c -
+
+      - name: Prove NucB absence before preparation
+        run: |
+          if find .source -iname '*nucb*' | grep -q .; then
+            echo "NucB unexpectedly present."
+            exit 1
+          fi
+          echo "NucB absent."
+
+      - name: Freeze fresh visible rows and split source-label artifacts
+        run: |
+          python experiments/frozen_embedding_transfer_falsification/prepare.py             --trpb .source/trpb_two_to_many.csv.gz             --gb1 .source/gb1_wu2016_landscape.csv             --visible-out prediction_visible             --gb1-label-out gb1_labels             --trpb-label-out trpb_labels
+
+      - name: Enforce fresh holdout and label split
+        run: |
+          python - <<'PY'
+          import pandas as pd
+          from pathlib import Path
+
+          visible = pd.read_csv("prediction_visible/SELECTED_CANDIDATES.csv")
+          if len(visible) != 768:
+              raise SystemExit(f"Visible count mismatch: {len(visible)}")
+          if int(visible["selection_rank"].min()) != 384:
+              raise SystemExit("Fresh holdout must start at rank 384")
+          if int(visible["selection_rank"].max()) != 575:
+              raise SystemExit("Fresh holdout must end at rank 575")
+
+          forbidden = {
+              "raw_target",
+              "transformed_target",
+              "exact_o2",
+              "residual_ho",
+              "fitness",
+              "target",
+          }
+          overlap = forbidden & set(visible.columns)
+          if overlap:
+              raise SystemExit(f"Visible leakage columns: {sorted(overlap)}")
+
+          gb = pd.read_csv("gb1_labels/SOURCE_LABELS.csv")
+          tr = pd.read_csv("trpb_labels/SOURCE_LABELS.csv")
+          if len(gb) != 384 or set(gb["dataset"].astype(str)) != {"GB1"}:
+              raise SystemExit("GB1 source-label artifact invalid")
+          if len(tr) != 384 or set(tr["dataset"].astype(str)) != {"TrpB"}:
+              raise SystemExit("TrpB source-label artifact invalid")
+
+          print("Fresh holdout and split label contracts verified.")
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: embedding-prediction-visible
+          path: prediction_visible/
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: embedding-source-labels-gb1
+          path: gb1_labels/
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: embedding-source-labels-trpb
+          path: trpb_labels/
+          if-no-files-found: error
+
+  represent:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen representation stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy==2.4.6 pandas==3.0.6
+          python -m pip install torch==2.14.0 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install transformers==5.17.0 safetensors huggingface_hub
+
+      - name: Smoke representation extractor
+        run: |
+          python experiments/frozen_embedding_transfer_falsification/extract_representation.py --help
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: embedding-prediction-visible
+          path: prediction_visible
+
+      - name: Enforce no higher-order labels in representation job
+        run: |
+          if find . -name 'SOURCE_LABELS.csv' | grep -q .; then
+            echo "Higher-order source label file visible to representation job."
+            exit 1
+          fi
+          echo "Representation job has no higher-order label artifact."
+
+      - name: Extract frozen beyond-pair representations twice
+        run: |
+          python experiments/frozen_embedding_transfer_falsification/extract_representation.py             --visible prediction_visible             --out representations             --model-cache .hf_cache             --batch-size 16
+
+      - name: Verify representation freeze
+        run: |
+          test -f representations/SUBSET_REPRESENTATIONS.npy
+          test -f representations/SUBSET_METADATA.csv
+          test -f representations/CANDIDATE_R_HO.npy
+          test -f representations/CANDIDATE_R_HO_METADATA.csv
+          test -f representations/REPRESENTATION_HASHES.json
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: frozen-embedding-representations
+          path: representations/
+          if-no-files-found: error
+
+  gb1_to_trpb:
+    needs: [prepare, represent]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install fixed decoder stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy==2.4.6 pandas==3.0.6 scikit-learn==1.7.2
+
+      - name: Smoke direction decoder
+        run: |
+          python experiments/frozen_embedding_transfer_falsification/decode_direction.py --help
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: embedding-prediction-visible
+          path: prediction_visible
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: frozen-embedding-representations
+          path: representations
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: embedding-source-labels-gb1
+          path: source_labels
+
+      - name: Prove only GB1 higher-order labels are visible
+        run: |
+          python - <<'PY'
+          import pandas as pd
+          f = pd.read_csv("source_labels/SOURCE_LABELS.csv")
+          if set(f["dataset"].astype(str)) != {"GB1"}:
+              raise SystemExit("Unexpected label dataset in GB1->TrpB job")
+          print("Only GB1 source labels are visible.")
+          PY
+
+      - name: Freeze GB1 to TrpB predictions
+        run: |
+          python experiments/frozen_embedding_transfer_falsification/decode_direction.py             --visible prediction_visible             --representations representations             --source-labels source_labels             --source-dataset GB1             --target-dataset TrpB             --out direction_output
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: frozen-gb1-to-trpb-predictions
+          path: direction_output/
+          if-no-files-found: error
+
+  trpb_to_gb1:
+    needs: [prepare, represent]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install fixed decoder stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy==2.4.6 pandas==3.0.6 scikit-learn==1.7.2
+
+      - name: Smoke direction decoder
+        run: |
+          python experiments/frozen_embedding_transfer_falsification/decode_direction.py --help
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: embedding-prediction-visible
+          path: prediction_visible
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: frozen-embedding-representations
+          path: representations
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: embedding-source-labels-trpb
+          path: source_labels
+
+      - name: Prove only TrpB higher-order labels are visible
+        run: |
+          python - <<'PY'
+          import pandas as pd
+          f = pd.read_csv("source_labels/SOURCE_LABELS.csv")
+          if set(f["dataset"].astype(str)) != {"TrpB"}:
+              raise SystemExit("Unexpected label dataset in TrpB->GB1 job")
+          print("Only TrpB source labels are visible.")
+          PY
+
+      - name: Freeze TrpB to GB1 predictions
+        run: |
+          python experiments/frozen_embedding_transfer_falsification/decode_direction.py             --visible prediction_visible             --representations representations             --source-labels source_labels             --source-dataset TrpB             --target-dataset GB1             --out direction_output
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: frozen-trpb-to-gb1-predictions
+          path: direction_output/
+          if-no-files-found: error
+
+  evaluate:
+    needs: [prepare, represent, gb1_to_trpb, trpb_to_gb1]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install evaluation stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy==2.4.6 pandas==3.0.6 scipy==1.17.1
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: frozen-embedding-representations
+          path: representations
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: frozen-gb1-to-trpb-predictions
+          path: gb1_to_trpb
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: frozen-trpb-to-gb1-predictions
+          path: trpb_to_gb1
+
+      - name: Confirm both direction predictions frozen before target labels
+        run: |
+          test -f gb1_to_trpb/GB1_TO_TRPB_PREDICTIONS.csv
+          test -f trpb_to_gb1/TRPB_TO_GB1_PREDICTIONS.csv
+          if find . -name 'SOURCE_LABELS.csv' | grep -q .; then
+            echo "Target/source label artifact visible before reveal step."
+            exit 1
+          fi
+          echo "Both direction predictions frozen before labels."
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: embedding-source-labels-gb1
+          path: gb1_labels
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: embedding-source-labels-trpb
+          path: trpb_labels
+
+      - name: Evaluate frozen cross-landscape predictions
+        run: |
+          python experiments/frozen_embedding_transfer_falsification/evaluate.py             --representations representations             --gb1-to-trpb gb1_to_trpb             --trpb-to-gb1 trpb_to_gb1             --gb1-labels gb1_labels             --trpb-labels trpb_labels             --out evaluation
+
+      - name: Verify scientific boundary and print decision
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d = json.loads(Path("evaluation/DECISION.json").read_text())
+          if d["nucb_consumed"] is not False:
+              raise SystemExit("NucB contract violated")
+          if d["phase3_opened"] is not False:
+              raise SystemExit("Phase 3 contract violated")
+          if not d["integrity_all_required_pass"]:
+              raise SystemExit("Scientific integrity checks failed")
+          print(json.dumps(d, indent=2))
+          PY
+
+      - name: Build complete immutable evidence bundle
+        run: |
+          mkdir -p final_bundle/representations
+          mkdir -p final_bundle/gb1_to_trpb
+          mkdir -p final_bundle/trpb_to_gb1
+          mkdir -p final_bundle/gb1_labels
+          mkdir -p final_bundle/trpb_labels
+          mkdir -p final_bundle/evaluation
+          cp -a representations/. final_bundle/representations/
+          cp -a gb1_to_trpb/. final_bundle/gb1_to_trpb/
+          cp -a trpb_to_gb1/. final_bundle/trpb_to_gb1/
+          cp -a gb1_labels/. final_bundle/gb1_labels/
+          cp -a trpb_labels/. final_bundle/trpb_labels/
+          cp -a evaluation/. final_bundle/evaluation/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nabu-frozen-embedding-transfer-falsification-complete
+          path: final_bundle/
+          if-no-files-found: error
