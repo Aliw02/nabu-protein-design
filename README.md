@@ -5,6 +5,10 @@
 [![Architecture](https://img.shields.io/badge/Core-NABU%20V8.3-blue.svg)](ARCHITECTURE.md)
 [![Next](https://img.shields.io/badge/Next-Phase%202%20Closed--Loop%20Design-green.svg)](PHASE2_PLAN.md)
 
+## Scientific governance
+
+All post-Phase-2D development is governed by [SCIENTIFIC_CONSTRAINTS.md](SCIENTIFIC_CONSTRAINTS.md). That file contains the canonical rollback checkpoint, inference-time information contract, NucB protection rules, experiment admission checklist, and retired architecture paths. Read it before starting any new architecture experiment.
+
 ## Project status
 
 **Phase 1 is formally closed.**
@@ -173,4 +177,5 @@ pip install -e .
 - [NABU_V8_3_CANONICAL.md](NABU_V8_3_CANONICAL.md) — canonical Phase-1 core definition
 - [PHASE1_FINAL_REPORT.md](PHASE1_FINAL_REPORT.md) — closure report
 - [PHASE2_PLAN.md](PHASE2_PLAN.md) — Phase-2 plan
+- [SCIENTIFIC_CONSTRAINTS.md](SCIENTIFIC_CONSTRAINTS.md) — canonical rollback state and scientific constraints
 - [PATENT_NOTICE.md](PATENT_NOTICE.md) — legal notice
