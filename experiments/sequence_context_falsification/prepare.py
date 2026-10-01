@@ -488,11 +488,17 @@ def main():
         encoding="utf-8",
     )
 
+    cell_counts = {
+        f"{dataset}_order_{int(order)}": int(count)
+        for (dataset, order), count in visible.groupby(
+            ["dataset", "order"]
+        ).size().items()
+    }
     print(json.dumps({
         "selected_rows": int(len(visible)),
-        "cells": visible.groupby(["dataset", "order"]).size().to_dict(),
+        "cells": cell_counts,
         "nucb_consumed": False,
-    }, indent=2, default=str))
+    }, indent=2))
 
 
 if __name__ == "__main__":
