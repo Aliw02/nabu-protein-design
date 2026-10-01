@@ -417,10 +417,11 @@ def determinism_check(
             for token in subset:
                 needed_keys.add(request_key(dataset, subset, token))
 
-    replay_requests = [
-        req for req in requests
-        if req["request_key"] in needed_keys
-    ]
+    # Replay the exact full request stream with identical ordering and
+    # batch boundaries. Comparing a reduced subset would change padding and
+    # matrix shapes, which can introduce tiny deterministic floating-point
+    # differences even when the model/runtime is otherwise reproducible.
+    replay_requests = list(requests)
     replay_scores = score_requests(
         replay_requests,
         tokenizer,
