@@ -1,7 +1,9 @@
 """
-NABU Command-Line Interface (CLI)
-=================================
-CLI commands for training, scoring, and benchmarking protein variant libraries.
+NABU Legacy Pairwise Command-Line Interface
+============================================
+Compatibility CLI for the earlier additive + pairwise package model.
+
+This is not the canonical frozen V8.3 benchmark path.
 """
 
 import argparse
@@ -17,7 +19,7 @@ from .core import NabuProteinModel, ComponentMemoryModel, parse_mutations, evalu
 
 def main():
     parser = argparse.ArgumentParser(
-        description="NABU Protein Design: Ultra-fast combinatorial protein fitness prediction"
+        description="NABU legacy pairwise benchmark CLI (not the frozen V8.3 core)"
     )
     parser.add_argument("csv", help="Path to DMS CSV dataset (must contain mutant and fitness/DMS_score columns)")
     parser.add_argument("--out", default="results_nabu", help="Output directory (default: results_nabu)")
@@ -27,6 +29,11 @@ def main():
     parser.add_argument("--seed", type=int, default=161, help="Random seed for controls (default: 161)")
 
     args = parser.parse_args()
+    print(
+        "WARNING: nabu-protein currently runs the legacy pairwise compatibility "
+        "model, not the frozen V8.3 B2/B3/B4/B5 router."
+    )
+
     out_dir = Path(args.out)
     out_dir.mkdir(exist_ok=True, parents=True)
 

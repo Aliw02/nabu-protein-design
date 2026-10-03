@@ -1,7 +1,9 @@
 """
-NABU Protein Design — Standalone Runner
-=======================================
-Ultra-Fast Epistatic Combinatorial Protein Design Pipeline.
+NABU Legacy Pairwise — Standalone Compatibility Runner
+=======================================================
+Historical additive + pairwise runner retained for reproducibility.
+
+This script does not execute the frozen V8.3 B2/B3/B4/B5 router.
 
 Usage:
     python run_nabu.py PHOT_CHLRE_Chen_2023.csv --out results_nabu
@@ -33,12 +35,17 @@ from nabu_protein.core import (
 
 
 def main():
-    parser = argparse.ArgumentParser(description="NABU Protein Design Engine")
+    parser = argparse.ArgumentParser(description="NABU legacy pairwise compatibility runner")
     parser.add_argument("csv", default="PHOT_CHLRE_Chen_2023.csv", nargs="?", help="Path to DMS CSV dataset")
     parser.add_argument("--out", default="results_nabu", help="Output directory")
     parser.add_argument("--aggregation", choices=["sum", "average"], default="sum", help="Epistasis aggregation mode")
     parser.add_argument("--seed", type=int, default=161, help="Random seed")
     args = parser.parse_args()
+
+    print(
+        "WARNING: run_nabu.py is a legacy pairwise compatibility runner. "
+        "Use nabu-v83-benchmark for the packaged frozen V8.3 core."
+    )
 
     out_dir = Path(args.out)
     out_dir.mkdir(exist_ok=True, parents=True)

@@ -1,0 +1,6 @@
+# Exact direct/test dependencies for the current package-hardening baseline.
+# This file does not claim to reconstruct every historical Phase-1 environment.
+numpy==2.4.6
+pandas==3.0.6
+scipy==1.17.1
+pytest==9.1.1

@@ -1,1 +1,5 @@
-Put PHOT_CHLRE_Chen_2023.csv here. Run: py -m pip install -r requirements.txt\nThen: py run_v4.py PHOT_CHLRE_Chen_2023.csv --out results_v4\n
+NABU repository entry point moved to README.md.
+
+This file previously contained an obsolete V4/PHOT launcher instruction.
+Use README.md, REPOSITORY_MAP.md, and NABU_V8_3_CANONICAL.md for the current
+repository structure and frozen Phase-1 V8.3 architecture.
