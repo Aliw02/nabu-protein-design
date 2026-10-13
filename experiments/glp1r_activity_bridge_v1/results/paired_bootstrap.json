@@ -1,0 +1,18 @@
+{
+  "development_oof": {
+    "candidate_minus_baseline_mse": 0.24554648340783244,
+    "ci95_high": 0.6035045702965023,
+    "ci95_low": -0.3314996989417924,
+    "resamples": 5000,
+    "resampling_units": 32,
+    "upper_bound_negative": false
+  },
+  "external_sequence_units": {
+    "candidate_minus_baseline_mse": -1.2715418806713121,
+    "ci95_high": -0.8793595618665545,
+    "ci95_low": -1.6519488860219438,
+    "resamples": 5000,
+    "resampling_units": 18,
+    "upper_bound_negative": true
+  }
+}

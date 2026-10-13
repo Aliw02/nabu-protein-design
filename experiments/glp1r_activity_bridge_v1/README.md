@@ -2,6 +2,8 @@
 
 A bounded experiment testing joint residue/pair estimation against canonical NABU marginal memory equations and same-information supervised baselines. This is measured GLP1R potency prediction, not de novo molecule design. See `PROTOCOL.md` for the frozen hypotheses, exact information contract, and advancement gate.
 
+**Completed result: DO_NOT_ADVANCE.** The candidate's grouped development RMSE was 1.499413 versus 1.415165 for the development-selected random forest. Its external RMSE was 0.512265 versus 1.238530 for that forest, but mean-only and shuffled-label controls were slightly better externally. Three frozen development conditions failed. See `INTERPRETATION.md` for the decision and limitations, `results/REPORT.md` for all ten arms, and `PROVENANCE.md` for the local-to-GitHub commit mapping. This rejected experiment is preserved without post-result retuning.
+
 ## Source and evidence
 
 - Puszkarska et al., Nature Chemistry 2024: https://doi.org/10.1038/s41557-024-01532-x
