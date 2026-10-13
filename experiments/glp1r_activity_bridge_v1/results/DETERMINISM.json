@@ -1,0 +1,14 @@
+{
+  "external_labels_used_for_check": false,
+  "identical_artifact_sha256": {
+    "SELECTION.json": "5aeaf5e606ff5c0bdfba9a92351d6496aed9c65a470bdca4076c6e50d57a61fc",
+    "development_predictions.csv": "02ef06da7c4a8b44ce2483f8e3528b55d8711b3539f826d19dcc47fde4ee562d",
+    "external_predictions.csv": "2322ed00edb5ae50ab04ec8d57cc7a03f65b92cdec81f50b40032eefc08cb591",
+    "support_diagnostics.csv": "fb104f4e2fdf2f999302735ea3a637d85a1d56aac3841aba9de0d30cdb113efa"
+  },
+  "original_prediction_freeze_sha256": "2797b4cf4efc114d52ccbf3dd775215cf44cf03158c274f6b56fa6bdd044eb0c",
+  "passed": true,
+  "replay_prediction_freeze_sha256": "e05e56ddfbf039393bebc708d6af7d1970f25ed9d1f6a661c18be7c82d29a7fe",
+  "replay_prediction_seconds": 22.168606170999965,
+  "tuning_choices_and_scores_identical": true
+}

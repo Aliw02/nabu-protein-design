@@ -1,0 +1,30 @@
+{
+  "baseline_champion_chosen_on_development": "RANDOM_FOREST",
+  "candidate": "NABU_JOINT_PAIRS",
+  "checks": {
+    "development_beats_additive": true,
+    "development_beats_shuffle": true,
+    "development_paired_mse_ci_upper_negative": false,
+    "development_rmse_gain_at_least_5pct": false,
+    "development_spearman_not_lower": false,
+    "external_beats_additive": true,
+    "external_paired_mse_ci_upper_negative": true,
+    "external_rmse_gain_at_least_5pct": true,
+    "external_spearman_gain_at_least_005": true,
+    "external_top5_mean_not_lower": true,
+    "integrity_and_full_coverage": true,
+    "unchanged_deterministic_replay": true
+  },
+  "claim_scope": "Retrospective supervised GLP1R pEC50 prediction only; no de novo or wet-lab claim",
+  "decision": "DO_NOT_ADVANCE",
+  "development_relative_rmse_gain": -0.05953203668846263,
+  "evaluated_utc": "2026-10-13T08:53:13.599900+00:00",
+  "experiment": "NABU_GLP1R_ACTIVITY_BRIDGE_V1",
+  "external_relative_rmse_gain": 0.5863929639543745,
+  "failed_checks": [
+    "development_rmse_gain_at_least_5pct",
+    "development_spearman_not_lower",
+    "development_paired_mse_ci_upper_negative"
+  ],
+  "prediction_freeze_sha256": "2797b4cf4efc114d52ccbf3dd775215cf44cf03158c274f6b56fa6bdd044eb0c"
+}

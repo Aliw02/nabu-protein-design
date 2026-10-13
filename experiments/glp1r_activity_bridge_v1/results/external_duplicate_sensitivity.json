@@ -1,0 +1,17 @@
+{
+  "identical_sequence_prediction_max_spread": 0.0,
+  "interpretation": "Sequence-equivalent records; chemical identity/replicate status not established",
+  "records": [
+    {
+      "candidate_id": "s2_chim1",
+      "sequence": "HSQGTFTSDYSKYLDEQAAKEFIAWLVKG",
+      "target_pEC50": 10.8239
+    },
+    {
+      "candidate_id": "s2_chim2",
+      "sequence": "HSQGTFTSDYSKYLDEQAAKEFIAWLVKG",
+      "target_pEC50": 10.585
+    }
+  ],
+  "target_pEC50_range": 0.23889999999999922
+}

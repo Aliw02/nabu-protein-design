@@ -1,0 +1,13 @@
+{
+  "external_outcomes_loaded": false,
+  "passed": true,
+  "synthetic_model_fits_only": true,
+  "tested_utc": "2026-10-13T08:47:41.978420+00:00",
+  "tests": [
+    "test_kernel_matches_explicit_features_and_primal_ridge",
+    "test_legacy_uses_canonical_equations_without_clipping",
+    "test_metrics_ties_and_paired_bootstrap_direction",
+    "test_real_identity_group_isolation_without_external_targets",
+    "test_selection_does_not_depend_on_query_composition"
+  ]
+}
