@@ -1,0 +1,34 @@
+{
+  "experiment": "NABU_GLP1R_ACTIVITY_BRIDGE_V1",
+  "seed": 20261012,
+  "source_commit": "0a23c0bb86ed251acb671db09295aeac7c9c11cf",
+  "nabu_base_commit": "8874969900910b9ac47fd011af5ee7608f3825d2",
+  "source_sha256": {
+    "training_data.xlsx": "faf17d94804569a8149661c63e4b93b6944fa4ced17d23adad0b760648a40144",
+    "reference_data.xlsx": "86aae0cc42cb8f89d0f622a19c1ff069c5052a0aee93fd0acd3f5fb4e4c97eca"
+  },
+  "target": "negative supplied log10 molar EC50 at human GLP1R (pEC50)",
+  "outer_folds": 5,
+  "inner_folds": 3,
+  "cluster_edit_distance": 2,
+  "ridge_alphas": [0.001, 0.01, 0.1, 1.0, 10.0, 100.0],
+  "svr_C": [0.1, 1.0, 10.0, 100.0],
+  "svr_gamma": [0.1, 1.0, 10.0],
+  "rf_min_samples_leaf": [1, 3, 5],
+  "rf_max_features": [0.5, 1.0],
+  "rf_trees": 200,
+  "bootstrap_resamples": 5000,
+  "primary_candidate": "NABU_JOINT_PAIRS",
+  "baselines": ["LEGACY_B2", "LEGACY_B3", "JOINT_ADDITIVE", "RBF_SVR", "RANDOM_FOREST", "NEAREST_NEIGHBOR", "LENGTH_ONLY", "TRAIN_MEAN"],
+  "controls": ["SHUFFLED_JOINT_PAIRS"],
+  "gate": {
+    "minimum_rmse_relative_gain": 0.05,
+    "minimum_external_spearman_gain": 0.05,
+    "external_top5_must_not_decrease": true,
+    "paired_mse_bootstrap_upper_must_be_negative": true,
+    "candidate_must_beat_additive_ablation": true,
+    "candidate_must_beat_shuffled_control": true,
+    "external_predictions_frozen_before_evaluation": true,
+    "no_post_outcome_retuning": true
+  }
+}
