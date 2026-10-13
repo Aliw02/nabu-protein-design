@@ -1,0 +1,28 @@
+{
+  "data_audit_sha256": "6ff9836b6ed702ca80c4d10e9dd06acb224a706c5774a1ea77b6910e88a02678",
+  "external_targets_read_by_predictor": false,
+  "git_commit": "5b37722904c7fa431e58d56a22e65e0085528c96",
+  "integrity_tests_sha256": "f329b661c9271efdc6a923070d1ddb5faf865c7d18b3b7cef7501fece78bc74d",
+  "prepared_sha256": {
+    "development.csv": "a1d398684534d0e4f97c9cb409f2974999cf81a786047a58d4d24965dfc6b10e",
+    "external_identities.csv": "5835f4893c8afa8a66549569fb1d49bd7d2995c48cbc5497a4124b5e6378cd67",
+    "external_truth.csv": "6af69be38bedc339c5230b2b467d99f425b08815c15e854dccd67d722aa76605",
+    "split_manifest.csv": "b5637ce27127df781a95188ab41d4bfd5fd019bb6b3324446ab09c39ad973724"
+  },
+  "protocol_sha256": "7043db782d659c451ae64d2740181805665d38bed1a8d67e1780554c4b16b007",
+  "source_sha256": {
+    "../v8_1_crossfit_higher_order_dev/run_v8_1_crossfit_dev.py": "b2087271d56ecdca50be5f6524b5c9395074f36d440d14c30b19aaccc9b201b0",
+    "PROTOCOL.md": "42c84c2c8ad0ecf878448b9a1049fa02ee47490d3213935bcfbe0883cf0df54f",
+    "check_replay.py": "53958d6987bc70b2eaad551f35f36d705c085d1d90c27db38d3ce40773c234ee",
+    "common.py": "de962440cf409ffebf3e1dc6d01547901b3a98f26c5e22750ffa8ab772b9aeac",
+    "evaluate.py": "42e86643f2f36ae95b2c018ea34f7e8f32de89501b1b39bd290278877939a870",
+    "metrics.py": "7b9638326be257b69f73b5105dc6509df2717f113ba379106c53ed63d4737be1",
+    "models.py": "add4cf66bfe6e456c0caf94c074bd43f0546cf3debcccb65f7145ab383f47e64",
+    "predict.py": "24dc3a31024128431d5a45c2926553607793da6d70c268dd93b96957fc0e4fa6",
+    "prepare.py": "29fcb245709565da7b50fc35803176b50d6233a89f8a70a75f94b9b04a77dccf",
+    "protocol.json": "7043db782d659c451ae64d2740181805665d38bed1a8d67e1780554c4b16b007",
+    "requirements.txt": "98051dbc39b5b371339b336f3f0278c61a0acaee5f0d158bbc8ff894203cad8a",
+    "test_integrity.py": "1e01c54ae04345e367fb957f9b51827fbba42f410c812211cb699e328f3c056d"
+  },
+  "started_utc": "2026-10-13T08:48:46.609836+00:00"
+}
